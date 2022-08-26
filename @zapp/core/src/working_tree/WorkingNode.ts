@@ -51,7 +51,7 @@ export abstract class WorkingNode {
 
   public reset() {}
 
-  public drop() {
+  public drop(_newSubtreeRoot: WorkingNode) {
     this.isDropped = true
   }
 

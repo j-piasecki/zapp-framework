@@ -1,4 +1,5 @@
 import { NodeType } from '../NodeType.js'
+import { EffectNode } from './EffectNode.js'
 import { RememberNode } from './RememberNode.js'
 import { WorkingNode, WorkingNodeProps } from './WorkingNode.js'
 import { WorkingTree } from './WorkingTree.js'
@@ -15,7 +16,7 @@ export class ViewNode extends WorkingNode {
 
   // used for remembering values and during recomposing
   public override: ViewNode | undefined
-  public rememberIndex: number
+  public nextActionId: number
   public rememberedContext: ViewNode | undefined
 
   constructor(props: ViewNodeProps) {
@@ -25,7 +26,7 @@ export class ViewNode extends WorkingNode {
     this.children = []
     this.config = props.config
 
-    this.rememberIndex = 0
+    this.nextActionId = 0
   }
 
   public create(props: ViewNodeProps) {
@@ -46,8 +47,23 @@ export class ViewNode extends WorkingNode {
     const currentView = WorkingTree.current as ViewNode
 
     const result = new RememberNode({
-      id: (currentView.rememberIndex++).toString(),
+      id: (currentView.nextActionId++).toString(),
       type: NodeType.Remember,
+    })
+
+    result.parent = currentView.override ?? WorkingTree.current
+    result.path = this.path.concat(this.id)
+
+    return result
+  }
+
+  public effect() {
+    // effects may only be created inside view node
+    const currentView = WorkingTree.current as ViewNode
+
+    const result = new EffectNode({
+      id: (currentView.nextActionId++).toString(),
+      type: NodeType.Effect,
     })
 
     result.parent = currentView.override ?? WorkingTree.current
@@ -61,11 +77,11 @@ export class ViewNode extends WorkingNode {
     this.override = undefined
   }
 
-  public override drop(): void {
-    super.drop()
+  public override drop(newSubtreeRoot: WorkingNode): void {
+    super.drop(newSubtreeRoot)
 
     for (const child of this.children) {
-      child.drop()
+      child.drop(newSubtreeRoot)
     }
   }
 }
