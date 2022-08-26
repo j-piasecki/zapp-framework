@@ -8,14 +8,24 @@ import { WorkingTree } from './working_tree/WorkingTree.js'
 let remembered: RememberedMutableValue<boolean>
 
 Screen({ id: 'screen' }, () => {
-  Column({ id: 'col' }, () => {
-    const test = remember(true)
-    remembered = test
+  const test = remember(true)
+  remembered = test
 
+  Column({ id: 'col' }, () => {
     if (test.value) {
       Row({ id: 'row1' }, () => {})
     }
-    Row({ id: 'row2' }, () => {})
+    Row({ id: 'row2' }, () => {
+      const r = remember(1)
+
+      if (test.value) {
+        setTimeout(() => {
+          r.value++
+          WorkingTree.performUpdate()
+          WorkingTree.root.show()
+        }, 1000)
+      }
+    })
   })
 })
 
@@ -24,5 +34,3 @@ remembered!.value = false
 WorkingTree.performUpdate()
 WorkingTree.root.show()
 remembered!.value = true
-WorkingTree.performUpdate()
-WorkingTree.root.show()

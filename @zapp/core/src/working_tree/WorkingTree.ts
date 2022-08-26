@@ -54,6 +54,10 @@ export abstract class WorkingTree {
 
         WorkingTree.withContext(recompositionContext, nodeToUpdate.body!)
 
+        for (const child of nodeToUpdate.children) {
+          child.drop()
+        }
+
         nodeToUpdate.children = recompositionContext.children
       }
     }

@@ -56,8 +56,16 @@ export class ViewNode extends WorkingNode {
     return result
   }
 
-  public reset(): void {
+  public override reset(): void {
     this.rememberedContext = undefined
     this.override = undefined
+  }
+
+  public override drop(): void {
+    super.drop()
+
+    for (const child of this.children) {
+      child.drop()
+    }
   }
 }

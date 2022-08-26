@@ -5,7 +5,6 @@ import { RememberedValue } from './RememberedValue.js'
 
 export function remember<T>(value: T): RememberedValue<T> {
   const current = WorkingTree.current as ViewNode
-
   const context = current.remember()
 
   const path = context.path.slice(current.rememberedContext?.path.length)
@@ -16,7 +15,7 @@ export function remember<T>(value: T): RememberedValue<T> {
     toRemember = rememberedNode.remembered.value
   }
 
-  const result = new RememberedValue(toRemember, context.parent as ViewNode)
+  const result = new RememberedValue(toRemember, context)
 
   context.remembered = result
 

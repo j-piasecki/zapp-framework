@@ -10,12 +10,14 @@ export abstract class WorkingNode {
   public type: NodeType
   public parent: WorkingNode | null
   public path: string[]
+  public isDropped: boolean
 
   constructor(props: WorkingNodeProps) {
     this.id = props.id
     this.type = props.type
     this.parent = null
     this.path = []
+    this.isDropped = false
   }
 
   public getNodeFromPath(path: string[]): WorkingNode | null {
@@ -48,6 +50,10 @@ export abstract class WorkingNode {
   }
 
   public reset() {}
+
+  public drop() {
+    this.isDropped = true
+  }
 
   public show() {
     console.log(

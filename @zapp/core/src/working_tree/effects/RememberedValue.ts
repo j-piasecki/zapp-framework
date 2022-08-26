@@ -1,10 +1,10 @@
-import { ViewNode } from '../ViewNode.js'
+import { RememberNode } from '../RememberNode.js'
 
 export class RememberedValue<T> {
   protected _value: T
-  protected context: ViewNode
+  protected context: RememberNode
 
-  constructor(val: T, context: ViewNode) {
+  constructor(val: T, context: RememberNode) {
     this._value = val
     this.context = context
   }
