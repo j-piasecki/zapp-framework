@@ -1,8 +1,9 @@
 import { ViewNode } from '../ViewNode.js'
 import { WorkingTree } from '../WorkingTree.js'
 import { NodeType } from '../../NodeType.js'
+import { Config } from '../Config.js'
 
-export function Screen(config: any, body: () => void) {
+export function Screen(config: Config, body: () => void) {
   const current = WorkingTree.current as ViewNode
 
   const context = current.create({

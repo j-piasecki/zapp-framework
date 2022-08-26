@@ -1,5 +1,6 @@
 import { NodeType } from '../NodeType.js'
 import { PrefixTree } from '../PrefixTree.js'
+import { Config } from './Config.js'
 import { ViewNode } from './ViewNode.js'
 import { WorkingNode } from './WorkingNode.js'
 
@@ -9,7 +10,7 @@ export abstract class WorkingTree {
   private static _root: WorkingNode = new ViewNode({
     id: ROOT_ID,
     type: NodeType.Root,
-    config: {},
+    config: new Config(ROOT_ID),
     body: () => {},
   })
   private static _current: WorkingNode = WorkingTree._root
