@@ -56,34 +56,39 @@ export abstract class WorkingNode {
   }
 
   public show() {
-    console.log(
-      JSON.stringify(
-        this,
-        (k, v) => {
-          switch (k) {
-            case 'id':
-            case 'type':
-            case 'config':
-            case 'rememberIndex':
-              return v
-            case 'path':
-              return v.join('/')
-            case 'body':
-              return v !== undefined ? 'body' : 'no body'
-            case 'override':
-              return v !== undefined ? 'override' : 'no override'
-            case 'parent':
-              return v?.id ?? 'no parent'
-            case 'remembered':
-              return v.value
-            case 'rememberedContext':
-              return v !== undefined ? 'remembered context' : 'no remembered context'
-            default:
-              return v
-          }
-        },
-        2
-      )
+    console.log(this.toString())
+  }
+
+  public toString() {
+    return JSON.stringify(
+      this,
+      (k, v) => {
+        switch (k) {
+          case 'id':
+          case 'type':
+          case 'config':
+          case 'rememberIndex':
+          case 'keys':
+            return v
+          case 'path':
+            return v.join('/')
+          case 'body':
+            return v !== undefined ? 'body' : 'no body'
+          case 'override':
+            return v !== undefined ? 'override' : 'no override'
+          case 'parent':
+            return v?.id ?? 'no parent'
+          case 'remembered':
+            return v.value
+          case 'rememberedContext':
+            return v !== undefined ? 'remembered context' : 'no remembered context'
+          case 'effectCleanup':
+            return v !== undefined ? 'cleanup' : 'no cleanup'
+          default:
+            return v
+        }
+      },
+      2
     )
   }
 }
