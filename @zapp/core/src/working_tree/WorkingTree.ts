@@ -66,4 +66,17 @@ export abstract class WorkingTree {
 
     this.updatePaths.clear()
   }
+
+  public static dropAll() {
+    const newRoot = new ViewNode({
+      id: ROOT_ID,
+      type: NodeType.Root,
+      config: new ConfigBuilder(ROOT_ID),
+      body: () => {},
+    })
+
+    WorkingTree._root.drop(newRoot)
+    WorkingTree._root = newRoot
+    WorkingTree._current = newRoot
+  }
 }

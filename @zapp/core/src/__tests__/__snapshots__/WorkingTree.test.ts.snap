@@ -1,0 +1,292 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tree is generated correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"parent\\": \\"no parent\\",
+  \\"path\\": \\"\\",
+  \\"isDropped\\": false,
+  \\"body\\": \\"body\\",
+  \\"children\\": [
+    {
+      \\"id\\": \\"screen\\",
+      \\"type\\": \\"screen\\",
+      \\"parent\\": \\"#__root\\",
+      \\"path\\": \\"#__root\\",
+      \\"isDropped\\": false,
+      \\"body\\": \\"body\\",
+      \\"children\\": [
+        {
+          \\"id\\": \\"column\\",
+          \\"type\\": \\"column\\",
+          \\"parent\\": \\"screen\\",
+          \\"path\\": \\"#__root/screen\\",
+          \\"isDropped\\": false,
+          \\"body\\": \\"body\\",
+          \\"children\\": [
+            {
+              \\"id\\": \\"0\\",
+              \\"type\\": \\"remember\\",
+              \\"parent\\": \\"column\\",
+              \\"path\\": \\"#__root/screen/column\\",
+              \\"isDropped\\": false,
+              \\"remembered\\": true
+            },
+            {
+              \\"id\\": \\"row1\\",
+              \\"type\\": \\"row\\",
+              \\"parent\\": \\"column\\",
+              \\"path\\": \\"#__root/screen/column\\",
+              \\"isDropped\\": false,
+              \\"body\\": \\"body\\",
+              \\"children\\": [],
+              \\"config\\": {
+                \\"id\\": \\"row1\\"
+              },
+              \\"nextActionId\\": 0,
+              \\"rememberedContext\\": \\"no remembered context\\",
+              \\"override\\": \\"no override\\"
+            },
+            {
+              \\"id\\": \\"row2\\",
+              \\"type\\": \\"row\\",
+              \\"parent\\": \\"column\\",
+              \\"path\\": \\"#__root/screen/column\\",
+              \\"isDropped\\": false,
+              \\"body\\": \\"body\\",
+              \\"children\\": [],
+              \\"config\\": {
+                \\"id\\": \\"row2\\"
+              },
+              \\"nextActionId\\": 0,
+              \\"rememberedContext\\": \\"no remembered context\\",
+              \\"override\\": \\"no override\\"
+            }
+          ],
+          \\"config\\": {
+            \\"id\\": \\"column\\"
+          },
+          \\"nextActionId\\": 1,
+          \\"rememberedContext\\": \\"no remembered context\\",
+          \\"override\\": \\"no override\\"
+        }
+      ],
+      \\"config\\": {
+        \\"id\\": \\"screen\\"
+      },
+      \\"nextActionId\\": 0,
+      \\"rememberedContext\\": \\"no remembered context\\",
+      \\"override\\": \\"no override\\"
+    }
+  ],
+  \\"config\\": {
+    \\"id\\": \\"#__root\\"
+  },
+  \\"nextActionId\\": 0
+}"
+`;
+
+exports[`Tree is generated correctly after update 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"parent\\": \\"no parent\\",
+  \\"path\\": \\"\\",
+  \\"isDropped\\": false,
+  \\"body\\": \\"body\\",
+  \\"children\\": [
+    {
+      \\"id\\": \\"screen\\",
+      \\"type\\": \\"screen\\",
+      \\"parent\\": \\"#__root\\",
+      \\"path\\": \\"#__root\\",
+      \\"isDropped\\": false,
+      \\"body\\": \\"body\\",
+      \\"children\\": [
+        {
+          \\"id\\": \\"column\\",
+          \\"type\\": \\"column\\",
+          \\"parent\\": \\"screen\\",
+          \\"path\\": \\"#__root/screen\\",
+          \\"isDropped\\": false,
+          \\"body\\": \\"body\\",
+          \\"children\\": [
+            {
+              \\"id\\": \\"0\\",
+              \\"type\\": \\"remember\\",
+              \\"parent\\": \\"column\\",
+              \\"path\\": \\"#__root/screen/column\\",
+              \\"isDropped\\": false,
+              \\"remembered\\": false
+            },
+            {
+              \\"id\\": \\"row2\\",
+              \\"type\\": \\"row\\",
+              \\"parent\\": \\"column\\",
+              \\"path\\": \\"#__root/screen/column\\",
+              \\"isDropped\\": false,
+              \\"body\\": \\"body\\",
+              \\"children\\": [],
+              \\"config\\": {
+                \\"id\\": \\"row2\\"
+              },
+              \\"nextActionId\\": 0,
+              \\"rememberedContext\\": \\"no remembered context\\",
+              \\"override\\": \\"no override\\"
+            }
+          ],
+          \\"config\\": {
+            \\"id\\": \\"column\\"
+          },
+          \\"nextActionId\\": 1,
+          \\"rememberedContext\\": \\"no remembered context\\",
+          \\"override\\": \\"no override\\"
+        }
+      ],
+      \\"config\\": {
+        \\"id\\": \\"screen\\"
+      },
+      \\"nextActionId\\": 0,
+      \\"rememberedContext\\": \\"no remembered context\\",
+      \\"override\\": \\"no override\\"
+    }
+  ],
+  \\"config\\": {
+    \\"id\\": \\"#__root\\"
+  },
+  \\"nextActionId\\": 0
+}"
+`;
+
+exports[`Value is updated correctly when captured in closure 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"parent\\": \\"no parent\\",
+  \\"path\\": \\"\\",
+  \\"isDropped\\": false,
+  \\"body\\": \\"body\\",
+  \\"children\\": [
+    {
+      \\"id\\": \\"screen\\",
+      \\"type\\": \\"screen\\",
+      \\"parent\\": \\"#__root\\",
+      \\"path\\": \\"#__root\\",
+      \\"isDropped\\": false,
+      \\"body\\": \\"body\\",
+      \\"children\\": [
+        {
+          \\"id\\": \\"0\\",
+          \\"type\\": \\"remember\\",
+          \\"parent\\": \\"screen\\",
+          \\"path\\": \\"#__root/screen\\",
+          \\"isDropped\\": false,
+          \\"remembered\\": 2
+        },
+        {
+          \\"id\\": \\"column\\",
+          \\"type\\": \\"column\\",
+          \\"parent\\": \\"screen\\",
+          \\"path\\": \\"#__root/screen\\",
+          \\"isDropped\\": false,
+          \\"body\\": \\"body\\",
+          \\"children\\": [
+            {
+              \\"id\\": \\"0\\",
+              \\"type\\": \\"effect\\",
+              \\"parent\\": \\"column\\",
+              \\"path\\": \\"#__root/screen/column\\",
+              \\"isDropped\\": false,
+              \\"effectCleanup\\": \\"no cleanup\\",
+              \\"keys\\": []
+            }
+          ],
+          \\"config\\": {
+            \\"id\\": \\"column\\"
+          },
+          \\"nextActionId\\": 1,
+          \\"rememberedContext\\": \\"no remembered context\\",
+          \\"override\\": \\"no override\\"
+        }
+      ],
+      \\"config\\": {
+        \\"id\\": \\"screen\\"
+      },
+      \\"nextActionId\\": 1,
+      \\"rememberedContext\\": \\"no remembered context\\",
+      \\"override\\": \\"no override\\"
+    }
+  ],
+  \\"config\\": {
+    \\"id\\": \\"#__root\\"
+  },
+  \\"nextActionId\\": 0
+}"
+`;
+
+exports[`Value is updated correctly when captured in closure 2`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"parent\\": \\"no parent\\",
+  \\"path\\": \\"\\",
+  \\"isDropped\\": false,
+  \\"body\\": \\"body\\",
+  \\"children\\": [
+    {
+      \\"id\\": \\"screen\\",
+      \\"type\\": \\"screen\\",
+      \\"parent\\": \\"#__root\\",
+      \\"path\\": \\"#__root\\",
+      \\"isDropped\\": false,
+      \\"body\\": \\"body\\",
+      \\"children\\": [
+        {
+          \\"id\\": \\"0\\",
+          \\"type\\": \\"remember\\",
+          \\"parent\\": \\"screen\\",
+          \\"path\\": \\"#__root/screen\\",
+          \\"isDropped\\": false,
+          \\"remembered\\": 5
+        },
+        {
+          \\"id\\": \\"column\\",
+          \\"type\\": \\"column\\",
+          \\"parent\\": \\"screen\\",
+          \\"path\\": \\"#__root/screen\\",
+          \\"isDropped\\": false,
+          \\"body\\": \\"body\\",
+          \\"children\\": [
+            {
+              \\"id\\": \\"0\\",
+              \\"type\\": \\"effect\\",
+              \\"parent\\": \\"column\\",
+              \\"path\\": \\"#__root/screen/column\\",
+              \\"isDropped\\": false,
+              \\"effectCleanup\\": \\"no cleanup\\",
+              \\"keys\\": []
+            }
+          ],
+          \\"config\\": {
+            \\"id\\": \\"column\\"
+          },
+          \\"nextActionId\\": 1,
+          \\"rememberedContext\\": \\"no remembered context\\",
+          \\"override\\": \\"no override\\"
+        }
+      ],
+      \\"config\\": {
+        \\"id\\": \\"screen\\"
+      },
+      \\"nextActionId\\": 1,
+      \\"rememberedContext\\": \\"no remembered context\\",
+      \\"override\\": \\"no override\\"
+    }
+  ],
+  \\"config\\": {
+    \\"id\\": \\"#__root\\"
+  },
+  \\"nextActionId\\": 0
+}"
+`;
