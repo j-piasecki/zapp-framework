@@ -7,18 +7,21 @@ import { RememberedValue } from './RememberedValue.js'
 export function remember<T>(value: T): RememberedValue<T> {
   const current = WorkingTree.current as ViewNode
   const context = current.remember()
-  let toRemember = value
+
+  let savedRemembered: RememberedValue<T> | null = null
 
   const path = findRelativePath(context.path, current.rememberedContext?.path)?.concat(context.id)
   if (path !== null && path !== undefined) {
     const rememberedNode = current.rememberedContext?.getNodeFromPath(path) ?? null
 
     if (rememberedNode instanceof RememberNode) {
-      toRemember = rememberedNode.remembered.value
+      savedRemembered = rememberedNode.remembered
+      // TODO: investigate context switching in remembered values more
+      savedRemembered.switchContext(context)
     }
   }
 
-  const result = new RememberedValue(toRemember, context)
+  const result = savedRemembered === null ? new RememberedValue(value, context) : savedRemembered
 
   context.remembered = result
 

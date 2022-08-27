@@ -12,4 +12,8 @@ export class RememberedValue<T> {
   public get value() {
     return this._value
   }
+
+  public switchContext(context: RememberNode) {
+    this.context = context
+  }
 }
