@@ -14,7 +14,7 @@ export function remember<T>(value: T): RememberedMutableValue<T> {
   if (path !== null && path !== undefined) {
     const rememberedNode = current.rememberedContext?.getNodeFromPath(path) ?? null
 
-    if (rememberedNode instanceof RememberNode) {
+    if (rememberedNode instanceof RememberNode && rememberedNode.remembered instanceof RememberedMutableValue) {
       savedRemembered = rememberedNode.remembered
       // TODO: investigate context switching in remembered values more
       savedRemembered.switchContext(context)

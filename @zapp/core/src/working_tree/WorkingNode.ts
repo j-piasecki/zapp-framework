@@ -79,11 +79,13 @@ export abstract class WorkingNode {
           case 'parent':
             return v?.id ?? 'no parent'
           case 'remembered':
-            return v.value
+            return { value: v.value, animation: v._animation }
           case 'rememberedContext':
             return v !== undefined ? 'remembered context' : 'no remembered context'
           case 'effectCleanup':
             return v !== undefined ? 'cleanup' : 'no cleanup'
+          case 'animation':
+            return v !== undefined ? 'animation' : 'no animation'
           default:
             return v
         }

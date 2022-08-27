@@ -13,6 +13,7 @@ export class RememberedValue<T> {
     return this._value
   }
 
+  /** @internal */
   public switchContext(context: RememberNode) {
     this.context = context
   }

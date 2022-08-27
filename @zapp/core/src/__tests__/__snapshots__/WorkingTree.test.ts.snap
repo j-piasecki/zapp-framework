@@ -31,7 +31,10 @@ exports[`Tree is generated correctly 1`] = `
               \\"parent\\": \\"column\\",
               \\"path\\": \\"#__root/screen/column\\",
               \\"isDropped\\": false,
-              \\"remembered\\": true
+              \\"remembered\\": {
+                \\"value\\": true,
+                \\"animation\\": \\"no animation\\"
+              }
             },
             {
               \\"id\\": \\"row1\\",
@@ -118,7 +121,10 @@ exports[`Tree is generated correctly after update 1`] = `
               \\"parent\\": \\"column\\",
               \\"path\\": \\"#__root/screen/column\\",
               \\"isDropped\\": false,
-              \\"remembered\\": false
+              \\"remembered\\": {
+                \\"value\\": false,
+                \\"animation\\": \\"no animation\\"
+              }
             },
             {
               \\"id\\": \\"row2\\",
@@ -159,6 +165,165 @@ exports[`Tree is generated correctly after update 1`] = `
 }"
 `;
 
+exports[`Value is updated correctly when assigned an animation 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"parent\\": \\"no parent\\",
+  \\"path\\": \\"\\",
+  \\"isDropped\\": false,
+  \\"body\\": \\"body\\",
+  \\"children\\": [
+    {
+      \\"id\\": \\"screen\\",
+      \\"type\\": \\"screen\\",
+      \\"parent\\": \\"#__root\\",
+      \\"path\\": \\"#__root\\",
+      \\"isDropped\\": false,
+      \\"body\\": \\"body\\",
+      \\"children\\": [
+        {
+          \\"id\\": \\"0\\",
+          \\"type\\": \\"remember\\",
+          \\"parent\\": \\"screen\\",
+          \\"path\\": \\"#__root/screen\\",
+          \\"isDropped\\": false,
+          \\"remembered\\": {
+            \\"value\\": 0,
+            \\"animation\\": \\"animation\\"
+          }
+        },
+        {
+          \\"id\\": \\"1\\",
+          \\"type\\": \\"effect\\",
+          \\"parent\\": \\"screen\\",
+          \\"path\\": \\"#__root/screen\\",
+          \\"isDropped\\": false,
+          \\"effectCleanup\\": \\"no cleanup\\",
+          \\"keys\\": []
+        }
+      ],
+      \\"config\\": {
+        \\"id\\": \\"screen\\"
+      },
+      \\"nextActionId\\": 2,
+      \\"rememberedContext\\": \\"no remembered context\\",
+      \\"override\\": \\"no override\\"
+    }
+  ],
+  \\"config\\": {
+    \\"id\\": \\"#__root\\"
+  },
+  \\"nextActionId\\": 0
+}"
+`;
+
+exports[`Value is updated correctly when assigned an animation 2`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"parent\\": \\"no parent\\",
+  \\"path\\": \\"\\",
+  \\"isDropped\\": false,
+  \\"body\\": \\"body\\",
+  \\"children\\": [
+    {
+      \\"id\\": \\"screen\\",
+      \\"type\\": \\"screen\\",
+      \\"parent\\": \\"#__root\\",
+      \\"path\\": \\"#__root\\",
+      \\"isDropped\\": false,
+      \\"body\\": \\"body\\",
+      \\"children\\": [
+        {
+          \\"id\\": \\"0\\",
+          \\"type\\": \\"remember\\",
+          \\"parent\\": \\"screen\\",
+          \\"path\\": \\"#__root/screen\\",
+          \\"isDropped\\": false,
+          \\"remembered\\": {
+            \\"value\\": 50,
+            \\"animation\\": \\"animation\\"
+          }
+        },
+        {
+          \\"id\\": \\"1\\",
+          \\"type\\": \\"effect\\",
+          \\"parent\\": \\"screen\\",
+          \\"path\\": \\"#__root/screen\\",
+          \\"isDropped\\": false,
+          \\"effectCleanup\\": \\"no cleanup\\",
+          \\"keys\\": []
+        }
+      ],
+      \\"config\\": {
+        \\"id\\": \\"screen\\"
+      },
+      \\"nextActionId\\": 2,
+      \\"rememberedContext\\": \\"no remembered context\\",
+      \\"override\\": \\"no override\\"
+    }
+  ],
+  \\"config\\": {
+    \\"id\\": \\"#__root\\"
+  },
+  \\"nextActionId\\": 0
+}"
+`;
+
+exports[`Value is updated correctly when assigned an animation 3`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"parent\\": \\"no parent\\",
+  \\"path\\": \\"\\",
+  \\"isDropped\\": false,
+  \\"body\\": \\"body\\",
+  \\"children\\": [
+    {
+      \\"id\\": \\"screen\\",
+      \\"type\\": \\"screen\\",
+      \\"parent\\": \\"#__root\\",
+      \\"path\\": \\"#__root\\",
+      \\"isDropped\\": false,
+      \\"body\\": \\"body\\",
+      \\"children\\": [
+        {
+          \\"id\\": \\"0\\",
+          \\"type\\": \\"remember\\",
+          \\"parent\\": \\"screen\\",
+          \\"path\\": \\"#__root/screen\\",
+          \\"isDropped\\": false,
+          \\"remembered\\": {
+            \\"value\\": 100,
+            \\"animation\\": \\"animation\\"
+          }
+        },
+        {
+          \\"id\\": \\"1\\",
+          \\"type\\": \\"effect\\",
+          \\"parent\\": \\"screen\\",
+          \\"path\\": \\"#__root/screen\\",
+          \\"isDropped\\": false,
+          \\"effectCleanup\\": \\"no cleanup\\",
+          \\"keys\\": []
+        }
+      ],
+      \\"config\\": {
+        \\"id\\": \\"screen\\"
+      },
+      \\"nextActionId\\": 2,
+      \\"rememberedContext\\": \\"no remembered context\\",
+      \\"override\\": \\"no override\\"
+    }
+  ],
+  \\"config\\": {
+    \\"id\\": \\"#__root\\"
+  },
+  \\"nextActionId\\": 0
+}"
+`;
+
 exports[`Value is updated correctly when captured in closure 1`] = `
 "{
   \\"id\\": \\"#__root\\",
@@ -182,7 +347,10 @@ exports[`Value is updated correctly when captured in closure 1`] = `
           \\"parent\\": \\"screen\\",
           \\"path\\": \\"#__root/screen\\",
           \\"isDropped\\": false,
-          \\"remembered\\": 2
+          \\"remembered\\": {
+            \\"value\\": 2,
+            \\"animation\\": \\"no animation\\"
+          }
         },
         {
           \\"id\\": \\"column\\",
@@ -248,7 +416,10 @@ exports[`Value is updated correctly when captured in closure 2`] = `
           \\"parent\\": \\"screen\\",
           \\"path\\": \\"#__root/screen\\",
           \\"isDropped\\": false,
-          \\"remembered\\": 5
+          \\"remembered\\": {
+            \\"value\\": 5,
+            \\"animation\\": \\"no animation\\"
+          }
         },
         {
           \\"id\\": \\"column\\",

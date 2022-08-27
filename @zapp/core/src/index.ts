@@ -6,6 +6,8 @@ import { Row } from './working_tree/views/Row.js'
 import { Screen } from './working_tree/views/Screen.js'
 import { WorkingTree } from './working_tree/WorkingTree.js'
 import { Config } from './working_tree/props/Config.js'
+import { Animation } from './working_tree/effects/animation/Animation.js'
+import { withTiming } from './working_tree/effects/animation/TimingAnimation.js'
 
 let remembered: RememberedMutableValue<boolean>
 
@@ -24,7 +26,15 @@ Screen(Config('screen'), () => {
       })
     }
     Row(Config('row2'), () => {
-      const r = remember(1)
+      const r = remember(0)
+
+      sideEffect(() => {
+        r.value = withTiming(100, 10000)
+
+        setTimeout(() => {
+          r.value = withTiming(-100, 5000)
+        }, 5000)
+      })
 
       sideEffect(() => {
         const value = r.value
@@ -34,14 +44,6 @@ Screen(Config('screen'), () => {
           console.log('drop effect for', value)
         }
       }, r.value)
-
-      if (test.value) {
-        setTimeout(() => {
-          r.value++
-          WorkingTree.performUpdate()
-          //WorkingTree.root.show()
-        }, 1000)
-      }
     })
   })
 })
@@ -49,4 +51,8 @@ Screen(Config('screen'), () => {
 WorkingTree.root.show()
 remembered!.value = true
 WorkingTree.performUpdate()
-//WorkingTree.root.show()
+
+setInterval(() => {
+  Animation.nextFrame(Date.now())
+  WorkingTree.performUpdate()
+}, 1000)

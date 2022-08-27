@@ -6,11 +6,14 @@ import { Row } from '../working_tree/views/Row'
 import { RememberedMutableValue } from '../working_tree/effects/RememberedMutableValue'
 import { remember } from '../working_tree/effects/remember'
 import { sideEffect } from '../working_tree/effects/sideEffect'
+import { Animation } from '../working_tree/effects/animation/Animation'
+import { withTiming } from '../working_tree/effects/animation/TimingAnimation'
 
 jest.useFakeTimers()
 
 afterEach(() => {
   WorkingTree.dropAll()
+  jest.setSystemTime(0)
 })
 
 test('Tree is generated correctly', () => {
@@ -114,6 +117,7 @@ test('Side effect is triggered when key value changes', () => {
     })
   })
 
+  // @ts-ignore Ahh, gotta love TS
   remembered!.value++
   WorkingTree.performUpdate()
 
@@ -175,4 +179,38 @@ test('Value is updated correctly when captured in closure', () => {
 
   const generatedTree2 = WorkingTree.root.toString()
   expect(generatedTree2).toMatchSnapshot()
+})
+
+test('Value is updated correctly when assigned an animation', () => {
+  const onEnd = jest.fn()
+
+  Screen(Config('screen'), () => {
+    const value = remember(0)
+
+    sideEffect(() => {
+      value.value = withTiming(100, 1000, onEnd)
+    })
+  })
+
+  Animation.nextFrame(Date.now())
+  WorkingTree.performUpdate()
+
+  const generatedTree1 = WorkingTree.root.toString()
+  expect(generatedTree1).toMatchSnapshot()
+
+  jest.setSystemTime(500)
+  Animation.nextFrame(Date.now())
+  WorkingTree.performUpdate()
+
+  const generatedTree2 = WorkingTree.root.toString()
+  expect(generatedTree2).toMatchSnapshot()
+
+  jest.setSystemTime(1000)
+  Animation.nextFrame(Date.now())
+  WorkingTree.performUpdate()
+
+  const generatedTree3 = WorkingTree.root.toString()
+  expect(generatedTree3).toMatchSnapshot()
+
+  expect(onEnd).toBeCalledTimes(1)
 })
