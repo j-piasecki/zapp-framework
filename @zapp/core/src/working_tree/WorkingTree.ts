@@ -1,13 +1,12 @@
 import { NodeType } from '../NodeType.js'
 import { PrefixTree } from '../PrefixTree.js'
-import { ConfigBuilder } from './props/Config.js'
 import { ViewNode } from './ViewNode.js'
 import { WorkingNode } from './WorkingNode.js'
 
 export const ROOT_ID = '#__root'
 
 export abstract class WorkingTree {
-  private static _root: WorkingNode = new ViewNode({
+  private static _root: ViewNode = new ViewNode({
     id: ROOT_ID,
     type: NodeType.Root,
     config: { id: ROOT_ID },

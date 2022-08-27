@@ -8,51 +8,28 @@ import { WorkingTree } from './working_tree/WorkingTree.js'
 import { Config } from './working_tree/props/Config.js'
 import { Animation } from './working_tree/effects/animation/Animation.js'
 import { withTiming } from './working_tree/effects/animation/TimingAnimation.js'
+import { Renderer } from './renderer/Renderer.js'
 
 let remembered: RememberedMutableValue<boolean>
 
 Screen(Config('screen'), () => {
-  const test = remember(false)
+  const test = remember(true)
   remembered = test
 
   Column(Config('col'), () => {
     if (test.value) {
-      Row(Config('row1'), () => {
-        sideEffect(() => {
-          return () => {
-            console.log('drop row')
-          }
-        })
-      })
+      Row(Config('row1'), () => {})
     }
-    Row(Config('row2'), () => {
-      const r = remember(0)
-
-      sideEffect(() => {
-        r.value = withTiming(100, 10000)
-
-        setTimeout(() => {
-          r.value = withTiming(-100, 5000)
-        }, 5000)
-      })
-
-      sideEffect(() => {
-        const value = r.value
-        console.log(value)
-
-        return () => {
-          console.log('drop effect for', value)
-        }
-      }, r.value)
-    })
+    Row(Config('row2'), () => {})
   })
 })
 
-WorkingTree.root.show()
-remembered!.value = true
 WorkingTree.performUpdate()
+Renderer.commit(WorkingTree.root)
+Renderer.render()
 
-setInterval(() => {
-  Animation.nextFrame(Date.now())
-  WorkingTree.performUpdate()
-}, 1000)
+remembered!.value = false
+
+WorkingTree.performUpdate()
+Renderer.commit(WorkingTree.root)
+Renderer.render()
