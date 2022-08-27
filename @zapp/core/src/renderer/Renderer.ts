@@ -1,8 +1,9 @@
 import { NodeType } from '../NodeType.js'
 import { ConfigType } from '../working_tree/props/Config.js'
 import { ViewNode } from '../working_tree/ViewNode.js'
+import { ViewManager } from './ViewManager.js'
 
-interface Node {
+export interface Node {
   id: string
   type: NodeType
   config: ConfigType
@@ -16,6 +17,8 @@ export abstract class Renderer {
   private static previousTree: Node | null = null
   private static newTree: Node | null = null
 
+  private static viewManager = new ViewManager()
+
   public static render() {
     if (Renderer.newTree !== null) {
       if (Renderer.previousTree == null || Renderer.previousTree.id !== Renderer.newTree.id) {
@@ -25,7 +28,7 @@ export abstract class Renderer {
 
         Renderer.createView(Renderer.newTree)
       } else {
-        Renderer.diffNode(Renderer.previousTree, Renderer.newTree)
+        Renderer.diffNode(Renderer.previousTree, Renderer.newTree, -1)
       }
 
       Renderer.previousTree = Renderer.newTree
@@ -37,34 +40,44 @@ export abstract class Renderer {
     Renderer.newTree = Renderer.createNode(root)
   }
 
-  private static diffNode(previous: Node, next: Node) {
+  private static diffNode(previous: Node, next: Node, previousZIndex: number) {
     // TODO: better diff algorithm?
 
     next.view = previous.view
+    next.zIndex = previous.zIndex
 
-    Renderer.updateView(previous, next)
-
-    for (const child of previous.children) {
-      const newChild = next.children.find((item) => item.id === child.id)
-      if (newChild !== undefined) {
-        Renderer.diffNode(child, newChild)
-      } else {
-        Renderer.dropView(child)
-      }
+    // TODO: check whether this is actually a reasonable way to handle zIndex
+    if (previousZIndex > next.zIndex) {
+      Renderer.dropView(next)
+      Renderer.createView(next)
+    } else {
+      Renderer.updateView(previous, next)
     }
 
     for (const child of next.children) {
       const oldChild = previous.children.find((item) => item.id === child.id)
       if (oldChild === undefined) {
         Renderer.createView(child)
+
+        previousZIndex = child.zIndex
+      }
+    }
+
+    for (const child of previous.children) {
+      const newChild = next.children.find((item) => item.id === child.id)
+      if (newChild !== undefined) {
+        Renderer.diffNode(child, newChild, previousZIndex)
+
+        previousZIndex = child.zIndex
+      } else {
+        Renderer.dropView(child)
       }
     }
   }
 
   private static createView(node: Node) {
-    console.log('create', node.id)
-
     node.zIndex = Renderer.nextZIndex++
+    Renderer.viewManager.createView(node)
 
     for (const child of node.children) {
       Renderer.createView(child)
@@ -72,7 +85,7 @@ export abstract class Renderer {
   }
 
   private static dropView(node: Node) {
-    console.log('drop', node.id)
+    Renderer.viewManager.dropView(node)
 
     for (const child of node.children) {
       Renderer.dropView(child)
@@ -80,7 +93,7 @@ export abstract class Renderer {
   }
 
   private static updateView(previous: Node, next: Node) {
-    console.log('update', next.id)
+    Renderer.viewManager.updateView(previous, next)
   }
 
   private static createNode(node: ViewNode): Node {

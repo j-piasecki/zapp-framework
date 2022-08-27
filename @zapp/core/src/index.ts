@@ -13,7 +13,7 @@ import { Renderer } from './renderer/Renderer.js'
 let remembered: RememberedMutableValue<boolean>
 
 Screen(Config('screen'), () => {
-  const test = remember(true)
+  const test = remember(false)
   remembered = test
 
   Column(Config('col'), () => {
@@ -28,7 +28,7 @@ WorkingTree.performUpdate()
 Renderer.commit(WorkingTree.root)
 Renderer.render()
 
-remembered!.value = false
+remembered!.value = true
 
 WorkingTree.performUpdate()
 Renderer.commit(WorkingTree.root)
