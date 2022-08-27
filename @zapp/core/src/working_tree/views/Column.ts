@@ -3,7 +3,8 @@ import { WorkingTree } from '../WorkingTree.js'
 import { NodeType } from '../../NodeType.js'
 import { ConfigBuilder } from '../props/Config.js'
 
-export function Column(config: ConfigBuilder, body: () => void) {
+export function Column(configBuilder: ConfigBuilder, body: () => void) {
+  const config = configBuilder.build()
   const current = WorkingTree.current as ViewNode
 
   const context = current.create({

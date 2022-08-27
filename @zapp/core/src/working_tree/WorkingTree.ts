@@ -10,7 +10,7 @@ export abstract class WorkingTree {
   private static _root: WorkingNode = new ViewNode({
     id: ROOT_ID,
     type: NodeType.Root,
-    config: new ConfigBuilder(ROOT_ID),
+    config: { id: ROOT_ID },
     body: () => {},
   })
   private static _current: WorkingNode = WorkingTree._root
@@ -71,7 +71,7 @@ export abstract class WorkingTree {
     const newRoot = new ViewNode({
       id: ROOT_ID,
       type: NodeType.Root,
-      config: new ConfigBuilder(ROOT_ID),
+      config: { id: ROOT_ID },
       body: () => {},
     })
 
