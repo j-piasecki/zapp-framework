@@ -10,6 +10,7 @@
     "target": "ES6",
     "moduleResolution": "node",
     "types": ["jest"],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "stripInternal": true
   }
 }

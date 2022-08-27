@@ -18,3 +18,7 @@ export function findRelativePath(child: string[], parent?: string[]) {
 
   return relativePath
 }
+
+export function coerce(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max)
+}
