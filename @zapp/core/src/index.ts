@@ -22,6 +22,8 @@ Screen(Config('screen'), () => {
     }
     Row(Config('row2'), () => {})
   })
+
+  Column(Config('col2'), () => {})
 })
 
 WorkingTree.performUpdate()

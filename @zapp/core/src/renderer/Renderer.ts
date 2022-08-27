@@ -40,19 +40,22 @@ export abstract class Renderer {
     Renderer.newTree = Renderer.createNode(root)
   }
 
-  private static diffNode(previous: Node, next: Node, previousZIndex: number) {
+  private static diffNode(previous: Node, next: Node, previousZIndex: number): number {
     // TODO: better diff algorithm?
 
     next.view = previous.view
     next.zIndex = previous.zIndex
 
     // TODO: check whether this is actually a reasonable way to handle zIndex
+    // TODO: handle layout-only views that don't need to have a view suddenly becoming visible
     if (previousZIndex > next.zIndex) {
       Renderer.dropView(next)
       Renderer.createView(next)
     } else {
       Renderer.updateView(previous, next)
     }
+
+    previousZIndex = next.zIndex
 
     for (const child of next.children) {
       const oldChild = previous.children.find((item) => item.id === child.id)
@@ -66,16 +69,18 @@ export abstract class Renderer {
     for (const child of previous.children) {
       const newChild = next.children.find((item) => item.id === child.id)
       if (newChild !== undefined) {
-        Renderer.diffNode(child, newChild, previousZIndex)
-
-        previousZIndex = child.zIndex
+        previousZIndex = Renderer.diffNode(child, newChild, previousZIndex)
       } else {
         Renderer.dropView(child)
       }
     }
+
+    // maybe make it staic instead of passing it around?
+    return previousZIndex
   }
 
   private static createView(node: Node) {
+    // TODO: handle layout-only views that don't need to have a view
     node.zIndex = Renderer.nextZIndex++
     Renderer.viewManager.createView(node)
 
@@ -93,6 +98,7 @@ export abstract class Renderer {
   }
 
   private static updateView(previous: Node, next: Node) {
+    // TODO: check if the config changed in a meaningful way before updating
     Renderer.viewManager.updateView(previous, next)
   }
 
