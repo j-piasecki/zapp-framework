@@ -5,16 +5,17 @@ import { Column } from './working_tree/views/Column.js'
 import { Row } from './working_tree/views/Row.js'
 import { Screen } from './working_tree/views/Screen.js'
 import { WorkingTree } from './working_tree/WorkingTree.js'
+import { Config } from './working_tree/props/Config.js'
 
 let remembered: RememberedMutableValue<boolean>
 
-Screen({ id: 'screen' }, () => {
+Screen(Config('screen'), () => {
   const test = remember(false)
   remembered = test
 
-  Column({ id: 'col' }, () => {
+  Column(Config('col'), () => {
     if (test.value) {
-      Row({ id: 'row1' }, () => {
+      Row(Config('row1'), () => {
         sideEffect(() => {
           return () => {
             console.log('drop row')
@@ -22,7 +23,7 @@ Screen({ id: 'screen' }, () => {
         })
       })
     }
-    Row({ id: 'row2' }, () => {
+    Row(Config('row2'), () => {
       const r = remember(1)
 
       sideEffect(() => {

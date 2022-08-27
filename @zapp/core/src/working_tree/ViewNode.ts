@@ -1,5 +1,5 @@
 import { NodeType } from '../NodeType.js'
-import { Config } from './Config.js'
+import { ConfigBuilder } from './props/Config.js'
 import { EffectNode } from './EffectNode.js'
 import { RememberNode } from './RememberNode.js'
 import { WorkingNode, WorkingNodeProps } from './WorkingNode.js'
@@ -7,13 +7,13 @@ import { WorkingTree } from './WorkingTree.js'
 
 export interface ViewNodeProps extends WorkingNodeProps {
   body: () => void
-  config: Config
+  config: ConfigBuilder
 }
 
 export class ViewNode extends WorkingNode {
   public body: () => void
   public children: WorkingNode[]
-  public config: Config
+  public config: ConfigBuilder
 
   // used for remembering values and during recomposing
   public override: ViewNode | undefined
