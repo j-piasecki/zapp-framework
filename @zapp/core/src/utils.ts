@@ -22,3 +22,5 @@ export function findRelativePath(child: string[], parent?: string[]) {
 export function coerce(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max)
 }
+
+export type RequireSome<T, K extends keyof T> = Partial<T> & Pick<T, K>

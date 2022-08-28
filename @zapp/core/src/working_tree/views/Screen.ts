@@ -1,9 +1,10 @@
+import type { RequireSome } from '../../utils.js'
 import { ViewNode } from '../ViewNode.js'
 import { WorkingTree } from '../WorkingTree.js'
 import { NodeType } from '../../NodeType.js'
 import { ConfigBuilder } from '../props/Config.js'
 
-export function Screen(configBuilder: ConfigBuilder, body: () => void) {
+export function Screen(configBuilder: RequireSome<ConfigBuilder, 'build'>, body: () => void) {
   const config = configBuilder.build()
   const current = WorkingTree.current as ViewNode
 
