@@ -13,25 +13,31 @@ import { Renderer } from './renderer/Renderer.js'
 let remembered: RememberedMutableValue<boolean>
 
 Screen(Config('screen'), () => {
-  const test = remember(false)
+  const test = remember(true)
   remembered = test
 
-  Column(Config('col'), () => {
+  Column(Config('col').fillSize(), () => {
     if (test.value) {
-      Row(Config('row1'), () => {})
+      Row(Config('row1').fillWidth(0.5).weight(1), () => {})
     }
-    Row(Config('row2'), () => {})
-  })
 
-  Column(Config('col2'), () => {})
+    Row(Config('row2'), () => {})
+
+    Column(Config('col2').fillWidth(0.75).weight(2), () => {
+      Row(Config('row3').padding(20), () => {
+        Column(Config('col3').width(50).height(50), () => {})
+        Column(Config('col4').width(50).height(50), () => {})
+      })
+    })
+  })
 })
 
 WorkingTree.performUpdate()
 Renderer.commit(WorkingTree.root)
 Renderer.render()
 
-remembered!.value = true
+// remembered!.value = false
 
-WorkingTree.performUpdate()
-Renderer.commit(WorkingTree.root)
-Renderer.render()
+// WorkingTree.performUpdate()
+// Renderer.commit(WorkingTree.root)
+// Renderer.render()

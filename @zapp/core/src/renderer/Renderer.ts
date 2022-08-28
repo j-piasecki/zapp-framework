@@ -1,7 +1,15 @@
 import { NodeType } from '../NodeType.js'
 import { ConfigType } from '../working_tree/props/Config.js'
 import { ViewNode } from '../working_tree/ViewNode.js'
+import { LayoutManager } from './LayoutManager.js'
 import { ViewManager } from './ViewManager.js'
+
+interface Layout {
+  width: number
+  height: number
+  x: number
+  y: number
+}
 
 export interface Node {
   id: string
@@ -10,6 +18,7 @@ export interface Node {
   children: Node[]
   view: any
   zIndex: number
+  layout: Layout
 }
 
 export abstract class Renderer {
@@ -18,6 +27,7 @@ export abstract class Renderer {
   private static newTree: Node | null = null
 
   private static viewManager = new ViewManager()
+  private static layoutManager = new LayoutManager(Renderer.viewManager)
 
   public static render() {
     if (Renderer.newTree !== null) {
@@ -31,6 +41,8 @@ export abstract class Renderer {
         Renderer.diffNode(Renderer.previousTree, Renderer.newTree, -1)
       }
 
+      console.log(JSON.stringify(Renderer.newTree, null, 2))
+
       Renderer.previousTree = Renderer.newTree
       Renderer.newTree = null
     }
@@ -38,6 +50,7 @@ export abstract class Renderer {
 
   public static commit(root: ViewNode) {
     Renderer.newTree = Renderer.createNode(root)
+    Renderer.layoutManager.calculateLayout(Renderer.newTree)
   }
 
   private static diffNode(previous: Node, next: Node, previousZIndex: number): number {
@@ -47,6 +60,8 @@ export abstract class Renderer {
     next.zIndex = previous.zIndex
 
     // TODO: check whether this is actually a reasonable way to handle zIndex
+    // general idea is that z-index should increase when performing depth-first traversal of the tree
+    // if the z-index is not increased, the view will be dropped and recreated, moving it to the top
     // TODO: handle layout-only views that don't need to have a view suddenly becoming visible
     if (previousZIndex > next.zIndex) {
       Renderer.dropView(next)
@@ -97,9 +112,15 @@ export abstract class Renderer {
     }
   }
 
-  private static updateView(previous: Node, next: Node) {
+  private static shouldUpdateView(previous: Node, next: Node): boolean {
     // TODO: check if the config changed in a meaningful way before updating
-    Renderer.viewManager.updateView(previous, next)
+    return true
+  }
+
+  private static updateView(previous: Node, next: Node) {
+    if (Renderer.shouldUpdateView(previous, next)) {
+      Renderer.viewManager.updateView(previous, next)
+    }
   }
 
   private static createNode(node: ViewNode): Node {
@@ -110,6 +131,7 @@ export abstract class Renderer {
       children: [],
       view: -1,
       zIndex: -1,
+      layout: Renderer.createLayout(),
     }
 
     for (const child of node.children) {
@@ -119,5 +141,14 @@ export abstract class Renderer {
     }
 
     return result
+  }
+
+  private static createLayout(): Layout {
+    return {
+      width: -1,
+      height: -1,
+      x: 0,
+      y: 0,
+    }
   }
 }
