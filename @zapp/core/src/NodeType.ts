@@ -5,7 +5,6 @@ export enum NodeType {
   Column = 'column',
   Row = 'row',
   Text = 'text',
-  Padding = 'padding',
 
   Remember = 'remember',
   Effect = 'effect',
