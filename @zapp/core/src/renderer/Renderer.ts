@@ -28,7 +28,7 @@ export interface RenderNode {
 
 export abstract class Renderer {
   private static nextZIndex = 0
-  private static previousTree: RenderNode | null = null
+  private static currentTree: RenderNode | null = null
   private static newTree: RenderNode | null = null
 
   private static viewManager: ViewManager
@@ -41,26 +41,25 @@ export abstract class Renderer {
 
   public static render() {
     if (Renderer.newTree !== null) {
-      if (Renderer.previousTree == null || Renderer.previousTree.id !== Renderer.newTree.id) {
-        if (this.previousTree !== null) {
-          Renderer.dropView(this.previousTree)
+      Renderer.layoutManager.calculateLayout(Renderer.newTree)
+
+      if (Renderer.currentTree == null || Renderer.currentTree.id !== Renderer.newTree.id) {
+        if (this.currentTree !== null) {
+          Renderer.dropView(this.currentTree)
         }
 
         Renderer.createView(Renderer.newTree)
       } else {
-        Renderer.diffNode(Renderer.previousTree, Renderer.newTree, -1)
+        Renderer.diffNode(Renderer.currentTree, Renderer.newTree, -1)
       }
 
-      console.log(JSON.stringify(Renderer.newTree, null, 2))
-
-      Renderer.previousTree = Renderer.newTree
+      Renderer.currentTree = Renderer.newTree
       Renderer.newTree = null
     }
   }
 
   public static commit(root: ViewNode) {
     Renderer.newTree = Renderer.createNode(root)
-    Renderer.layoutManager.calculateLayout(Renderer.newTree)
   }
 
   private static diffNode(previous: RenderNode, next: RenderNode, previousZIndex: number): number {
