@@ -16,11 +16,11 @@ export interface DisplaySizeProvider {
   readonly screenHeight: number
 }
 
-export interface Node {
+export interface RenderNode {
   id: string
   type: NodeType
   config: ConfigType
-  children: Node[]
+  children: RenderNode[]
   view: any
   zIndex: number
   layout: Layout
@@ -28,8 +28,8 @@ export interface Node {
 
 export abstract class Renderer {
   private static nextZIndex = 0
-  private static previousTree: Node | null = null
-  private static newTree: Node | null = null
+  private static previousTree: RenderNode | null = null
+  private static newTree: RenderNode | null = null
 
   private static viewManager: ViewManager
   private static layoutManager = new LayoutManager()
@@ -63,7 +63,7 @@ export abstract class Renderer {
     Renderer.layoutManager.calculateLayout(Renderer.newTree)
   }
 
-  private static diffNode(previous: Node, next: Node, previousZIndex: number): number {
+  private static diffNode(previous: RenderNode, next: RenderNode, previousZIndex: number): number {
     // TODO: better diff algorithm?
 
     next.view = previous.view
@@ -104,7 +104,7 @@ export abstract class Renderer {
     return previousZIndex
   }
 
-  private static createView(node: Node) {
+  private static createView(node: RenderNode) {
     // TODO: handle layout-only views that don't need to have a view
     node.zIndex = Renderer.nextZIndex++
     Renderer.viewManager.createView(node)
@@ -114,7 +114,7 @@ export abstract class Renderer {
     }
   }
 
-  private static dropView(node: Node) {
+  private static dropView(node: RenderNode) {
     Renderer.viewManager.dropView(node)
 
     for (const child of node.children) {
@@ -122,19 +122,19 @@ export abstract class Renderer {
     }
   }
 
-  private static shouldUpdateView(previous: Node, next: Node): boolean {
+  private static shouldUpdateView(previous: RenderNode, next: RenderNode): boolean {
     // TODO: check if the config changed in a meaningful way before updating
     return true
   }
 
-  private static updateView(previous: Node, next: Node) {
+  private static updateView(previous: RenderNode, next: RenderNode) {
     if (Renderer.shouldUpdateView(previous, next)) {
       Renderer.viewManager.updateView(previous, next)
     }
   }
 
-  private static createNode(node: ViewNode): Node {
-    const result: Node = {
+  private static createNode(node: ViewNode): RenderNode {
+    const result: RenderNode = {
       id: node.id,
       type: node.type,
       config: node.config,

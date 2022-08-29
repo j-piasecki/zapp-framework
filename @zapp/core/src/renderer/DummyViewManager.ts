@@ -1,5 +1,5 @@
 import { ConfigType } from '../working_tree/props/Config.js'
-import { Node } from './Renderer.js'
+import { RenderNode } from './Renderer.js'
 import { ViewManager } from './ViewManager.js'
 
 export class DummyViewManager extends ViewManager {
@@ -11,15 +11,15 @@ export class DummyViewManager extends ViewManager {
     return 400
   }
 
-  public createView(node: Node) {
+  public createView(node: RenderNode) {
     console.log('create', node.id)
   }
 
-  public dropView(node: Node) {
+  public dropView(node: RenderNode) {
     console.log('drop', node.id)
   }
 
-  public updateView(previous: Node, next: Node) {
+  public updateView(previous: RenderNode, next: RenderNode) {
     console.log('update', next.id)
   }
 

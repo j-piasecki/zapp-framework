@@ -1,5 +1,5 @@
 import { NodeType } from '../NodeType.js'
-import { Node, DisplaySizeProvider } from './Renderer.js'
+import { RenderNode, DisplaySizeProvider } from './Renderer.js'
 
 export class LayoutManager {
   private displaySizeProvider?: DisplaySizeProvider
@@ -8,12 +8,12 @@ export class LayoutManager {
     this.displaySizeProvider = displaySizeProvider
   }
 
-  public calculateLayout(root: Node) {
+  public calculateLayout(root: RenderNode) {
     this.calculateSize(root)
     this.calculatePositions(root)
   }
 
-  private calculateSize(node: Node, parent?: Node) {
+  private calculateSize(node: RenderNode, parent?: RenderNode) {
     if (node.type === NodeType.Root || node.type === NodeType.Screen) {
       node.layout.width = this.displaySizeProvider?.screenWidth ?? 0
       node.layout.height = this.displaySizeProvider?.screenHeight ?? 0
@@ -109,7 +109,7 @@ export class LayoutManager {
     }
   }
 
-  private calculatePositions(node: Node, parent?: Node) {
+  private calculatePositions(node: RenderNode, parent?: RenderNode) {
     // root is positioned at 0,0 and all other nodes should have a parent
     if (parent !== undefined) {
       if (node.type === NodeType.Column) {
