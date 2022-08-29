@@ -14,6 +14,9 @@ export class LayoutManager {
   }
 
   private calculateSize(node: RenderNode, parent?: RenderNode) {
+    const verticalPadding = (node.config.padding?.top ?? 0) + (node.config.padding?.bottom ?? 0)
+    const horizontalPadding = (node.config.padding?.start ?? 0) + (node.config.padding?.end ?? 0)
+
     if (node.type === NodeType.Root || node.type === NodeType.Screen) {
       node.layout.width = this.displaySizeProvider?.screenWidth ?? 0
       node.layout.height = this.displaySizeProvider?.screenHeight ?? 0
@@ -29,7 +32,7 @@ export class LayoutManager {
         node.layout.width = parent.layout.width * node.config.fillWidth
       } else if (node.layout.width === -1) {
         if (node.type === NodeType.Column) {
-          let height = (node.config.padding?.top ?? 0) + (node.config.padding?.bottom ?? 0)
+          let height = verticalPadding
 
           for (const child of node.children) {
             this.calculateSize(child, node)
@@ -38,6 +41,7 @@ export class LayoutManager {
           }
 
           node.layout.height = height
+          node.layout.width += horizontalPadding
         }
       }
 
@@ -47,7 +51,7 @@ export class LayoutManager {
         node.layout.height = parent.layout.height * node.config.fillHeight
       } else if (node.layout.height === -1) {
         if (node.type === NodeType.Row) {
-          let width = (node.config.padding?.start ?? 0) + (node.config.padding?.end ?? 0)
+          let width = horizontalPadding
 
           for (const child of node.children) {
             this.calculateSize(child, node)
@@ -56,6 +60,7 @@ export class LayoutManager {
           }
 
           node.layout.width = width
+          node.layout.height += verticalPadding
         }
       }
     }
@@ -73,7 +78,7 @@ export class LayoutManager {
       }
 
       if (weights > 0) {
-        const weightHeight = (node.layout.height - absolute) / weights
+        const weightHeight = (node.layout.height - absolute - verticalPadding) / weights
 
         for (const child of node.children) {
           if (child.config.weight !== undefined) {
@@ -94,7 +99,7 @@ export class LayoutManager {
       }
 
       if (weights > 0) {
-        const weightWidth = (node.layout.width - absolute) / weights
+        const weightWidth = (node.layout.width - absolute - horizontalPadding) / weights
 
         for (const child of node.children) {
           if (child.config.weight !== undefined) {
@@ -113,7 +118,7 @@ export class LayoutManager {
     // root is positioned at 0,0 and all other nodes should have a parent
     if (parent !== undefined) {
       if (node.type === NodeType.Column) {
-        let nextY = node.config.padding?.top ?? 0
+        let nextY = node.layout.y + (node.config.padding?.top ?? 0)
 
         for (const child of node.children) {
           child.layout.y = nextY
@@ -121,7 +126,7 @@ export class LayoutManager {
           nextY += child.layout.height
         }
       } else if (node.type === NodeType.Row) {
-        let nextX = node.config.padding?.start ?? 0
+        let nextX = node.layout.x + (node.config.padding?.start ?? 0)
 
         for (const child of node.children) {
           child.layout.x = nextX
