@@ -72,6 +72,7 @@ export class ConfigBuilder {
 
   public padding(padding: number): Omit<this, 'padding'>
   public padding(vertical: number, horizontal: number): Omit<this, 'padding'>
+  public padding(start: number, top: number, end: number, bottom: number): Omit<this, 'padding'>
   public padding(start: number, top?: number, end?: number, bottom?: number): Omit<this, 'padding'> {
     if (top !== undefined && end !== undefined && bottom !== undefined) {
       this.config.padding = {
