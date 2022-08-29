@@ -11,6 +11,11 @@ interface Layout {
   y: number
 }
 
+export interface DisplaySizeProvider {
+  readonly screenWidth: number
+  readonly screenHeight: number
+}
+
 export interface Node {
   id: string
   type: NodeType
@@ -26,8 +31,13 @@ export abstract class Renderer {
   private static previousTree: Node | null = null
   private static newTree: Node | null = null
 
-  private static viewManager = new ViewManager()
-  private static layoutManager = new LayoutManager(Renderer.viewManager)
+  private static viewManager: ViewManager
+  private static layoutManager = new LayoutManager()
+
+  public static setViewManager(viewManager: ViewManager) {
+    Renderer.viewManager = viewManager
+    Renderer.layoutManager.setDisplaySizeProvider(viewManager)
+  }
 
   public static render() {
     if (Renderer.newTree !== null) {
@@ -151,4 +161,8 @@ export abstract class Renderer {
       y: 0,
     }
   }
+}
+
+export function setViewManager(viewManager: ViewManager) {
+  Renderer.setViewManager(viewManager)
 }

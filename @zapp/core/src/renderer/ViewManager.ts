@@ -1,31 +1,15 @@
 import { ConfigType } from '../working_tree/props/Config.js'
-import { Node } from './Renderer.js'
+import { Node, DisplaySizeProvider } from './Renderer.js'
 
-export class ViewManager {
-  get screenWidth() {
-    return 400
-  }
+export abstract class ViewManager implements DisplaySizeProvider {
+  abstract readonly screenWidth: number
+  abstract readonly screenHeight: number
 
-  get screenHeight() {
-    return 400
-  }
+  public abstract createView(node: Node): void
 
-  public createView(node: Node) {
-    console.log('create', node.id)
-  }
+  public abstract dropView(node: Node): void
 
-  public dropView(node: Node) {
-    console.log('drop', node.id)
-  }
+  public abstract updateView(previous: Node, next: Node): void
 
-  public updateView(previous: Node, next: Node) {
-    console.log('update', next.id)
-  }
-
-  public measureText(text: string, config: ConfigType): { width: number; height: number } {
-    return {
-      width: text.length,
-      height: 1,
-    }
-  }
+  public abstract measureText(text: string, config: ConfigType): { width: number; height: number }
 }

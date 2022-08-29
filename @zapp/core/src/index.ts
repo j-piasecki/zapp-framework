@@ -9,6 +9,9 @@ import { Config } from './working_tree/props/Config.js'
 import { Animation } from './working_tree/effects/animation/Animation.js'
 import { withTiming } from './working_tree/effects/animation/TimingAnimation.js'
 import { Renderer } from './renderer/Renderer.js'
+import { DummyViewManager } from './renderer/DummyViewManager.js'
+
+Renderer.setViewManager(new DummyViewManager())
 
 let remembered: RememberedMutableValue<boolean>
 

@@ -1,12 +1,11 @@
 import { NodeType } from '../NodeType.js'
-import { Node } from './Renderer.js'
-import { ViewManager } from './ViewManager.js'
+import { Node, DisplaySizeProvider } from './Renderer.js'
 
 export class LayoutManager {
-  private viewManager: ViewManager
+  private displaySizeProvider?: DisplaySizeProvider
 
-  constructor(viewManager: ViewManager) {
-    this.viewManager = viewManager
+  public setDisplaySizeProvider(displaySizeProvider: DisplaySizeProvider) {
+    this.displaySizeProvider = displaySizeProvider
   }
 
   public calculateLayout(root: Node) {
@@ -16,8 +15,8 @@ export class LayoutManager {
 
   private calculateSize(node: Node, parent?: Node) {
     if (node.type === NodeType.Root || node.type === NodeType.Screen) {
-      node.layout.width = this.viewManager.screenWidth
-      node.layout.height = this.viewManager.screenHeight
+      node.layout.width = this.displaySizeProvider?.screenWidth ?? 0
+      node.layout.height = this.displaySizeProvider?.screenHeight ?? 0
     } else if (node.config.fillSize !== undefined) {
       if (parent !== undefined && parent.layout.width !== -1 && parent.layout.height !== -1) {
         node.layout.width = parent.layout.width
