@@ -23,14 +23,14 @@ export class LayoutManager {
       node.layout.height = this.viewManager?.screenHeight ?? 0
     } else if (node.config.fillSize !== undefined) {
       if (parent !== undefined && parent.layout.width !== -1 && parent.layout.height !== -1) {
-        node.layout.width = parent.layout.width
-        node.layout.height = parent.layout.height
+        node.layout.width = parent.layout.width - horizontalPadding
+        node.layout.height = parent.layout.height - verticalPadding
       }
     } else {
       if (node.config.width !== undefined) {
         node.layout.width = node.config.width
       } else if (node.config.fillWidth !== undefined && parent !== undefined && parent.layout.width !== -1) {
-        node.layout.width = parent.layout.width * node.config.fillWidth
+        node.layout.width = (parent.layout.width - horizontalPadding) * node.config.fillWidth
       } else if (node.layout.width === -1) {
         if (node.type === NodeType.Column) {
           let height = verticalPadding
@@ -54,7 +54,7 @@ export class LayoutManager {
       if (node.config.height !== undefined) {
         node.layout.height = node.config.height
       } else if (node.config.fillHeight !== undefined && parent !== undefined && parent.layout.height !== -1) {
-        node.layout.height = parent.layout.height * node.config.fillHeight
+        node.layout.height = (parent.layout.height - verticalPadding) * node.config.fillHeight
       } else if (node.layout.height === -1) {
         if (node.type === NodeType.Row) {
           let width = horizontalPadding

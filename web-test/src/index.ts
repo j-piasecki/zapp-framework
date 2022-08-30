@@ -30,7 +30,10 @@ Screen(Config('screen').background(0x000000), () => {
       size.value = withTiming(200, 3000)
     })
 
-    Row(Config('row1').fillWidth(0.5).weight(1).background(0xff0000), () => {})
+    Row(Config('row1').fillWidth(1).weight(1), () => {
+      Row(Config('row1.1').fillHeight(1).weight(1).background(0xff0000), () => {})
+      Row(Config('row1.2').fillHeight(0.5).weight(1).background(0xaa2299), () => {})
+    })
 
     const background = size.value > 100 ? 0xffffff : undefined
 
