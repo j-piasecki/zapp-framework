@@ -33,6 +33,18 @@ export class WebViewManager extends ViewManager {
 
     if (node.type === NodeType.Text) {
       view.innerText = node.config.text!
+
+      if (node.config.textSize !== undefined) {
+        view.style.fontSize = `${node.config.textSize}px`
+      }
+      if (node.config.textColor !== undefined) {
+        view.style.color = `rgba(
+          ${(node.config.textColor & 0xff0000) >> 16},
+          ${(node.config.textColor & 0x00ff00) >> 8},
+          ${node.config.textColor & 0x0000ff},
+          1
+        )`
+      }
     }
 
     document.getElementsByTagName('body')[0].appendChild(view)
@@ -80,6 +92,9 @@ export class WebViewManager extends ViewManager {
     const textWrapper = document.createElement('div')
 
     wrapper.style.width = `${node.layout.width > 0 ? node.layout.width : availableWidth}px`
+    if (node.config.textSize !== undefined) {
+      wrapper.style.fontSize = `${node.config.textSize}px`
+    }
     wrapper.appendChild(textWrapper)
     textWrapper.innerText = text
 
