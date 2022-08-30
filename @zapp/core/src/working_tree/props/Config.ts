@@ -27,14 +27,12 @@ export interface ConfigType {
   padding?: Padding
 
   text?: string
-
-  // props that may be inherited from the parent
   textSize?: number
   textColor?: number
 }
 
 export class ConfigBuilder {
-  private config: ConfigType
+  protected config: ConfigType
 
   constructor(id: string) {
     this.config = {
@@ -113,16 +111,6 @@ export class ConfigBuilder {
 
   public cornerRadius(radius: number): Omit<this, 'cornerRadius'> {
     this.config.cornerRadius = radius
-    return this
-  }
-
-  public textColor(textColor: number): Omit<this, 'textColor'> {
-    this.config.textColor = textColor
-    return this
-  }
-
-  public textSize(textSize: number): Omit<this, 'cornerRatextSizedius'> {
-    this.config.textSize = textSize
     return this
   }
 }

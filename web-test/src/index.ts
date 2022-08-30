@@ -5,6 +5,7 @@ import {
   Renderer,
   Screen,
   Config,
+  TextConfig,
   Column,
   Row,
   Text,
@@ -13,7 +14,7 @@ import {
   withTiming,
 } from '@zapp/core'
 
-Screen(Config('screen').background(0x000000).textColor(0xffffff).textSize(20), () => {
+Screen(Config('screen').background(0x000000), () => {
   const padding = remember(0)
 
   sideEffect(() => {
@@ -38,7 +39,10 @@ Screen(Config('screen').background(0x000000).textColor(0xffffff).textSize(20), (
         Column(Config('col3').width(size.value).height(size.value).background(0xff00ff), () => {
           Column(Config('pad1').padding(10).background(0x9f0000), () => {
             Column(Config('pad2').padding(10).background(0x009f00), () => {
-              Text(Config('text'), 'a b c d e f g h i j k l m n o p q r s t u v w x y z')
+              Text(
+                TextConfig('text').textColor(0xffffff).textSize(20),
+                'a b c d e f g h i j k l m n o p q r s t u v w x y z'
+              )
             })
           })
         })

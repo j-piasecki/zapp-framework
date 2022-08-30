@@ -154,19 +154,11 @@ export abstract class Renderer {
     }
   }
 
-  private static createNode(node: ViewNode, parent?: RenderNode): RenderNode {
-    const config = node.config
-    if (config.textColor === undefined) {
-      config.textColor = parent?.config.textColor
-    }
-    if (config.textSize === undefined) {
-      config.textSize = parent?.config.textSize
-    }
-
+  private static createNode(node: ViewNode): RenderNode {
     const result: RenderNode = {
       id: node.id,
       type: node.type,
-      config: config,
+      config: node.config,
       children: [],
       view: null,
       zIndex: -1,
@@ -175,7 +167,7 @@ export abstract class Renderer {
 
     for (const child of node.children) {
       if (child instanceof ViewNode) {
-        result.children.push(Renderer.createNode(child, result))
+        result.children.push(Renderer.createNode(child))
       }
     }
 
