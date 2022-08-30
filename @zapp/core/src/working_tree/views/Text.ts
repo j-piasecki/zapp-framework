@@ -9,6 +9,7 @@ export function Text(configBuilder: RequireSome<ConfigBuilder, 'build'>, text: s
   config.text = text
   const current = WorkingTree.current as ViewNode
 
+  // TODO: consider creating a dedicated TextNode class
   const context = current.create({
     id: config.id,
     type: NodeType.Text,
