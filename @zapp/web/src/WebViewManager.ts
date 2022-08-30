@@ -1,4 +1,4 @@
-import { ViewManager, ConfigType, RenderNode, NodeType } from '@zapp/core'
+import { ViewManager, RenderNode } from '@zapp/core'
 
 export class WebViewManager extends ViewManager {
   get screenWidth() {
@@ -9,21 +9,17 @@ export class WebViewManager extends ViewManager {
     return window.innerHeight
   }
 
-  createView(node: RenderNode): void {
-    node.view = document.createElement('div')
+  createView(node: RenderNode): HTMLElement {
+    const view = document.createElement('div')
 
-    if (node.type === NodeType.Root) {
-      node.view.style.backgroundColor = 'black'
-    }
-
-    node.view.style.position = 'absolute'
-    node.view.style.top = `${node.layout.y}px`
-    node.view.style.left = `${node.layout.x}px`
-    node.view.style.width = `${node.layout.width}px`
-    node.view.style.height = `${node.layout.height}px`
+    view.style.position = 'absolute'
+    view.style.top = `${node.layout.y}px`
+    view.style.left = `${node.layout.x}px`
+    view.style.width = `${node.layout.width}px`
+    view.style.height = `${node.layout.height}px`
 
     if (node.config.background !== undefined) {
-      node.view.style.backgroundColor = `rgba(
+      view.style.backgroundColor = `rgba(
         ${(node.config.background & 0xff0000) >> 16},
         ${(node.config.background & 0x00ff00) >> 8},
         ${node.config.background & 0x0000ff},
@@ -32,31 +28,32 @@ export class WebViewManager extends ViewManager {
     }
 
     if (node.config.cornerRadius !== undefined) {
-      node.view.style.borderRadius = `${node.config.cornerRadius}px`
+      view.style.borderRadius = `${node.config.cornerRadius}px`
     }
 
-    document.getElementsByTagName('body')[0].appendChild(node.view)
+    document.getElementsByTagName('body')[0].appendChild(view)
     console.log('create', node.id)
+
+    return view
   }
 
   dropView(node: RenderNode): void {
-    node.view?.remove()
+    const view = node.view as HTMLElement
+    view?.remove()
     console.log('drop', node.id)
   }
 
   updateView(previous: RenderNode, next: RenderNode): void {
-    if (next.type === NodeType.Root) {
-      next.view.style.backgroundColor = 'black'
-    }
+    const view = next.view as HTMLElement
 
-    next.view.style.position = 'absolute'
-    next.view.style.top = `${next.layout.y}px`
-    next.view.style.left = `${next.layout.x}px`
-    next.view.style.width = `${next.layout.width}px`
-    next.view.style.height = `${next.layout.height}px`
+    view.style.position = 'absolute'
+    view.style.top = `${next.layout.y}px`
+    view.style.left = `${next.layout.x}px`
+    view.style.width = `${next.layout.width}px`
+    view.style.height = `${next.layout.height}px`
 
     if (next.config.background !== undefined) {
-      next.view.style.backgroundColor = `rgba(
+      view.style.backgroundColor = `rgba(
         ${(next.config.background & 0xff0000) >> 16},
         ${(next.config.background & 0x00ff00) >> 8},
         ${next.config.background & 0x0000ff},
@@ -65,11 +62,11 @@ export class WebViewManager extends ViewManager {
     }
 
     if (next.config.cornerRadius !== undefined) {
-      next.view.style.borderRadius = `${next.config.cornerRadius}px`
+      view.style.borderRadius = `${next.config.cornerRadius}px`
     }
   }
 
-  measureText(text: string, config: ConfigType): { width: number; height: number } {
+  measureText(text: string, node: Node, parent?: Node): { width: number; height: number } {
     throw new Error('Method not implemented.')
   }
 }

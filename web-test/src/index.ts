@@ -12,7 +12,7 @@ import {
   withTiming,
 } from '@zapp/core'
 
-Screen(Config('screen'), () => {
+Screen(Config('screen').background(0x000000), () => {
   const padding = remember(0)
 
   sideEffect(() => {
@@ -30,10 +30,13 @@ Screen(Config('screen'), () => {
 
     Row(Config('row1').fillWidth(0.5).weight(1).background(0xff0000), () => {})
 
+    const background = size.value < 100 ? 0xffffff : undefined
+
     Column(Config('col2').fillWidth(0.75).weight(weight.value).background(0x00ff00), () => {
       Row(Config('row3').padding(20).background(0x0000ff), () => {
         Column(Config('col3').width(size.value).height(size.value).background(0xff00ff), () => {})
-        Column(Config('margin').padding(size.value, 0, 0, 0), () => {
+        // @ts-ignore
+        Column(Config('margin').padding(size.value, 0, 0, 0).background(background), () => {
           Column(Config('col4').width(50).height(50).background(0x00ffff), () => {})
         })
       })

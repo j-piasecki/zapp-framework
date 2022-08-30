@@ -21,7 +21,7 @@ export interface RenderNode {
   type: NodeType
   config: ConfigType
   children: RenderNode[]
-  view: any
+  view: unknown
   zIndex: number
   layout: Layout
 }
@@ -68,17 +68,31 @@ export abstract class Renderer {
     next.view = previous.view
     next.zIndex = previous.zIndex
 
-    // TODO: check whether this is actually a reasonable way to handle zIndex
-    // general idea is that z-index should increase when performing depth-first traversal of the tree
-    // if the z-index is not increased, the view will be dropped and recreated, moving it to the top
-    // TODO: handle layout-only views that don't need to have a view suddenly becoming visible
-    if (previousZIndex > next.zIndex) {
-      Renderer.dropView(next)
-      Renderer.createView(next)
-    } else {
-      Renderer.updateView(previous, next)
-    }
+    // if the view is null, it means that the node was layout-only previous frame but its config
+    // has changed and it's going to be visible now, we need to create a view in this case
+    if (next.view === null && !Renderer.isNodeLayoutOnly(next)) {
+      next.zIndex = Renderer.nextZIndex++
+      next.view = Renderer.viewManager.createView(next)
+    } else if (next.view !== null && Renderer.isNodeLayoutOnly(next)) {
+      // when the view is not null but the node is layout-only, we need to drop the view as
+      // it's not going to be visible anymore
+      Renderer.viewManager.dropView(next)
+      next.view = null
+      next.zIndex = -1
+    } else if (next.view !== null) {
+      // otherwise we check if the view exists before recreating, or updating it
 
+      // TODO: check whether this is actually a reasonable way to handle zIndex
+      // general idea is that z-index should increase when performing depth-first traversal of the tree
+      // if the z-index is not increased, the view will be dropped and recreated, moving it to the top
+
+      if (previousZIndex > next.zIndex) {
+        Renderer.dropView(next)
+        Renderer.createView(next)
+      } else {
+        Renderer.updateView(previous, next)
+      }
+    }
     previousZIndex = next.zIndex
 
     for (const child of next.children) {
@@ -104,9 +118,10 @@ export abstract class Renderer {
   }
 
   private static createView(node: RenderNode) {
-    // TODO: handle layout-only views that don't need to have a view
-    node.zIndex = Renderer.nextZIndex++
-    Renderer.viewManager.createView(node)
+    if (!Renderer.isNodeLayoutOnly(node)) {
+      node.zIndex = Renderer.nextZIndex++
+      node.view = Renderer.viewManager.createView(node)
+    }
 
     for (const child of node.children) {
       Renderer.createView(child)
@@ -115,10 +130,15 @@ export abstract class Renderer {
 
   private static dropView(node: RenderNode) {
     Renderer.viewManager.dropView(node)
+    node.view = null
 
     for (const child of node.children) {
       Renderer.dropView(child)
     }
+  }
+
+  private static isNodeLayoutOnly(node: RenderNode): boolean {
+    return node.config.background === undefined
   }
 
   private static shouldUpdateView(previous: RenderNode, next: RenderNode): boolean {
@@ -138,7 +158,7 @@ export abstract class Renderer {
       type: node.type,
       config: node.config,
       children: [],
-      view: -1,
+      view: null,
       zIndex: -1,
       layout: Renderer.createLayout(),
     }

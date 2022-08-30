@@ -1,8 +1,9 @@
-import { ConfigType } from '../working_tree/props/Config.js'
 import { RenderNode } from './Renderer.js'
 import { ViewManager } from './ViewManager.js'
 
 export class DummyViewManager extends ViewManager {
+  private nextViewId = 0
+
   get screenWidth() {
     return 400
   }
@@ -13,6 +14,8 @@ export class DummyViewManager extends ViewManager {
 
   public createView(node: RenderNode) {
     console.log('create', node.id)
+
+    return this.nextViewId++
   }
 
   public dropView(node: RenderNode) {
@@ -23,7 +26,7 @@ export class DummyViewManager extends ViewManager {
     console.log('update', next.id)
   }
 
-  public measureText(text: string, config: ConfigType): { width: number; height: number } {
+  public measureText(text: string, node: Node, parent?: Node): { width: number; height: number } {
     return {
       width: text.length,
       height: 1,
