@@ -25,6 +25,8 @@ export interface ConfigType {
   fillHeight?: number
 
   padding?: Padding
+
+  text?: string
 }
 
 export class ConfigBuilder {

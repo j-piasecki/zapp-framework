@@ -1,4 +1,4 @@
-import { ViewManager, RenderNode } from '@zapp/core'
+import { ViewManager, RenderNode, NodeType } from '@zapp/core'
 
 export class WebViewManager extends ViewManager {
   get screenWidth() {
@@ -29,6 +29,10 @@ export class WebViewManager extends ViewManager {
 
     if (node.config.cornerRadius !== undefined) {
       view.style.borderRadius = `${node.config.cornerRadius}px`
+    }
+
+    if (node.type === NodeType.Text) {
+      view.innerText = node.config.text!
     }
 
     document.getElementsByTagName('body')[0].appendChild(view)
@@ -66,7 +70,26 @@ export class WebViewManager extends ViewManager {
     }
   }
 
-  measureText(text: string, node: Node, parent?: Node): { width: number; height: number } {
-    throw new Error('Method not implemented.')
+  measureText(
+    text: string,
+    node: RenderNode,
+    availableWidth: number,
+    _availableHeight: number
+  ): { width: number; height: number } {
+    const wrapper = document.createElement('div')
+    const textWrapper = document.createElement('div')
+
+    wrapper.style.width = `${node.layout.width > 0 ? node.layout.width : availableWidth}px`
+    wrapper.appendChild(textWrapper)
+    textWrapper.innerText = text
+
+    document.getElementsByTagName('body')[0].appendChild(wrapper)
+
+    const width = textWrapper.clientWidth
+    const height = textWrapper.clientHeight
+
+    wrapper.remove()
+
+    return { width: width, height: height }
   }
 }

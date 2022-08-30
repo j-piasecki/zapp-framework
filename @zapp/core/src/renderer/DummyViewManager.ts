@@ -26,7 +26,12 @@ export class DummyViewManager extends ViewManager {
     console.log('update', next.id)
   }
 
-  public measureText(text: string, node: Node, parent?: Node): { width: number; height: number } {
+  public measureText(
+    text: string,
+    _node: RenderNode,
+    _availableWidth: number,
+    _availableHeight: number
+  ): { width: number; height: number } {
     return {
       width: text.length,
       height: 1,

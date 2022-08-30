@@ -7,6 +7,7 @@ import {
   Config,
   Column,
   Row,
+  Text,
   remember,
   sideEffect,
   withTiming,
@@ -34,7 +35,13 @@ Screen(Config('screen').background(0x000000), () => {
 
     Column(Config('col2').fillWidth(0.75).weight(weight.value).background(0x00ff00), () => {
       Row(Config('row3').padding(20).background(0x0000ff), () => {
-        Column(Config('col3').width(size.value).height(size.value).background(0xff00ff), () => {})
+        Column(Config('col3').width(size.value).height(size.value).background(0xff00ff), () => {
+          Column(Config('pad1').padding(10).background(0x9f0000), () => {
+            Column(Config('pad2').padding(10).background(0x009f00), () => {
+              Text(Config('text'), 'a b c d e f g h i j k l m n o p q r s t u v w x y z')
+            })
+          })
+        })
         // @ts-ignore
         Column(Config('margin').padding(size.value, 0, 0, 0).background(background), () => {
           Column(Config('col4').width(50).height(50).background(0x00ffff), () => {})

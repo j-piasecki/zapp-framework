@@ -11,11 +11,6 @@ interface Layout {
   y: number
 }
 
-export interface DisplaySizeProvider {
-  readonly screenWidth: number
-  readonly screenHeight: number
-}
-
 export interface RenderNode {
   id: string
   type: NodeType
@@ -36,7 +31,7 @@ export abstract class Renderer {
 
   public static setViewManager(viewManager: ViewManager) {
     Renderer.viewManager = viewManager
-    Renderer.layoutManager.setDisplaySizeProvider(viewManager)
+    Renderer.layoutManager.setViewManager(viewManager)
   }
 
   public static render() {
@@ -138,7 +133,7 @@ export abstract class Renderer {
   }
 
   private static isNodeLayoutOnly(node: RenderNode): boolean {
-    return node.config.background === undefined
+    return node.config.background === undefined && node.type !== NodeType.Text
   }
 
   private static shouldUpdateView(previous: RenderNode, next: RenderNode): boolean {
@@ -148,7 +143,8 @@ export abstract class Renderer {
       previous.layout.x !== next.layout.x ||
       previous.layout.y !== next.layout.y ||
       previous.config.background !== next.config.background ||
-      previous.config.cornerRadius !== next.config.cornerRadius
+      previous.config.cornerRadius !== next.config.cornerRadius ||
+      previous.config.text !== next.config.text
     )
   }
 

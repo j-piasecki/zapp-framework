@@ -1,25 +1,26 @@
 import { NodeType } from '../NodeType.js'
-import { RenderNode, DisplaySizeProvider } from './Renderer.js'
+import { RenderNode } from './Renderer.js'
+import { ViewManager } from './ViewManager.js'
 
 export class LayoutManager {
-  private displaySizeProvider?: DisplaySizeProvider
+  private viewManager?: ViewManager
 
-  public setDisplaySizeProvider(displaySizeProvider: DisplaySizeProvider) {
-    this.displaySizeProvider = displaySizeProvider
+  public setViewManager(viewManager: ViewManager) {
+    this.viewManager = viewManager
   }
 
   public calculateLayout(root: RenderNode) {
-    this.calculateSize(root)
+    this.calculateSize(root, this.viewManager!.screenWidth, this.viewManager!.screenHeight)
     this.calculatePositions(root)
   }
 
-  private calculateSize(node: RenderNode, parent?: RenderNode) {
+  private calculateSize(node: RenderNode, availableWidth: number, availableHeight: number, parent?: RenderNode) {
     const verticalPadding = (node.config.padding?.top ?? 0) + (node.config.padding?.bottom ?? 0)
     const horizontalPadding = (node.config.padding?.start ?? 0) + (node.config.padding?.end ?? 0)
 
     if (node.type === NodeType.Root || node.type === NodeType.Screen) {
-      node.layout.width = this.displaySizeProvider?.screenWidth ?? 0
-      node.layout.height = this.displaySizeProvider?.screenHeight ?? 0
+      node.layout.width = this.viewManager?.screenWidth ?? 0
+      node.layout.height = this.viewManager?.screenHeight ?? 0
     } else if (node.config.fillSize !== undefined) {
       if (parent !== undefined && parent.layout.width !== -1 && parent.layout.height !== -1) {
         node.layout.width = parent.layout.width
@@ -34,8 +35,13 @@ export class LayoutManager {
         if (node.type === NodeType.Column) {
           let height = verticalPadding
 
+          // available width is mainly for text rendering not to overflow any of the predecesors
+          const childAvailableWidth =
+            (node.layout.width === -1 ? availableWidth : node.layout.width) - horizontalPadding
+          const childAvailableHeight =
+            (node.layout.width === -1 ? availableHeight : node.layout.height) - verticalPadding
           for (const child of node.children) {
-            this.calculateSize(child, node)
+            this.calculateSize(child, childAvailableWidth, childAvailableHeight, node)
             node.layout.width = Math.max(node.layout.width, child.layout.width)
             height += child.layout.height
           }
@@ -53,8 +59,13 @@ export class LayoutManager {
         if (node.type === NodeType.Row) {
           let width = horizontalPadding
 
+          // available width is mainly for text rendering not to overflow any of the predecesors
+          const childAvailableWidth =
+            (node.layout.width === -1 ? availableWidth : node.layout.width) - horizontalPadding
+          const childAvailableHeight =
+            (node.layout.width === -1 ? availableHeight : node.layout.height) - verticalPadding
           for (const child of node.children) {
-            this.calculateSize(child, node)
+            this.calculateSize(child, childAvailableWidth, childAvailableHeight, node)
             node.layout.height = Math.max(node.layout.height, child.layout.height)
             width += child.layout.width
           }
@@ -107,10 +118,17 @@ export class LayoutManager {
           }
         }
       }
+    } else if (node.type === NodeType.Text) {
+      const { width, height } = this.viewManager!.measureText(node.config.text!, node, availableWidth, availableHeight)
+      node.layout.width = width
+      node.layout.height = height
     }
 
+    // available width is mainly for text rendering not to overflow any of the predecesors
+    const childAvailableWidth = (node.layout.width === -1 ? availableWidth : node.layout.width) - horizontalPadding
+    const childAvailableHeight = (node.layout.width === -1 ? availableHeight : node.layout.height) - verticalPadding
     for (const child of node.children) {
-      this.calculateSize(child, node)
+      this.calculateSize(child, childAvailableWidth, childAvailableHeight, node)
     }
   }
 

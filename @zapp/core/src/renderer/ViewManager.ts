@@ -1,6 +1,6 @@
-import { RenderNode, DisplaySizeProvider } from './Renderer.js'
+import { RenderNode } from './Renderer.js'
 
-export abstract class ViewManager implements DisplaySizeProvider {
+export abstract class ViewManager {
   abstract readonly screenWidth: number
   abstract readonly screenHeight: number
 
@@ -10,5 +10,10 @@ export abstract class ViewManager implements DisplaySizeProvider {
 
   public abstract updateView(previous: RenderNode, next: RenderNode): void
 
-  public abstract measureText(text: string, node: Node, parent?: Node): { width: number; height: number }
+  public abstract measureText(
+    text: string,
+    node: RenderNode,
+    availableWidth: number,
+    availableHeight: number
+  ): { width: number; height: number }
 }
