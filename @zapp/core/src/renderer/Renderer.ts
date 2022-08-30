@@ -142,8 +142,14 @@ export abstract class Renderer {
   }
 
   private static shouldUpdateView(previous: RenderNode, next: RenderNode): boolean {
-    // TODO: check if the config changed in a meaningful way before updating
-    return true
+    return (
+      previous.layout.width !== next.layout.width ||
+      previous.layout.height !== next.layout.height ||
+      previous.layout.x !== next.layout.x ||
+      previous.layout.y !== next.layout.y ||
+      previous.config.background !== next.config.background ||
+      previous.config.cornerRadius !== next.config.cornerRadius
+    )
   }
 
   private static updateView(previous: RenderNode, next: RenderNode) {
