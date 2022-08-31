@@ -10,8 +10,10 @@ export interface Padding {
 }
 
 export interface PointerData {
+  id: number
   x: number
   y: number
+  timestamp: number
 }
 
 export interface ConfigType {

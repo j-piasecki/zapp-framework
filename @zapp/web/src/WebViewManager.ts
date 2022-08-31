@@ -18,8 +18,10 @@ export class WebViewManager extends ViewManager {
     return (event: PointerEvent) => {
       if (!requireButton || event.pointerType !== 'mouse' || event.buttons > 0) {
         handler({
+          id: event.pointerId,
           x: event.pageX,
           y: event.pageY,
+          timestamp: event.timeStamp,
         })
       }
     }
