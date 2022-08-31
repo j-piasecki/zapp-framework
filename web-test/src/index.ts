@@ -16,6 +16,8 @@ import {
 
 Screen(Config('screen').background(0x000000), () => {
   const padding = remember(0)
+  const start = remember({ x: 0, y: 0 })
+  const position = remember({ x: 0, y: 0 })
 
   sideEffect(() => {
     padding.value = withTiming(100, 2000)
@@ -64,9 +66,8 @@ Screen(Config('screen').background(0x000000), () => {
             })
           })
           // @ts-ignore
-          const start = remember({ x: 0, y: 0 })
-          const position = remember({ x: 0, y: 0 })
-          Column(Config('margin').padding(position.value.x, position.value.y, 0, 0).background(background), () => {
+
+          Column(Config('margin').padding(size.value, 0, 0, 0).background(background), () => {
             Column(
               Config('col4')
                 .width(50)
@@ -82,7 +83,8 @@ Screen(Config('screen').background(0x000000), () => {
                   }
 
                   start.value = e
-                }),
+                })
+                .offset(position.value.x, position.value.y),
               () => {}
             )
           })

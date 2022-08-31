@@ -30,6 +30,8 @@ export interface ConfigType {
   fillHeight?: number
 
   padding?: Padding
+  offsetX?: number
+  offsetY?: number
 
   text?: string
   textSize?: number
@@ -115,6 +117,12 @@ export class ConfigBuilder {
       }
     }
 
+    return this
+  }
+
+  public offset(x: number, y: number): Omit<this, 'offset'> {
+    this.config.offsetX = x
+    this.config.offsetY = y
     return this
   }
 

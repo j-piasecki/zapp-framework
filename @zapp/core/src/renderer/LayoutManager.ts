@@ -136,6 +136,9 @@ export class LayoutManager {
   }
 
   private calculatePositions(node: RenderNode, parent?: RenderNode) {
+    node.layout.x += node.config.offsetX ?? 0
+    node.layout.y += node.config.offsetY ?? 0
+
     // root is positioned at 0,0 and all other nodes should have a parent
     if (parent !== undefined) {
       if (node.type === NodeType.Column) {
