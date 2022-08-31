@@ -18,19 +18,22 @@ export class LayoutManager {
     const verticalPadding = (node.config.padding?.top ?? 0) + (node.config.padding?.bottom ?? 0)
     const horizontalPadding = (node.config.padding?.start ?? 0) + (node.config.padding?.end ?? 0)
 
+    const parentVerticalPadding = (parent?.config.padding?.top ?? 0) + (parent?.config.padding?.bottom ?? 0)
+    const parentHorizontalPadding = (parent?.config.padding?.start ?? 0) + (parent?.config.padding?.end ?? 0)
+
     if (node.type === NodeType.Root || node.type === NodeType.Screen) {
       node.layout.width = this.viewManager?.screenWidth ?? 0
       node.layout.height = this.viewManager?.screenHeight ?? 0
     } else if (node.config.fillSize !== undefined) {
       if (parent !== undefined && parent.layout.width !== -1 && parent.layout.height !== -1) {
-        node.layout.width = parent.layout.width - horizontalPadding
-        node.layout.height = parent.layout.height - verticalPadding
+        node.layout.width = parent.layout.width - parentHorizontalPadding
+        node.layout.height = parent.layout.height - parentVerticalPadding
       }
     } else {
       if (node.config.width !== undefined) {
         node.layout.width = node.config.width
       } else if (node.config.fillWidth !== undefined && parent !== undefined && parent.layout.width !== -1) {
-        node.layout.width = (parent.layout.width - horizontalPadding) * node.config.fillWidth
+        node.layout.width = (parent.layout.width - parentHorizontalPadding) * node.config.fillWidth
       } else if (node.layout.width === -1) {
         if (node.type === NodeType.Column) {
           let height = verticalPadding
@@ -54,7 +57,7 @@ export class LayoutManager {
       if (node.config.height !== undefined) {
         node.layout.height = node.config.height
       } else if (node.config.fillHeight !== undefined && parent !== undefined && parent.layout.height !== -1) {
-        node.layout.height = (parent.layout.height - verticalPadding) * node.config.fillHeight
+        node.layout.height = (parent.layout.height - parentVerticalPadding) * node.config.fillHeight
       } else if (node.layout.height === -1) {
         if (node.type === NodeType.Row) {
           let width = horizontalPadding
