@@ -62,8 +62,6 @@ export abstract class Renderer {
   }
 
   private static diffNode(previous: RenderNode, next: RenderNode, previousZIndex: number): number {
-    // TODO: better diff algorithm?
-
     next.view = previous.view
     next.zIndex = previous.zIndex
 
@@ -94,22 +92,38 @@ export abstract class Renderer {
     }
     previousZIndex = next.zIndex
 
-    for (const child of next.children) {
-      const oldChild = previous.children.find((item) => item.id === child.id)
-      if (oldChild === undefined) {
-        Renderer.createView(child)
+    // keep index of the last node that was found in both trees, as nodes can only be added or removed
+    // they will be in the same order in the both trees, so we can start looking from there
+    let lastFoundIndex = 0
+    for (let i = 0; i < next.children.length; i++) {
+      const newChild = next.children[i]
 
-        previousZIndex = child.zIndex
+      let found = false
+      for (let j = lastFoundIndex; j < previous.children.length; j++) {
+        const previousChild = previous.children[j]
+
+        if (newChild.id === previousChild.id) {
+          // if there node is being updated, we can drop all nodes between it and the last found node
+          // as that means they are not present in the new tree
+          for (let k = lastFoundIndex; k < j; k++) {
+            Renderer.dropView(previous.children[k])
+          }
+
+          lastFoundIndex = j + 1
+          found = true
+          Renderer.diffNode(previousChild, newChild, previousZIndex)
+          break
+        }
+      }
+
+      if (!found) {
+        Renderer.createView(newChild)
       }
     }
 
-    for (const child of previous.children) {
-      const newChild = next.children.find((item) => item.id === child.id)
-      if (newChild !== undefined) {
-        previousZIndex = Renderer.diffNode(child, newChild, previousZIndex)
-      } else {
-        Renderer.dropView(child)
-      }
+    // eventually drop the nodes from the end of the list that are not present in the new tree
+    for (let k = lastFoundIndex; k < previous.children.length; k++) {
+      Renderer.dropView(previous.children[k])
     }
 
     // maybe make it staic instead of passing it around?
