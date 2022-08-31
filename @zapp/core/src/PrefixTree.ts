@@ -7,7 +7,7 @@ interface Node {
 export class PrefixTree {
   private root: Node | undefined
 
-  addPath(path: string[]) {
+  public addPath(path: string[]) {
     const key = path.shift()
 
     if (this.root === undefined && key !== undefined) {
@@ -42,7 +42,7 @@ export class PrefixTree {
     }
   }
 
-  getPaths(): string[][] {
+  public getPaths(): string[][] {
     if (this.root === undefined) {
       return []
     }
@@ -70,7 +70,11 @@ export class PrefixTree {
     return result
   }
 
-  clear() {
+  public clear() {
     this.root = undefined
+  }
+
+  public isEmpty() {
+    return this.root === undefined
   }
 }

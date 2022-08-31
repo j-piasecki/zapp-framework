@@ -36,6 +36,10 @@ export abstract class WorkingTree {
     this.updatePaths.addPath(context.path.concat(context.id))
   }
 
+  public static hasUpdates() {
+    return !this.updatePaths.isEmpty()
+  }
+
   public static performUpdate() {
     for (const path of this.updatePaths.getPaths()) {
       const nodeToUpdate = WorkingTree.root.getNodeFromPath(path) as ViewNode
