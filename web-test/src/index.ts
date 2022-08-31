@@ -37,32 +37,69 @@ Screen(Config('screen').background(0x000000), () => {
 
     const background = size.value > 100 ? 0xffffff : undefined
 
-    Column(Config('col2').fillWidth(0.75).weight(weight.value).background(0x00ff00), () => {
-      Row(Config('row3').padding(20).background(0x0000ff), () => {
-        Column(Config('col3').width(size.value).height(size.value).background(0xff00ff), () => {
-          Column(Config('pad1').padding(10).background(0x9f0000), () => {
-            Column(Config('pad2').padding(10).background(0x009f00), () => {
-              Text(
-                TextConfig('text').textColor(0xffffff).textSize(20),
-                'a b c d e f g h i j k l m n o p q r s t u v w x y z'
-              )
+    Column(
+      Config('col2')
+        .fillWidth(0.75)
+        .weight(weight.value)
+        .background(0x00ff00)
+        .onPointerDown(() => {
+          console.log('down')
+        })
+        .onPointerMove(() => {
+          console.log('move')
+        })
+        .onPointerUp(() => {
+          console.log('up')
+        }),
+      () => {
+        Row(Config('row3').padding(20).background(0x0000ff), () => {
+          Column(Config('col3').width(size.value).height(size.value).background(0xff00ff), () => {
+            Column(Config('pad1').padding(10).background(0x9f0000), () => {
+              Column(Config('pad2').padding(10).background(0x009f00), () => {
+                Text(
+                  TextConfig('text').textColor(0xffffff).textSize(20),
+                  'a b c d e f g h i j k l m n o p q r s t u v w x y z'
+                )
+              })
             })
           })
+          // @ts-ignore
+          const start = remember({ x: 0, y: 0 })
+          const position = remember({ x: 0, y: 0 })
+          Column(Config('margin').padding(position.value.x, position.value.y, 0, 0).background(background), () => {
+            Column(
+              Config('col4')
+                .width(50)
+                .height(50)
+                .background(0x00ffff)
+                .onPointerDown((e) => {
+                  start.value = e
+                })
+                .onPointerMove((e) => {
+                  position.value = {
+                    x: position.value.x + e.x - start.value.x,
+                    y: position.value.y + e.y - start.value.y,
+                  }
+
+                  start.value = e
+                }),
+              () => {}
+            )
+          })
         })
-        // @ts-ignore
-        Column(Config('margin').padding(size.value, 0, 0, 0).background(background), () => {
-          Column(Config('col4').width(50).height(50).background(0x00ffff), () => {})
-        })
-      })
-    })
+      }
+    )
   })
 })
 
 function update() {
   Animation.nextFrame(Date.now())
-  WorkingTree.performUpdate()
-  Renderer.commit(WorkingTree.root)
-  Renderer.render()
+
+  if (WorkingTree.hasUpdates()) {
+    WorkingTree.performUpdate()
+    Renderer.commit(WorkingTree.root)
+    Renderer.render()
+  }
 
   requestAnimationFrame(update)
 }

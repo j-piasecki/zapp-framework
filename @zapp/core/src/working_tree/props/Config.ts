@@ -9,6 +9,11 @@ export interface Padding {
   end: number
 }
 
+export interface PointerData {
+  x: number
+  y: number
+}
+
 export interface ConfigType {
   id: string
 
@@ -29,6 +34,10 @@ export interface ConfigType {
   text?: string
   textSize?: number
   textColor?: number
+
+  onPointerDown?: (event: PointerData) => void
+  onPointerMove?: (event: PointerData) => void
+  onPointerUp?: (event: PointerData) => void
 }
 
 export class ConfigBuilder {
@@ -42,6 +51,11 @@ export class ConfigBuilder {
 
   public build() {
     return this.config
+  }
+
+  public merge(other: ConfigBuilder) {
+    Object.assign(this.config, other.config)
+    return this
   }
 
   public fillSize(): Omit<this, 'width' | 'fillWidth' | 'height' | 'fillHeight' | 'fillSize'> {
@@ -111,6 +125,23 @@ export class ConfigBuilder {
 
   public cornerRadius(radius: number): Omit<this, 'cornerRadius'> {
     this.config.cornerRadius = radius
+    return this
+  }
+
+  // TODO: consider adding onPointerEnter and onPointerLeave to handle more complex things, although
+  // that will require some 'clever' solutions to handle the pointer moving between parent and child
+  public onPointerDown(onPointerDown: (event: PointerData) => void): Omit<this, 'onPointerDown'> {
+    this.config.onPointerDown = onPointerDown
+    return this
+  }
+
+  public onPointerMove(onPointerMove: (event: PointerData) => void): Omit<this, 'onPointerMove'> {
+    this.config.onPointerMove = onPointerMove
+    return this
+  }
+
+  public onPointerUp(onPointerUp: (event: PointerData) => void): Omit<this, 'onPointerUp'> {
+    this.config.onPointerUp = onPointerUp
     return this
   }
 }

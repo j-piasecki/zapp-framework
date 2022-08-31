@@ -11,10 +11,14 @@ interface Layout {
   y: number
 }
 
+interface RenderConfig extends ConfigType {
+  isInherited: Map<string, boolean>
+}
+
 export interface RenderNode {
   id: string
   type: NodeType
-  config: ConfigType
+  config: RenderConfig
   children: RenderNode[]
   view: unknown
   zIndex: number
@@ -133,7 +137,13 @@ export abstract class Renderer {
   }
 
   private static isNodeLayoutOnly(node: RenderNode): boolean {
-    return node.config.background === undefined && node.type !== NodeType.Text
+    return (
+      node.config.background === undefined &&
+      node.type !== NodeType.Text &&
+      (node.config.onPointerMove === undefined || node.config.isInherited?.get('onPointerMove') === true) &&
+      (node.config.onPointerDown === undefined || node.config.isInherited?.get('onPointerDown') === true) &&
+      (node.config.onPointerUp === undefined || node.config.isInherited?.get('onPointerUp') === true)
+    )
   }
 
   private static shouldUpdateView(previous: RenderNode, next: RenderNode): boolean {
@@ -144,7 +154,10 @@ export abstract class Renderer {
       previous.layout.y !== next.layout.y ||
       previous.config.background !== next.config.background ||
       previous.config.cornerRadius !== next.config.cornerRadius ||
-      previous.config.text !== next.config.text
+      previous.config.text !== next.config.text ||
+      previous.config.onPointerDown !== next.config.onPointerDown ||
+      previous.config.onPointerMove !== next.config.onPointerMove ||
+      previous.config.onPointerUp !== next.config.onPointerUp
     )
   }
 
@@ -154,11 +167,26 @@ export abstract class Renderer {
     }
   }
 
-  private static createNode(node: ViewNode): RenderNode {
+  private static createNode(node: ViewNode, parent?: RenderNode): RenderNode {
+    const config: RenderConfig = { ...node.config, isInherited: new Map() }
+
+    if (node.config.onPointerDown === undefined && parent?.config.onPointerDown !== undefined) {
+      config.onPointerDown = parent.config.onPointerDown
+      config.isInherited.set('onPointerDown', true)
+    }
+    if (node.config.onPointerMove === undefined && parent?.config.onPointerMove !== undefined) {
+      config.onPointerMove = parent.config.onPointerMove
+      config.isInherited.set('onPointerMove', true)
+    }
+    if (node.config.onPointerUp === undefined && parent?.config.onPointerUp !== undefined) {
+      config.onPointerUp = parent.config.onPointerUp
+      config.isInherited.set('onPointerUp', true)
+    }
+
     const result: RenderNode = {
       id: node.id,
       type: node.type,
-      config: node.config,
+      config: config,
       children: [],
       view: null,
       zIndex: -1,
@@ -167,7 +195,7 @@ export abstract class Renderer {
 
     for (const child of node.children) {
       if (child instanceof ViewNode) {
-        result.children.push(Renderer.createNode(child))
+        result.children.push(Renderer.createNode(child, result))
       }
     }
 
