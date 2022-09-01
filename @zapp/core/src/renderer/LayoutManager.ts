@@ -244,13 +244,7 @@ export class LayoutManager {
       if (node.type === NodeType.Column) {
         this.positionColumn(node)
       } else if (node.type === NodeType.Row) {
-        let nextX = node.layout.x + (node.config.padding?.start ?? 0)
-
-        for (const child of node.children) {
-          child.layout.x = nextX
-          child.layout.y = (node.config.padding?.top ?? 0) + node.layout.y
-          nextX += child.layout.width
-        }
+        this.positionRow(node)
       } else {
         for (const child of node.children) {
           child.layout.x = node.layout.x + (node.config.padding?.start ?? 0)
@@ -329,6 +323,111 @@ export class LayoutManager {
       for (const child of node.children) {
         child.layout.y = nextY
         nextY += child.layout.height + space
+      }
+    }
+  }
+
+  private positionRow(node: RenderNode) {
+    let freeSpace = node.layout.width - (node.config.padding?.start ?? 0) - (node.config.padding?.end ?? 0)
+    // one pass over children to determine the amount of free space and position children vertically
+    for (const child of node.children) {
+      freeSpace -= child.layout.width
+
+      switch (node.config.alignment) {
+        case Alignment.Center:
+          child.layout.y = node.layout.y + (node.layout.height - child.layout.height) / 2
+          break
+        case Alignment.End:
+          child.layout.y = node.layout.y + node.layout.height - child.layout.height - (node.config.padding?.bottom ?? 0)
+          break
+        case Alignment.Start:
+          child.layout.y = node.layout.y + (node.config.padding?.top ?? 0)
+          break
+      }
+    }
+
+    // second pass to position children horizontally depending on the arrangement
+    if (this.viewManager.isRTL()) {
+      if (node.config.arrangement === Arrangement.Start) {
+        let nextX = node.layout.x + node.layout.width - (node.config.padding?.start ?? 0)
+
+        for (const child of node.children) {
+          nextX -= child.layout.width
+          child.layout.x = nextX
+        }
+      } else if (node.config.arrangement === Arrangement.End) {
+        let nextX = node.layout.x + (node.config.padding?.end ?? 0)
+
+        for (let i = node.children.length - 1; i >= 0; i--) {
+          const child = node.children[i]
+          child.layout.x = nextX
+          nextX += child.layout.width
+        }
+      } else if (node.config.arrangement === Arrangement.Center) {
+        let nextX = node.layout.x + freeSpace / 2
+
+        for (let i = node.children.length - 1; i >= 0; i--) {
+          const child = node.children[i]
+          child.layout.x = nextX
+          nextX += child.layout.width
+        }
+      } else {
+        let space = freeSpace / (node.children.length - 1)
+        let nextX = node.layout.x + node.layout.width - (node.config.padding?.start ?? 0)
+
+        if (node.config.arrangement === Arrangement.SpaceEvenly) {
+          space = freeSpace / (node.children.length + 1)
+          nextX -= space
+        } else if (node.config.arrangement === Arrangement.SpaceAround) {
+          space = freeSpace / node.children.length
+          nextX -= space / 2
+        }
+
+        for (const child of node.children) {
+          nextX -= child.layout.width
+          child.layout.x = nextX
+          nextX -= space
+        }
+      }
+    } else {
+      if (node.config.arrangement === Arrangement.Start) {
+        let nextX = node.layout.x + (node.config.padding?.start ?? 0)
+
+        for (const child of node.children) {
+          child.layout.x = nextX
+          nextX += child.layout.width
+        }
+      } else if (node.config.arrangement === Arrangement.End) {
+        let nextX = node.layout.x + node.layout.width - (node.config.padding?.end ?? 0)
+
+        for (let i = node.children.length - 1; i >= 0; i--) {
+          const child = node.children[i]
+          nextX -= child.layout.width
+          child.layout.x = nextX
+        }
+      } else if (node.config.arrangement === Arrangement.Center) {
+        let nextX = node.layout.x + freeSpace / 2
+
+        for (const child of node.children) {
+          child.layout.x = nextX
+          nextX += child.layout.width
+        }
+      } else {
+        let space = freeSpace / (node.children.length - 1)
+        let nextX = node.layout.x + (node.config.padding?.start ?? 0)
+
+        if (node.config.arrangement === Arrangement.SpaceEvenly) {
+          space = freeSpace / (node.children.length + 1)
+          nextX += space
+        } else if (node.config.arrangement === Arrangement.SpaceAround) {
+          space = freeSpace / node.children.length
+          nextX += space / 2
+        }
+
+        for (const child of node.children) {
+          child.layout.x = nextX
+          nextX += child.layout.width + space
+        }
       }
     }
   }
