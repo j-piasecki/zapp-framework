@@ -1,4 +1,4 @@
-import { PointerData, PointerEventType } from '../working_tree/props/Config.js'
+import { PointerData, PointerEventType } from '../working_tree/props/types.js'
 import { RenderNode } from './Renderer.js'
 
 export abstract class EventManager {

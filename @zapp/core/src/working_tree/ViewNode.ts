@@ -1,5 +1,5 @@
 import { NodeType } from '../NodeType.js'
-import { ConfigType } from './props/Config.js'
+import { ConfigType } from './props/types'
 import { EffectNode } from './EffectNode.js'
 import { RememberNode } from './RememberNode.js'
 import { WorkingNode, WorkingNodeProps } from './WorkingNode.js'

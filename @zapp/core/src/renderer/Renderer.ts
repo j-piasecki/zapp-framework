@@ -1,5 +1,5 @@
 import { NodeType } from '../NodeType.js'
-import { ConfigType } from '../working_tree/props/Config.js'
+import { ConfigType } from '../working_tree/props/types.js'
 import { ViewNode } from '../working_tree/ViewNode.js'
 import { EventManager } from './EventManager.js'
 import { LayoutManager } from './LayoutManager.js'

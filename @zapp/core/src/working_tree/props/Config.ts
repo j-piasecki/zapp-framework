@@ -1,59 +1,7 @@
+import { ConfigType, PointerData } from './types'
+
 export function Config(id: string) {
   return new ConfigBuilder(id)
-}
-
-export interface Padding {
-  top: number
-  bottom: number
-  start: number
-  end: number
-}
-
-export enum PointerEventType {
-  DOWN,
-  UP,
-  MOVE,
-  ENTER,
-  LEAVE,
-}
-
-export interface PointerData {
-  target: string
-  id: number
-  x: number
-  y: number
-  timestamp: number
-  type: PointerEventType
-}
-
-export interface ConfigType {
-  id: string
-
-  fillSize?: boolean
-
-  weight?: number
-  background?: number
-  cornerRadius?: number
-
-  width?: number
-  fillWidth?: number
-
-  height?: number
-  fillHeight?: number
-
-  padding?: Padding
-  offsetX?: number
-  offsetY?: number
-
-  text?: string
-  textSize?: number
-  textColor?: number
-
-  onPointerDown?: (event: PointerData) => void
-  onPointerMove?: (event: PointerData) => void
-  onPointerUp?: (event: PointerData) => void
-  onPointerEnter?: (event: PointerData) => void
-  onPointerLeave?: (event: PointerData) => void
 }
 
 export class ConfigBuilder {
