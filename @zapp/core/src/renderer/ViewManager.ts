@@ -16,4 +16,6 @@ export abstract class ViewManager {
     availableWidth: number,
     availableHeight: number
   ): { width: number; height: number }
+
+  public abstract isRTL(): boolean
 }

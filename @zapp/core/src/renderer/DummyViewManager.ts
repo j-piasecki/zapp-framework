@@ -37,4 +37,8 @@ export class DummyViewManager extends ViewManager {
       height: 1,
     }
   }
+
+  public isRTL(): boolean {
+    return false
+  }
 }

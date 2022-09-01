@@ -208,4 +208,8 @@ export class WebViewManager extends ViewManager {
 
     return { width: width, height: height }
   }
+
+  isRTL(): boolean {
+    return false
+  }
 }
