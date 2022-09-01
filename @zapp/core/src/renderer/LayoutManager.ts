@@ -1,9 +1,10 @@
 import { NodeType } from '../NodeType.js'
+import { Alignment, Arrangement } from '../working_tree/props/types.js'
 import { RenderNode } from './Renderer.js'
 import { ViewManager } from './ViewManager.js'
 
 export class LayoutManager {
-  private viewManager?: ViewManager
+  private viewManager!: ViewManager
   private recalculationStack: RenderNode[]
 
   public setViewManager(viewManager: ViewManager) {
@@ -14,7 +15,7 @@ export class LayoutManager {
     this.recalculationStack = []
 
     // split calculating sizes and positions, as measuring views may require double-traversal
-    this.calculateSize(root, this.viewManager!.screenWidth, this.viewManager!.screenHeight)
+    this.calculateSize(root, this.viewManager.screenWidth, this.viewManager.screenHeight)
     this.calculatePositions(root)
   }
 
@@ -121,7 +122,7 @@ export class LayoutManager {
     // handle text as it may not be sized explicity, in which case we need to measure it with respect
     // to the available space
     if (node.type === NodeType.Text && (node.layout.width === -1 || node.layout.height === -1)) {
-      const { width, height } = this.viewManager!.measureText(node.config.text!, node, availableWidth, availableHeight)
+      const { width, height } = this.viewManager.measureText(node.config.text!, node, availableWidth, availableHeight)
 
       if (node.layout.width === -1) {
         node.layout.width = width
@@ -241,13 +242,7 @@ export class LayoutManager {
     // root is positioned at 0,0 and all other nodes should have a parent
     if (parent !== undefined) {
       if (node.type === NodeType.Column) {
-        let nextY = node.layout.y + (node.config.padding?.top ?? 0)
-
-        for (const child of node.children) {
-          child.layout.y = nextY
-          child.layout.x = (node.config.padding?.start ?? 0) + node.layout.x
-          nextY += child.layout.height
-        }
+        this.positionColumn(node)
       } else if (node.type === NodeType.Row) {
         let nextX = node.layout.x + (node.config.padding?.start ?? 0)
 
@@ -266,6 +261,75 @@ export class LayoutManager {
 
     for (const child of node.children) {
       this.calculatePositions(child, node)
+    }
+  }
+
+  private positionColumn(node: RenderNode) {
+    let freeSpace = node.layout.height - (node.config.padding?.top ?? 0) - (node.config.padding?.bottom ?? 0)
+    // one pass over children to determine the amount of free space and position children horizontally
+    for (const child of node.children) {
+      freeSpace -= child.layout.height
+
+      switch (node.config.alignment) {
+        case Alignment.Center:
+          child.layout.x = node.layout.x + (node.layout.width - child.layout.width) / 2
+          break
+        case Alignment.End:
+          child.layout.x =
+            node.layout.x +
+            (this.viewManager.isRTL()
+              ? node.config.padding?.end ?? 0
+              : node.layout.width - child.layout.width - (node.config.padding?.end ?? 0))
+          break
+        case Alignment.Start:
+          child.layout.x =
+            node.layout.x +
+            (this.viewManager.isRTL()
+              ? node.layout.width - child.layout.width - (node.config.padding?.start ?? 0)
+              : node.config.padding?.start ?? 0)
+          break
+      }
+    }
+
+    // second pass to position children vertically depending on the arrangement
+    if (node.config.arrangement === Arrangement.Start) {
+      let nextY = node.layout.y + (node.config.padding?.top ?? 0)
+
+      for (const child of node.children) {
+        child.layout.y = nextY
+        nextY += child.layout.height
+      }
+    } else if (node.config.arrangement === Arrangement.End) {
+      let nextY = node.layout.y + node.layout.height - (node.config.padding?.bottom ?? 0)
+
+      for (let i = node.children.length - 1; i >= 0; i--) {
+        const child = node.children[i]
+        nextY -= child.layout.height
+        child.layout.y = nextY
+      }
+    } else if (node.config.arrangement === Arrangement.Center) {
+      let nextY = node.layout.y + freeSpace / 2
+
+      for (const child of node.children) {
+        child.layout.y = nextY
+        nextY += child.layout.height
+      }
+    } else {
+      let space = freeSpace / (node.children.length - 1)
+      let nextY = node.layout.y + (node.config.padding?.top ?? 0)
+
+      if (node.config.arrangement === Arrangement.SpaceEvenly) {
+        space = freeSpace / (node.children.length + 1)
+        nextY += space
+      } else if (node.config.arrangement === Arrangement.SpaceAround) {
+        space = freeSpace / node.children.length
+        nextY += space / 2
+      }
+
+      for (const child of node.children) {
+        child.layout.y = nextY
+        nextY += child.layout.height + space
+      }
     }
   }
 }
