@@ -1,5 +1,5 @@
 import { NodeType } from '../NodeType.js'
-import { Alignment, Arrangement } from '../working_tree/props/types.js'
+import { Alignment, Arrangement, StackAlignment } from '../working_tree/props/types.js'
 import { RenderNode } from './Renderer.js'
 import { ViewManager } from './ViewManager.js'
 
@@ -245,6 +245,8 @@ export class LayoutManager {
         this.positionColumn(node)
       } else if (node.type === NodeType.Row) {
         this.positionRow(node)
+      } else if (node.type === NodeType.Stack) {
+        this.positionStack(node)
       } else {
         for (const child of node.children) {
           child.layout.x = node.layout.x + (node.config.padding?.start ?? 0)
@@ -428,6 +430,85 @@ export class LayoutManager {
           child.layout.x = nextX
           nextX += child.layout.width + space
         }
+      }
+    }
+  }
+
+  private positionStack(node: RenderNode) {
+    let verticalAlignment = Alignment.Start
+    let horizontalAlignment = Alignment.Start
+
+    switch (node.config.stackAlignment) {
+      case StackAlignment.TopStart:
+      case StackAlignment.TopCenter:
+      case StackAlignment.TopEnd:
+        verticalAlignment = Alignment.Start
+        break
+
+      case StackAlignment.CenterStart:
+      case StackAlignment.Center:
+      case StackAlignment.CenterEnd:
+        verticalAlignment = Alignment.Center
+        break
+
+      case StackAlignment.BottomStart:
+      case StackAlignment.BottomCenter:
+      case StackAlignment.BottomEnd:
+        verticalAlignment = Alignment.End
+        break
+    }
+
+    switch (node.config.stackAlignment) {
+      case StackAlignment.TopStart:
+      case StackAlignment.CenterStart:
+      case StackAlignment.BottomStart:
+        horizontalAlignment = Alignment.Start
+        break
+
+      case StackAlignment.TopCenter:
+      case StackAlignment.Center:
+      case StackAlignment.BottomCenter:
+        horizontalAlignment = Alignment.Center
+        break
+
+      case StackAlignment.TopEnd:
+      case StackAlignment.CenterEnd:
+      case StackAlignment.BottomEnd:
+        horizontalAlignment = Alignment.End
+        break
+    }
+
+    for (const child of node.children) {
+      switch (horizontalAlignment) {
+        case Alignment.Center:
+          child.layout.x = node.layout.x + (node.layout.width - child.layout.width) / 2
+          break
+        case Alignment.End:
+          child.layout.x =
+            node.layout.x +
+            (this.viewManager.isRTL()
+              ? node.config.padding?.end ?? 0
+              : node.layout.width - child.layout.width - (node.config.padding?.end ?? 0))
+          break
+        case Alignment.Start:
+          child.layout.x =
+            node.layout.x +
+            (this.viewManager.isRTL()
+              ? node.layout.width - child.layout.width - (node.config.padding?.start ?? 0)
+              : node.config.padding?.start ?? 0)
+          break
+      }
+
+      switch (verticalAlignment) {
+        case Alignment.Center:
+          child.layout.y = node.layout.y + (node.layout.height - child.layout.height) / 2
+          break
+        case Alignment.End:
+          child.layout.y = node.layout.y + node.layout.height - child.layout.height - (node.config.padding?.bottom ?? 0)
+          break
+        case Alignment.Start:
+          child.layout.y = node.layout.y + (node.config.padding?.top ?? 0)
+          break
       }
     }
   }
