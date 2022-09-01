@@ -136,6 +136,8 @@ export class LayoutManager {
   }
 
   private calculatePositions(node: RenderNode, parent?: RenderNode) {
+    // TODO: handle alignment and arrangement
+
     node.layout.x += node.config.offsetX ?? 0
     node.layout.y += node.config.offsetY ?? 0
 

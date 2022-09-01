@@ -45,9 +45,33 @@ export interface ConfigType {
   textSize?: number
   textColor?: number
 
+  arrangement?: Arrangement
+  alignment?: Alignment
+
   onPointerDown?: (event: PointerData) => void
   onPointerMove?: (event: PointerData) => void
   onPointerUp?: (event: PointerData) => void
   onPointerEnter?: (event: PointerData) => void
   onPointerLeave?: (event: PointerData) => void
+}
+
+/**
+ * Positioning along the main axis
+ */
+export enum Arrangement {
+  SpaceBetween,
+  SpaceAround,
+  SpaceEvenly,
+  Start,
+  Center,
+  End,
+}
+
+/**
+ * Positioning along the secondary axis
+ */
+export enum Alignment {
+  Start,
+  Center,
+  End,
 }
