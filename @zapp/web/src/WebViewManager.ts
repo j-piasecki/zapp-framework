@@ -2,6 +2,7 @@ import { ViewManager, RenderNode, NodeType, PointerData, PointerEventType, Event
 
 export class WebViewManager extends ViewManager {
   private eventListenrs: Map<string, (event: PointerEvent) => void> = new Map()
+  private _isRTL?: boolean = undefined
 
   get screenWidth() {
     return window.innerWidth
@@ -51,6 +52,7 @@ export class WebViewManager extends ViewManager {
   createView(node: RenderNode): HTMLElement {
     const view = document.createElement('div')
 
+    view.id = node.id
     view.style.position = 'absolute'
     view.style.top = `${node.layout.y}px`
     view.style.left = `${node.layout.x}px`
@@ -210,6 +212,10 @@ export class WebViewManager extends ViewManager {
   }
 
   isRTL(): boolean {
-    return false
+    if (this._isRTL === undefined) {
+      this._isRTL = window.getComputedStyle(document.getElementsByTagName('body')[0]).direction === 'rtl'
+    }
+
+    return this._isRTL
   }
 }
