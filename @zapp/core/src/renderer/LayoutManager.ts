@@ -260,31 +260,49 @@ export class LayoutManager {
     }
   }
 
+  private alignHorizontally(child: RenderNode, parent: RenderNode, alignment?: Alignment) {
+    switch (alignment ?? parent.config.alignment) {
+      case Alignment.Center:
+        child.layout.x = parent.layout.x + (parent.layout.width - child.layout.width) / 2
+        break
+      case Alignment.End:
+        child.layout.x =
+          parent.layout.x +
+          (this.viewManager.isRTL()
+            ? parent.config.padding?.end ?? 0
+            : parent.layout.width - child.layout.width - (parent.config.padding?.end ?? 0))
+        break
+      case Alignment.Start:
+        child.layout.x =
+          parent.layout.x +
+          (this.viewManager.isRTL()
+            ? parent.layout.width - child.layout.width - (parent.config.padding?.start ?? 0)
+            : parent.config.padding?.start ?? 0)
+        break
+    }
+  }
+
+  private alignVertically(child: RenderNode, parent: RenderNode, alignment?: Alignment) {
+    switch (alignment ?? parent.config.alignment) {
+      case Alignment.Center:
+        child.layout.y = parent.layout.y + (parent.layout.height - child.layout.height) / 2
+        break
+      case Alignment.End:
+        child.layout.y =
+          parent.layout.y + parent.layout.height - child.layout.height - (parent.config.padding?.bottom ?? 0)
+        break
+      case Alignment.Start:
+        child.layout.y = parent.layout.y + (parent.config.padding?.top ?? 0)
+        break
+    }
+  }
+
   private positionColumn(node: RenderNode) {
     let freeSpace = node.layout.height - (node.config.padding?.top ?? 0) - (node.config.padding?.bottom ?? 0)
     // one pass over children to determine the amount of free space and position children horizontally
     for (const child of node.children) {
       freeSpace -= child.layout.height
-
-      switch (node.config.alignment) {
-        case Alignment.Center:
-          child.layout.x = node.layout.x + (node.layout.width - child.layout.width) / 2
-          break
-        case Alignment.End:
-          child.layout.x =
-            node.layout.x +
-            (this.viewManager.isRTL()
-              ? node.config.padding?.end ?? 0
-              : node.layout.width - child.layout.width - (node.config.padding?.end ?? 0))
-          break
-        case Alignment.Start:
-          child.layout.x =
-            node.layout.x +
-            (this.viewManager.isRTL()
-              ? node.layout.width - child.layout.width - (node.config.padding?.start ?? 0)
-              : node.config.padding?.start ?? 0)
-          break
-      }
+      this.alignHorizontally(child, node)
     }
 
     // second pass to position children vertically depending on the arrangement
@@ -334,18 +352,7 @@ export class LayoutManager {
     // one pass over children to determine the amount of free space and position children vertically
     for (const child of node.children) {
       freeSpace -= child.layout.width
-
-      switch (node.config.alignment) {
-        case Alignment.Center:
-          child.layout.y = node.layout.y + (node.layout.height - child.layout.height) / 2
-          break
-        case Alignment.End:
-          child.layout.y = node.layout.y + node.layout.height - child.layout.height - (node.config.padding?.bottom ?? 0)
-          break
-        case Alignment.Start:
-          child.layout.y = node.layout.y + (node.config.padding?.top ?? 0)
-          break
-      }
+      this.alignVertically(child, node)
     }
 
     // second pass to position children horizontally depending on the arrangement
@@ -479,37 +486,8 @@ export class LayoutManager {
     }
 
     for (const child of node.children) {
-      switch (horizontalAlignment) {
-        case Alignment.Center:
-          child.layout.x = node.layout.x + (node.layout.width - child.layout.width) / 2
-          break
-        case Alignment.End:
-          child.layout.x =
-            node.layout.x +
-            (this.viewManager.isRTL()
-              ? node.config.padding?.end ?? 0
-              : node.layout.width - child.layout.width - (node.config.padding?.end ?? 0))
-          break
-        case Alignment.Start:
-          child.layout.x =
-            node.layout.x +
-            (this.viewManager.isRTL()
-              ? node.layout.width - child.layout.width - (node.config.padding?.start ?? 0)
-              : node.config.padding?.start ?? 0)
-          break
-      }
-
-      switch (verticalAlignment) {
-        case Alignment.Center:
-          child.layout.y = node.layout.y + (node.layout.height - child.layout.height) / 2
-          break
-        case Alignment.End:
-          child.layout.y = node.layout.y + node.layout.height - child.layout.height - (node.config.padding?.bottom ?? 0)
-          break
-        case Alignment.Start:
-          child.layout.y = node.layout.y + (node.config.padding?.top ?? 0)
-          break
-      }
+      this.alignHorizontally(child, node, horizontalAlignment)
+      this.alignVertically(child, node, verticalAlignment)
     }
   }
 }
