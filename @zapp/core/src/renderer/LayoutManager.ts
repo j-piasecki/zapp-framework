@@ -15,6 +15,7 @@ export class LayoutManager {
   }
 
   private calculateSize(node: RenderNode, availableWidth: number, availableHeight: number, parent?: RenderNode) {
+    // TODO: handle stack
     const verticalPadding = (node.config.padding?.top ?? 0) + (node.config.padding?.bottom ?? 0)
     const horizontalPadding = (node.config.padding?.start ?? 0) + (node.config.padding?.end ?? 0)
 
@@ -137,6 +138,7 @@ export class LayoutManager {
 
   private calculatePositions(node: RenderNode, parent?: RenderNode) {
     // TODO: handle alignment and arrangement
+    // TODO: handle stack
 
     node.layout.x += node.config.offsetX ?? 0
     node.layout.y += node.config.offsetY ?? 0

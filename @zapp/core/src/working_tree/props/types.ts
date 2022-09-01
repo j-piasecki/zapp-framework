@@ -47,6 +47,7 @@ export interface ConfigType {
 
   arrangement?: Arrangement
   alignment?: Alignment
+  stackAlignment?: StackAlignment
 
   onPointerDown?: (event: PointerData) => void
   onPointerMove?: (event: PointerData) => void
@@ -74,4 +75,16 @@ export enum Alignment {
   Start,
   Center,
   End,
+}
+
+export enum StackAlignment {
+  CenterStart,
+  Center,
+  CenterEnd,
+  TopStart,
+  TopCenter,
+  TopEnd,
+  BottomStart,
+  BottomCenter,
+  BottomEnd,
 }

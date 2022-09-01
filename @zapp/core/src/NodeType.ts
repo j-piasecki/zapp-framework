@@ -3,6 +3,7 @@ export enum NodeType {
   Recomposing = 'recomposing',
 
   Screen = 'screen',
+  Stack = 'stack',
   Column = 'column',
   Row = 'row',
   Text = 'text',
