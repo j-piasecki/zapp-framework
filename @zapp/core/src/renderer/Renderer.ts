@@ -1,6 +1,7 @@
 import { NodeType } from '../NodeType.js'
 import { ConfigType } from '../working_tree/props/Config.js'
 import { ViewNode } from '../working_tree/ViewNode.js'
+import { EventManager } from './EventManager.js'
 import { LayoutManager } from './LayoutManager.js'
 import { ViewManager } from './ViewManager.js'
 
@@ -134,6 +135,8 @@ export abstract class Renderer {
     if (!Renderer.isNodeLayoutOnly(node)) {
       node.zIndex = Renderer.nextZIndex++
       node.view = Renderer.viewManager.createView(node)
+
+      EventManager.addEventTarget(node)
     }
 
     for (const child of node.children) {
@@ -142,6 +145,7 @@ export abstract class Renderer {
   }
 
   private static dropView(node: RenderNode) {
+    EventManager.dropEventTarget(node)
     Renderer.viewManager.dropView(node)
     node.view = null
 
@@ -156,7 +160,9 @@ export abstract class Renderer {
       node.type !== NodeType.Text &&
       (node.config.onPointerMove === undefined || node.config.isInherited?.get('onPointerMove') === true) &&
       (node.config.onPointerDown === undefined || node.config.isInherited?.get('onPointerDown') === true) &&
-      (node.config.onPointerUp === undefined || node.config.isInherited?.get('onPointerUp') === true)
+      (node.config.onPointerUp === undefined || node.config.isInherited?.get('onPointerUp') === true) &&
+      (node.config.onPointerEnter === undefined || node.config.isInherited?.get('onPointerEnter') === true) &&
+      (node.config.onPointerLeave === undefined || node.config.isInherited?.get('onPointerLeave') === true)
     )
   }
 
@@ -171,13 +177,16 @@ export abstract class Renderer {
       previous.config.text !== next.config.text ||
       previous.config.onPointerDown !== next.config.onPointerDown ||
       previous.config.onPointerMove !== next.config.onPointerMove ||
-      previous.config.onPointerUp !== next.config.onPointerUp
+      previous.config.onPointerUp !== next.config.onPointerUp ||
+      previous.config.onPointerEnter !== next.config.onPointerEnter ||
+      previous.config.onPointerLeave !== next.config.onPointerLeave
     )
   }
 
   private static updateView(previous: RenderNode, next: RenderNode) {
     if (Renderer.shouldUpdateView(previous, next)) {
       Renderer.viewManager.updateView(previous, next)
+      EventManager.addEventTarget(next)
     }
   }
 
@@ -195,6 +204,14 @@ export abstract class Renderer {
     if (node.config.onPointerUp === undefined && parent?.config.onPointerUp !== undefined) {
       config.onPointerUp = parent.config.onPointerUp
       config.isInherited.set('onPointerUp', true)
+    }
+    if (node.config.onPointerEnter === undefined && parent?.config.onPointerEnter !== undefined) {
+      config.onPointerEnter = parent.config.onPointerEnter
+      config.isInherited.set('onPointerEnter', true)
+    }
+    if (node.config.onPointerLeave === undefined && parent?.config.onPointerLeave !== undefined) {
+      config.onPointerLeave = parent.config.onPointerLeave
+      config.isInherited.set('onPointerLeave', true)
     }
 
     const result: RenderNode = {

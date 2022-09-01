@@ -9,11 +9,21 @@ export interface Padding {
   end: number
 }
 
+export enum PointerEventType {
+  DOWN,
+  UP,
+  MOVE,
+  ENTER,
+  LEAVE,
+}
+
 export interface PointerData {
+  target: string
   id: number
   x: number
   y: number
   timestamp: number
+  type: PointerEventType
 }
 
 export interface ConfigType {
@@ -42,6 +52,8 @@ export interface ConfigType {
   onPointerDown?: (event: PointerData) => void
   onPointerMove?: (event: PointerData) => void
   onPointerUp?: (event: PointerData) => void
+  onPointerEnter?: (event: PointerData) => void
+  onPointerLeave?: (event: PointerData) => void
 }
 
 export class ConfigBuilder {
@@ -138,8 +150,6 @@ export class ConfigBuilder {
     return this
   }
 
-  // TODO: consider adding onPointerEnter and onPointerLeave to handle more complex things, although
-  // that will require some 'clever' solutions to handle the pointer moving between parent and child
   public onPointerDown(onPointerDown: (event: PointerData) => void): Omit<this, 'onPointerDown'> {
     this.config.onPointerDown = onPointerDown
     return this
@@ -152,6 +162,16 @@ export class ConfigBuilder {
 
   public onPointerUp(onPointerUp: (event: PointerData) => void): Omit<this, 'onPointerUp'> {
     this.config.onPointerUp = onPointerUp
+    return this
+  }
+
+  public onPointerEnter(onPointerEnter: (event: PointerData) => void): Omit<this, 'onPointerEnter'> {
+    this.config.onPointerEnter = onPointerEnter
+    return this
+  }
+
+  public onPointerLeave(onPointerLeave: (event: PointerData) => void): Omit<this, 'onPointerLeave'> {
+    this.config.onPointerLeave = onPointerLeave
     return this
   }
 }

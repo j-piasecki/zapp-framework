@@ -12,6 +12,7 @@ import {
   remember,
   sideEffect,
   withTiming,
+  EventManager,
 } from '@zapp/core'
 
 Screen(Config('screen').background(0x000000), () => {
@@ -52,6 +53,12 @@ Screen(Config('screen').background(0x000000), () => {
         })
         .onPointerUp(() => {
           console.log('up')
+        })
+        .onPointerEnter(() => {
+          console.log('enter')
+        })
+        .onPointerLeave(() => {
+          console.log('leave')
         }),
       () => {
         Row(Config('row3').padding(20).background(0x0000ff), () => {
@@ -66,7 +73,6 @@ Screen(Config('screen').background(0x000000), () => {
             })
           })
           // @ts-ignore
-
           Column(Config('margin').padding(size.value, 0, 0, 0).background(background), () => {
             Column(
               Config('col4')
@@ -74,7 +80,7 @@ Screen(Config('screen').background(0x000000), () => {
                 .height(50)
                 .background(0x00ffff)
                 .onPointerDown((e) => {
-                  start.value = e
+                  start.value = { x: e.x, y: e.y }
                 })
                 .onPointerMove((e) => {
                   position.value = {
@@ -82,7 +88,7 @@ Screen(Config('screen').background(0x000000), () => {
                     y: position.value.y + e.y - start.value.y,
                   }
 
-                  start.value = e
+                  start.value = { x: e.x, y: e.y }
                 })
                 .offset(position.value.x, position.value.y),
               () => {}
@@ -95,6 +101,7 @@ Screen(Config('screen').background(0x000000), () => {
 })
 
 function update() {
+  EventManager.processEvents()
   Animation.nextFrame(Date.now())
 
   if (WorkingTree.hasUpdates()) {
