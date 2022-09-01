@@ -272,7 +272,7 @@ export class LayoutManager {
             ? parent.config.padding?.end ?? 0
             : parent.layout.width - child.layout.width - (parent.config.padding?.end ?? 0))
         break
-      case Alignment.Start:
+      default:
         child.layout.x =
           parent.layout.x +
           (this.viewManager.isRTL()
@@ -291,7 +291,7 @@ export class LayoutManager {
         child.layout.y =
           parent.layout.y + parent.layout.height - child.layout.height - (parent.config.padding?.bottom ?? 0)
         break
-      case Alignment.Start:
+      default:
         child.layout.y = parent.layout.y + (parent.config.padding?.top ?? 0)
         break
     }
@@ -306,7 +306,7 @@ export class LayoutManager {
     }
 
     // second pass to position children vertically depending on the arrangement
-    if (node.config.arrangement === Arrangement.Start) {
+    if (node.config.arrangement === undefined || node.config.arrangement === Arrangement.Start) {
       let nextY = node.layout.y + (node.config.padding?.top ?? 0)
 
       for (const child of node.children) {
@@ -357,7 +357,7 @@ export class LayoutManager {
 
     // second pass to position children horizontally depending on the arrangement
     if (this.viewManager.isRTL()) {
-      if (node.config.arrangement === Arrangement.Start) {
+      if (node.config.arrangement === undefined || node.config.arrangement === Arrangement.Start) {
         let nextX = node.layout.x + node.layout.width - (node.config.padding?.start ?? 0)
 
         for (const child of node.children) {
@@ -399,7 +399,7 @@ export class LayoutManager {
         }
       }
     } else {
-      if (node.config.arrangement === Arrangement.Start) {
+      if (node.config.arrangement === undefined || node.config.arrangement === Arrangement.Start) {
         let nextX = node.layout.x + (node.config.padding?.start ?? 0)
 
         for (const child of node.children) {
