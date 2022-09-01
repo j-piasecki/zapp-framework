@@ -258,8 +258,8 @@ export class LayoutManager {
         }
       } else {
         for (const child of node.children) {
-          child.layout.x = node.layout.x
-          child.layout.y = node.layout.y
+          child.layout.x = node.layout.x + (node.config.padding?.start ?? 0)
+          child.layout.y = node.layout.y + (node.config.padding?.end ?? 0)
         }
       }
     }
