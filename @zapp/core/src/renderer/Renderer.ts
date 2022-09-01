@@ -193,25 +193,34 @@ export abstract class Renderer {
   private static createNode(node: ViewNode, parent?: RenderNode): RenderNode {
     const config: RenderConfig = { ...node.config, isInherited: new Map() }
 
-    if (node.config.onPointerDown === undefined && parent?.config.onPointerDown !== undefined) {
-      config.onPointerDown = parent.config.onPointerDown
-      config.isInherited.set('onPointerDown', true)
-    }
-    if (node.config.onPointerMove === undefined && parent?.config.onPointerMove !== undefined) {
-      config.onPointerMove = parent.config.onPointerMove
-      config.isInherited.set('onPointerMove', true)
-    }
-    if (node.config.onPointerUp === undefined && parent?.config.onPointerUp !== undefined) {
-      config.onPointerUp = parent.config.onPointerUp
-      config.isInherited.set('onPointerUp', true)
-    }
-    if (node.config.onPointerEnter === undefined && parent?.config.onPointerEnter !== undefined) {
-      config.onPointerEnter = parent.config.onPointerEnter
-      config.isInherited.set('onPointerEnter', true)
-    }
-    if (node.config.onPointerLeave === undefined && parent?.config.onPointerLeave !== undefined) {
-      config.onPointerLeave = parent.config.onPointerLeave
-      config.isInherited.set('onPointerLeave', true)
+    // TODO: check whether all or nothing is the right way to handle event inheritance
+    if (
+      node.config.onPointerDown === undefined &&
+      node.config.onPointerMove === undefined &&
+      node.config.onPointerUp === undefined &&
+      node.config.onPointerEnter === undefined &&
+      node.config.onPointerLeave === undefined
+    ) {
+      if (parent?.config.onPointerDown !== undefined) {
+        config.onPointerDown = parent.config.onPointerDown
+        config.isInherited.set('onPointerDown', true)
+      }
+      if (parent?.config.onPointerMove !== undefined) {
+        config.onPointerMove = parent.config.onPointerMove
+        config.isInherited.set('onPointerMove', true)
+      }
+      if (parent?.config.onPointerUp !== undefined) {
+        config.onPointerUp = parent.config.onPointerUp
+        config.isInherited.set('onPointerUp', true)
+      }
+      if (parent?.config.onPointerEnter !== undefined) {
+        config.onPointerEnter = parent.config.onPointerEnter
+        config.isInherited.set('onPointerEnter', true)
+      }
+      if (parent?.config.onPointerLeave !== undefined) {
+        config.onPointerLeave = parent.config.onPointerLeave
+        config.isInherited.set('onPointerLeave', true)
+      }
     }
 
     const result: RenderNode = {

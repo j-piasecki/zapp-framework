@@ -90,6 +90,12 @@ Screen(Config('screen').background(0x000000), () => {
 
                   start.value = { x: e.x, y: e.y }
                 })
+                .onPointerEnter(() => {
+                  console.log('inner enter')
+                })
+                .onPointerLeave(() => {
+                  console.log('inner leave')
+                })
                 .offset(position.value.x, position.value.y),
               () => {}
             )

@@ -29,7 +29,7 @@ export abstract class WorkingNode {
 
     while (index < path.length) {
       const id = path[index++]
-      // @ts-ignore children doesn't exist on remember nodes, but those don't have children anyway
+      // @ts-ignore children doesn't exist on remember and effect nodes, but those don't have children anyway
       const children = current.children ?? []
       let found = false
 

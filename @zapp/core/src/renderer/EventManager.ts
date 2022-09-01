@@ -6,6 +6,44 @@ export abstract class EventManager {
   private static eventTargets: Map<string, RenderNode> = new Map()
 
   public static queueEvent(event: PointerData) {
+    // handle not sending enter and leave events when moving between parent and child with inherited handlers
+    if (event.type === PointerEventType.ENTER) {
+      const enterTarget = EventManager.eventTargets.get(event.target)
+
+      if (enterTarget !== undefined) {
+        // iterate backwards, as we expect leave event to be sent just before enter event
+        for (let i = EventManager.eventQueue.length - 1; i >= 0; i--) {
+          const leaveEvent = EventManager.eventQueue[i]
+          const leaveTarget = EventManager.eventTargets.get(leaveEvent.target)
+
+          if (leaveEvent.type === PointerEventType.LEAVE && leaveTarget !== undefined) {
+            let parentCandidate = null
+            let childCandidate = null
+
+            // parent will always have lower z-index than child, because of this we know which one may be the parent
+            if (leaveTarget.zIndex > enterTarget.zIndex) {
+              parentCandidate = enterTarget
+              childCandidate = leaveTarget
+            } else {
+              parentCandidate = leaveTarget
+              childCandidate = enterTarget
+            }
+
+            // check whether there is a parent-child relation and events are inherited
+            if (
+              EventManager.isParent(parentCandidate, childCandidate) &&
+              parentCandidate.config.onPointerEnter === childCandidate.config.onPointerEnter &&
+              parentCandidate.config.onPointerLeave === childCandidate.config.onPointerLeave
+            ) {
+              // if so, remove leave event from queue and don't queue enter event
+              EventManager.eventQueue.splice(i, 1)
+              return
+            }
+          }
+        }
+      }
+    }
+
     const indexToCoalesce = this.eventQueue.findIndex(
       (e) => e.id === event.id && e.type === event.type && e.target === event.target
     )
@@ -52,5 +90,19 @@ export abstract class EventManager {
     })
 
     EventManager.eventQueue = []
+  }
+
+  private static isParent(parent: RenderNode, childCandidate: RenderNode): boolean {
+    if (parent.id === childCandidate.id) {
+      return true
+    }
+
+    for (const child of parent.children) {
+      if (EventManager.isParent(child, childCandidate)) {
+        return true
+      }
+    }
+
+    return false
   }
 }
