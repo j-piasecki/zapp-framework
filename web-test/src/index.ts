@@ -1,4 +1,4 @@
-import '@zapp/web'
+import { ZappWeb } from '@zapp/web'
 import {
   WorkingTree,
   Animation,
@@ -14,6 +14,8 @@ import {
   withTiming,
   EventManager,
 } from '@zapp/core'
+
+ZappWeb.init()
 
 Screen(Config('screen').background(0x000000), () => {
   const padding = remember(0)
@@ -105,18 +107,3 @@ Screen(Config('screen').background(0x000000), () => {
     )
   })
 })
-
-function update() {
-  EventManager.processEvents()
-  Animation.nextFrame(Date.now())
-
-  if (WorkingTree.hasUpdates()) {
-    WorkingTree.performUpdate()
-    Renderer.commit(WorkingTree.root)
-    Renderer.render()
-  }
-
-  requestAnimationFrame(update)
-}
-
-requestAnimationFrame(update)

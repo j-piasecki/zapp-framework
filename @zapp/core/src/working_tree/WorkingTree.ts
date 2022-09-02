@@ -15,6 +15,7 @@ export abstract class WorkingTree {
   private static _current: WorkingNode = WorkingTree._root
 
   private static updatePaths = new PrefixTree()
+  private static updateRequested = false
 
   static get current() {
     return this._current
@@ -36,8 +37,12 @@ export abstract class WorkingTree {
     this.updatePaths.addPath(context.path.concat(context.id))
   }
 
+  public static requestUpdate() {
+    this.updateRequested = true
+  }
+
   public static hasUpdates() {
-    return !this.updatePaths.isEmpty()
+    return this.updateRequested || !this.updatePaths.isEmpty()
   }
 
   public static performUpdate() {
@@ -68,6 +73,7 @@ export abstract class WorkingTree {
     }
 
     this.updatePaths.clear()
+    this.updateRequested = false
   }
 
   public static dropAll() {
