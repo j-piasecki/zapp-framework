@@ -25,8 +25,6 @@ export interface PointerData {
 export interface ConfigType {
   id: string
 
-  fillSize?: boolean
-
   weight?: number
   background?: number
   cornerRadius?: number

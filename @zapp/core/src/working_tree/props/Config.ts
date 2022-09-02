@@ -26,16 +26,17 @@ export class ConfigBuilder {
   }
 
   public fillSize(): Omit<this, 'width' | 'fillWidth' | 'height' | 'fillHeight' | 'fillSize'> {
-    this.config.fillSize = true
+    this.config.fillWidth = 1
+    this.config.fillHeight = 1
     return this
   }
 
-  public fillWidth(portion: number): Omit<this, 'width' | 'fillWidth' | 'fillSize'> {
+  public fillWidth(portion = 1): Omit<this, 'width' | 'fillWidth' | 'fillSize'> {
     this.config.fillWidth = portion
     return this
   }
 
-  public fillHeight(portion: number): Omit<this, 'height' | 'fillHeight' | 'fillSize'> {
+  public fillHeight(portion = 1): Omit<this, 'height' | 'fillHeight' | 'fillSize'> {
     this.config.fillHeight = portion
     return this
   }

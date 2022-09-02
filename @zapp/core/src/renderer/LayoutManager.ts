@@ -56,32 +56,23 @@ export class LayoutManager {
     const parentHorizontalPadding = (parent?.config.padding?.start ?? 0) + (parent?.config.padding?.end ?? 0)
 
     // handle width & height if it's given explicitly or it's dependant on parent's size
-    if (node.config.fillSize === true) {
+    if (node.config.width !== undefined) {
+      node.layout.width = node.config.width
+    } else if (node.config.fillWidth !== undefined) {
       if (parent!.layout.width !== -1) {
-        node.layout.width = parent!.layout.width - parentHorizontalPadding
+        node.layout.width = node.config.fillWidth * (parent!.layout.width - parentHorizontalPadding)
+      } else if (recalculating === true && availableWidth !== -1) {
+        node.layout.width = node.config.fillWidth * availableWidth
       }
-      if (parent!.layout.height !== -1) {
-        node.layout.height = parent!.layout.height - parentVerticalPadding
-      }
-    } else {
-      if (node.config.width !== undefined) {
-        node.layout.width = node.config.width
-      } else if (node.config.fillWidth !== undefined) {
-        if (parent!.layout.width !== -1) {
-          node.layout.width = node.config.fillWidth * (parent!.layout.width - parentHorizontalPadding)
-        } else if (recalculating === true && availableWidth !== -1) {
-          node.layout.width = node.config.fillWidth * availableWidth
-        }
-      }
+    }
 
-      if (node.config.height !== undefined) {
-        node.layout.height = node.config.height
-      } else if (node.config.fillHeight !== undefined) {
-        if (parent!.layout.height !== -1) {
-          node.layout.height = node.config.fillHeight * (parent!.layout.height - parentVerticalPadding)
-        } else if (recalculating === true && availableHeight !== -1) {
-          node.layout.height = node.config.fillHeight * availableHeight
-        }
+    if (node.config.height !== undefined) {
+      node.layout.height = node.config.height
+    } else if (node.config.fillHeight !== undefined) {
+      if (parent!.layout.height !== -1) {
+        node.layout.height = node.config.fillHeight * (parent!.layout.height - parentVerticalPadding)
+      } else if (recalculating === true && availableHeight !== -1) {
+        node.layout.height = node.config.fillHeight * availableHeight
       }
     }
 
@@ -158,8 +149,7 @@ export class LayoutManager {
     // relative to the parent
     if (
       (node.layout.width === -1 || node.layout.height === -1) &&
-      (node.config.fillWidth === undefined || node.config.fillHeight === undefined) &&
-      node.config.fillSize === undefined
+      (node.config.fillWidth === undefined || node.config.fillHeight === undefined)
     ) {
       if (node.type === NodeType.Column) {
         // column stacks its children one after another vertically so we want its height to be sum of
