@@ -66,14 +66,22 @@ export class LayoutManager {
     } else {
       if (node.config.width !== undefined) {
         node.layout.width = node.config.width
-      } else if (node.config.fillWidth !== undefined && parent!.layout.width !== -1) {
-        node.layout.width = node.config.fillWidth * (parent!.layout.width - parentHorizontalPadding)
+      } else if (node.config.fillWidth !== undefined) {
+        if (parent!.layout.width !== -1) {
+          node.layout.width = node.config.fillWidth * (parent!.layout.width - parentHorizontalPadding)
+        } else if (recalculating === true && availableWidth !== -1) {
+          node.layout.width = node.config.fillWidth * availableWidth
+        }
       }
 
       if (node.config.height !== undefined) {
         node.layout.height = node.config.height
-      } else if (node.config.fillHeight !== undefined && parent!.layout.height !== -1) {
-        node.layout.height = node.config.fillHeight * (parent!.layout.height - parentVerticalPadding)
+      } else if (node.config.fillHeight !== undefined) {
+        if (parent!.layout.height !== -1) {
+          node.layout.height = node.config.fillHeight * (parent!.layout.height - parentVerticalPadding)
+        } else if (recalculating === true && availableHeight !== -1) {
+          node.layout.height = node.config.fillHeight * availableHeight
+        }
       }
     }
 
@@ -138,7 +146,7 @@ export class LayoutManager {
       }
     }
 
-    // calculate available width and height for children, which is used for measuring text when it and its
+    // calculate available width and height for children, which is used for measuring views when it and its
     // ancestors are not sized explicitly
     const childAvailableWidth = (node.layout.width === -1 ? availableWidth : node.layout.width) - horizontalPadding
     const childAvailableHeight = (node.layout.height === -1 ? availableHeight : node.layout.height) - verticalPadding
