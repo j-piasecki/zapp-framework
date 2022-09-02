@@ -214,6 +214,8 @@ export class WebViewManager extends ViewManager {
       wrapper.style.fontSize = `${node.config.textSize}px`
     }
     wrapper.appendChild(textWrapper)
+    wrapper.style.position = 'absolute'
+    textWrapper.style.position = 'absolute'
     textWrapper.innerText = text
 
     document.getElementsByTagName('body')[0].appendChild(wrapper)
