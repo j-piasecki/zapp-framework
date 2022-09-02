@@ -221,6 +221,9 @@ export class WatchViewManager extends ViewManager {
       // but it doesn't work anyway, since it seems like the actual rendering of the text is
       // performed differently than measuring and even though there is enough space to draw text
       // it tries to break the line, rendering out of bounds
+
+      // TODO: consider measuring & drawing text from line by line from scratch to have it working
+      // somewhat reliably
     }
 
     return res
