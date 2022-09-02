@@ -1,6 +1,7 @@
 import { NodeType } from '../NodeType.js'
 import { ConfigType } from '../working_tree/props/types.js'
 import { ViewNode } from '../working_tree/ViewNode.js'
+import { CustomViewProps } from '../working_tree/views/Custom.js'
 import { EventManager } from './EventManager.js'
 import { LayoutManager } from './LayoutManager.js'
 import { ViewManager } from './ViewManager.js'
@@ -25,6 +26,7 @@ export interface RenderNode {
   view: unknown
   zIndex: number
   layout: Layout
+  customViewProps?: CustomViewProps
 }
 
 export abstract class Renderer {
@@ -232,6 +234,7 @@ export abstract class Renderer {
       view: null,
       zIndex: -1,
       layout: Renderer.createLayout(),
+      customViewProps: node.customViewProps,
     }
 
     for (const child of node.children) {

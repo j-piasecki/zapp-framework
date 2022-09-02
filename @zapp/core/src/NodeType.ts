@@ -2,6 +2,7 @@ export enum NodeType {
   Root = 'root',
   Recomposing = 'recomposing',
 
+  Custom = 'custom',
   Screen = 'screen',
   Stack = 'stack',
   Column = 'column',

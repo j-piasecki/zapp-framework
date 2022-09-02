@@ -50,7 +50,10 @@ export class WebViewManager extends ViewManager {
   }
 
   createView(node: RenderNode): HTMLElement {
-    const view = document.createElement('div')
+    const view =
+      node.customViewProps?.createView !== undefined
+        ? (node.customViewProps.createView(node) as HTMLElement)
+        : document.createElement('div')
 
     view.id = node.id
     view.style.position = 'absolute'
@@ -118,6 +121,10 @@ export class WebViewManager extends ViewManager {
       view.addEventListener('pointerout', handler)
     }
 
+    if (node.customViewProps?.overrideViewProps !== undefined) {
+      node.customViewProps.overrideViewProps(node)
+    }
+
     document.getElementsByTagName('body')[0].appendChild(view)
     console.log('create', node.id)
 
@@ -126,7 +133,11 @@ export class WebViewManager extends ViewManager {
 
   dropView(node: RenderNode): void {
     const view = node.view as HTMLElement
-    view?.remove()
+    if (node.customViewProps?.deleteView !== undefined) {
+      node.customViewProps.deleteView(node)
+    } else {
+      view?.remove()
+    }
 
     this.eventListenrs.delete(`${node.id}#'pointerdown'`)
     this.eventListenrs.delete(`${node.id}#'pointermove'`)
@@ -182,6 +193,10 @@ export class WebViewManager extends ViewManager {
     if (next.config.onPointerLeave === undefined && next.config.onPointerUp === undefined) {
       view.removeEventListener('pointerout', this.eventListenrs.get(`${next.id}#pointerleave`)!)
       this.eventListenrs.delete(`${next.id}#pointerleave`)
+    }
+
+    if (next.customViewProps?.updateView !== undefined) {
+      next.customViewProps.updateView(previous, next)
     }
   }
 
