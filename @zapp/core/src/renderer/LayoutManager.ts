@@ -26,13 +26,19 @@ export class LayoutManager {
     parent?: RenderNode,
     recalculating?: boolean
   ) {
+    // in case this node has already been measured, we don't want to continue and recalculate
+    // its subtree
+    if (node.layout.measured) {
+      return
+    }
+
     // special case for root and screen as they always fill all available size
     if (node.type === NodeType.Root || node.type === NodeType.Screen) {
       node.layout.width = this.viewManager?.screenWidth ?? 0
       node.layout.height = this.viewManager?.screenHeight ?? 0
 
       for (const child of node.children) {
-        this.calculateSize(child, availableWidth, availableHeight, node, recalculating)
+        this.calculateSize(child, availableWidth, availableHeight, node)
       }
 
       return
@@ -135,13 +141,18 @@ export class LayoutManager {
     // calculate available width and height for children, which is used for measuring text when it and its
     // ancestors are not sized explicitly
     const childAvailableWidth = (node.layout.width === -1 ? availableWidth : node.layout.width) - horizontalPadding
-    const childAvailableHeight = (node.layout.width === -1 ? availableHeight : node.layout.height) - verticalPadding
+    const childAvailableHeight = (node.layout.height === -1 ? availableHeight : node.layout.height) - verticalPadding
     for (const child of node.children) {
-      this.calculateSize(child, childAvailableWidth, childAvailableHeight, node)
+      this.calculateSize(child, childAvailableWidth, childAvailableHeight, node, recalculating)
     }
 
-    // if the size of the node is still unknown, update it after measuring children
-    if (node.layout.width === -1 || node.layout.height === -1) {
+    // if the size of the node is still unknown, update it after measuring children, assuming it's not sized
+    // relative to the parent
+    if (
+      (node.layout.width === -1 || node.layout.height === -1) &&
+      (node.config.fillWidth === undefined || node.config.fillHeight === undefined) &&
+      node.config.fillSize === undefined
+    ) {
       if (node.type === NodeType.Column) {
         // column stacks its children one after another vertically so we want its height to be sum of
         // its children heights, while its width needs to match the widest child
@@ -153,10 +164,10 @@ export class LayoutManager {
           height += child.layout.height
         }
 
-        if (node.layout.height === -1) {
+        if (node.layout.height === -1 && node.config.fillHeight === undefined) {
           node.layout.height = height
         }
-        if (node.layout.width === -1 && maxWidth !== -1) {
+        if (node.layout.width === -1 && maxWidth !== -1 && node.config.fillWidth === undefined) {
           node.layout.width = Math.max(node.layout.width, maxWidth + horizontalPadding)
         }
       } else if (node.type === NodeType.Row) {
@@ -170,10 +181,10 @@ export class LayoutManager {
           width += child.layout.width
         }
 
-        if (node.layout.width === -1) {
+        if (node.layout.width === -1 && node.config.fillWidth === undefined) {
           node.layout.width = width
         }
-        if (node.layout.height === -1 && maxHeight !== -1) {
+        if (node.layout.height === -1 && maxHeight !== -1 && node.config.fillHeight === undefined) {
           node.layout.height = Math.max(node.layout.height, maxHeight + verticalPadding)
         }
       } else if (node.type === NodeType.Stack) {
@@ -187,10 +198,10 @@ export class LayoutManager {
           maxHeight = Math.max(maxHeight, child.layout.height)
         }
 
-        if (node.layout.width === -1 && maxWidth !== -1) {
+        if (node.layout.width === -1 && maxWidth !== -1 && node.config.fillWidth === undefined) {
           node.layout.width = maxWidth + horizontalPadding
         }
-        if (node.layout.height === -1 && maxHeight !== -1) {
+        if (node.layout.height === -1 && maxHeight !== -1 && node.config.fillHeight === undefined) {
           node.layout.height = maxHeight + verticalPadding
         }
       }
@@ -219,7 +230,10 @@ export class LayoutManager {
           this.calculateSize(this.recalculationStack.pop()!, availableWidth, availableHeight, node, true)
         }
         // the measured view is also popped from stack so it's not measured again in case its siblings do
-        this.recalculationStack.pop()
+        const measuredNode = this.recalculationStack.pop()!
+        // we also mark it as measured in case recalculation happend higher on the tree, in which case we
+        // don't want to recalculate this subtree again
+        measuredNode.layout.measured = true
       } else {
         // current view is not fully measured, so we pop all nodes after it (its children) as they will be
         // measured again anyway when visiting again

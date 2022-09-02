@@ -10,6 +10,7 @@ interface Layout {
   height: number
   x: number
   y: number
+  measured: boolean
 }
 
 interface RenderConfig extends ConfigType {
@@ -248,6 +249,7 @@ export abstract class Renderer {
       height: -1,
       x: 0,
       y: 0,
+      measured: false,
     }
   }
 }
