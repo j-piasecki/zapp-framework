@@ -195,9 +195,9 @@ export class LayoutManager {
         if (node.layout.height === -1 && maxHeight !== -1 && node.config.fillHeight === undefined) {
           node.layout.height = Math.max(node.layout.height, maxHeight + verticalPadding)
         }
-      } else if (node.type === NodeType.Stack) {
-        // column stacks its children on top of each other so we want both its width and height to match
-        // the widest and highest child respectively
+      } else if (node.type === NodeType.Stack || node.type === NodeType.Custom) {
+        // stack stacks its children on top of each other so we want both its width and height to match
+        // the widest and highest child respectively, we also treat custom views in the same way as stack
         let maxWidth = -1
         let maxHeight = -1
 

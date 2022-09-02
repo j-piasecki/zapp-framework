@@ -4,6 +4,8 @@ import { EffectNode } from './EffectNode.js'
 import { RememberNode } from './RememberNode.js'
 import { WorkingNode, WorkingNodeProps } from './WorkingNode.js'
 import { WorkingTree } from './WorkingTree.js'
+import { findRelativePath } from '../utils.js'
+import { CustomViewProps } from './views/Custom.js'
 
 export interface ViewNodeProps extends WorkingNodeProps {
   body: () => void
@@ -20,6 +22,9 @@ export class ViewNode extends WorkingNode {
   public nextActionId: number
   public rememberedContext: ViewNode | undefined
 
+  // custom view properties
+  public customViewProps?: CustomViewProps
+
   constructor(props: ViewNodeProps) {
     super(props)
 
@@ -30,12 +35,13 @@ export class ViewNode extends WorkingNode {
     this.nextActionId = 0
   }
 
-  public create(props: ViewNodeProps) {
+  public create(props: ViewNodeProps, customViewProps?: CustomViewProps) {
     const result = new ViewNode(props)
 
     // new view nodes may only be created inside another view node
     const currentView = WorkingTree.current as ViewNode
 
+    result.customViewProps = customViewProps
     result.parent = currentView.override ?? WorkingTree.current
     result.rememberedContext = currentView.rememberedContext
     result.path = this.path.concat(this.id)
@@ -80,6 +86,18 @@ export class ViewNode extends WorkingNode {
 
   public override drop(newSubtreeRoot: WorkingNode): void {
     super.drop(newSubtreeRoot)
+
+    if (this.type === NodeType.Custom && this.customViewProps?.dropHandler !== undefined) {
+      const thisPath = this.path.concat(this.id)
+      const relativePath = findRelativePath(thisPath, newSubtreeRoot.path)
+
+      if (relativePath !== null) {
+        const nodeAtPath = newSubtreeRoot.getNodeFromPath(relativePath)
+        if (nodeAtPath === null) {
+          this.customViewProps.dropHandler()
+        }
+      }
+    }
 
     for (const child of this.children) {
       child.drop(newSubtreeRoot)

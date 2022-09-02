@@ -1,8 +1,11 @@
+import { RequireSome } from '../../utils'
 import { ConfigType, PointerData } from './types'
 
 export function Config(id: string) {
   return new ConfigBuilder(id)
 }
+
+export type ConfigBuilderArg = RequireSome<ConfigBuilder, 'build'>
 
 export class ConfigBuilder {
   protected config: ConfigType
