@@ -19,6 +19,11 @@ import {
 Page({
   onInit() {
     ZappWatch.init()
+
+    hmUI.setLayerScrolling(false)
+    hmApp.registerGestureEvent(function (event) {
+      return true
+    })
   },
   build() {
     Stack(StackConfig('stack').fillSize().alignment(StackAlignment.Center), () => {
@@ -88,5 +93,6 @@ Page({
   },
   onDestroy() {
     ZappWatch.destroy()
+    hmApp.unregisterGestureEvent()
   },
 })
