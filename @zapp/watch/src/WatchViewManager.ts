@@ -227,6 +227,10 @@ export class WatchViewManager extends ViewManager {
   }
 
   isRTL(): boolean {
-    return hmUI.getRtlLayout()
+    if (this._isRTL === undefined) {
+      this._isRTL = hmUI.getRtlLayout() as boolean
+    }
+
+    return this._isRTL
   }
 }
