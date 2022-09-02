@@ -87,5 +87,7 @@ export abstract class WorkingTree {
     WorkingTree._root.drop(newRoot)
     WorkingTree._root = newRoot
     WorkingTree._current = newRoot
+
+    WorkingTree.requestUpdate()
   }
 }

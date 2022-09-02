@@ -1,6 +1,8 @@
 import { EventManager, Renderer, setViewManager, WorkingTree, Animation } from '@zapp/core'
 import { WebViewManager } from './WebViewManager.js'
 
+export { HashNavigator } from './HashNavigator.js'
+
 setViewManager(new WebViewManager())
 
 export abstract class ZappWeb {
