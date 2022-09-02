@@ -1,6 +1,8 @@
 {
+  "private":"true",
   "workspaces": [
     "@zapp/*",
-    "web-test"
+    "web-test",
+    "watch-test"
   ]
 }
