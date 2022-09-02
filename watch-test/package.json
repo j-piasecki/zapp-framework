@@ -8,6 +8,10 @@
   },
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "@zapp/core": "*",
+    "@zapp/watch": "*"
+  },
   "devDependencies": {
     "@zeppos/device-types": "^1.0.0"
   }
