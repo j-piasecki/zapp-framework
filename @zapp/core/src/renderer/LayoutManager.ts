@@ -85,7 +85,7 @@ export class LayoutManager {
       }
     }
 
-    // handle children of column if it's height is known as they may be weighted
+    // handle children of column if its height is known as they may be weighted
     if (node.type === NodeType.Column && node.layout.height !== -1) {
       let weights = 0
       let absolute = 0
@@ -109,7 +109,7 @@ export class LayoutManager {
       }
     }
 
-    // handle children of row if it's width is known as they may be weighted
+    // handle children of row if its width is known as they may be weighted
     if (node.type === NodeType.Row && node.layout.width !== -1) {
       let weights = 0
       let absolute = 0
@@ -232,7 +232,8 @@ export class LayoutManager {
       // are visited, the nodes left on the stack after current one all its direct children that aren't
       // measured.
 
-      // We have two cases: curent view is fully measured, so we can recalculate its children if there are any
+      // We have two cases: curent view is fully measured, so we can recalculate its children if there are
+      // any left on the stack
       if (node.layout.width !== -1 && node.layout.height !== -1) {
         while (this.recalculationStack[this.recalculationStack.length - 1] !== node) {
           this.calculateSize(this.recalculationStack.pop()!, availableWidth, availableHeight, node, true)
