@@ -4,6 +4,7 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": { "project": ["./tsconfig.json"] },
   "plugins": ["@typescript-eslint"],
+  "ignorePatterns": ["watch-test/**/*.js"],
   "rules": {
     "@typescript-eslint/strict-boolean-expressions": [
       2,

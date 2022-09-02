@@ -63,8 +63,7 @@ export abstract class EventManager {
   }
 
   public static processEvents() {
-    // TODO: consider sending move event only to the view that receiver down event
-    // TODO: handle leave and enter between parent and child correctly
+    // TODO: consider sending move event only to the view that received down event
     EventManager.eventQueue.forEach((event) => {
       const target = EventManager.eventTargets.get(event.target)
 
