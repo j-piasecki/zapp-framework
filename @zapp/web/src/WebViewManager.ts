@@ -126,7 +126,6 @@ export class WebViewManager extends ViewManager {
     }
 
     document.getElementsByTagName('body')[0].appendChild(view)
-    console.log('create', node.id)
 
     return view
   }
@@ -144,8 +143,6 @@ export class WebViewManager extends ViewManager {
     this.eventListenrs.delete(`${node.id}#'pointerup'`)
     this.eventListenrs.delete(`${node.id}#'pointerenter'`)
     this.eventListenrs.delete(`${node.id}#'pointerleave'`)
-
-    console.log('drop', node.id)
   }
 
   updateView(previous: RenderNode, next: RenderNode): void {
@@ -225,7 +222,8 @@ export class WebViewManager extends ViewManager {
 
     wrapper.remove()
 
-    return { width: width, height: height }
+    // add 2 to width as the text sometimes would get broken anyway ¯\_(ツ)_/¯
+    return { width: width + 2, height: height }
   }
 
   isRTL(): boolean {
