@@ -122,6 +122,7 @@ export abstract class Renderer {
 
       if (!found) {
         Renderer.createView(newChild)
+        previousZIndex = newChild.zIndex
       }
     }
 
