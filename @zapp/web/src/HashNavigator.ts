@@ -5,9 +5,11 @@ export abstract class HashNavigator {
   private static _currentRoute: string
 
   public static register(startingRoute: string, routes: Record<string, (params?: Record<string, unknown>) => void>) {
+    const routeToRender = window.location.hash.length === 0 ? startingRoute : window.location.hash.substring(1)
+
     HashNavigator.routes = routes
-    HashNavigator.changeRoute(startingRoute)
-    history.replaceState(undefined, '', `#${startingRoute}`)
+    HashNavigator.changeRoute(routeToRender)
+    history.replaceState(undefined, '', `#${routeToRender}`)
 
     window.addEventListener('popstate', (e) => {
       HashNavigator.changeRoute(window.location.hash.substring(1), e.state)
