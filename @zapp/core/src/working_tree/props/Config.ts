@@ -25,41 +25,41 @@ export class ConfigBuilder {
     return this
   }
 
-  public fillSize(): Omit<this, 'width' | 'fillWidth' | 'height' | 'fillHeight' | 'fillSize'> {
+  public fillSize() {
     this.config.fillWidth = 1
     this.config.fillHeight = 1
     return this
   }
 
-  public fillWidth(portion = 1): Omit<this, 'width' | 'fillWidth' | 'fillSize'> {
+  public fillWidth(portion = 1) {
     this.config.fillWidth = portion
     return this
   }
 
-  public fillHeight(portion = 1): Omit<this, 'height' | 'fillHeight' | 'fillSize'> {
+  public fillHeight(portion = 1) {
     this.config.fillHeight = portion
     return this
   }
 
-  public width(width: number): Omit<this, 'width' | 'fillWidth' | 'fillSize'> {
+  public width(width: number) {
     this.config.width = width
     return this
   }
 
-  public height(height: number): Omit<this, 'height' | 'fillHeight' | 'fillSize'> {
+  public height(height: number) {
     this.config.height = height
     return this
   }
 
-  public weight(weight: number): Omit<this, 'weight'> {
+  public weight(weight: number) {
     this.config.weight = weight
     return this
   }
 
-  public padding(padding: number): Omit<this, 'padding'>
-  public padding(vertical: number, horizontal: number): Omit<this, 'padding'>
-  public padding(start: number, top: number, end: number, bottom: number): Omit<this, 'padding'>
-  public padding(start: number, top?: number, end?: number, bottom?: number): Omit<this, 'padding'> {
+  public padding(padding: number): this
+  public padding(vertical: number, horizontal: number): this
+  public padding(start: number, top: number, end: number, bottom: number): this
+  public padding(start: number, top?: number, end?: number, bottom?: number) {
     if (top !== undefined && end !== undefined && bottom !== undefined) {
       this.config.padding = {
         start: start,
@@ -86,43 +86,43 @@ export class ConfigBuilder {
     return this
   }
 
-  public offset(x: number, y: number): Omit<this, 'offset'> {
+  public offset(x: number, y: number) {
     this.config.offsetX = x
     this.config.offsetY = y
     return this
   }
 
-  public background(background: number): Omit<this, 'background'> {
+  public background(background: number) {
     this.config.background = background
     return this
   }
 
-  public cornerRadius(radius: number): Omit<this, 'cornerRadius'> {
+  public cornerRadius(radius: number) {
     this.config.cornerRadius = radius
     return this
   }
 
-  public onPointerDown(onPointerDown: (event: PointerData) => void): Omit<this, 'onPointerDown'> {
+  public onPointerDown(onPointerDown: (event: PointerData) => void) {
     this.config.onPointerDown = onPointerDown
     return this
   }
 
-  public onPointerMove(onPointerMove: (event: PointerData) => void): Omit<this, 'onPointerMove'> {
+  public onPointerMove(onPointerMove: (event: PointerData) => void) {
     this.config.onPointerMove = onPointerMove
     return this
   }
 
-  public onPointerUp(onPointerUp: (event: PointerData) => void): Omit<this, 'onPointerUp'> {
+  public onPointerUp(onPointerUp: (event: PointerData) => void) {
     this.config.onPointerUp = onPointerUp
     return this
   }
 
-  public onPointerEnter(onPointerEnter: (event: PointerData) => void): Omit<this, 'onPointerEnter'> {
+  public onPointerEnter(onPointerEnter: (event: PointerData) => void) {
     this.config.onPointerEnter = onPointerEnter
     return this
   }
 
-  public onPointerLeave(onPointerLeave: (event: PointerData) => void): Omit<this, 'onPointerLeave'> {
+  public onPointerLeave(onPointerLeave: (event: PointerData) => void) {
     this.config.onPointerLeave = onPointerLeave
     return this
   }

@@ -5,12 +5,12 @@ export function TextConfig(id: string) {
 }
 
 export class TextConfigBuilder extends ConfigBuilder {
-  public textColor(textColor: number): Omit<this, 'textColor'> {
+  public textColor(textColor: number) {
     this.config.textColor = textColor
     return this
   }
 
-  public textSize(textSize: number): Omit<this, 'cornerRatextSizedius'> {
+  public textSize(textSize: number) {
     this.config.textSize = textSize
     return this
   }

@@ -6,7 +6,7 @@ export function StackConfig(id: string) {
 }
 
 export class StackConfigBuilder extends ConfigBuilder {
-  public alignment(alignment: StackAlignment): Omit<this, 'alignment'> {
+  public alignment(alignment: StackAlignment) {
     this.config.stackAlignment = alignment
     return this
   }

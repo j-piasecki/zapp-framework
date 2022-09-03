@@ -6,12 +6,12 @@ export function RowConfig(id: string) {
 }
 
 export class RowConfigBuilder extends ConfigBuilder {
-  public arrangement(arrangement: Arrangement): Omit<this, 'arrangement'> {
+  public arrangement(arrangement: Arrangement) {
     this.config.arrangement = arrangement
     return this
   }
 
-  public alignment(alignment: Alignment): Omit<this, 'alignment'> {
+  public alignment(alignment: Alignment) {
     this.config.alignment = alignment
     return this
   }
