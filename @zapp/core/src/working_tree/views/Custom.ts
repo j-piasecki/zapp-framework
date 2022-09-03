@@ -38,7 +38,7 @@ export interface CustomViewProps extends Record<string, unknown> {
 export function Custom(
   configBuilder: RequireSome<ConfigBuilder, 'build'>,
   customViewProps: CustomViewProps,
-  body: () => void
+  body?: () => void
 ) {
   const config = configBuilder.build()
   const current = WorkingTree.current as ViewNode

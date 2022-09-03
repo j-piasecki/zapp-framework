@@ -14,7 +14,6 @@ export function Text(configBuilder: RequireSome<ConfigBuilder, 'build'>, text: s
     id: config.id,
     type: NodeType.Text,
     config: config,
-    body: () => {}, // TODO: consider setting this to null
   })
 
   current.children.push(context)

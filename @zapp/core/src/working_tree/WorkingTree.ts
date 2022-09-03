@@ -25,12 +25,14 @@ export abstract class WorkingTree {
     return this._root
   }
 
-  public static withContext(context: WorkingNode, fun: () => void) {
-    const previousContext = WorkingTree.current
-    WorkingTree._current = context
-    fun()
-    WorkingTree._current.reset()
-    WorkingTree._current = previousContext
+  public static withContext(context: WorkingNode, fun?: () => void) {
+    if (fun !== undefined) {
+      const previousContext = WorkingTree.current
+      WorkingTree._current = context
+      fun()
+      WorkingTree._current.reset()
+      WorkingTree._current = previousContext
+    }
   }
 
   public static queueUpdate(context: WorkingNode) {

@@ -8,12 +8,12 @@ import { findRelativePath } from '../utils.js'
 import { CustomViewProps } from './views/Custom.js'
 
 export interface ViewNodeProps extends WorkingNodeProps {
-  body: () => void
+  body?: () => void
   config: ConfigType
 }
 
 export class ViewNode extends WorkingNode {
-  public body: () => void
+  public body?: () => void
   public children: WorkingNode[]
   public config: ConfigType
 
