@@ -149,9 +149,11 @@ export abstract class Renderer {
   }
 
   private static dropView(node: RenderNode) {
-    EventManager.dropEventTarget(node)
-    Renderer.viewManager.dropView(node)
-    node.view = null
+    if (node.view !== null) {
+      EventManager.dropEventTarget(node)
+      Renderer.viewManager.dropView(node)
+      node.view = null
+    }
 
     for (const child of node.children) {
       Renderer.dropView(child)
