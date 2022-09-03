@@ -15,7 +15,7 @@ export abstract class HashNavigator {
   }
 
   public static navigate(route: string, params?: Record<string, unknown>) {
-    if (HashNavigator.routes[route] !== undefined) {
+    if (HashNavigator._currentRoute !== route && HashNavigator.routes[route] !== undefined) {
       HashNavigator.changeRoute(route, params)
       history.pushState(params, '', `#${route}`)
     }
