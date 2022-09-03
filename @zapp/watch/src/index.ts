@@ -2,6 +2,7 @@ import { EventManager, Renderer, setViewManager, WorkingTree, Animation } from '
 import { WatchViewManager } from './WatchViewManager.js'
 
 setViewManager(new WatchViewManager())
+EventManager.fillLeaveEnterEvents()
 
 export abstract class ZappWatch {
   private static timerRef: unknown

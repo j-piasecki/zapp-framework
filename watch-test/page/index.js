@@ -26,7 +26,7 @@ Page({
     })
   },
   build() {
-    Stack(StackConfig('stack').fillSize().alignment(StackAlignment.Center), () => {
+    Stack(StackConfig('stack').fillSize().alignment(StackAlignment.Center).background(0x222222), () => {
       Column(Config('column').fillWidth(0.75).fillHeight(0.75).background(0xff0000).padding(10), () => {
         const weight = remember(1)
         sideEffect(() => {

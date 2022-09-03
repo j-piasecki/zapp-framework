@@ -8,7 +8,6 @@ declare global {
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = hmSetting.getDeviceInfo()
 
 export class WatchViewManager extends ViewManager {
-  private eventListenrs: Map<string, (event: PointerEvent) => void> = new Map()
   private _isRTL?: boolean = undefined
 
   get screenWidth() {
@@ -81,36 +80,22 @@ export class WatchViewManager extends ViewManager {
       }
     }
 
-    if (node.config.onPointerDown !== undefined) {
-      const handler = (event: PointerEvent) => this.pointerDownHandler(event, node.id)
-      this.eventListenrs.set(`${node.id}#pointerdown`, handler)
-      view.addEventListener(hmUI.event.CLICK_DOWN, handler)
-    }
+    let handler
+    handler = (event: PointerEvent) => this.pointerDownHandler(event, node.id)
+    view.addEventListener(hmUI.event.CLICK_DOWN, handler)
 
-    if (node.config.onPointerMove !== undefined) {
-      const handler = (event: PointerEvent) => this.pointerMoveHandler(event, node.id)
-      this.eventListenrs.set(`${node.id}#pointermove`, handler)
-      view.addEventListener(hmUI.event.MOVE, handler)
-    }
+    handler = (event: PointerEvent) => this.pointerMoveHandler(event, node.id)
+    view.addEventListener(hmUI.event.MOVE, handler)
 
-    if (node.config.onPointerUp !== undefined) {
-      const handler = (event: PointerEvent) => this.pointerUpHandler(event, node.id)
-      this.eventListenrs.set(`${node.id}#pointerup`, handler)
-      view.addEventListener(hmUI.event.CLICK_UP, handler)
-    }
+    handler = (event: PointerEvent) => this.pointerUpHandler(event, node.id)
+    view.addEventListener(hmUI.event.CLICK_UP, handler)
 
     // Those two seem not to be be sent by the os...
-    if (node.config.onPointerEnter !== undefined || node.config.onPointerDown !== undefined) {
-      const handler = (event: PointerEvent) => this.pointerEnterHandler(event, node.id)
-      this.eventListenrs.set(`${node.id}#pointerenter`, handler)
-      view.addEventListener(hmUI.event.MOVE_IN, handler)
-    }
+    handler = (event: PointerEvent) => this.pointerEnterHandler(event, node.id)
+    view.addEventListener(hmUI.event.MOVE_IN, handler)
 
-    if (node.config.onPointerLeave !== undefined || node.config.onPointerUp !== undefined) {
-      const handler = (event: PointerEvent) => this.pointerLeaveHandler(event, node.id)
-      this.eventListenrs.set(`${node.id}#pointerleave`, handler)
-      view.addEventListener(hmUI.event.MOVE_OUT, handler)
-    }
+    handler = (event: PointerEvent) => this.pointerLeaveHandler(event, node.id)
+    view.addEventListener(hmUI.event.MOVE_OUT, handler)
 
     if (node.customViewProps?.overrideViewProps !== undefined) {
       node.customViewProps.overrideViewProps(node)
@@ -125,12 +110,6 @@ export class WatchViewManager extends ViewManager {
     } else {
       hmUI.deleteWidget(node.view)
     }
-
-    this.eventListenrs.delete(`${node.id}#'pointerdown'`)
-    this.eventListenrs.delete(`${node.id}#'pointermove'`)
-    this.eventListenrs.delete(`${node.id}#'pointerup'`)
-    this.eventListenrs.delete(`${node.id}#'pointerenter'`)
-    this.eventListenrs.delete(`${node.id}#'pointerleave'`)
   }
 
   updateView(previous: RenderNode, next: RenderNode): void {
@@ -160,31 +139,6 @@ export class WatchViewManager extends ViewManager {
         radius: next.config.cornerRadius,
         color: next.config.background,
       })
-    }
-
-    if (next.config.onPointerDown === undefined) {
-      view.removeEventListener(hmUI.event.CLICK_DOWN, this.eventListenrs.get(`${next.id}#pointerdown`)!)
-      this.eventListenrs.delete(`${next.id}#pointerdown`)
-    }
-
-    if (next.config.onPointerMove === undefined) {
-      view.removeEventListener(hmUI.event.MOVE, this.eventListenrs.get(`${next.id}#pointermove`)!)
-      this.eventListenrs.delete(`${next.id}#pointermove`)
-    }
-
-    if (next.config.onPointerUp === undefined) {
-      view.removeEventListener(hmUI.event.CLICK_UP, this.eventListenrs.get(`${next.id}#pointerup`)!)
-      this.eventListenrs.delete(`${next.id}#pointerup`)
-    }
-
-    if (next.config.onPointerEnter === undefined && next.config.onPointerDown === undefined) {
-      view.removeEventListener(hmUI.event.MOVE_IN, this.eventListenrs.get(`${next.id}#pointerenter`)!)
-      this.eventListenrs.delete(`${next.id}#pointerenter`)
-    }
-
-    if (next.config.onPointerLeave === undefined && next.config.onPointerUp === undefined) {
-      view.removeEventListener(hmUI.event.MOVE_OUT, this.eventListenrs.get(`${next.id}#pointerleave`)!)
-      this.eventListenrs.delete(`${next.id}#pointerleave`)
     }
 
     if (next.customViewProps?.updateView !== undefined) {

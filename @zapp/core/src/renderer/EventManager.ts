@@ -5,7 +5,28 @@ export abstract class EventManager {
   private static eventQueue: PointerData[] = []
   private static eventTargets: Map<string, RenderNode> = new Map()
 
+  private static shouldFillLeaveEnterEvents = false
+  private static lastMoveEvent?: PointerData
+
+  public static fillLeaveEnterEvents() {
+    EventManager.shouldFillLeaveEnterEvents = true
+  }
+
   public static queueEvent(event: PointerData) {
+    if (EventManager.shouldFillLeaveEnterEvents && event.type === PointerEventType.MOVE) {
+      if (EventManager.lastMoveEvent !== undefined && EventManager.lastMoveEvent.target !== event.target) {
+        EventManager.queueEvent({ ...EventManager.lastMoveEvent, type: PointerEventType.LEAVE })
+        EventManager.queueEvent({ ...event, type: PointerEventType.ENTER })
+
+        EventManager.lastMoveEvent = event
+        return
+      } else {
+        EventManager.lastMoveEvent = event
+      }
+    } else {
+      EventManager.lastMoveEvent = undefined
+    }
+
     // handle not sending enter and leave events when moving between parent and child with inherited handlers
     if (event.type === PointerEventType.ENTER) {
       const enterTarget = EventManager.eventTargets.get(event.target)
