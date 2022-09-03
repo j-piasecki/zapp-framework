@@ -8,6 +8,10 @@ export abstract class EventManager {
   private static shouldFillLeaveEnterEvents = false
   private static lastMoveEvent?: PointerData
 
+  // array containing pointers that are actually responsible for firing the events,
+  // not all intercepted by event manager
+  private static activePointers: number[] = []
+
   public static fillLeaveEnterEvents() {
     EventManager.shouldFillLeaveEnterEvents = true
   }
@@ -92,22 +96,39 @@ export abstract class EventManager {
 
   public static processEvents() {
     // TODO: consider sending move event only to the view that received down event
+    // TODO: consider implementing something along the lines of pointer capture by default
     EventManager.eventQueue.forEach((event) => {
       const target = EventManager.eventTargets.get(event.target)
 
       if (target !== undefined) {
         switch (event.type) {
           case PointerEventType.DOWN:
-            target.config.onPointerDown?.(event)
+            if (target.config.onPointerDown !== undefined) {
+              // down event is handled so the pointer must be being actively tracked
+              EventManager.activePointers.push(event.id)
+              target.config.onPointerDown(event)
+            }
             break
           case PointerEventType.MOVE:
             target.config.onPointerMove?.(event)
             break
           case PointerEventType.UP:
+            // we need to remove tracked pointer when it's no longer on the screen
+            EventManager.activePointers = EventManager.activePointers.filter((x) => x !== event.id)
             target.config.onPointerUp?.(event)
             break
           case PointerEventType.ENTER:
-            target.config.onPointerEnter?.(event)
+            if (target.config.onPointerEnter !== undefined) {
+              // if the event is beeing handled and pointer is not tracked yet, add it to the list
+              if (EventManager.activePointers.indexOf(event.id) === -1) {
+                EventManager.activePointers.push(event.id)
+              }
+              target.config.onPointerEnter(event)
+            } else {
+              // otherwise pointer is no longer actively tracked, it's just intercepted by the event manager
+              // in which case it should be removed from the list
+              EventManager.activePointers = EventManager.activePointers.filter((x) => x !== event.id)
+            }
             break
           case PointerEventType.LEAVE:
             target.config.onPointerLeave?.(event)
@@ -117,6 +138,11 @@ export abstract class EventManager {
     })
 
     EventManager.eventQueue = []
+  }
+
+  // used mostly to prevent default system gestures in case pointer events are fired
+  public static hasActivePointers() {
+    return EventManager.activePointers.length !== 0
   }
 
   private static isParent(parent: RenderNode, childCandidate: RenderNode): boolean {

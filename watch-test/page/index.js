@@ -14,6 +14,7 @@ import {
   RowConfig,
   Alignment,
   Arrangement,
+  EventManager,
 } from '@zapp/core'
 
 Page({
@@ -22,7 +23,7 @@ Page({
 
     hmUI.setLayerScrolling(false)
     hmApp.registerGestureEvent(function (event) {
-      return true
+      return EventManager.hasActivePointers()
     })
   },
   build() {
