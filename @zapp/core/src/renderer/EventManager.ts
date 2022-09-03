@@ -80,7 +80,14 @@ export abstract class EventManager {
   }
 
   public static dropEventTarget(node: RenderNode) {
-    EventManager.eventTargets.delete(node.id)
+    // only drop event targets when the view doesn't change, which may happen when
+    // the view gets recreated but the new view is created before dropping the old one
+    //
+    // in that situation the new view registers the target under the same id, and when
+    // the old one is dropped it would drop the new target
+    if (EventManager.eventTargets.get(node.id)?.view === node.view) {
+      EventManager.eventTargets.delete(node.id)
+    }
   }
 
   public static processEvents() {
