@@ -347,7 +347,7 @@ export class LayoutManager {
         child.layout.y = nextY
       }
     } else if (node.config.arrangement === Arrangement.Center) {
-      let nextY = node.layout.y + freeSpace / 2
+      let nextY = node.layout.y + freeSpace / 2 + (node.config.padding?.top ?? 0)
 
       for (const child of node.children) {
         child.layout.y = nextY
@@ -398,7 +398,7 @@ export class LayoutManager {
           nextX += child.layout.width
         }
       } else if (node.config.arrangement === Arrangement.Center) {
-        let nextX = node.layout.x + freeSpace / 2
+        let nextX = node.layout.x + freeSpace / 2 + (node.config.padding?.start ?? 0)
 
         for (let i = node.children.length - 1; i >= 0; i--) {
           const child = node.children[i]
@@ -440,7 +440,7 @@ export class LayoutManager {
           child.layout.x = nextX
         }
       } else if (node.config.arrangement === Arrangement.Center) {
-        let nextX = node.layout.x + freeSpace / 2
+        let nextX = node.layout.x + freeSpace / 2 + (node.config.padding?.start ?? 0)
 
         for (const child of node.children) {
           child.layout.x = nextX
