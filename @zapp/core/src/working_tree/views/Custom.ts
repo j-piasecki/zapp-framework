@@ -21,7 +21,7 @@ export interface CustomViewProps extends Record<string, unknown> {
    * invoked after the ViewManager finishes setting up the newly created view, it may
    * be used to overwrite them
    */
-  overrideViewProps?: (config: RenderNode) => void
+  overrideViewProps?: (config: RenderNode, view: unknown) => void
 
   /**
    * invoked during update, receives previous and the next node

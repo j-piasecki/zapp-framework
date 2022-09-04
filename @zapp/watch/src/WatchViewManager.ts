@@ -102,7 +102,7 @@ export class WatchViewManager extends ViewManager {
     view.addEventListener(hmUI.event.MOVE_OUT, handler)
 
     if (node.customViewProps?.overrideViewProps !== undefined) {
-      node.customViewProps.overrideViewProps(node)
+      node.customViewProps.overrideViewProps(node, view)
     }
 
     return view

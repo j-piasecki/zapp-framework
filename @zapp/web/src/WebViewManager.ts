@@ -111,7 +111,7 @@ export class WebViewManager extends ViewManager {
     view.addEventListener('pointerout', handler)
 
     if (node.customViewProps?.overrideViewProps !== undefined) {
-      node.customViewProps.overrideViewProps(node)
+      node.customViewProps.overrideViewProps(node, view)
     }
 
     document.getElementsByTagName('body')[0].appendChild(view)
