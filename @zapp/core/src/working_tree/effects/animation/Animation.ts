@@ -1,4 +1,10 @@
 import { RememberedMutableValue } from '../RememberedMutableValue.js'
+import { Easing } from './Easing.js'
+
+export interface AnimationProps {
+  onEnd?: () => void
+  easing?: (t: number) => number
+}
 
 export abstract class Animation<T> {
   protected static runningAnimations: Animation<unknown>[] = []
@@ -17,9 +23,13 @@ export abstract class Animation<T> {
 
   protected startTimestamp: number
   protected endHandler?: () => void
+  protected easingFunction: (t: number) => number
   protected isRunning = true
 
-  constructor() {
+  constructor(props?: AnimationProps) {
+    this.endHandler = props?.onEnd
+    this.easingFunction = props?.easing ?? Easing.linear
+
     this.startTimestamp = Date.now()
     Animation.runningAnimations.push(this)
   }

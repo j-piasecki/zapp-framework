@@ -20,6 +20,7 @@ import {
   Alignment,
   Arrangement,
   RowConfig,
+  Easing,
 } from '@zapp/core'
 import { NavBar, RouteInfo } from './NavBar'
 import { Page } from './Page'
@@ -227,12 +228,45 @@ function AnimationExample() {
         .fillSize()
         .padding(50, 0),
       () => {
-        const x = remember(0)
+        const x = remember(-250)
+        const target = remember(250)
+        const easing = remember(Easing.linear)
 
+        Row(Config('animation-chooser-one'), () => {
+          Button(Config('btn-animation-linear'), 'Linear', () => {
+            easing.value = Easing.linear
+          })
+          Button(Config('btn-animation-ease'), 'Ease', () => {
+            easing.value = Easing.ease
+          })
+        })
+        Row(Config('animation-chooser-two'), () => {
+          Button(Config('btn-animation-inquad'), 'EaseInQuad', () => {
+            easing.value = Easing.easeInQuad
+          })
+          Button(Config('btn-animation-outquad'), 'EaseOutQuad', () => {
+            easing.value = Easing.easeOutQuad
+          })
+          Button(Config('btn-animation-inoutquad'), 'EaseInOutQuad', () => {
+            easing.value = Easing.easeInOutQuad
+          })
+        })
+        Row(Config('animation-chooser-three').padding(0, 0, 0, 70), () => {
+          Button(Config('btn-animation-incubic'), 'EaseInCubic', () => {
+            easing.value = Easing.easeInCubic
+          })
+          Button(Config('btn-animation-outcubic'), 'EaseOutCubic', () => {
+            easing.value = Easing.easeOutCubic
+          })
+          Button(Config('btn-animation-inoutcubic'), 'EaseInOutCubic', () => {
+            easing.value = Easing.easeInOutCubic
+          })
+        })
         Stack(Config('stack').width(100).height(100).background(0x00ff00).offset(x.value, 0))
-        Stack(Config('spacer').height(100))
+        Stack(Config('spacer').height(50))
         Button(Config('btn-animate'), 'Animate', () => {
-          x.value = withTiming((Math.random() - 0.5) * 500, 500)
+          x.value = withTiming(target.value, { easing: easing.value, duration: 1000 })
+          target.value = target.value * -1
         })
       }
     )
@@ -246,7 +280,7 @@ function DynamicLayoutExample() {
     const position = remember({ x: 0, y: 0 })
 
     sideEffect(() => {
-      padding.value = withTiming(100, 2000)
+      padding.value = withTiming(100, { duration: 2000 })
     })
 
     Column(Config('col').fillSize().padding(padding.value).background(0x000000), () => {
@@ -254,8 +288,8 @@ function DynamicLayoutExample() {
       const size = remember(50)
 
       sideEffect(() => {
-        weight.value = withTiming(1, 3000)
-        size.value = withTiming(200, 3000)
+        weight.value = withTiming(1, { duration: 3000 })
+        size.value = withTiming(200, { duration: 3000 })
       })
 
       Row(Config('row1').fillWidth(1).weight(1), () => {

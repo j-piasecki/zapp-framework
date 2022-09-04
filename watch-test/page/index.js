@@ -15,6 +15,7 @@ import {
   Alignment,
   Arrangement,
   EventManager,
+  Easing,
 } from '@zapp/core'
 
 Page({
@@ -31,7 +32,7 @@ Page({
       Column(Config('column').fillWidth(0.75).fillHeight(0.75).background(0xff0000).padding(10), () => {
         const weight = remember(1)
         sideEffect(() => {
-          weight.value = withTiming(2, 3000)
+          weight.value = withTiming(2, { duration: 3000, easing: Easing.easeOutQuad })
         })
         Stack(
           StackConfig('row1')
