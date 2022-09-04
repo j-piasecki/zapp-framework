@@ -1,8 +1,9 @@
 name: Test core
 on:
   pull_request:
-    - '.github/workflows/run-core-tests.yml'
-    - '@zapp/core/**'
+    paths:
+      - '.github/workflows/run-core-tests.yml'
+      - '@zapp/core/**'
   push:
     branches:
       - main
