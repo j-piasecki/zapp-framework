@@ -26,4 +26,5 @@ jobs:
           cache-dependency-path: yarn.lock
 
       - name: Run tests
+        working-directory: ./@zapp/core
         run: yarn test
