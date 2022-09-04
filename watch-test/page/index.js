@@ -1,4 +1,4 @@
-import { ZappWatch } from '@zapp/watch'
+import { ZappWatch, ActivityIndicator } from '@zapp/watch'
 import {
   Stack,
   StackConfig,
@@ -18,6 +18,15 @@ import {
   Easing,
 } from '@zapp/core'
 
+let cycle = [
+  Arrangement.SpaceEvenly,
+  Arrangement.SpaceBetween,
+  Arrangement.Start,
+  Arrangement.Center,
+  Arrangement.End,
+  Arrangement.SpaceAround,
+]
+
 Page({
   onInit() {
     ZappWatch.init()
@@ -34,42 +43,70 @@ Page({
         sideEffect(() => {
           weight.value = withTiming(2, { duration: 3000, easing: Easing.easeOutQuad })
         })
+        const background = remember(0x00ff00)
         Stack(
           StackConfig('row1')
             .fillWidth(1)
             .weight(1)
-            .background(0x00ff00)
+            .background(background.value)
             .alignment(StackAlignment.Center)
             .onPointerDown(() => {
-              console.log('down')
+              background.value = 0x00aa00
             })
             .onPointerUp(() => {
-              console.log('up')
+              background.value = 0x00ff00
             })
             .onPointerEnter(() => {
-              console.log('enter')
+              background.value = 0x00aa00
             })
             .onPointerLeave(() => {
-              console.log('leave')
+              background.value = 0x00ff00
             }),
           () => {
-            Stack(Config('wrapper').padding(15).background(0xff00ff), () => {
-              Text(TextConfig('text').textColor(0xffffff).textSize(24), 'Random text')
-            })
+            const textVisible = remember(false)
+
+            Stack(
+              Config('wrapper')
+                .padding(15)
+                .background(0xff00ff)
+                .onPointerDown(() => {
+                  textVisible.value = !textVisible.value
+                }),
+              () => {
+                if (textVisible.value) {
+                  Text(TextConfig('text').textColor(0xffffff).textSize(24), 'Random text')
+                } else {
+                  ActivityIndicator('ac', 60, 0xff0000, 10)
+                }
+              }
+            )
           }
         )
+
+        const arrangement = remember(Arrangement.SpaceAround)
+
         Row(
           RowConfig('row2')
             .fillWidth(1)
             .weight(weight.value)
             .background(0x0000ff)
             .alignment(Alignment.Center)
-            .arrangement(Arrangement.SpaceAround),
+            .arrangement(arrangement.value),
           () => {
             const start = remember({ x: 0, y: 0 })
             const offset = remember({ x: 0, y: 0 })
-            Stack(Config('stack.1').fillHeight(0.3).width(40).background(0xff00ff), () => {})
-            Stack(Config('stack.2').fillHeight(0.6).width(80).background(0xffff00), () => {})
+            Stack(Config('stack.1').fillHeight(0.3).width(40).background(0xff00ff))
+            Stack(
+              Config('stack.2')
+                .fillHeight(0.6)
+                .width(80)
+                .background(0xffff00)
+                .onPointerDown(() => {
+                  const next = cycle.shift()
+                  cycle.push(next)
+                  arrangement.value = next
+                })
+            )
             Stack(
               Config('stack.3')
                 .fillHeight(0.9)
@@ -86,8 +123,7 @@ Page({
                     y: offset.value.y + e.y - start.value.y,
                   }
                   start.value = { x: e.x, y: e.y }
-                }),
-              () => {}
+                })
             )
           }
         )
