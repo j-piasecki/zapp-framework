@@ -1,10 +1,5 @@
 import { ViewManager, RenderNode, NodeType, PointerData, PointerEventType, EventManager } from '@zapp/core'
 
-declare global {
-  const hmSetting: any
-  const hmUI: any
-}
-
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = hmSetting.getDeviceInfo()
 
 export class WatchViewManager extends ViewManager {
@@ -119,7 +114,9 @@ export class WatchViewManager extends ViewManager {
   updateView(previous: RenderNode, next: RenderNode): void {
     const view = next.view as any
 
-    if (next.type === NodeType.Text) {
+    if (next.customViewProps?.updateView !== undefined) {
+      next.customViewProps.updateView(previous, next)
+    } else if (next.type === NodeType.Text) {
       // @ts-ignore
       view.setProperty(hmUI.prop.MORE, {
         x: next.layout.x,
@@ -143,10 +140,6 @@ export class WatchViewManager extends ViewManager {
         radius: next.config.cornerRadius,
         color: next.config.background,
       })
-    }
-
-    if (next.customViewProps?.updateView !== undefined) {
-      next.customViewProps.updateView(previous, next)
     }
   }
 

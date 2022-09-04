@@ -1,5 +1,6 @@
 import { EventManager, Renderer, setViewManager, WorkingTree, Animation } from '@zapp/core'
 import { WatchViewManager } from './WatchViewManager.js'
+export { ActivityIndicator } from './ActivityIndicator.js'
 
 setViewManager(new WatchViewManager())
 EventManager.fillLeaveEnterEvents()
