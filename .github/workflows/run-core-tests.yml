@@ -1,0 +1,37 @@
+name: Test core
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/run-core-tests.yml'
+      - '@zapp/core/**'
+  push:
+    branches:
+      - main
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: test-core-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+
+      - uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install packages
+        run: yarn install --frozen-lockfile
+
+      - name: Run tests
+        working-directory: ./@zapp/core
+        run: yarn test

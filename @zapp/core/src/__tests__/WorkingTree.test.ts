@@ -188,7 +188,7 @@ test('Value is updated correctly when assigned an animation', () => {
     const value = remember(0)
 
     sideEffect(() => {
-      value.value = withTiming(100, 1000, onEnd)
+      value.value = withTiming(100, { duration: 1000, onEnd: onEnd })
     })
   })
 

@@ -42,6 +42,11 @@ export abstract class Renderer {
     Renderer.layoutManager.setViewManager(viewManager)
   }
 
+  /** @internal */
+  public static getCurrentTree(): RenderNode | null {
+    return Renderer.currentTree
+  }
+
   public static render() {
     if (Renderer.newTree !== null) {
       Renderer.layoutManager.calculateLayout(Renderer.newTree)

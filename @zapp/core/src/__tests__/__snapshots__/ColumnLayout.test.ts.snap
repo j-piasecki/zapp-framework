@@ -1,0 +1,991 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Children of Column(alignment=Center) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"column\\",
+      \\"type\\": \\"column\\",
+      \\"config\\": {
+        \\"id\\": \\"column\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"alignment\\": 1,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"x\\": 175,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"x\\": 160,
+            \\"y\\": 60,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.3\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.3\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 150,
+            \\"y\\": 140,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": false
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Column(alignment=End) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"column\\",
+      \\"type\\": \\"column\\",
+      \\"config\\": {
+        \\"id\\": \\"column\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"alignment\\": 2,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"x\\": 340,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"x\\": 310,
+            \\"y\\": 60,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.3\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.3\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 290,
+            \\"y\\": 140,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": false
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Column(alignment=Start) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"column\\",
+      \\"type\\": \\"column\\",
+      \\"config\\": {
+        \\"id\\": \\"column\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"alignment\\": 0,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"x\\": 10,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"x\\": 10,
+            \\"y\\": 60,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.3\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.3\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 10,
+            \\"y\\": 140,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": false
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Column(arrangement=Center) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"column\\",
+      \\"type\\": \\"column\\",
+      \\"config\\": {
+        \\"id\\": \\"column\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"arrangement\\": 4,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"x\\": 10,
+            \\"y\\": 85,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"x\\": 10,
+            \\"y\\": 135,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.3\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.3\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 10,
+            \\"y\\": 215,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": false
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Column(arrangement=End) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"column\\",
+      \\"type\\": \\"column\\",
+      \\"config\\": {
+        \\"id\\": \\"column\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"arrangement\\": 5,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"x\\": 10,
+            \\"y\\": 160,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"x\\": 10,
+            \\"y\\": 210,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.3\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.3\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 10,
+            \\"y\\": 290,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": false
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Column(arrangement=SpaceAround) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"column\\",
+      \\"type\\": \\"column\\",
+      \\"config\\": {
+        \\"id\\": \\"column\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"arrangement\\": 1,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"x\\": 10,
+            \\"y\\": 35,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"x\\": 10,
+            \\"y\\": 135,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.3\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.3\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 10,
+            \\"y\\": 265,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": false
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Column(arrangement=SpaceBetween) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"column\\",
+      \\"type\\": \\"column\\",
+      \\"config\\": {
+        \\"id\\": \\"column\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"arrangement\\": 0,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"x\\": 10,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"x\\": 10,
+            \\"y\\": 135,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.3\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.3\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 10,
+            \\"y\\": 290,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": false
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Column(arrangement=SpaceEvenly) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"column\\",
+      \\"type\\": \\"column\\",
+      \\"config\\": {
+        \\"id\\": \\"column\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"arrangement\\": 2,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"x\\": 10,
+            \\"y\\": 47.5,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"x\\": 10,
+            \\"y\\": 135,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.3\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.3\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 10,
+            \\"y\\": 252.5,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": false
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Column(arrangement=Start) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"column\\",
+      \\"type\\": \\"column\\",
+      \\"config\\": {
+        \\"id\\": \\"column\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"arrangement\\": 3,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"x\\": 10,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"x\\": 10,
+            \\"y\\": 60,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.3\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.3\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 10,
+            \\"y\\": 140,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": false
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;

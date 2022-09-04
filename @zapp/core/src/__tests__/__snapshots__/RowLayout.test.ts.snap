@@ -1,0 +1,991 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Children of Row(alignment=Center) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"row\\",
+      \\"type\\": \\"row\\",
+      \\"config\\": {
+        \\"id\\": \\"row\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"alignment\\": 1,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"x\\": 10,
+            \\"y\\": 175,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"x\\": 60,
+            \\"y\\": 160,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.3\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.3\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 140,
+            \\"y\\": 150,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": false
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Row(alignment=End) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"row\\",
+      \\"type\\": \\"row\\",
+      \\"config\\": {
+        \\"id\\": \\"row\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"alignment\\": 2,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"x\\": 10,
+            \\"y\\": 340,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"x\\": 60,
+            \\"y\\": 310,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.3\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.3\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 140,
+            \\"y\\": 290,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": false
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Row(alignment=Start) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"row\\",
+      \\"type\\": \\"row\\",
+      \\"config\\": {
+        \\"id\\": \\"row\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"alignment\\": 0,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"x\\": 10,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"x\\": 60,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.3\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.3\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 140,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": false
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Row(arrangement=Center) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"row\\",
+      \\"type\\": \\"row\\",
+      \\"config\\": {
+        \\"id\\": \\"row\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"arrangement\\": 4,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"x\\": 85,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"x\\": 135,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.3\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.3\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 215,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": false
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Row(arrangement=End) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"row\\",
+      \\"type\\": \\"row\\",
+      \\"config\\": {
+        \\"id\\": \\"row\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"arrangement\\": 5,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"x\\": 160,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"x\\": 210,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.3\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.3\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 290,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": false
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Row(arrangement=SpaceAround) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"row\\",
+      \\"type\\": \\"row\\",
+      \\"config\\": {
+        \\"id\\": \\"row\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"arrangement\\": 1,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"x\\": 35,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"x\\": 135,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.3\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.3\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 265,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": false
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Row(arrangement=SpaceBetween) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"row\\",
+      \\"type\\": \\"row\\",
+      \\"config\\": {
+        \\"id\\": \\"row\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"arrangement\\": 0,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"x\\": 10,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"x\\": 135,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.3\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.3\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 290,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": false
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Row(arrangement=SpaceEvenly) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"row\\",
+      \\"type\\": \\"row\\",
+      \\"config\\": {
+        \\"id\\": \\"row\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"arrangement\\": 2,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"x\\": 47.5,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"x\\": 135,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.3\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.3\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 252.5,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": false
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Row(arrangement=Start) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"row\\",
+      \\"type\\": \\"row\\",
+      \\"config\\": {
+        \\"id\\": \\"row\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"arrangement\\": 3,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 50,
+            \\"height\\": 50,
+            \\"x\\": 10,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 80,
+            \\"height\\": 80,
+            \\"x\\": 60,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.3\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.3\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 140,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": false
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
