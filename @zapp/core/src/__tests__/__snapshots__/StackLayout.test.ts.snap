@@ -1,0 +1,811 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Children of Stack(alignment=BottomCenter) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"stack\\",
+      \\"type\\": \\"stack\\",
+      \\"config\\": {
+        \\"id\\": \\"stack\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"stackAlignment\\": 7,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 200,
+            \\"height\\": 200,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 200,
+            \\"height\\": 200,
+            \\"x\\": 100,
+            \\"y\\": 190,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 150,
+            \\"y\\": 290,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": true
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Stack(alignment=BottomEnd) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"stack\\",
+      \\"type\\": \\"stack\\",
+      \\"config\\": {
+        \\"id\\": \\"stack\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"stackAlignment\\": 8,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 200,
+            \\"height\\": 200,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 200,
+            \\"height\\": 200,
+            \\"x\\": 190,
+            \\"y\\": 190,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 290,
+            \\"y\\": 290,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": true
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Stack(alignment=BottomStart) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"stack\\",
+      \\"type\\": \\"stack\\",
+      \\"config\\": {
+        \\"id\\": \\"stack\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"stackAlignment\\": 6,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 200,
+            \\"height\\": 200,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 200,
+            \\"height\\": 200,
+            \\"x\\": 10,
+            \\"y\\": 190,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 10,
+            \\"y\\": 290,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": true
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Stack(alignment=Center) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"stack\\",
+      \\"type\\": \\"stack\\",
+      \\"config\\": {
+        \\"id\\": \\"stack\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"stackAlignment\\": 1,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 200,
+            \\"height\\": 200,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 200,
+            \\"height\\": 200,
+            \\"x\\": 100,
+            \\"y\\": 100,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 150,
+            \\"y\\": 150,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": true
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Stack(alignment=CenterEnd) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"stack\\",
+      \\"type\\": \\"stack\\",
+      \\"config\\": {
+        \\"id\\": \\"stack\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"stackAlignment\\": 2,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 200,
+            \\"height\\": 200,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 200,
+            \\"height\\": 200,
+            \\"x\\": 190,
+            \\"y\\": 100,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 290,
+            \\"y\\": 150,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": true
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Stack(alignment=CenterStart) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"stack\\",
+      \\"type\\": \\"stack\\",
+      \\"config\\": {
+        \\"id\\": \\"stack\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"stackAlignment\\": 0,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 200,
+            \\"height\\": 200,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 200,
+            \\"height\\": 200,
+            \\"x\\": 10,
+            \\"y\\": 100,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 10,
+            \\"y\\": 150,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": true
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Stack(alignment=TopCenter) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"stack\\",
+      \\"type\\": \\"stack\\",
+      \\"config\\": {
+        \\"id\\": \\"stack\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"stackAlignment\\": 4,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 200,
+            \\"height\\": 200,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 200,
+            \\"height\\": 200,
+            \\"x\\": 100,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 150,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": true
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Stack(alignment=TopEnd) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"stack\\",
+      \\"type\\": \\"stack\\",
+      \\"config\\": {
+        \\"id\\": \\"stack\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"stackAlignment\\": 5,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 200,
+            \\"height\\": 200,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 200,
+            \\"height\\": 200,
+            \\"x\\": 190,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 290,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": true
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
+
+exports[`Children of Stack(alignment=TopStart) get positioned correctly 1`] = `
+"{
+  \\"id\\": \\"#__root\\",
+  \\"type\\": \\"root\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\",
+    \\"isInherited\\": {}
+  },
+  \\"children\\": [
+    {
+      \\"id\\": \\"stack\\",
+      \\"type\\": \\"stack\\",
+      \\"config\\": {
+        \\"id\\": \\"stack\\",
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"stackAlignment\\": 3,
+        \\"padding\\": {
+          \\"start\\": 10,
+          \\"top\\": 10,
+          \\"end\\": 10,
+          \\"bottom\\": 10
+        },
+        \\"isInherited\\": {}
+      },
+      \\"children\\": [
+        {
+          \\"id\\": \\"inner.1\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.1\\",
+            \\"width\\": 200,
+            \\"height\\": 200,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 200,
+            \\"height\\": 200,
+            \\"x\\": 10,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        },
+        {
+          \\"id\\": \\"inner.2\\",
+          \\"type\\": \\"stack\\",
+          \\"config\\": {
+            \\"id\\": \\"inner.2\\",
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"isInherited\\": {}
+          },
+          \\"children\\": [],
+          \\"view\\": null,
+          \\"zIndex\\": -1,
+          \\"layout\\": {
+            \\"width\\": 100,
+            \\"height\\": 100,
+            \\"x\\": 10,
+            \\"y\\": 10,
+            \\"measured\\": true
+          }
+        }
+      ],
+      \\"view\\": null,
+      \\"zIndex\\": -1,
+      \\"layout\\": {
+        \\"width\\": 400,
+        \\"height\\": 400,
+        \\"x\\": 0,
+        \\"y\\": 0,
+        \\"measured\\": true
+      }
+    }
+  ],
+  \\"view\\": null,
+  \\"zIndex\\": -1,
+  \\"layout\\": {
+    \\"width\\": 400,
+    \\"height\\": 400,
+    \\"x\\": 0,
+    \\"y\\": 0,
+    \\"measured\\": true
+  }
+}"
+`;
