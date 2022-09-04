@@ -249,7 +249,7 @@ function DynamicLayoutExample() {
       padding.value = withTiming(100, 2000)
     })
 
-    Column(Config('col').fillSize().padding(padding.value), () => {
+    Column(Config('col').fillSize().padding(padding.value).background(0x000000), () => {
       const weight = remember(2)
       const size = remember(50)
 
@@ -305,6 +305,7 @@ function DynamicLayoutExample() {
                   .height(50)
                   .background(0x00ffff)
                   .onPointerDown((e) => {
+                    e.capture()
                     start.value = { x: e.x, y: e.y }
                   })
                   .onPointerMove((e) => {

@@ -1,7 +1,6 @@
 import { ViewManager, RenderNode, NodeType, PointerData, PointerEventType, EventManager } from '@zapp/core'
 
 export class WebViewManager extends ViewManager {
-  private eventListenrs: Map<string, (event: PointerEvent) => void> = new Map()
   private _isRTL?: boolean = undefined
 
   get screenWidth() {
@@ -20,6 +19,10 @@ export class WebViewManager extends ViewManager {
       type: type,
       x: event.pageX,
       y: event.pageY,
+      capture: () => {
+        // TODO: abstract it to EventManager?
+        EventManager.capturePointer(event.pointerId, target)
+      },
     }
   }
 
@@ -91,35 +94,21 @@ export class WebViewManager extends ViewManager {
       }
     }
 
-    if (node.config.onPointerDown !== undefined) {
-      const handler = (event: PointerEvent) => this.pointerDownHandler(event, node.id)
-      this.eventListenrs.set(`${node.id}#pointerdown`, handler)
-      view.addEventListener('pointerdown', handler)
-    }
+    let handler
+    handler = (event: PointerEvent) => this.pointerDownHandler(event, node.id)
+    view.addEventListener('pointerdown', handler)
 
-    if (node.config.onPointerMove !== undefined) {
-      const handler = (event: PointerEvent) => this.pointerMoveHandler(event, node.id)
-      this.eventListenrs.set(`${node.id}#pointermove`, handler)
-      view.addEventListener('pointermove', handler)
-    }
+    handler = (event: PointerEvent) => this.pointerMoveHandler(event, node.id)
+    view.addEventListener('pointermove', handler)
 
-    if (node.config.onPointerUp !== undefined) {
-      const handler = (event: PointerEvent) => this.pointerUpHandler(event, node.id)
-      this.eventListenrs.set(`${node.id}#pointerup`, handler)
-      view.addEventListener('pointerup', handler)
-    }
+    handler = (event: PointerEvent) => this.pointerUpHandler(event, node.id)
+    view.addEventListener('pointerup', handler)
 
-    if (node.config.onPointerEnter !== undefined || node.config.onPointerDown !== undefined) {
-      const handler = (event: PointerEvent) => this.pointerEnterHandler(event, node.id)
-      this.eventListenrs.set(`${node.id}#pointerenter`, handler)
-      view.addEventListener('pointerenter', handler)
-    }
+    handler = (event: PointerEvent) => this.pointerEnterHandler(event, node.id)
+    view.addEventListener('pointerenter', handler)
 
-    if (node.config.onPointerLeave !== undefined || node.config.onPointerUp !== undefined) {
-      const handler = (event: PointerEvent) => this.pointerLeaveHandler(event, node.id)
-      this.eventListenrs.set(`${node.id}#pointerleave`, handler)
-      view.addEventListener('pointerout', handler)
-    }
+    handler = (event: PointerEvent) => this.pointerLeaveHandler(event, node.id)
+    view.addEventListener('pointerout', handler)
 
     if (node.customViewProps?.overrideViewProps !== undefined) {
       node.customViewProps.overrideViewProps(node)
@@ -137,12 +126,6 @@ export class WebViewManager extends ViewManager {
     } else {
       view?.remove()
     }
-
-    this.eventListenrs.delete(`${node.id}#'pointerdown'`)
-    this.eventListenrs.delete(`${node.id}#'pointermove'`)
-    this.eventListenrs.delete(`${node.id}#'pointerup'`)
-    this.eventListenrs.delete(`${node.id}#'pointerenter'`)
-    this.eventListenrs.delete(`${node.id}#'pointerleave'`)
   }
 
   updateView(previous: RenderNode, next: RenderNode): void {
@@ -165,35 +148,6 @@ export class WebViewManager extends ViewManager {
 
     if (next.config.cornerRadius !== undefined) {
       view.style.borderRadius = `${next.config.cornerRadius}px`
-    }
-
-    if (next.config.onPointerDown === undefined) {
-      view.removeEventListener('pointerdown', this.eventListenrs.get(`${next.id}#pointerdown`)!)
-      this.eventListenrs.delete(`${next.id}#pointerdown`)
-    }
-
-    if (next.config.onPointerMove === undefined) {
-      view.removeEventListener('pointermove', this.eventListenrs.get(`${next.id}#pointermove`)!)
-      this.eventListenrs.delete(`${next.id}#pointermove`)
-    }
-
-    if (next.config.onPointerUp === undefined) {
-      view.removeEventListener('pointerup', this.eventListenrs.get(`${next.id}#pointerup`)!)
-      this.eventListenrs.delete(`${next.id}#pointerup`)
-    }
-
-    if (next.config.onPointerEnter === undefined && next.config.onPointerDown === undefined) {
-      view.removeEventListener('pointerenter', this.eventListenrs.get(`${next.id}#pointerenter`)!)
-      this.eventListenrs.delete(`${next.id}#pointerenter`)
-    }
-
-    if (next.config.onPointerLeave === undefined && next.config.onPointerUp === undefined) {
-      view.removeEventListener('pointerout', this.eventListenrs.get(`${next.id}#pointerleave`)!)
-      this.eventListenrs.delete(`${next.id}#pointerleave`)
-    }
-
-    if (next.customViewProps?.updateView !== undefined) {
-      next.customViewProps.updateView(previous, next)
     }
   }
 

@@ -23,7 +23,7 @@ Page({
 
     hmUI.setLayerScrolling(false)
     hmApp.registerGestureEvent(function (event) {
-      return EventManager.hasActivePointers()
+      return EventManager.hasCapturedPointers()
     })
   },
   build() {
@@ -76,6 +76,7 @@ Page({
                 .background(0x00ffff)
                 .offset(offset.value.x, offset.value.y)
                 .onPointerDown((e) => {
+                  e.capture()
                   start.value = { x: e.x, y: e.y }
                 })
                 .onPointerMove((e) => {

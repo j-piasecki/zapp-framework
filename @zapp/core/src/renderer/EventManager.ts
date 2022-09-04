@@ -8,61 +8,70 @@ export abstract class EventManager {
   private static shouldFillLeaveEnterEvents = false
   private static lastMoveEvent?: PointerData
 
-  // array containing pointers that are actually responsible for firing the events,
-  // not all intercepted by event manager
-  private static activePointers: number[] = []
+  private static capturedPointers: Map<number, string> = new Map()
 
   public static fillLeaveEnterEvents() {
     EventManager.shouldFillLeaveEnterEvents = true
   }
 
   public static queueEvent(event: PointerData) {
-    if (EventManager.shouldFillLeaveEnterEvents && event.type === PointerEventType.MOVE) {
-      if (EventManager.lastMoveEvent !== undefined && EventManager.lastMoveEvent.target !== event.target) {
-        EventManager.queueEvent({ ...EventManager.lastMoveEvent, type: PointerEventType.LEAVE })
-        EventManager.queueEvent({ ...event, type: PointerEventType.ENTER })
+    const capturedBy = this.capturedPointers.get(event.id)
 
-        EventManager.lastMoveEvent = event
-        return
-      } else {
-        EventManager.lastMoveEvent = event
+    if (capturedBy !== undefined) {
+      event.target = capturedBy
+
+      // in case Enter or Leave pointer is sent we need to remap it to Move
+      if (event.type === PointerEventType.ENTER || event.type === PointerEventType.LEAVE) {
+        event.type = PointerEventType.MOVE
       }
     } else {
-      EventManager.lastMoveEvent = undefined
-    }
+      if (EventManager.shouldFillLeaveEnterEvents && event.type === PointerEventType.MOVE) {
+        if (EventManager.lastMoveEvent !== undefined && EventManager.lastMoveEvent.target !== event.target) {
+          EventManager.queueEvent({ ...EventManager.lastMoveEvent, type: PointerEventType.LEAVE })
+          EventManager.queueEvent({ ...event, type: PointerEventType.ENTER })
 
-    // handle not sending enter and leave events when moving between parent and child with inherited handlers
-    if (event.type === PointerEventType.ENTER) {
-      const enterTarget = EventManager.eventTargets.get(event.target)
+          EventManager.lastMoveEvent = event
+          return
+        } else {
+          EventManager.lastMoveEvent = event
+        }
+      } else {
+        EventManager.lastMoveEvent = undefined
+      }
 
-      if (enterTarget !== undefined) {
-        // iterate backwards, as we expect leave event to be sent just before enter event
-        for (let i = EventManager.eventQueue.length - 1; i >= 0; i--) {
-          const leaveEvent = EventManager.eventQueue[i]
-          const leaveTarget = EventManager.eventTargets.get(leaveEvent.target)
+      // handle not sending enter and leave events when moving between parent and child with inherited handlers
+      if (event.type === PointerEventType.ENTER) {
+        const enterTarget = EventManager.eventTargets.get(event.target)
 
-          if (leaveEvent.type === PointerEventType.LEAVE && leaveTarget !== undefined) {
-            let parentCandidate = null
-            let childCandidate = null
+        if (enterTarget !== undefined) {
+          // iterate backwards, as we expect leave event to be sent just before enter event
+          for (let i = EventManager.eventQueue.length - 1; i >= 0; i--) {
+            const leaveEvent = EventManager.eventQueue[i]
+            const leaveTarget = EventManager.eventTargets.get(leaveEvent.target)
 
-            // parent will always have lower z-index than child, because of this we know which one may be the parent
-            if (leaveTarget.zIndex > enterTarget.zIndex) {
-              parentCandidate = enterTarget
-              childCandidate = leaveTarget
-            } else {
-              parentCandidate = leaveTarget
-              childCandidate = enterTarget
-            }
+            if (leaveEvent.type === PointerEventType.LEAVE && leaveTarget !== undefined) {
+              let parentCandidate = null
+              let childCandidate = null
 
-            // check whether there is a parent-child relation and events are inherited
-            if (
-              EventManager.isParent(parentCandidate, childCandidate) &&
-              parentCandidate.config.onPointerEnter === childCandidate.config.onPointerEnter &&
-              parentCandidate.config.onPointerLeave === childCandidate.config.onPointerLeave
-            ) {
-              // if so, remove leave event from queue and don't queue enter event
-              EventManager.eventQueue.splice(i, 1)
-              return
+              // parent will always have lower z-index than child, because of this we know which one may be the parent
+              if (leaveTarget.zIndex > enterTarget.zIndex) {
+                parentCandidate = enterTarget
+                childCandidate = leaveTarget
+              } else {
+                parentCandidate = leaveTarget
+                childCandidate = enterTarget
+              }
+
+              // check whether there is a parent-child relation and events are inherited
+              if (
+                EventManager.isParent(parentCandidate, childCandidate) &&
+                parentCandidate.config.onPointerEnter === childCandidate.config.onPointerEnter &&
+                parentCandidate.config.onPointerLeave === childCandidate.config.onPointerLeave
+              ) {
+                // if so, remove leave event from queue and don't queue enter event
+                EventManager.eventQueue.splice(i, 1)
+                return
+              }
             }
           }
         }
@@ -96,39 +105,25 @@ export abstract class EventManager {
 
   public static processEvents() {
     // TODO: consider sending move event only to the view that received down event
-    // TODO: consider implementing something along the lines of pointer capture by default
     EventManager.eventQueue.forEach((event) => {
       const target = EventManager.eventTargets.get(event.target)
 
       if (target !== undefined) {
         switch (event.type) {
           case PointerEventType.DOWN:
-            if (target.config.onPointerDown !== undefined) {
-              // down event is handled so the pointer must be being actively tracked
-              EventManager.activePointers.push(event.id)
-              target.config.onPointerDown(event)
-            }
+            target.config.onPointerDown?.(event)
             break
           case PointerEventType.MOVE:
             target.config.onPointerMove?.(event)
             break
           case PointerEventType.UP:
-            // we need to remove tracked pointer when it's no longer on the screen
-            EventManager.activePointers = EventManager.activePointers.filter((x) => x !== event.id)
             target.config.onPointerUp?.(event)
+
+            // free the pointer capture when it goes up
+            EventManager.capturedPointers.delete(event.id)
             break
           case PointerEventType.ENTER:
-            if (target.config.onPointerEnter !== undefined) {
-              // if the event is beeing handled and pointer is not tracked yet, add it to the list
-              if (EventManager.activePointers.indexOf(event.id) === -1) {
-                EventManager.activePointers.push(event.id)
-              }
-              target.config.onPointerEnter(event)
-            } else {
-              // otherwise pointer is no longer actively tracked, it's just intercepted by the event manager
-              // in which case it should be removed from the list
-              EventManager.activePointers = EventManager.activePointers.filter((x) => x !== event.id)
-            }
+            target.config.onPointerEnter?.(event)
             break
           case PointerEventType.LEAVE:
             target.config.onPointerLeave?.(event)
@@ -140,9 +135,12 @@ export abstract class EventManager {
     EventManager.eventQueue = []
   }
 
-  // used mostly to prevent default system gestures in case pointer events are fired
-  public static hasActivePointers() {
-    return EventManager.activePointers.length !== 0
+  public static capturePointer(id: number, target: string) {
+    EventManager.capturedPointers.set(id, target)
+  }
+
+  public static hasCapturedPointers() {
+    return EventManager.capturedPointers.size !== 0
   }
 
   private static isParent(parent: RenderNode, childCandidate: RenderNode): boolean {

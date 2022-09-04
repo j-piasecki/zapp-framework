@@ -26,6 +26,10 @@ export class WatchViewManager extends ViewManager {
       type: type,
       x: event.x, // TODO: handle scrolling correctly
       y: event.y,
+      capture: () => {
+        // TODO: abstract it to EventManager?
+        EventManager.capturePointer(event.id, target)
+      },
     }
   }
 

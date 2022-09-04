@@ -20,6 +20,7 @@ export interface PointerData {
   y: number
   timestamp: number
   type: PointerEventType
+  capture: () => void
 }
 
 export interface ConfigType {
