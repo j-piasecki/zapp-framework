@@ -169,6 +169,7 @@ export abstract class Renderer {
     return (
       node.config.background === undefined &&
       node.type !== NodeType.Text &&
+      node.type !== NodeType.Custom &&
       (node.config.onPointerMove === undefined || node.config.isInherited?.get('onPointerMove') === true) &&
       (node.config.onPointerDown === undefined || node.config.isInherited?.get('onPointerDown') === true) &&
       (node.config.onPointerUp === undefined || node.config.isInherited?.get('onPointerUp') === true) &&
