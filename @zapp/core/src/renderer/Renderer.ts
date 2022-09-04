@@ -94,7 +94,9 @@ export abstract class Renderer {
 
       if (previousZIndex > next.zIndex) {
         Renderer.dropView(next)
-        Renderer.createView(next)
+        // don't create children recursively as they will be recreated when diffed, we don't need the
+        // same constraint for dropping views as the `view` property on next is not yet set for children
+        Renderer.createView(next, false)
       } else {
         Renderer.updateView(previous, next)
       }
@@ -120,7 +122,7 @@ export abstract class Renderer {
 
           lastFoundIndex = j + 1
           found = true
-          Renderer.diffNode(previousChild, newChild, previousZIndex)
+          previousZIndex = Renderer.diffNode(previousChild, newChild, previousZIndex)
           break
         }
       }
@@ -140,16 +142,17 @@ export abstract class Renderer {
     return previousZIndex
   }
 
-  private static createView(node: RenderNode) {
+  private static createView(node: RenderNode, createChildren = true) {
     if (!Renderer.isNodeLayoutOnly(node)) {
       node.zIndex = Renderer.nextZIndex++
       node.view = Renderer.viewManager.createView(node)
-
       EventManager.addEventTarget(node)
     }
 
-    for (const child of node.children) {
-      Renderer.createView(child)
+    if (createChildren) {
+      for (const child of node.children) {
+        Renderer.createView(child)
+      }
     }
   }
 
