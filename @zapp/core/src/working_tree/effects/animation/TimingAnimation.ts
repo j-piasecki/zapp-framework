@@ -23,7 +23,7 @@ export class TimingAnimation extends Animation<number> {
     this.rememberedValue.value = this.startValue + (this.targetValue - this.startValue) * this.easingFunction(progress)
 
     if (progress === 1) {
-      this.onEnd()
+      this.onEnd(true)
     }
   }
 }

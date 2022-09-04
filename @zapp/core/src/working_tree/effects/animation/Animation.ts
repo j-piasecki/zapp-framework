@@ -2,7 +2,7 @@ import { RememberedMutableValue } from '../RememberedMutableValue.js'
 import { Easing } from './Easing.js'
 
 export interface AnimationProps {
-  onEnd?: () => void
+  onEnd?: (completed: boolean) => void
   easing?: (t: number) => number
 }
 
@@ -22,7 +22,7 @@ export abstract class Animation<T> {
   public rememberedValue: RememberedMutableValue<T>
 
   protected startTimestamp: number
-  protected endHandler?: () => void
+  protected endHandler?: (completed: boolean) => void
   protected easingFunction: (t: number) => number
   protected isRunning = true
 
@@ -36,15 +36,15 @@ export abstract class Animation<T> {
 
   public abstract onFrame(timestamp: number): void
 
-  public onEnd() {
+  protected onEnd(completed: boolean) {
     if (this.isRunning) {
       this.isRunning = false
-      this.endHandler?.()
+      this.endHandler?.(completed)
     }
   }
 
   public drop() {
-    this.onEnd()
+    this.onEnd(false)
 
     const index = Animation.runningAnimations.indexOf(this)
     if (index !== -1) {
