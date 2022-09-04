@@ -10,7 +10,7 @@ export { Row } from './working_tree/views/Row.js'
 export { Screen } from './working_tree/views/Screen.js'
 export { Text } from './working_tree/views/Text.js'
 export { WorkingTree } from './working_tree/WorkingTree.js'
-export { Config } from './working_tree/props/Config.js'
+export { Config, ConfigBuilder } from './working_tree/props/Config.js'
 export {
   ConfigType,
   PointerData,
