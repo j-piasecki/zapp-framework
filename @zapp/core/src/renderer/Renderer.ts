@@ -180,6 +180,7 @@ export abstract class Renderer {
 
   private static shouldUpdateView(previous: RenderNode, next: RenderNode): boolean {
     return (
+      next.type === NodeType.Custom ||
       previous.layout.width !== next.layout.width ||
       previous.layout.height !== next.layout.height ||
       previous.layout.x !== next.layout.x ||
