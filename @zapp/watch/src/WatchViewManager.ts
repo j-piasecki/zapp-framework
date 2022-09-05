@@ -74,6 +74,19 @@ export class WatchViewManager extends ViewManager {
             text: node.config.text,
           }),
         }
+      } else if (node.type === NodeType.Arc) {
+        viewHolder = {
+          view: hmUI.createWidget(hmUI.widget.ARC, {
+            x: node.layout.x,
+            y: node.layout.y,
+            w: node.layout.width,
+            h: node.layout.height,
+            start_angle: node.config.startAngle,
+            end_angle: node.config.endAngle,
+            color: node.config.borderColor,
+            line_width: node.config.lineWidth,
+          }),
+        }
       } else {
         viewHolder = {
           view: hmUI.createWidget(hmUI.widget.FILL_RECT, {
@@ -160,6 +173,17 @@ export class WatchViewManager extends ViewManager {
         align_v: hmUI.align.LEFT,
         text_style: hmUI.text_style.WRAP,
         text: next.config.text,
+      })
+    } else if (next.type === NodeType.Arc) {
+      viewHolder.view.setProperty(hmUI.prop.MORE, {
+        x: next.layout.x,
+        y: next.layout.y,
+        w: next.layout.width,
+        h: next.layout.height,
+        start_angle: next.config.startAngle,
+        end_angle: next.config.endAngle,
+        color: next.config.borderColor,
+        line_width: next.config.lineWidth,
       })
     } else {
       viewHolder.view.setProperty(hmUI.prop.MORE, {

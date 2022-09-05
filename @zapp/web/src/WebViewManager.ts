@@ -1,5 +1,7 @@
 import { ViewManager, RenderNode, NodeType, PointerData, PointerEventType, EventManager } from '@zapp/core'
 
+const SVG_NS = 'http://www.w3.org/2000/svg'
+
 export class WebViewManager extends ViewManager {
   private _isRTL?: boolean = undefined
 
@@ -61,11 +63,32 @@ export class WebViewManager extends ViewManager {
     )`
   }
 
-  createView(node: RenderNode): HTMLElement {
-    const view =
-      node.customViewProps?.createView !== undefined
-        ? (node.customViewProps.createView(node) as HTMLElement)
-        : document.createElement('div')
+  createView(node: RenderNode) {
+    let view: HTMLElement | SVGElement
+
+    if (node.customViewProps?.createView !== undefined) {
+      view = node.customViewProps.createView(node) as HTMLElement
+    } else if (node.type === NodeType.Arc) {
+      view = document.createElementNS(SVG_NS, 'svg')
+      const circle = document.createElementNS(SVG_NS, 'circle')
+      const radius = (node.layout.width - node.config.lineWidth!) / 2
+      const circumference = 2 * Math.PI * radius
+      const strokeOffset = (-node.config.startAngle! / 360) * circumference
+      const strokeDasharray = ((node.config.endAngle! - node.config.startAngle!) / 360) * circumference
+
+      circle.setAttribute('cx', `${node.layout.width / 2}`)
+      circle.setAttribute('cy', `${node.layout.width / 2}`)
+      circle.setAttribute('r', `${radius}`)
+      circle.setAttribute('fill', 'transparent')
+      circle.setAttribute('stroke', this.colorToRGBA(node.config.borderColor!))
+      circle.setAttribute('stroke-width', `${node.config.lineWidth!}`)
+      circle.setAttribute('stroke-dasharray', [strokeDasharray, circumference - strokeDasharray].join(','))
+      circle.setAttribute('stroke-dashoffset', `${strokeOffset}`)
+
+      view.appendChild(circle)
+    } else {
+      view = document.createElement('div')
+    }
 
     view.id = node.id
     view.style.position = 'absolute'
@@ -93,6 +116,7 @@ export class WebViewManager extends ViewManager {
     }
 
     if (node.type === NodeType.Text) {
+      // @ts-ignore
       view.innerText = node.config.text!
 
       if (node.config.textSize !== undefined) {
@@ -139,6 +163,23 @@ export class WebViewManager extends ViewManager {
 
   updateView(previous: RenderNode, next: RenderNode): void {
     const view = next.view as HTMLElement
+
+    if (next.type === NodeType.Arc) {
+      const circle = view.getElementsByTagNameNS(SVG_NS, 'circle')[0]
+      const radius = (next.layout.width - next.config.lineWidth!) / 2
+      const circumference = 2 * Math.PI * radius
+      const strokeOffset = (-next.config.startAngle! / 360) * circumference
+      const strokeDasharray = ((next.config.endAngle! - next.config.startAngle!) / 360) * circumference
+
+      circle.setAttribute('cx', `${next.layout.width / 2}`)
+      circle.setAttribute('cy', `${next.layout.width / 2}`)
+      circle.setAttribute('r', `${radius}`)
+      circle.setAttribute('fill', 'transparent')
+      circle.setAttribute('stroke', this.colorToRGBA(next.config.borderColor!))
+      circle.setAttribute('stroke-width', `${next.config.lineWidth!}`)
+      circle.setAttribute('stroke-dasharray', [strokeDasharray, circumference - strokeDasharray].join(','))
+      circle.setAttribute('stroke-dashoffset', `${strokeOffset}`)
+    }
 
     view.style.position = 'absolute'
     view.style.top = `${next.layout.y}px`

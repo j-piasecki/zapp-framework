@@ -172,6 +172,7 @@ export abstract class Renderer {
     return (
       node.config.background === undefined &&
       node.type !== NodeType.Text &&
+      node.type !== NodeType.Arc &&
       node.type !== NodeType.Custom &&
       (node.config.onPointerMove === undefined || node.config.isInherited?.get('onPointerMove') === true) &&
       (node.config.onPointerDown === undefined || node.config.isInherited?.get('onPointerDown') === true) &&
@@ -191,6 +192,11 @@ export abstract class Renderer {
       previous.config.background !== next.config.background ||
       previous.config.cornerRadius !== next.config.cornerRadius ||
       previous.config.text !== next.config.text ||
+      previous.config.borderColor !== next.config.borderColor ||
+      previous.config.borderWidth !== next.config.borderWidth ||
+      previous.config.lineWidth !== next.config.lineWidth ||
+      previous.config.startAngle !== next.config.startAngle ||
+      previous.config.endAngle !== next.config.endAngle ||
       previous.config.onPointerDown !== next.config.onPointerDown ||
       previous.config.onPointerMove !== next.config.onPointerMove ||
       previous.config.onPointerUp !== next.config.onPointerUp ||

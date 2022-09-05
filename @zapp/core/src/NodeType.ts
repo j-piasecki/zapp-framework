@@ -8,6 +8,7 @@ export enum NodeType {
   Column = 'column',
   Row = 'row',
   Text = 'text',
+  Arc = 'arc',
 
   Remember = 'remember',
   Effect = 'effect',

@@ -33,6 +33,10 @@ export interface ConfigType {
   borderWidth?: number
   borderColor?: number
 
+  lineWidth?: number
+  startAngle?: number
+  endAngle?: number
+
   width?: number
   fillWidth?: number
 

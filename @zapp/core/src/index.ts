@@ -3,6 +3,7 @@ export type { ConfigBuilderArg } from './working_tree/props/Config.js'
 export { remember } from './working_tree/effects/remember.js'
 export { RememberedMutableValue } from './working_tree/effects/RememberedMutableValue.js'
 export { sideEffect } from './working_tree/effects/sideEffect.js'
+export { Arc } from './working_tree/views/Arc.js'
 export { Custom } from './working_tree/views/Custom.js'
 export { Stack } from './working_tree/views/Stack.js'
 export { Column } from './working_tree/views/Column.js'
@@ -19,6 +20,7 @@ export {
   Arrangement,
   StackAlignment,
 } from './working_tree/props/types.js'
+export { ArcConfig } from './working_tree/props/ArcConfig.js'
 export { TextConfig } from './working_tree/props/TextConfig.js'
 export { StackConfig } from './working_tree/props/StackConfig.js'
 export { ColumnConfig } from './working_tree/props/ColumnConfig.js'
