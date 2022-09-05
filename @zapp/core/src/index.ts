@@ -20,11 +20,11 @@ export {
   Arrangement,
   StackAlignment,
 } from './working_tree/props/types.js'
-export { ArcConfig } from './working_tree/props/ArcConfig.js'
-export { TextConfig } from './working_tree/props/TextConfig.js'
-export { StackConfig } from './working_tree/props/StackConfig.js'
-export { ColumnConfig } from './working_tree/props/ColumnConfig.js'
-export { RowConfig } from './working_tree/props/RowConfig.js'
+export { ArcConfig, ArcConfigBuilder } from './working_tree/props/ArcConfig.js'
+export { TextConfig, TextConfigBuilder } from './working_tree/props/TextConfig.js'
+export { StackConfig, StackConfigBuilder } from './working_tree/props/StackConfig.js'
+export { ColumnConfig, ColumnConfigBuilder } from './working_tree/props/ColumnConfig.js'
+export { RowConfig, RowConfigBuilder } from './working_tree/props/RowConfig.js'
 export { Animation } from './working_tree/effects/animation/Animation.js'
 export { Easing } from './working_tree/effects/animation/Easing.js'
 export { withTiming } from './working_tree/effects/animation/TimingAnimation.js'
