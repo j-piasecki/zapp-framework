@@ -17,6 +17,7 @@ import {
   EventManager,
   Easing,
   ColumnConfig,
+  ArcConfig,
 } from '@zapp/core'
 
 let cycle = [
@@ -77,7 +78,7 @@ Page({
                 if (textVisible.value) {
                   Text(TextConfig('text').textColor(0xffffff).textSize(24), 'Random text')
                 } else {
-                  ActivityIndicator('ac', 60, 0xffffff, 10)
+                  ActivityIndicator(ArcConfig('ac').width(60).height(60).color(0xffffff).lineWidth(10))
                 }
               }
             )
