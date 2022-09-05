@@ -26,13 +26,13 @@ export interface CustomViewProps extends Record<string, unknown> {
   /**
    * invoked during update, receives previous and the next node
    */
-  updateView?: (previous: RenderNode, next: RenderNode) => void
+  updateView?: (previous: RenderNode, next: RenderNode, view: unknown) => void
 
   /**
    * invoked when the view leaves the view hierarchy, when implemented it must delete the created
    * view (note that this method may be called without calling dropHandler to reorder views)
    */
-  deleteView?: (config: RenderNode) => void
+  deleteView?: (view: unknown) => void
 }
 
 export function Custom(

@@ -40,4 +40,14 @@ export class LayoutConfigBuilder extends ConfigBuilder {
     this.config.cornerRadius = radius
     return this
   }
+
+  public borderWidth(width: number) {
+    this.config.borderWidth = width
+    return this
+  }
+
+  public borderColor(color: number) {
+    this.config.borderColor = color
+    return this
+  }
 }

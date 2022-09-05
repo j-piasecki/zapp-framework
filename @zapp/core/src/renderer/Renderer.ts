@@ -92,7 +92,7 @@ export abstract class Renderer {
       // general idea is that z-index should increase when performing depth-first traversal of the tree
       // if the z-index is not increased, the view will be dropped and recreated, moving it to the top
 
-      if (previousZIndex > next.zIndex) {
+      if (previousZIndex > next.zIndex || Renderer.shouldRecreateView(previous, next)) {
         Renderer.dropView(next)
         // don't create children recursively as they will be recreated when diffed, we don't need the
         // same constraint for dropping views as the `view` property on next is not yet set for children
@@ -196,6 +196,16 @@ export abstract class Renderer {
       previous.config.onPointerUp !== next.config.onPointerUp ||
       previous.config.onPointerEnter !== next.config.onPointerEnter ||
       previous.config.onPointerLeave !== next.config.onPointerLeave
+    )
+  }
+
+  private static shouldRecreateView(previous: RenderNode, next: RenderNode): boolean {
+    // recreate view if it has a border while it didn't have one before to preserve z-index
+    // as border is a separate view on the zepp os
+    return (
+      (previous.config.borderWidth === undefined || previous.config.borderWidth <= 0) &&
+      next.config.borderWidth !== undefined &&
+      next.config.borderWidth > 0
     )
   }
 

@@ -2,6 +2,11 @@ import { ViewManager, RenderNode, NodeType, PointerData, PointerEventType, Event
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = hmSetting.getDeviceInfo()
 
+interface ViewHolder {
+  view: any
+  border?: any
+}
+
 export class WatchViewManager extends ViewManager {
   private _isRTL?: boolean = undefined
 
@@ -49,76 +54,102 @@ export class WatchViewManager extends ViewManager {
   }
 
   createView(node: RenderNode) {
-    let view
+    let viewHolder: ViewHolder
 
     if (node.customViewProps?.createView !== undefined) {
-      view = node.customViewProps.createView(node)
+      viewHolder = { view: node.customViewProps.createView(node) }
     } else {
       if (node.type === NodeType.Text) {
-        view = hmUI.createWidget(hmUI.widget.TEXT, {
-          x: node.layout.x,
-          y: node.layout.y,
-          w: node.layout.width,
-          h: node.layout.height,
-          color: node.config.textColor,
-          text_size: node.config.textSize,
-          align_h: hmUI.align.TOP,
-          align_v: hmUI.align.LEFT,
-          text_style: hmUI.text_style.WRAP,
-          text: node.config.text,
-        })
+        viewHolder = {
+          view: hmUI.createWidget(hmUI.widget.TEXT, {
+            x: node.layout.x,
+            y: node.layout.y,
+            w: node.layout.width,
+            h: node.layout.height,
+            color: node.config.textColor,
+            text_size: node.config.textSize,
+            align_h: hmUI.align.TOP,
+            align_v: hmUI.align.LEFT,
+            text_style: hmUI.text_style.WRAP,
+            text: node.config.text,
+          }),
+        }
       } else {
-        view = hmUI.createWidget(hmUI.widget.FILL_RECT, {
+        viewHolder = {
+          view: hmUI.createWidget(hmUI.widget.FILL_RECT, {
+            x: node.layout.x,
+            y: node.layout.y,
+            w: node.layout.width,
+            h: node.layout.height,
+            radius: node.config.cornerRadius,
+            color: node.config.background,
+          }),
+        }
+      }
+
+      if (node.config.borderWidth !== undefined && node.config.borderWidth > 0) {
+        viewHolder.border = hmUI.createWidget(hmUI.widget.STROKE_RECT, {
           x: node.layout.x,
           y: node.layout.y,
           w: node.layout.width,
           h: node.layout.height,
           radius: node.config.cornerRadius,
-          color: node.config.background,
+          color: node.config.borderColor ?? 0,
+          line_width: node.config.borderWidth,
         })
       }
     }
 
     let handler
     handler = (event: PointerEvent) => this.pointerDownHandler(event, node.id)
-    view.addEventListener(hmUI.event.CLICK_DOWN, handler)
+    viewHolder.view.addEventListener(hmUI.event.CLICK_DOWN, handler)
+    viewHolder.border?.addEventListener(hmUI.event.CLICK_DOWN, handler)
 
     handler = (event: PointerEvent) => this.pointerMoveHandler(event, node.id)
-    view.addEventListener(hmUI.event.MOVE, handler)
+    viewHolder.view.addEventListener(hmUI.event.MOVE, handler)
+    viewHolder.border?.addEventListener(hmUI.event.MOVE, handler)
 
     handler = (event: PointerEvent) => this.pointerUpHandler(event, node.id)
-    view.addEventListener(hmUI.event.CLICK_UP, handler)
+    viewHolder.view.addEventListener(hmUI.event.CLICK_UP, handler)
+    viewHolder.border?.addEventListener(hmUI.event.CLICK_UP, handler)
 
     // Those two seem not to be be sent by the os...
     handler = (event: PointerEvent) => this.pointerEnterHandler(event, node.id)
-    view.addEventListener(hmUI.event.MOVE_IN, handler)
+    viewHolder.view.addEventListener(hmUI.event.MOVE_IN, handler)
+    viewHolder.border?.addEventListener(hmUI.event.MOVE_IN, handler)
 
     handler = (event: PointerEvent) => this.pointerLeaveHandler(event, node.id)
-    view.addEventListener(hmUI.event.MOVE_OUT, handler)
+    viewHolder.view.addEventListener(hmUI.event.MOVE_OUT, handler)
+    viewHolder.border?.addEventListener(hmUI.event.MOVE_OUT, handler)
 
     if (node.customViewProps?.overrideViewProps !== undefined) {
-      node.customViewProps.overrideViewProps(node, view)
+      node.customViewProps.overrideViewProps(node, viewHolder.view)
     }
 
-    return view
+    return viewHolder
   }
 
   dropView(node: RenderNode): void {
+    const viewHolder = node.view as ViewHolder
+
     if (node.customViewProps?.deleteView !== undefined) {
-      node.customViewProps.deleteView(node)
+      node.customViewProps.deleteView(viewHolder.view)
     } else {
-      hmUI.deleteWidget(node.view)
+      hmUI.deleteWidget(viewHolder.view)
+
+      if (viewHolder.border !== undefined) {
+        hmUI.deleteWidget(viewHolder.border)
+      }
     }
   }
 
   updateView(previous: RenderNode, next: RenderNode): void {
-    const view = next.view as any
+    const viewHolder = next.view as ViewHolder
 
     if (next.customViewProps?.updateView !== undefined) {
-      next.customViewProps.updateView(previous, next)
+      next.customViewProps.updateView(previous, next, viewHolder.view)
     } else if (next.type === NodeType.Text) {
-      // @ts-ignore
-      view.setProperty(hmUI.prop.MORE, {
+      viewHolder.view.setProperty(hmUI.prop.MORE, {
         x: next.layout.x,
         y: next.layout.y,
         w: next.layout.width,
@@ -131,8 +162,7 @@ export class WatchViewManager extends ViewManager {
         text: next.config.text,
       })
     } else {
-      // @ts-ignore
-      view.setProperty(hmUI.prop.MORE, {
+      viewHolder.view.setProperty(hmUI.prop.MORE, {
         x: next.layout.x,
         y: next.layout.y,
         w: next.layout.width,
@@ -140,6 +170,25 @@ export class WatchViewManager extends ViewManager {
         radius: next.config.cornerRadius,
         color: next.config.background,
       })
+
+      if (viewHolder.border !== undefined) {
+        if (next.config.borderWidth === undefined || next.config.borderWidth <= 0) {
+          // delete the border view as it has a minimum width of 1 and we don't want to see it
+          // if needed it will be recreated by the Renderer
+          hmUI.deleteWidget(viewHolder.border)
+          viewHolder.border = undefined
+        } else {
+          viewHolder.border.setProperty(hmUI.prop.MORE, {
+            x: next.layout.x,
+            y: next.layout.y,
+            w: next.layout.width,
+            h: next.layout.height,
+            radius: next.config.cornerRadius,
+            color: next.config.borderColor ?? 0,
+            line_width: next.config.borderWidth ?? 0,
+          })
+        }
+      }
     }
   }
 

@@ -52,6 +52,15 @@ export class WebViewManager extends ViewManager {
     }
   }
 
+  private colorToRGBA(color: number): string {
+    return `rgba(
+      ${(color & 0xff0000) >> 16},
+      ${(color & 0x00ff00) >> 8},
+      ${color & 0x0000ff},
+      1
+    )`
+  }
+
   createView(node: RenderNode): HTMLElement {
     const view =
       node.customViewProps?.createView !== undefined
@@ -64,18 +73,23 @@ export class WebViewManager extends ViewManager {
     view.style.left = `${node.layout.x}px`
     view.style.width = `${node.layout.width}px`
     view.style.height = `${node.layout.height}px`
+    view.style.boxSizing = 'border-box'
 
     if (node.config.background !== undefined) {
-      view.style.backgroundColor = `rgba(
-        ${(node.config.background & 0xff0000) >> 16},
-        ${(node.config.background & 0x00ff00) >> 8},
-        ${node.config.background & 0x0000ff},
-        1
-      )`
+      view.style.backgroundColor = this.colorToRGBA(node.config.background)
     }
 
     if (node.config.cornerRadius !== undefined) {
       view.style.borderRadius = `${node.config.cornerRadius}px`
+    }
+
+    if (node.config.borderWidth !== undefined) {
+      view.style.borderStyle = `solid`
+      view.style.borderWidth = `${node.config.borderWidth}px`
+    }
+
+    if (node.config.borderColor !== undefined) {
+      view.style.borderColor = this.colorToRGBA(node.config.borderColor)
     }
 
     if (node.type === NodeType.Text) {
@@ -85,12 +99,7 @@ export class WebViewManager extends ViewManager {
         view.style.fontSize = `${node.config.textSize}px`
       }
       if (node.config.textColor !== undefined) {
-        view.style.color = `rgba(
-          ${(node.config.textColor & 0xff0000) >> 16},
-          ${(node.config.textColor & 0x00ff00) >> 8},
-          ${node.config.textColor & 0x0000ff},
-          1
-        )`
+        view.style.color = this.colorToRGBA(node.config.textColor)
       }
     }
 
@@ -138,16 +147,32 @@ export class WebViewManager extends ViewManager {
     view.style.height = `${next.layout.height}px`
 
     if (next.config.background !== undefined) {
-      view.style.backgroundColor = `rgba(
-        ${(next.config.background & 0xff0000) >> 16},
-        ${(next.config.background & 0x00ff00) >> 8},
-        ${next.config.background & 0x0000ff},
-        1
-      )`
+      view.style.backgroundColor = this.colorToRGBA(next.config.background)
     }
 
     if (next.config.cornerRadius !== undefined) {
       view.style.borderRadius = `${next.config.cornerRadius}px`
+    }
+
+    if (next.config.borderWidth !== undefined) {
+      view.style.borderWidth = `${next.config.borderWidth}px`
+    } else {
+      view.style.borderStyle = 'none'
+    }
+
+    if (next.config.borderColor !== undefined) {
+      view.style.borderColor = this.colorToRGBA(next.config.borderColor)
+    }
+
+    if (next.type === NodeType.Text) {
+      view.innerText = next.config.text!
+
+      if (next.config.textSize !== undefined) {
+        view.style.fontSize = `${next.config.textSize}px`
+      }
+      if (next.config.textColor !== undefined) {
+        view.style.color = this.colorToRGBA(next.config.textColor)
+      }
     }
   }
 

@@ -30,6 +30,9 @@ export interface ConfigType {
   background?: number
   cornerRadius?: number
 
+  borderWidth?: number
+  borderColor?: number
+
   width?: number
   fillWidth?: number
 

@@ -41,8 +41,7 @@ export function ActivityIndicator(id: string, radius: number, color: number, lin
           line_width: lineWidth,
         })
       },
-      updateView(_: RenderNode, next: RenderNode) {
-        const view = next.view as any
+      updateView(_: RenderNode, next: RenderNode, view: any) {
         view.setProperty(hmUI.prop.MORE, {
           x: next.layout.x,
           y: next.layout.y,
