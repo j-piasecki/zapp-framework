@@ -85,6 +85,7 @@ Page({
         )
 
         const arrangement = remember(Arrangement.SpaceAround)
+        const border = remember(0)
 
         Row(
           RowConfig('row2')
@@ -96,23 +97,41 @@ Page({
           () => {
             const start = remember({ x: 0, y: 0 })
             const offset = remember({ x: 0, y: 0 })
-            Stack(StackConfig('stack.1').fillHeight(0.3).width(40).background(0xff00ff))
+            Stack(
+              StackConfig('stack.1')
+                .fillHeight(0.3)
+                .width(30)
+                .background(0xff00ff)
+                .borderWidth(10)
+                .borderColor(0x00ff00)
+            )
             Stack(
               StackConfig('stack.2')
                 .fillHeight(0.6)
-                .width(80)
+                .width(60)
                 .background(0xffff00)
+                .borderWidth(border.value)
+                .cornerRadius(30)
+                .borderColor(0xaa5533)
                 .onPointerDown(() => {
                   const next = cycle.shift()
                   cycle.push(next)
                   arrangement.value = next
+
+                  if (border.value === 0) {
+                    border.value = 10
+                  } else {
+                    border.value = 0
+                  }
                 })
             )
             Stack(
               StackConfig('stack.3')
                 .fillHeight(0.9)
-                .width(120)
+                .width(90)
                 .background(0x00ffff)
+                .borderWidth(10)
+                .borderColor(0xffaa33)
                 .offset(offset.value.x, offset.value.y)
                 .onPointerDown((e) => {
                   e.capture()

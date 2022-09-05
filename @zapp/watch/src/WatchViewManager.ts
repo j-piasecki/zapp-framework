@@ -85,18 +85,18 @@ export class WatchViewManager extends ViewManager {
             color: node.config.background,
           }),
         }
-      }
 
-      if (node.config.borderWidth !== undefined && node.config.borderWidth > 0) {
-        viewHolder.border = hmUI.createWidget(hmUI.widget.STROKE_RECT, {
-          x: node.layout.x,
-          y: node.layout.y,
-          w: node.layout.width,
-          h: node.layout.height,
-          radius: node.config.cornerRadius,
-          color: node.config.borderColor ?? 0,
-          line_width: node.config.borderWidth,
-        })
+        if (node.config.borderWidth !== undefined && node.config.borderWidth > 0) {
+          viewHolder.border = hmUI.createWidget(hmUI.widget.STROKE_RECT, {
+            x: node.layout.x,
+            y: node.layout.y,
+            w: node.layout.width,
+            h: node.layout.height,
+            radius: node.config.cornerRadius,
+            color: node.config.borderColor ?? 0,
+            line_width: node.config.borderWidth,
+          })
+        }
       }
     }
 

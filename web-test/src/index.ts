@@ -79,10 +79,27 @@ function StackExample() {
         })
       })
 
-      Stack(StackConfig('stack').alignment(alignment.value).background(0xff0000).width(350).height(350), () => {
-        Stack(StackConfig('innerstack.1').width(200).height(200).background(0x00ff00))
-        Stack(StackConfig('innerstack.2').width(100).height(100).background(0x0000ff))
-      })
+      Stack(
+        StackConfig('stack').alignment(alignment.value).background(0xff0000).width(350).height(350).padding(10),
+        () => {
+          Stack(
+            StackConfig('innerstack.1')
+              .width(200)
+              .height(200)
+              .background(0x00ff00)
+              .borderWidth(10)
+              .borderColor(0xff00ff)
+          )
+          Stack(
+            StackConfig('innerstack.2')
+              .width(100)
+              .height(100)
+              .background(0x0000ff)
+              .borderWidth(10)
+              .borderColor(0xffff00)
+          )
+        }
+      )
     })
   })
 }
@@ -143,11 +160,33 @@ function ColumnExample() {
             .arrangement(arrangement.value)
             .background(0xff0000)
             .width(500)
-            .weight(1),
+            .weight(1)
+            .padding(10),
           () => {
-            Stack(StackConfig('innerstack.1').width(70).height(80).background(0x00ff00))
-            Stack(StackConfig('innerstack.2').width(140).height(100).background(0x0000ff))
-            Stack(StackConfig('innerstack.3').width(210).height(120).background(0xff00ff))
+            Stack(
+              StackConfig('innerstack.1')
+                .width(70)
+                .height(80)
+                .background(0x00ff00)
+                .borderWidth(10)
+                .borderColor(0x00ffff)
+            )
+            Stack(
+              StackConfig('innerstack.2')
+                .width(140)
+                .height(100)
+                .background(0x0000ff)
+                .borderWidth(10)
+                .borderColor(0xffaaff)
+            )
+            Stack(
+              StackConfig('innerstack.3')
+                .width(210)
+                .height(120)
+                .background(0xff00ff)
+                .borderWidth(10)
+                .borderColor(0x00ff99)
+            )
           }
         )
       }
@@ -207,11 +246,33 @@ function RowExample() {
             .arrangement(arrangement.value)
             .background(0xff0000)
             .width(500)
-            .weight(1),
+            .weight(1)
+            .padding(10),
           () => {
-            Stack(StackConfig('innerstack.1').width(80).height(70).background(0x00ff00))
-            Stack(StackConfig('innerstack.2').width(100).height(140).background(0x0000ff))
-            Stack(StackConfig('innerstack.3').width(120).height(210).background(0xff00ff))
+            Stack(
+              StackConfig('innerstack.1')
+                .width(80)
+                .height(70)
+                .background(0x00ff00)
+                .borderWidth(10)
+                .borderColor(0x00ffff)
+            )
+            Stack(
+              StackConfig('innerstack.2')
+                .width(100)
+                .height(140)
+                .background(0x0000ff)
+                .borderWidth(10)
+                .borderColor(0xffaaff)
+            )
+            Stack(
+              StackConfig('innerstack.3')
+                .width(120)
+                .height(210)
+                .background(0xff00ff)
+                .borderWidth(10)
+                .borderColor(0x00ff99)
+            )
           }
         )
       }
