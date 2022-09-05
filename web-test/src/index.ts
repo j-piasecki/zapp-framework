@@ -80,8 +80,8 @@ function StackExample() {
       })
 
       Stack(StackConfig('stack').alignment(alignment.value).background(0xff0000).width(350).height(350), () => {
-        Stack(Config('innerstack.1').width(200).height(200).background(0x00ff00))
-        Stack(Config('innerstack.2').width(100).height(100).background(0x0000ff))
+        Stack(StackConfig('innerstack.1').width(200).height(200).background(0x00ff00))
+        Stack(StackConfig('innerstack.2').width(100).height(100).background(0x0000ff))
       })
     })
   })
@@ -100,7 +100,7 @@ function ColumnExample() {
         .padding(50, 0),
       () => {
         Text(TextConfig('align-header').textColor(0xffffff).textSize(24), 'Alignment')
-        Row(Config('align-chooser').padding(0, 0, 0, 25), () => {
+        Row(RowConfig('align-chooser').padding(0, 0, 0, 25), () => {
           Button(Config('btn-alignment-topstart'), 'Start', () => {
             alignment.value = Alignment.Start
           })
@@ -125,7 +125,7 @@ function ColumnExample() {
           })
         })
 
-        Row(Config('arrangement-chooser-two').padding(0, 0, 0, 70), () => {
+        Row(RowConfig('arrangement-chooser-two').padding(0, 0, 0, 70), () => {
           Button(Config('btn-arrangement-between'), 'SpaceBetween', () => {
             arrangement.value = Arrangement.SpaceBetween
           })
@@ -145,9 +145,9 @@ function ColumnExample() {
             .width(500)
             .weight(1),
           () => {
-            Stack(Config('innerstack.1').width(70).height(80).background(0x00ff00))
-            Stack(Config('innerstack.2').width(140).height(100).background(0x0000ff))
-            Stack(Config('innerstack.3').width(210).height(120).background(0xff00ff))
+            Stack(StackConfig('innerstack.1').width(70).height(80).background(0x00ff00))
+            Stack(StackConfig('innerstack.2').width(140).height(100).background(0x0000ff))
+            Stack(StackConfig('innerstack.3').width(210).height(120).background(0xff00ff))
           }
         )
       }
@@ -164,7 +164,7 @@ function RowExample() {
       ColumnConfig('row-example').alignment(Alignment.Center).arrangement(Arrangement.Center).fillSize().padding(50, 0),
       () => {
         Text(TextConfig('align-header').textColor(0xffffff).textSize(24), 'Alignment')
-        Row(Config('align-chooser').padding(0, 0, 0, 25), () => {
+        Row(RowConfig('align-chooser').padding(0, 0, 0, 25), () => {
           Button(Config('btn-alignment-topstart'), 'Start', () => {
             alignment.value = Alignment.Start
           })
@@ -189,7 +189,7 @@ function RowExample() {
           })
         })
 
-        Row(Config('arrangement-chooser-two').padding(0, 0, 0, 70), () => {
+        Row(RowConfig('arrangement-chooser-two').padding(0, 0, 0, 70), () => {
           Button(Config('btn-arrangement-between'), 'SpaceBetween', () => {
             arrangement.value = Arrangement.SpaceBetween
           })
@@ -209,9 +209,9 @@ function RowExample() {
             .width(500)
             .weight(1),
           () => {
-            Stack(Config('innerstack.1').width(80).height(70).background(0x00ff00))
-            Stack(Config('innerstack.2').width(100).height(140).background(0x0000ff))
-            Stack(Config('innerstack.3').width(120).height(210).background(0xff00ff))
+            Stack(StackConfig('innerstack.1').width(80).height(70).background(0x00ff00))
+            Stack(StackConfig('innerstack.2').width(100).height(140).background(0x0000ff))
+            Stack(StackConfig('innerstack.3').width(120).height(210).background(0xff00ff))
           }
         )
       }
@@ -251,7 +251,7 @@ function AnimationExample() {
             easing.value = Easing.easeInOutQuad
           })
         })
-        Row(Config('animation-chooser-three').padding(0, 0, 0, 70), () => {
+        Row(RowConfig('animation-chooser-three').padding(0, 0, 0, 70), () => {
           Button(Config('btn-animation-incubic'), 'EaseInCubic', () => {
             easing.value = Easing.easeInCubic
           })
@@ -262,7 +262,7 @@ function AnimationExample() {
             easing.value = Easing.easeInOutCubic
           })
         })
-        Stack(Config('stack').width(100).height(100).background(0x00ff00).offset(x.value, 0))
+        Stack(RowConfig('stack').width(100).height(100).background(0x00ff00).offset(x.value, 0))
         Stack(Config('spacer').height(50))
         Button(Config('btn-animate'), 'Animate', () => {
           x.value = withTiming(target.value, { easing: easing.value, duration: 1000 })
@@ -283,7 +283,7 @@ function DynamicLayoutExample() {
       padding.value = withTiming(100, { duration: 2000 })
     })
 
-    Column(Config('col').fillSize().padding(padding.value).background(0x000000), () => {
+    Column(ColumnConfig('col').fillSize().padding(padding.value).background(0x000000), () => {
       const weight = remember(2)
       const size = remember(50)
 
@@ -293,14 +293,14 @@ function DynamicLayoutExample() {
       })
 
       Row(Config('row1').fillWidth(1).weight(1), () => {
-        Row(Config('row1.1').fillHeight(1).weight(1).background(0xff0000), () => {})
-        Row(Config('row1.2').fillHeight(0.5).weight(1).background(0xaa2299), () => {})
+        Row(RowConfig('row1.1').fillHeight(1).weight(1).background(0xff0000), () => {})
+        Row(RowConfig('row1.2').fillHeight(0.5).weight(1).background(0xaa2299), () => {})
       })
 
       const background = size.value > 100 ? 0xffffff : undefined
 
       Column(
-        Config('col2')
+        ColumnConfig('col2')
           .fillWidth(0.75)
           .weight(weight.value)
           .background(0x00ff00)
@@ -320,10 +320,10 @@ function DynamicLayoutExample() {
             console.log('leave')
           }),
         () => {
-          Row(Config('row3').padding(20).background(0x0000ff), () => {
-            Column(Config('col3').width(size.value).height(size.value).background(0xff00ff), () => {
-              Column(Config('pad1').padding(10).background(0x9f0000), () => {
-                Column(Config('pad2').padding(10).background(0x009f00), () => {
+          Row(RowConfig('row3').padding(20).background(0x0000ff), () => {
+            Column(ColumnConfig('col3').width(size.value).height(size.value).background(0xff00ff), () => {
+              Column(ColumnConfig('pad1').padding(10).background(0x9f0000), () => {
+                Column(ColumnConfig('pad2').padding(10).background(0x009f00), () => {
                   Text(
                     TextConfig('text').textColor(0xffffff).textSize(20),
                     'a b c d e f g h i j k l m n o p q r s t u v w x y z'
@@ -332,9 +332,9 @@ function DynamicLayoutExample() {
               })
             })
             // @ts-ignore
-            Column(Config('margin').padding(size.value, 0, 0, 0).background(background), () => {
+            Column(ColumnConfig('margin').padding(size.value, 0, 0, 0).background(background), () => {
               Column(
-                Config('col4')
+                ColumnConfig('col4')
                   .width(50)
                   .height(50)
                   .background(0x00ffff)

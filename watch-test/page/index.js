@@ -16,6 +16,7 @@ import {
   Arrangement,
   EventManager,
   Easing,
+  ColumnConfig,
 } from '@zapp/core'
 
 let cycle = [
@@ -38,7 +39,7 @@ Page({
   },
   build() {
     Stack(StackConfig('stack').fillSize().alignment(StackAlignment.Center).background(0x222222), () => {
-      Column(Config('column').fillWidth(0.75).fillHeight(0.75).background(0xff0000).padding(10), () => {
+      Column(ColumnConfig('column').fillWidth(0.75).fillHeight(0.75).background(0xff0000).padding(10), () => {
         const weight = remember(1)
         sideEffect(() => {
           weight.value = withTiming(2, { duration: 3000, easing: Easing.easeOutQuad })
@@ -66,7 +67,7 @@ Page({
             const textVisible = remember(false)
 
             Stack(
-              Config('wrapper')
+              StackConfig('wrapper')
                 .padding(15)
                 .background(0xff00ff)
                 .onPointerDown(() => {
@@ -76,7 +77,7 @@ Page({
                 if (textVisible.value) {
                   Text(TextConfig('text').textColor(0xffffff).textSize(24), 'Random text')
                 } else {
-                  ActivityIndicator('ac', 60, 0xff0000, 10)
+                  ActivityIndicator('ac', 60, 0xffffff, 10)
                 }
               }
             )
@@ -95,9 +96,9 @@ Page({
           () => {
             const start = remember({ x: 0, y: 0 })
             const offset = remember({ x: 0, y: 0 })
-            Stack(Config('stack.1').fillHeight(0.3).width(40).background(0xff00ff))
+            Stack(StackConfig('stack.1').fillHeight(0.3).width(40).background(0xff00ff))
             Stack(
-              Config('stack.2')
+              StackConfig('stack.2')
                 .fillHeight(0.6)
                 .width(80)
                 .background(0xffff00)
@@ -108,7 +109,7 @@ Page({
                 })
             )
             Stack(
-              Config('stack.3')
+              StackConfig('stack.3')
                 .fillHeight(0.9)
                 .width(120)
                 .background(0x00ffff)

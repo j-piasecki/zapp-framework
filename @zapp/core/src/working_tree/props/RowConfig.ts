@@ -1,11 +1,11 @@
-import { ConfigBuilder } from './Config.js'
+import { LayoutConfigBuilder } from './LayoutConfig.js'
 import { Alignment, Arrangement } from './types.js'
 
 export function RowConfig(id: string) {
   return new RowConfigBuilder(id)
 }
 
-export class RowConfigBuilder extends ConfigBuilder {
+export class RowConfigBuilder extends LayoutConfigBuilder {
   public arrangement(arrangement: Arrangement) {
     this.config.arrangement = arrangement
     return this
