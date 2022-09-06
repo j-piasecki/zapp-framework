@@ -1,10 +1,6 @@
 import { ScreenBody, ConfigBuilderArg, Zapp, EventManager } from '@zapp/core'
 
-declare global {
-  const Page: (config: { onInit?: (params: any) => void; build: () => void; onDestroy?: () => void }) => void
-}
-
-export function Screen(configBuilder: ConfigBuilderArg, body?: (params?: Record<string, unknown>) => void) {
+export function SimpleScreen(configBuilder: ConfigBuilderArg, body?: (params?: Record<string, unknown>) => void) {
   Page({
     onInit(params) {
       this.receivedParams = params === undefined ? {} : JSON.parse(params)
