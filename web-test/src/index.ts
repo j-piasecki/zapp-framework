@@ -1,4 +1,4 @@
-import { ZappWeb, HashNavigator } from '@zapp/web'
+import { HashNavigator } from '@zapp/web'
 import {
   WorkingTree,
   Animation,
@@ -23,12 +23,13 @@ import {
   Easing,
   Arc,
   ArcConfig,
+  Zapp,
 } from '@zapp/core'
 import { NavBar, RouteInfo } from './NavBar'
 import { Page } from './Page'
 import { Button } from './Button'
 
-ZappWeb.init()
+Zapp.startLoop()
 
 const routesInfo: RouteInfo[] = [
   { displayName: 'Dynamic layout example', routeName: 'dynamicLayout' },

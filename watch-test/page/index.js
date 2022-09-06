@@ -1,4 +1,4 @@
-import { ZappWatch, ActivityIndicator } from '@zapp/watch'
+import { ActivityIndicator } from '@zapp/watch'
 import {
   Stack,
   StackConfig,
@@ -18,6 +18,7 @@ import {
   Easing,
   ColumnConfig,
   ArcConfig,
+  Zapp,
 } from '@zapp/core'
 
 let cycle = [
@@ -31,7 +32,7 @@ let cycle = [
 
 Page({
   onInit() {
-    ZappWatch.init()
+    Zapp.startLoop()
 
     hmUI.setLayerScrolling(false)
     hmApp.registerGestureEvent(function (event) {
@@ -152,7 +153,7 @@ Page({
     })
   },
   onDestroy() {
-    ZappWatch.destroy()
+    Zapp.stopLoop()
     hmApp.unregisterGestureEvent()
   },
 })
