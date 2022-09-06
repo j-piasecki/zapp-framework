@@ -1,33 +1,19 @@
-import { EventManager, Renderer, setViewManager, WorkingTree, Animation } from '@zapp/core'
+import {
+  EventManager,
+  __setViewManager,
+  __setZappInterface,
+  __setSimpleScreenImplementation,
+  __setNavigator,
+} from '@zapp/core'
 import { WatchViewManager } from './WatchViewManager.js'
+import { ZappWatch } from './ZappWatch.js'
+import { SimpleScreen } from './SimpleScreen.js'
+import { Navigator } from './Navigator.js'
 export { ActivityIndicator } from './ActivityIndicator.js'
 
-setViewManager(new WatchViewManager())
 EventManager.fillLeaveEnterEvents()
 
-export abstract class ZappWatch {
-  private static timerRef: unknown
-
-  public static init() {
-    WorkingTree.requestUpdate()
-
-    // @ts-ignore timer is in global scope on the watch
-    this.timerRef = timer.createTimer(0, 16, ZappWatch.update)
-  }
-
-  public static destroy() {
-    // @ts-ignore timer is in global scope on the watch
-    timer.stopTimer(this.timerRef)
-  }
-
-  private static update() {
-    EventManager.processEvents()
-    Animation.nextFrame(Date.now())
-
-    if (WorkingTree.hasUpdates()) {
-      WorkingTree.performUpdate()
-      Renderer.commit(WorkingTree.root)
-      Renderer.render()
-    }
-  }
-}
+__setZappInterface(new ZappWatch())
+__setViewManager(new WatchViewManager())
+__setSimpleScreenImplementation(SimpleScreen)
+__setNavigator(new Navigator())
