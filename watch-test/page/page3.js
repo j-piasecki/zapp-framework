@@ -1,4 +1,4 @@
-import { Navigator } from '@zapp/watch'
+import '@zapp/watch'
 import {
   SimpleScreen,
   Stack,
@@ -18,6 +18,7 @@ import {
   Easing,
   ColumnConfig,
   ArcConfig,
+  Navigator,
 } from '@zapp/core'
 
 SimpleScreen(Config('screen'), (params) => {

@@ -1,9 +1,11 @@
-export abstract class Navigator {
-  public static navigate(page: string, params: Record<string, unknown>) {
+import { NavigatorInterface } from '@zapp/core'
+
+export class Navigator implements NavigatorInterface {
+  public navigate(page: string, params: Record<string, unknown>) {
     hmApp.gotoPage({ url: page, param: JSON.stringify(params) })
   }
 
-  public static goBack() {
+  public goBack() {
     hmApp.goBack()
   }
 }

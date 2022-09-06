@@ -1,5 +1,6 @@
 import { WorkingTree } from '@zapp/core'
 
+// not using common interface for now due to platform specific differences
 export abstract class HashNavigator {
   private static routes: Record<string, (params?: Record<string, unknown>) => void>
   private static _currentRoute: string

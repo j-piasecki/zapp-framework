@@ -1,4 +1,4 @@
-import { ActivityIndicator, Navigator } from '@zapp/watch'
+import { ActivityIndicator } from '@zapp/watch'
 import {
   SimpleScreen,
   Stack,
@@ -18,6 +18,7 @@ import {
   Easing,
   ColumnConfig,
   ArcConfig,
+  Navigator,
 } from '@zapp/core'
 
 let cycle = [
