@@ -23,25 +23,25 @@ export function ScreenBody(
   WorkingTree.withContext(context, body)
 }
 
-let screenImplementation = (
+let simpleScreenImplementation = (
   configBuilder: RequireSome<ConfigBuilder, 'build'>,
   body?: (params?: Record<string, unknown>) => void
 ) => {
   ScreenBody(configBuilder, body)
 }
 
-export function setScreenImplementation(
+export function setSimpleScreenImplementation(
   implementation: (
     config: RequireSome<ConfigBuilder, 'build'>,
     body?: (params?: Record<string, unknown>) => void
   ) => void
 ) {
-  screenImplementation = implementation
+  simpleScreenImplementation = implementation
 }
 
-export function Screen(
+export function SimpleScreen(
   configBuilder: RequireSome<ConfigBuilder, 'build'>,
   body?: (params?: Record<string, unknown>) => void
 ) {
-  screenImplementation(configBuilder, body)
+  simpleScreenImplementation(configBuilder, body)
 }

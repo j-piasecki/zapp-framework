@@ -15,7 +15,7 @@ export class ZappWatch extends ZappInterface {
     timer.stopTimer(this.timerRef)
   }
 
-  private static update() {
+  private update() {
     EventManager.processEvents()
     Animation.nextFrame(Date.now())
 

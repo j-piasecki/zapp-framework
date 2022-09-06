@@ -1,7 +1,7 @@
 import { WorkingTree } from '../working_tree/WorkingTree'
 import { Config } from '../working_tree/props/Config'
 import { Column } from '../working_tree/views/Column'
-import { Screen } from '../working_tree/views/Screen'
+import { SimpleScreen } from '../working_tree/views/Screen'
 import { Row } from '../working_tree/views/Row'
 import { RememberedMutableValue } from '../working_tree/effects/RememberedMutableValue'
 import { remember } from '../working_tree/effects/remember'
@@ -17,7 +17,7 @@ afterEach(() => {
 })
 
 test('Tree is generated correctly', () => {
-  Screen(Config('screen'), () => {
+  SimpleScreen(Config('screen'), () => {
     Column(Config('column'), () => {
       const visible = remember(true)
 
@@ -35,7 +35,7 @@ test('Tree is generated correctly', () => {
 test('Tree is generated correctly after update', () => {
   let remembered: RememberedMutableValue<boolean>
 
-  Screen(Config('screen'), () => {
+  SimpleScreen(Config('screen'), () => {
     Column(Config('column'), () => {
       const visible = remember(true)
       remembered = visible
@@ -58,7 +58,7 @@ test('Tree is not re-generated after setting the same value', () => {
   const fn = jest.fn()
   let remembered: RememberedMutableValue<boolean>
 
-  Screen(Config('screen'), () => {
+  SimpleScreen(Config('screen'), () => {
     Column(Config('column'), () => {
       const visible = remember(true)
       remembered = visible
@@ -82,7 +82,7 @@ test('Side effect is not triggered when non-key value changes', () => {
   const effect = jest.fn()
   let remembered: RememberedMutableValue<boolean>
 
-  Screen(Config('screen'), () => {
+  SimpleScreen(Config('screen'), () => {
     const value = remember(true)
     remembered = value
 
@@ -104,7 +104,7 @@ test('Side effect is triggered when key value changes', () => {
   const effectDispose = jest.fn()
   let remembered: RememberedMutableValue<number>
 
-  Screen(Config('screen'), () => {
+  SimpleScreen(Config('screen'), () => {
     const value = remember(1)
     remembered = value
 
@@ -130,7 +130,7 @@ test('Side effect is disposed of when it leaves the tree', () => {
   const effectDispose = jest.fn()
   let remembered: RememberedMutableValue<boolean>
 
-  Screen(Config('screen'), () => {
+  SimpleScreen(Config('screen'), () => {
     const value = remember(true)
     remembered = value
 
@@ -155,7 +155,7 @@ test('Side effect is disposed of when it leaves the tree', () => {
 test('Value is updated correctly when captured in closure', () => {
   let remembered: RememberedMutableValue<number>
 
-  Screen(Config('screen'), () => {
+  SimpleScreen(Config('screen'), () => {
     const value = remember(1)
     remembered = value
 
@@ -184,7 +184,7 @@ test('Value is updated correctly when captured in closure', () => {
 test('Value is updated correctly when assigned an animation', () => {
   const onEnd = jest.fn()
 
-  Screen(Config('screen'), () => {
+  SimpleScreen(Config('screen'), () => {
     const value = remember(0)
 
     sideEffect(() => {

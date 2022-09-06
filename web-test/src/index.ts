@@ -3,7 +3,6 @@ import {
   WorkingTree,
   Animation,
   Renderer,
-  Screen,
   Config,
   TextConfig,
   Column,
