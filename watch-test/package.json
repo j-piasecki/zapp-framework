@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@zapp/core": "*",
+    "@zapp/ui": "*",
     "@zapp/watch": "*"
   },
   "devDependencies": {

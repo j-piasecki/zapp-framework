@@ -1,7 +1,5 @@
 import { Arc, ArcConfigBuilder, Config, remember, sideEffect, Stack, withTiming } from '@zapp/core'
 
-// TODO: separate package with ui components
-
 export function ActivityIndicator(config: ArcConfigBuilder) {
   const rawConfig = config.build()
   Stack(Config(`${rawConfig.id}#wrapper`), () => {

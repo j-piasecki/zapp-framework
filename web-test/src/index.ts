@@ -1,4 +1,5 @@
 import { HashNavigator } from '@zapp/web'
+import { ActivityIndicator } from '@zapp/ui'
 import {
   WorkingTree,
   Animation,
@@ -356,28 +357,8 @@ function DynamicLayoutExample() {
       })
 
       Row(Config('row1').fillWidth(1).weight(1), () => {
-        const start = remember(-90)
-        const size = remember(0)
-
-        sideEffect(() => {
-          start.value = withTiming(270, { duration: 1000 })
-          size.value = withTiming(120, {
-            duration: 400,
-            onEnd: () => {
-              size.value = withTiming(0, { duration: 600 })
-            },
-          })
-        })
         Row(RowConfig('row1.1').fillHeight(1).weight(1).background(0xff0000), () => {
-          Arc(
-            ArcConfig('arc')
-              .width(100)
-              .height(100)
-              .lineWidth(20)
-              .color(0x00ff00)
-              .startAngle(start.value)
-              .endAngle(start.value + size.value)
-          )
+          ActivityIndicator(ArcConfig('ac').width(100).height(100).color(0xffffff).lineWidth(10))
         })
         Row(RowConfig('row1.2').fillHeight(0.5).weight(1).background(0xaa2299), () => {})
       })

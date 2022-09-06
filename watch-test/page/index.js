@@ -1,4 +1,5 @@
-import { ActivityIndicator } from '@zapp/watch'
+import '@zapp/watch'
+import { ActivityIndicator } from '@zapp/ui'
 import {
   SimpleScreen,
   Stack,

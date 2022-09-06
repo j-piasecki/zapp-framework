@@ -9,7 +9,6 @@ import { WatchViewManager } from './WatchViewManager.js'
 import { ZappWatch } from './ZappWatch.js'
 import { SimpleScreen } from './SimpleScreen.js'
 import { Navigator } from './Navigator.js'
-export { ActivityIndicator } from './ActivityIndicator.js'
 
 EventManager.fillLeaveEnterEvents()
 
