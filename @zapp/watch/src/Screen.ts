@@ -7,6 +7,8 @@ declare global {
 export function Screen(configBuilder: ConfigBuilderArg, body?: (params?: Record<string, unknown>) => void) {
   Page({
     onInit(params) {
+      this.receivedParams = params === undefined ? {} : JSON.parse(params)
+
       Zapp.startLoop()
 
       hmUI.setLayerScrolling(false)
@@ -15,7 +17,9 @@ export function Screen(configBuilder: ConfigBuilderArg, body?: (params?: Record<
       })
     },
     build() {
-      ScreenBody(configBuilder, body)
+      ScreenBody(configBuilder, () => {
+        body?.(this.receivedParams)
+      })
     },
     onDestroy() {
       Zapp.stopLoop()
