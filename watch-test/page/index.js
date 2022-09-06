@@ -1,4 +1,4 @@
-import { ActivityIndicator } from '@zapp/watch'
+import { ActivityIndicator, Navigator } from '@zapp/watch'
 import {
   SimpleScreen,
   Stack,
@@ -90,7 +90,15 @@ SimpleScreen(Config('screen'), () => {
           const start = remember({ x: 0, y: 0 })
           const offset = remember({ x: 0, y: 0 })
           Stack(
-            StackConfig('stack.1').fillHeight(0.3).width(30).background(0xff00ff).borderWidth(10).borderColor(0x00ff00)
+            StackConfig('stack.1')
+              .fillHeight(0.3)
+              .width(30)
+              .background(0xff00ff)
+              .borderWidth(10)
+              .borderColor(0x00ff00)
+              .onPointerDown(() => {
+                Navigator.navigate('page/page1', { data: 'from home' })
+              })
           )
           Stack(
             StackConfig('stack.2')
