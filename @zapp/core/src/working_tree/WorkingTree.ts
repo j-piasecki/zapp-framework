@@ -1,5 +1,6 @@
 import { NodeType } from '../NodeType.js'
 import { PrefixTree } from '../PrefixTree.js'
+import { SavedTreeState } from './SavedTreeState.js'
 import { ViewNode } from './ViewNode.js'
 import { WorkingNode } from './WorkingNode.js'
 
@@ -23,6 +24,10 @@ export abstract class WorkingTree {
 
   static get root() {
     return this._root
+  }
+
+  public static saveState() {
+    return new SavedTreeState(WorkingTree.root)
   }
 
   public static withContext(context: WorkingNode, fun?: () => void) {
