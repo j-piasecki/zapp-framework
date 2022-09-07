@@ -1,17 +1,26 @@
 import { NodeType } from '../NodeType.js'
 import { PrefixTree } from '../PrefixTree.js'
+import { SavedTreeState } from './SavedTreeState.js'
 import { ViewNode } from './ViewNode.js'
 import { WorkingNode } from './WorkingNode.js'
 
 export const ROOT_ID = '#__root'
 
+class RootNode extends ViewNode {
+  public savedState?: SavedTreeState
+
+  constructor() {
+    super({
+      id: ROOT_ID,
+      type: NodeType.Root,
+      config: { id: ROOT_ID },
+      body: () => {},
+    })
+  }
+}
+
 export abstract class WorkingTree {
-  private static _root: ViewNode = new ViewNode({
-    id: ROOT_ID,
-    type: NodeType.Root,
-    config: { id: ROOT_ID },
-    body: () => {},
-  })
+  private static _root: RootNode = new RootNode()
   private static _current: WorkingNode = WorkingTree._root
 
   private static updatePaths = new PrefixTree()
@@ -23,6 +32,14 @@ export abstract class WorkingTree {
 
   static get root() {
     return this._root
+  }
+
+  public static saveState() {
+    return new SavedTreeState(WorkingTree.root)
+  }
+
+  public static restoreState(savedState: SavedTreeState) {
+    WorkingTree.root.savedState = savedState
   }
 
   public static withContext(context: WorkingNode, fun?: () => void) {
@@ -48,6 +65,8 @@ export abstract class WorkingTree {
   }
 
   public static performUpdate() {
+    WorkingTree.root.savedState = undefined
+
     for (const path of this.updatePaths.getPaths()) {
       const nodeToUpdate = WorkingTree.root.getNodeFromPath(path) as ViewNode
 
@@ -79,12 +98,8 @@ export abstract class WorkingTree {
   }
 
   public static dropAll() {
-    const newRoot = new ViewNode({
-      id: ROOT_ID,
-      type: NodeType.Root,
-      config: { id: ROOT_ID },
-      body: () => {},
-    })
+    const newRoot = new RootNode()
+    newRoot.savedState = WorkingTree.root.savedState
 
     WorkingTree._root.drop(newRoot)
     WorkingTree._root = newRoot
