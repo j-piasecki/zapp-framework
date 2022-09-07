@@ -1,4 +1,6 @@
-import { WorkingTree } from '@zapp/core'
+import { SavedTreeState, WorkingTree } from '@zapp/core'
+
+const historyStack: SavedTreeState[] = []
 
 // not using common interface for now due to platform specific differences
 export abstract class HashNavigator {
@@ -13,12 +15,14 @@ export abstract class HashNavigator {
     history.replaceState(undefined, '', `#${routeToRender}`)
 
     window.addEventListener('popstate', (e) => {
+      WorkingTree.restoreState(historyStack.pop()!)
       HashNavigator.changeRoute(window.location.hash.substring(1), e.state)
     })
   }
 
   public static navigate(route: string, params?: Record<string, unknown>) {
     if (HashNavigator._currentRoute !== route && HashNavigator.routes[route] !== undefined) {
+      historyStack.push(WorkingTree.saveState())
       HashNavigator.changeRoute(route, params)
       history.pushState(params, '', `#${route}`)
     }
@@ -26,7 +30,6 @@ export abstract class HashNavigator {
 
   private static changeRoute(route: string, params?: Record<string, unknown>) {
     HashNavigator._currentRoute = route
-
     WorkingTree.dropAll()
     HashNavigator.routes[route](params)
   }

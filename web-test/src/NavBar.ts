@@ -35,7 +35,7 @@ function NavButton(text: string, route: string) {
             pressed.value = false
             background.value = defaultColor
 
-            HashNavigator.navigate(route)
+            HashNavigator.navigate(route, { from: HashNavigator.currentRoute })
           }
         })
         .onPointerLeave(() => {

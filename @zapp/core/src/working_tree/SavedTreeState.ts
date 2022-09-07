@@ -16,6 +16,11 @@ interface LeafNode {
   state: SavedState
 }
 
+function isInnerNode(node: InnerNode | LeafNode): node is InnerNode {
+  // @ts-ignore
+  return node.children !== undefined
+}
+
 export class SavedTreeState {
   private root: InnerNode
 
@@ -48,8 +53,37 @@ export class SavedTreeState {
       }
     }
 
-    // TODO: consider saving effects
+    // TODO: consider saving effects, animations
 
     return null
+  }
+
+  public tryFindingValue(node: RememberNode): unknown | undefined {
+    let current = this.root
+    let index = 0
+
+    if (node.path[index] === current.id) {
+      index++ // skip root
+    }
+
+    while (index < node.path.length) {
+      const id = node.path[index++]
+      const children = current.children
+
+      if (children.has(id)) {
+        const child = children.get(id)
+
+        if (child !== undefined && isInnerNode(child)) {
+          current = child
+        } else {
+          return undefined
+        }
+      } else {
+        return undefined
+      }
+    }
+
+    // @ts-ignore
+    return current.children.get(node.id)?.state
   }
 }
