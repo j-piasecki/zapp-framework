@@ -1,4 +1,4 @@
-import { HashNavigator } from '@zapp/web'
+import { registerNavigationRoutes } from '@zapp/web'
 import { ActivityIndicator } from '@zapp/ui'
 import {
   WorkingTree,
@@ -433,7 +433,7 @@ function DynamicLayoutExample() {
   })
 }
 
-HashNavigator.register('dynamicLayout', {
+registerNavigationRoutes('dynamicLayout', {
   dynamicLayout: DynamicLayoutExample,
   stack: StackExample,
   column: ColumnExample,

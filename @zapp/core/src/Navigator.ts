@@ -1,4 +1,5 @@
 export interface NavigatorInterface {
+  readonly currentPage: string
   navigate(route: string, params?: Record<string, unknown>): void
   goBack(): void
 }
@@ -6,6 +7,10 @@ export interface NavigatorInterface {
 let navigator: NavigatorInterface
 
 export abstract class Navigator {
+  public static get currentPage(): string {
+    return navigator.currentPage
+  }
+
   public static navigate(route: string, params?: Record<string, unknown>): void {
     navigator.navigate(route, params)
   }
