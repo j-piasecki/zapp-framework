@@ -3,6 +3,7 @@ import { RememberNode } from '../RememberNode.js'
 import { ViewNode } from '../ViewNode.js'
 import { WorkingTree } from '../WorkingTree.js'
 import { RememberedMutableValue } from './RememberedMutableValue.js'
+import { RememberedValueType } from './RememberedValue.js'
 
 export function remember<T>(value: T): RememberedMutableValue<T> {
   const current = WorkingTree.current as ViewNode
@@ -28,6 +29,7 @@ export function remember<T>(value: T): RememberedMutableValue<T> {
   }
 
   const result = savedRemembered === null ? new RememberedMutableValue(value, context) : savedRemembered
+  result.setType(RememberedValueType.Mutable)
 
   context.remembered = result
 
