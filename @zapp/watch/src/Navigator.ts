@@ -1,4 +1,4 @@
-import { NavigatorInterface } from '@zapp/core'
+import { NavigatorInterface, RegisteredCallback } from '@zapp/core'
 
 export class Navigator implements NavigatorInterface {
   get currentPage(): string {
@@ -11,5 +11,17 @@ export class Navigator implements NavigatorInterface {
 
   public goBack() {
     hmApp.goBack()
+  }
+
+  registerResultCallback(page: string, path: string[]): void {
+    throw new Error('Method not implemented.')
+  }
+
+  tryPoppingLauncherResult(page: string, path: string[]): RegisteredCallback | undefined {
+    throw new Error('Method not implemented.')
+  }
+
+  finishWithResult(params: Record<string, unknown>): void {
+    throw new Error('Method not implemented.')
   }
 }

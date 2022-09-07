@@ -24,6 +24,8 @@ import {
   Arc,
   ArcConfig,
   Zapp,
+  rememberLauncherForResult,
+  Navigator,
 } from '@zapp/core'
 import { NavBar, RouteInfo } from './NavBar'
 import { Page } from './Page'
@@ -37,6 +39,7 @@ const routesInfo: RouteInfo[] = [
   { displayName: 'Column example', routeName: 'column' },
   { displayName: 'Row example', routeName: 'row' },
   { displayName: 'Animation example', routeName: 'animation' },
+  { displayName: 'StartForResult example', routeName: 'startForResult' },
 ]
 
 function StackExample() {
@@ -433,10 +436,58 @@ function DynamicLayoutExample() {
   })
 }
 
+function StartForResultExample() {
+  Page(routesInfo, () => {
+    Column(ColumnConfig('column').alignment(Alignment.Center).arrangement(Arrangement.Center), () => {
+      const value = remember('nothing')
+      const anim = remember(0)
+      const launcher = rememberLauncherForResult('picker', (result) => {
+        value.value = result!.res as string
+      })
+
+      sideEffect(() => {
+        anim.value = withTiming(400, { duration: 1000 })
+      })
+
+      Stack(StackConfig('box').width(100).height(100).background(0xff0000).offset(0, anim.value))
+
+      Text(TextConfig('value-text').textColor(0xffffff).textSize(40), value.value)
+
+      Button(Config('btn'), 'Open', () => {
+        launcher.launch()
+      })
+
+      Button(Config('clear'), 'Clear', () => {
+        value.value = 'nothing'
+      })
+    })
+  })
+}
+
+function NumberPickerExample() {
+  Page(routesInfo, () => {
+    Column(ColumnConfig('column').alignment(Alignment.Center).arrangement(Arrangement.Center), () => {
+      Button(Config('btn1'), 'Send 1', () => {
+        Navigator.finishWithResult({ res: '1' })
+      })
+
+      Button(Config('btn2'), 'Send 2', () => {
+        Navigator.finishWithResult({ res: '2' })
+      })
+
+      Button(Config('btn3'), 'Send 3', () => {
+        Navigator.finishWithResult({ res: '3' })
+      })
+    })
+  })
+}
+
 registerNavigationRoutes('dynamicLayout', {
   dynamicLayout: DynamicLayoutExample,
   stack: StackExample,
   column: ColumnExample,
   row: RowExample,
   animation: AnimationExample,
+  startForResult: StartForResultExample,
+  picker: NumberPickerExample,
 })

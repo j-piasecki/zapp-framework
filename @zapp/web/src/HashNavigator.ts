@@ -1,6 +1,7 @@
-import { SavedTreeState, WorkingTree, NavigatorInterface } from '@zapp/core'
+import { SavedTreeState, WorkingTree, NavigatorInterface, RegisteredCallback } from '@zapp/core'
 
 const historyStack: SavedTreeState[] = []
+const registeredCallbacks: RegisteredCallback[] = []
 
 // not using common interface for now due to platform specific differences
 export class HashNavigator implements NavigatorInterface {
@@ -30,6 +31,45 @@ export class HashNavigator implements NavigatorInterface {
 
   public goBack(): void {
     history.back()
+  }
+
+  registerResultCallback(page: string, path: string[]): void {
+    registeredCallbacks.push({
+      targetPage: page,
+      callbackPath: path,
+      ready: false,
+    })
+  }
+
+  tryPoppingLauncherResult(page: string, path: string[]): RegisteredCallback | undefined {
+    if (registeredCallbacks.length > 0) {
+      const top = registeredCallbacks[registeredCallbacks.length - 1]
+
+      if (top.ready && page === top.targetPage && top.callbackPath.length === path.length) {
+        for (let i = 0; i < path.length; i++) {
+          if (path[i] !== top.callbackPath[i]) {
+            return undefined
+          }
+        }
+
+        return registeredCallbacks.pop()
+      }
+    }
+
+    return undefined
+  }
+
+  finishWithResult(params: Record<string, unknown>): void {
+    if (registeredCallbacks.length > 0) {
+      const top = registeredCallbacks[registeredCallbacks.length - 1]
+
+      if (top.targetPage === this.currentPage) {
+        top.ready = true
+        top.result = params
+      }
+    }
+
+    this.goBack()
   }
 
   private changeRoute(route: string, params?: Record<string, unknown>) {
