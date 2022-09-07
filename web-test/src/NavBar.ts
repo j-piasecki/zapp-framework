@@ -8,13 +8,13 @@ import {
   Custom,
   remember,
   ColumnConfig,
+  Navigator,
 } from '@zapp/core'
-import { HashNavigator } from '@zapp/web'
 
 function NavButton(text: string, route: string) {
   Custom(ColumnConfig(`wrapperbutton#${route}`).padding(5, 0), {}, () => {
-    const defaultColor = route === HashNavigator.currentRoute ? 0x555555 : 0x333333
-    const pressedColor = route === HashNavigator.currentRoute ? 0x666666 : 0x444444
+    const defaultColor = route === Navigator.currentPage ? 0x555555 : 0x333333
+    const pressedColor = route === Navigator.currentPage ? 0x666666 : 0x444444
 
     const pressed = remember(false)
     const background = remember(defaultColor)
@@ -35,7 +35,7 @@ function NavButton(text: string, route: string) {
             pressed.value = false
             background.value = defaultColor
 
-            HashNavigator.navigate(route, { from: HashNavigator.currentRoute })
+            Navigator.navigate(route, { from: Navigator.currentPage })
           }
         })
         .onPointerLeave(() => {

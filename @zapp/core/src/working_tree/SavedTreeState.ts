@@ -46,7 +46,7 @@ export class SavedTreeState {
 
         return result
       }
-    } else if (node instanceof RememberNode) {
+    } else if (node instanceof RememberNode && node.remembered.shouldBeSaved()) {
       return {
         id: node.id,
         state: node.remembered.value,

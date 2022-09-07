@@ -30,7 +30,6 @@ export function remember<T>(value: T): RememberedMutableValue<T> {
   const result = savedRemembered === null ? new RememberedMutableValue(value, context) : savedRemembered
 
   context.remembered = result
-
   current.children.push(context)
 
   return result

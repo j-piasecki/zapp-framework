@@ -17,4 +17,9 @@ export class RememberedValue<T> {
   public switchContext(context: RememberNode) {
     this.context = context
   }
+
+  /** @internal */
+  public shouldBeSaved() {
+    return typeof this._value !== 'function'
+  }
 }
