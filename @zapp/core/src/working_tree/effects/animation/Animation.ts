@@ -6,6 +6,10 @@ export interface AnimationProps {
   easing?: (t: number) => number
 }
 
+export enum AnimationType {
+  Timing,
+}
+
 export abstract class Animation<T> {
   protected static runningAnimations: Animation<unknown>[] = []
 
@@ -49,6 +53,17 @@ export abstract class Animation<T> {
     const index = Animation.runningAnimations.indexOf(this)
     if (index !== -1) {
       Animation.runningAnimations.splice(index, 1)
+    }
+  }
+
+  public inheritEndCallback(from: Animation<T>) {
+    this.endHandler = from.endHandler
+    from.endHandler = undefined
+  }
+
+  public save(): Record<string, unknown> | undefined {
+    return {
+      startValue: this.startValue,
     }
   }
 }

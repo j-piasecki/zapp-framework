@@ -1,9 +1,11 @@
 import { ViewNode } from './ViewNode.js'
 import { WorkingNode } from './WorkingNode.js'
 import { RememberNode } from './RememberNode.js'
+import { RememberedMutableValue } from './effects/RememberedMutableValue.js'
 
 interface SavedState {
   value?: unknown
+  animationData?: Record<string, unknown>
 }
 
 interface InnerNode {
@@ -47,10 +49,18 @@ export class SavedTreeState {
         return result
       }
     } else if (node instanceof RememberNode && node.remembered.shouldBeSaved()) {
-      return {
+      const result: LeafNode = {
         id: node.id,
-        state: node.remembered.value,
+        state: {
+          value: node.remembered.value,
+        },
       }
+
+      if (node.remembered instanceof RememberedMutableValue && node.remembered.animation !== undefined) {
+        result.state.animationData = node.remembered.animation.save()
+      }
+
+      return result
     }
 
     // TODO: consider saving effects, animations
@@ -58,7 +68,7 @@ export class SavedTreeState {
     return null
   }
 
-  public tryFindingValue(node: RememberNode): unknown | undefined {
+  public tryFindingValue(node: RememberNode): SavedState | undefined {
     let current = this.root
     let index = 0
 

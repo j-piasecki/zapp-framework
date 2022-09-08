@@ -27,7 +27,9 @@ export function sideEffect(effect: () => (() => void) | void, ...keys: any) {
       rememberedNode.effectCleanup?.()
 
       context.effect = effect
-      context.effectCleanup = effect() as (() => void) | undefined
+      WorkingTree.withContext(context, () => {
+        context.effectCleanup = effect() as (() => void) | undefined
+      })
       context.keys = keys
     } else {
       context.effect = rememberedNode.effect
@@ -36,7 +38,9 @@ export function sideEffect(effect: () => (() => void) | void, ...keys: any) {
     }
   } else {
     context.effect = effect
-    context.effectCleanup = effect() as (() => void) | undefined
+    WorkingTree.withContext(context, () => {
+      context.effectCleanup = effect() as (() => void) | undefined
+    })
     context.keys = keys
   }
 

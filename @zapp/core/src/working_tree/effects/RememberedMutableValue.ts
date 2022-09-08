@@ -2,6 +2,7 @@ import { RememberNode } from '../RememberNode.js'
 import { WorkingTree } from '../WorkingTree.js'
 import { RememberedValue } from './RememberedValue.js'
 import { Animation } from './animation/Animation.js'
+import { EffectNode } from '../EffectNode.js'
 
 export class RememberedMutableValue<T> extends RememberedValue<T> {
   private _animation?: Animation<unknown>
@@ -11,21 +12,37 @@ export class RememberedMutableValue<T> extends RememberedValue<T> {
     return this._animation
   }
 
+  /** @internal */
+  set animation(animation: Animation<unknown> | undefined) {
+    this._animation = animation
+  }
+
   public get value(): T {
     return this._value
   }
 
   public set value(newValue: T | Animation<T>) {
+    // skip assignment of the new value if we are currently restoring saved state and we are inside side effect
+    const skipAssignment = WorkingTree.current instanceof EffectNode && WorkingTree.isRestoringState()
+
     if (newValue instanceof Animation) {
-      if (this._animation !== undefined) {
-        this._animation.drop()
+      if (skipAssignment && this._animation !== undefined) {
+        // we need to recalculate the end callbacks so they have correct closure but we need to drop the
+        // newly created animation
+        this._animation.inheritEndCallback(newValue)
+        newValue.drop()
+      } else {
+        if (this._animation !== undefined) {
+          this._animation.drop()
+        }
+        this._animation = newValue
+
+        // set starting value only when assigning a new animation in order not to override the restored one
+        this._animation.startValue = this._value
       }
 
-      newValue.rememberedValue = this
-      newValue.startValue = this._value
-
-      this._animation = newValue
-    } else {
+      this._animation.rememberedValue = this
+    } else if (!skipAssignment) {
       const oldValue = this._value
       this._value = newValue
 

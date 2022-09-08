@@ -42,6 +42,10 @@ export abstract class WorkingTree {
     WorkingTree.root.savedState = savedState
   }
 
+  public static isRestoringState() {
+    return WorkingTree.root.savedState !== undefined
+  }
+
   public static withContext(context: WorkingNode, fun?: () => void) {
     if (fun !== undefined) {
       const previousContext = WorkingTree.current
