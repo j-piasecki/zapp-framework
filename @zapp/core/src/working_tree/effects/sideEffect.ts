@@ -2,7 +2,7 @@ import { EffectNode } from '../EffectNode.js'
 import { ViewNode } from '../ViewNode.js'
 import { WorkingTree } from '../WorkingTree.js'
 
-export function sideEffect(effect: () => (() => void) | void, ...keys: any) {
+export function sideEffect(effect: (isRestoring: boolean) => (() => void) | void, ...keys: any) {
   const current = WorkingTree.current as ViewNode
   const context = current.effect()
 
@@ -28,7 +28,7 @@ export function sideEffect(effect: () => (() => void) | void, ...keys: any) {
 
       context.effect = effect
       WorkingTree.withContext(context, () => {
-        context.effectCleanup = effect() as (() => void) | undefined
+        context.effectCleanup = effect(WorkingTree.isRestoringState()) as (() => void) | undefined
       })
       context.keys = keys
     } else {
@@ -39,7 +39,7 @@ export function sideEffect(effect: () => (() => void) | void, ...keys: any) {
   } else {
     context.effect = effect
     WorkingTree.withContext(context, () => {
-      context.effectCleanup = effect() as (() => void) | undefined
+      context.effectCleanup = effect(WorkingTree.isRestoringState()) as (() => void) | undefined
     })
     context.keys = keys
   }
