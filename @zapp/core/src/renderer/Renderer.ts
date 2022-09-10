@@ -2,7 +2,7 @@ import { NodeType } from '../NodeType.js'
 import { ConfigType } from '../working_tree/props/types.js'
 import { ViewNode } from '../working_tree/ViewNode.js'
 import { CustomViewProps } from '../working_tree/views/Custom.js'
-import { EventManager } from './EventManager.js'
+import { PointerEventManager } from './PointerEventManager.js'
 import { LayoutManager } from './LayoutManager.js'
 import { ViewManager } from './ViewManager.js'
 
@@ -146,7 +146,7 @@ export abstract class Renderer {
     if (!Renderer.isNodeLayoutOnly(node)) {
       node.zIndex = Renderer.nextZIndex++
       node.view = Renderer.viewManager.createView(node)
-      EventManager.addEventTarget(node)
+      PointerEventManager.addEventTarget(node)
     }
 
     if (createChildren) {
@@ -158,7 +158,7 @@ export abstract class Renderer {
 
   private static dropView(node: RenderNode) {
     if (node.view !== null) {
-      EventManager.dropEventTarget(node)
+      PointerEventManager.dropEventTarget(node)
       Renderer.viewManager.dropView(node)
       node.view = null
     }
@@ -218,7 +218,7 @@ export abstract class Renderer {
   private static updateView(previous: RenderNode, next: RenderNode) {
     if (Renderer.shouldUpdateView(previous, next)) {
       Renderer.viewManager.updateView(previous, next)
-      EventManager.addEventTarget(next)
+      PointerEventManager.addEventTarget(next)
     }
   }
 

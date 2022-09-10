@@ -1,7 +1,7 @@
 import { PointerData, PointerEventType } from '../working_tree/props/types.js'
 import { RenderNode } from './Renderer.js'
 
-export abstract class EventManager {
+export abstract class PointerEventManager {
   private static eventQueue: PointerData[] = []
   private static eventTargets: Map<string, RenderNode> = new Map()
 
@@ -11,7 +11,7 @@ export abstract class EventManager {
   private static capturedPointers: Map<number, string> = new Map()
 
   public static fillLeaveEnterEvents() {
-    EventManager.shouldFillLeaveEnterEvents = true
+    PointerEventManager.shouldFillLeaveEnterEvents = true
   }
 
   public static queueEvent(event: PointerData) {
@@ -25,29 +25,32 @@ export abstract class EventManager {
         event.type = PointerEventType.MOVE
       }
     } else {
-      if (EventManager.shouldFillLeaveEnterEvents && event.type === PointerEventType.MOVE) {
-        if (EventManager.lastMoveEvent !== undefined && EventManager.lastMoveEvent.target !== event.target) {
-          EventManager.queueEvent({ ...EventManager.lastMoveEvent, type: PointerEventType.LEAVE })
-          EventManager.queueEvent({ ...event, type: PointerEventType.ENTER })
+      if (PointerEventManager.shouldFillLeaveEnterEvents && event.type === PointerEventType.MOVE) {
+        if (
+          PointerEventManager.lastMoveEvent !== undefined &&
+          PointerEventManager.lastMoveEvent.target !== event.target
+        ) {
+          PointerEventManager.queueEvent({ ...PointerEventManager.lastMoveEvent, type: PointerEventType.LEAVE })
+          PointerEventManager.queueEvent({ ...event, type: PointerEventType.ENTER })
 
-          EventManager.lastMoveEvent = event
+          PointerEventManager.lastMoveEvent = event
           return
         } else {
-          EventManager.lastMoveEvent = event
+          PointerEventManager.lastMoveEvent = event
         }
       } else {
-        EventManager.lastMoveEvent = undefined
+        PointerEventManager.lastMoveEvent = undefined
       }
 
       // handle not sending enter and leave events when moving between parent and child with inherited handlers
       if (event.type === PointerEventType.ENTER) {
-        const enterTarget = EventManager.eventTargets.get(event.target)
+        const enterTarget = PointerEventManager.eventTargets.get(event.target)
 
         if (enterTarget !== undefined) {
           // iterate backwards, as we expect leave event to be sent just before enter event
-          for (let i = EventManager.eventQueue.length - 1; i >= 0; i--) {
-            const leaveEvent = EventManager.eventQueue[i]
-            const leaveTarget = EventManager.eventTargets.get(leaveEvent.target)
+          for (let i = PointerEventManager.eventQueue.length - 1; i >= 0; i--) {
+            const leaveEvent = PointerEventManager.eventQueue[i]
+            const leaveTarget = PointerEventManager.eventTargets.get(leaveEvent.target)
 
             if (leaveEvent.type === PointerEventType.LEAVE && leaveTarget !== undefined) {
               let parentCandidate = null
@@ -64,12 +67,12 @@ export abstract class EventManager {
 
               // check whether there is a parent-child relation and events are inherited
               if (
-                EventManager.isParent(parentCandidate, childCandidate) &&
+                PointerEventManager.isParent(parentCandidate, childCandidate) &&
                 parentCandidate.config.onPointerEnter === childCandidate.config.onPointerEnter &&
                 parentCandidate.config.onPointerLeave === childCandidate.config.onPointerLeave
               ) {
                 // if so, remove leave event from queue and don't queue enter event
-                EventManager.eventQueue.splice(i, 1)
+                PointerEventManager.eventQueue.splice(i, 1)
                 return
               }
             }
@@ -82,14 +85,14 @@ export abstract class EventManager {
       (e) => e.id === event.id && e.type === event.type && e.target === event.target
     )
     if (indexToCoalesce === -1) {
-      EventManager.eventQueue.push(event)
+      PointerEventManager.eventQueue.push(event)
     } else {
-      EventManager.eventQueue[indexToCoalesce] = event
+      PointerEventManager.eventQueue[indexToCoalesce] = event
     }
   }
 
   public static addEventTarget(node: RenderNode) {
-    EventManager.eventTargets.set(node.id, node)
+    PointerEventManager.eventTargets.set(node.id, node)
   }
 
   public static dropEventTarget(node: RenderNode) {
@@ -98,15 +101,15 @@ export abstract class EventManager {
     //
     // in that situation the new view registers the target under the same id, and when
     // the old one is dropped it would drop the new target
-    if (EventManager.eventTargets.get(node.id)?.view === node.view) {
-      EventManager.eventTargets.delete(node.id)
+    if (PointerEventManager.eventTargets.get(node.id)?.view === node.view) {
+      PointerEventManager.eventTargets.delete(node.id)
     }
   }
 
   public static processEvents() {
     // TODO: consider sending move event only to the view that received down event
-    EventManager.eventQueue.forEach((event) => {
-      const target = EventManager.eventTargets.get(event.target)
+    PointerEventManager.eventQueue.forEach((event) => {
+      const target = PointerEventManager.eventTargets.get(event.target)
 
       if (target !== undefined) {
         switch (event.type) {
@@ -120,7 +123,7 @@ export abstract class EventManager {
             target.config.onPointerUp?.(event)
 
             // free the pointer capture when it goes up
-            EventManager.capturedPointers.delete(event.id)
+            PointerEventManager.capturedPointers.delete(event.id)
             break
           case PointerEventType.ENTER:
             target.config.onPointerEnter?.(event)
@@ -132,15 +135,15 @@ export abstract class EventManager {
       }
     })
 
-    EventManager.eventQueue = []
+    PointerEventManager.eventQueue = []
   }
 
   public static capturePointer(id: number, target: string) {
-    EventManager.capturedPointers.set(id, target)
+    PointerEventManager.capturedPointers.set(id, target)
   }
 
   public static hasCapturedPointers() {
-    return EventManager.capturedPointers.size !== 0
+    return PointerEventManager.capturedPointers.size !== 0
   }
 
   private static isParent(parent: RenderNode, childCandidate: RenderNode): boolean {
@@ -149,7 +152,7 @@ export abstract class EventManager {
     }
 
     for (const child of parent.children) {
-      if (EventManager.isParent(child, childCandidate)) {
+      if (PointerEventManager.isParent(child, childCandidate)) {
         return true
       }
     }

@@ -1,4 +1,4 @@
-import { EventManager, Renderer, WorkingTree, ZappInterface, Animation } from '@zapp/core'
+import { PointerEventManager, Renderer, WorkingTree, ZappInterface, Animation } from '@zapp/core'
 
 export class ZappWeb extends ZappInterface {
   private running = false
@@ -14,7 +14,7 @@ export class ZappWeb extends ZappInterface {
   }
 
   private update = () => {
-    EventManager.processEvents()
+    PointerEventManager.processEvents()
     Animation.nextFrame(Date.now())
 
     if (WorkingTree.hasUpdates()) {

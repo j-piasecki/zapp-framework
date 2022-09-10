@@ -1,5 +1,5 @@
 import {
-  EventManager,
+  PointerEventManager,
   __setViewManager,
   __setZappInterface,
   __setSimpleScreenImplementation,
@@ -12,7 +12,7 @@ import { SimpleScreen } from './SimpleScreen.js'
 import { Navigator } from './Navigator.js'
 import { Application } from './Application.js'
 
-EventManager.fillLeaveEnterEvents()
+PointerEventManager.fillLeaveEnterEvents()
 
 __setZappInterface(new ZappWatch())
 __setViewManager(new WatchViewManager())

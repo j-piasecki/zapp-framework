@@ -1,4 +1,4 @@
-import { ViewManager, RenderNode, NodeType, PointerData, PointerEventType, EventManager } from '@zapp/core'
+import { ViewManager, RenderNode, NodeType, PointerData, PointerEventType, PointerEventManager } from '@zapp/core'
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = hmSetting.getDeviceInfo()
 
@@ -27,30 +27,30 @@ export class WatchViewManager extends ViewManager {
       x: event.x, // TODO: handle scrolling correctly
       y: event.y,
       capture: () => {
-        // TODO: abstract it to EventManager?
-        EventManager.capturePointer(event.id, target)
+        // TODO: abstract it to PointerEventManager?
+        PointerEventManager.capturePointer(event.id, target)
       },
     }
   }
 
   private pointerDownHandler = (event: PointerEvent, target: string) => {
-    EventManager.queueEvent(this.adaptEvent(event, target, PointerEventType.DOWN))
+    PointerEventManager.queueEvent(this.adaptEvent(event, target, PointerEventType.DOWN))
   }
 
   private pointerMoveHandler = (event: PointerEvent, target: string) => {
-    EventManager.queueEvent(this.adaptEvent(event, target, PointerEventType.MOVE))
+    PointerEventManager.queueEvent(this.adaptEvent(event, target, PointerEventType.MOVE))
   }
 
   private pointerUpHandler = (event: PointerEvent, target: string) => {
-    EventManager.queueEvent(this.adaptEvent(event, target, PointerEventType.UP))
+    PointerEventManager.queueEvent(this.adaptEvent(event, target, PointerEventType.UP))
   }
 
   private pointerEnterHandler = (event: PointerEvent, target: string) => {
-    EventManager.queueEvent(this.adaptEvent(event, target, PointerEventType.ENTER))
+    PointerEventManager.queueEvent(this.adaptEvent(event, target, PointerEventType.ENTER))
   }
 
   private pointerLeaveHandler = (event: PointerEvent, target: string) => {
-    EventManager.queueEvent(this.adaptEvent(event, target, PointerEventType.LEAVE))
+    PointerEventManager.queueEvent(this.adaptEvent(event, target, PointerEventType.LEAVE))
   }
 
   createView(node: RenderNode) {

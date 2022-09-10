@@ -1,9 +1,6 @@
 import { registerNavigationRoutes } from '@zapp/web'
 import { ActivityIndicator } from '@zapp/ui'
 import {
-  WorkingTree,
-  Animation,
-  Renderer,
   Config,
   TextConfig,
   Column,
@@ -12,7 +9,6 @@ import {
   remember,
   sideEffect,
   withTiming,
-  EventManager,
   Stack,
   StackConfig,
   StackAlignment,

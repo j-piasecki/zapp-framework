@@ -1,4 +1,4 @@
-import { ScreenBody, ConfigBuilderArg, Zapp, EventManager, WorkingTree, Navigator } from '@zapp/core'
+import { ScreenBody, ConfigBuilderArg, Zapp, PointerEventManager, WorkingTree, Navigator } from '@zapp/core'
 
 export function SimpleScreen(configBuilder: ConfigBuilderArg, body?: (params?: Record<string, unknown>) => void) {
   Page({
@@ -15,7 +15,7 @@ export function SimpleScreen(configBuilder: ConfigBuilderArg, body?: (params?: R
 
       hmUI.setLayerScrolling(false)
       hmApp.registerGestureEvent(function (event: unknown) {
-        if (EventManager.hasCapturedPointers()) {
+        if (PointerEventManager.hasCapturedPointers()) {
           return true
         }
 
