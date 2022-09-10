@@ -33,7 +33,7 @@ export class HashNavigator implements NavigatorInterface {
     history.back()
   }
 
-  registerResultCallback(page: string, path: string[]): void {
+  public registerResultCallback(page: string, path: string[]): void {
     registeredCallbacks.push({
       targetPage: page,
       callbackPath: path,
@@ -41,7 +41,7 @@ export class HashNavigator implements NavigatorInterface {
     })
   }
 
-  tryPoppingLauncherResult(page: string, path: string[]): RegisteredCallback | undefined {
+  public tryPoppingLauncherResult(page: string, path: string[]): RegisteredCallback | undefined {
     if (registeredCallbacks.length > 0) {
       const top = registeredCallbacks[registeredCallbacks.length - 1]
 
@@ -59,7 +59,7 @@ export class HashNavigator implements NavigatorInterface {
     return undefined
   }
 
-  finishWithResult(params: Record<string, unknown>): void {
+  public finishWithResult(params: Record<string, unknown>): void {
     if (registeredCallbacks.length > 0) {
       const top = registeredCallbacks[registeredCallbacks.length - 1]
 
