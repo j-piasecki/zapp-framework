@@ -1,22 +1,14 @@
-// @ts-nocheck TODO: consider making this abstract and moving implementation
-// to the watch package
+export interface ApplicationConfig {
+  onInit?: (params?: string) => void
+  onDestroy?: () => void
+}
 
-export function Application(config: { onInit?: (params: string) => void; onDestroy?: () => void }) {
-  App({
-    globalData: {
-      _navigator: {
-        currentPage: 'index',
-        stack: [],
-        savedStates: [],
-        shouldRestore: false,
-      },
-    },
-    onCreate(options) {
-      config.onInit?.(options)
-    },
+let applicationImplementation: (config: ApplicationConfig) => void
 
-    onDestroy() {
-      config.onDestroy?.()
-    },
-  })
+export function Application(config: ApplicationConfig) {
+  applicationImplementation(config)
+}
+
+export function setApplicationImplementation(app: (config: ApplicationConfig) => void) {
+  applicationImplementation = app
 }
