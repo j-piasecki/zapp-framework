@@ -2,7 +2,7 @@ import { findRelativePath } from '../utils.js'
 import { WorkingNode } from './WorkingNode.js'
 
 export class EffectNode extends WorkingNode {
-  public effect: () => (() => void) | void
+  public effect: (isRestoring: boolean) => (() => void) | void
   public effectCleanup?: () => void
   public keys: any[]
 

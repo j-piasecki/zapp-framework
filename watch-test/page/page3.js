@@ -19,19 +19,28 @@ import {
   ColumnConfig,
   ArcConfig,
   Navigator,
+  rememberLauncherForResult,
 } from '@zapp/core'
 
 SimpleScreen(Config('screen'), (params) => {
+  const selectedNumber = remember(-1)
+  const launcher = rememberLauncherForResult('page/picker', (result) => {
+    selectedNumber.value = result
+  })
+
   Stack(
     StackConfig('stack')
       .fillSize()
       .alignment(StackAlignment.Center)
       .background(0x0000ff)
-      .onPointerDown(() => {
-        Navigator.goBack()
+      .onPointerUp(() => {
+        launcher.launch()
       }),
     () => {
-      Text(TextConfig('text').textColor(0xffffff).textSize(40), `3, ${params.data}`)
+      Column(ColumnConfig('column'), () => {
+        Text(TextConfig('text').textColor(0xffffff).textSize(40), `3, ${params.data}`)
+        Text(TextConfig('text2').textColor(0xffffff).textSize(40), `Selected: ${selectedNumber.value}`)
+      })
     }
   )
 })

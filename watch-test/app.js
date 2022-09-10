@@ -1,6 +1,4 @@
-App({
-  globalData: {},
-  onCreate(options) {},
+import '@zapp/watch'
+import { Application } from '@zapp/core'
 
-  onDestroy(options) {},
-})
+Application()
