@@ -1,6 +1,3 @@
-App({
-  globalData: {},
-  onCreate(options) {},
+import { Application } from '@zapp/core'
 
-  onDestroy(options) {},
-})
+Application()

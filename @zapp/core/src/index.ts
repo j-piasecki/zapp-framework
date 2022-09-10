@@ -1,5 +1,6 @@
 export type { ConfigBuilderArg } from './working_tree/props/Config.js'
 
+export { Application } from './Application.js'
 export { remember } from './working_tree/effects/remember.js'
 export { rememberLauncherForResult } from './working_tree/effects/rememberLauncherForResult.js'
 export { RememberedMutableValue } from './working_tree/effects/RememberedMutableValue.js'
