@@ -63,8 +63,6 @@ export class SavedTreeState {
       return result
     }
 
-    // TODO: consider saving effects, animations
-
     return null
   }
 
