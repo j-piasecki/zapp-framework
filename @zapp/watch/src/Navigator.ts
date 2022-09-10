@@ -1,15 +1,24 @@
-import { NavigatorInterface, RegisteredCallback } from '@zapp/core'
+import { NavigatorInterface, RegisteredCallback, WorkingTree } from '@zapp/core'
 
 export class Navigator implements NavigatorInterface {
   get currentPage(): string {
-    throw new Error('Method not implemented.')
+    return getApp()._options.globalData._navigator.currentPage
   }
 
   public navigate(page: string, params: Record<string, unknown>) {
+    const navigatorData = getApp()._options.globalData._navigator
+    navigatorData.stack.push(navigatorData.currentPage)
+    navigatorData.currentPage = page
+    navigatorData.savedStates.push(WorkingTree.saveState())
+
     hmApp.gotoPage({ url: page, param: JSON.stringify(params) })
   }
 
   public goBack() {
+    const navigatorData = getApp()._options.globalData._navigator
+    navigatorData.currentPage = navigatorData.stack.pop()
+    navigatorData.shouldRestore = true
+
     hmApp.goBack()
   }
 
