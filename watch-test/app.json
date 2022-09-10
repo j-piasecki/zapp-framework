@@ -24,7 +24,7 @@
     "480x480-gtr-3-pro": {
       "module": {
         "page": {
-          "pages": ["page/index", "page/page1", "page/page2", "page/page3"]
+          "pages": ["page/index", "page/page1", "page/page2", "page/page3", "page/picker"]
         },
         "app-side": {
           "path": "app-side/index"
