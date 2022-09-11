@@ -1,3 +1,4 @@
+import { GestureType } from '../working_tree/effects/registerGestureEventHandler.js'
 import { EventType } from '../working_tree/EventNode.js'
 
 export interface EventHandler {
@@ -21,6 +22,18 @@ export abstract class GlobalEventManager {
     for (let i = GlobalEventManager.handlers.length - 1; i >= 0; i--) {
       const handler = GlobalEventManager.handlers[i]
       if (handler.type === EventType.Crown && handler.handler(delta)) {
+        return true
+      }
+    }
+
+    return false
+  }
+
+  public static dispatchGestureEvent(gesture: GestureType): boolean {
+    // iterate upwards so the deeper nodes receive the event earlier
+    for (let i = GlobalEventManager.handlers.length - 1; i >= 0; i--) {
+      const handler = GlobalEventManager.handlers[i]
+      if (handler.type === EventType.Gesture && handler.handler(gesture)) {
         return true
       }
     }

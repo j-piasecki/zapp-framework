@@ -8,6 +8,7 @@ export {
 export { remember } from './working_tree/effects/remember.js'
 export { rememberLauncherForResult } from './working_tree/effects/rememberLauncherForResult.js'
 export { registerCrownEventHandler } from './working_tree/effects/registerCrownEventHandler.js'
+export { registerGestureEventHandler, GestureType } from './working_tree/effects/registerGestureEventHandler.js'
 export { RememberedMutableValue } from './working_tree/effects/RememberedMutableValue.js'
 export { sideEffect } from './working_tree/effects/sideEffect.js'
 export { Arc } from './working_tree/views/Arc.js'

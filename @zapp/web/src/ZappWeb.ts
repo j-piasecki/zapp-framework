@@ -1,4 +1,12 @@
-import { PointerEventManager, Renderer, WorkingTree, ZappInterface, Animation, GlobalEventManager } from '@zapp/core'
+import {
+  PointerEventManager,
+  Renderer,
+  WorkingTree,
+  ZappInterface,
+  Animation,
+  GlobalEventManager,
+  GestureType,
+} from '@zapp/core'
 
 export class ZappWeb extends ZappInterface {
   private running = false
@@ -18,6 +26,23 @@ export class ZappWeb extends ZappInterface {
       setTimeout(() => {
         this.crownDelta = 0
       }, 100)
+    })
+
+    window.addEventListener('keyup', (e) => {
+      switch (e.key) {
+        case 'ArrowUp':
+          GlobalEventManager.dispatchGestureEvent(GestureType.Up)
+          break
+        case 'ArrowDown':
+          GlobalEventManager.dispatchGestureEvent(GestureType.Down)
+          break
+        case 'ArrowLeft':
+          GlobalEventManager.dispatchGestureEvent(GestureType.Left)
+          break
+        case 'ArrowRight':
+          GlobalEventManager.dispatchGestureEvent(GestureType.Right)
+          break
+      }
     })
   }
 

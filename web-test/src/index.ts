@@ -23,6 +23,7 @@ import {
   rememberLauncherForResult,
   Navigator,
   registerCrownEventHandler,
+  registerGestureEventHandler,
 } from '@zapp/core'
 import { NavBar, RouteInfo } from './NavBar'
 import { Page } from './Page'
@@ -37,7 +38,7 @@ const routesInfo: RouteInfo[] = [
   { displayName: 'Row example', routeName: 'row' },
   { displayName: 'Animation example', routeName: 'animation' },
   { displayName: 'StartForResult example', routeName: 'startForResult' },
-  { displayName: 'Crown events example', routeName: 'crownEvent' },
+  { displayName: 'Crown & Gesture events example', routeName: 'crownGestureEvent' },
 ]
 
 function StackExample() {
@@ -480,10 +481,11 @@ function NumberPickerExample() {
   })
 }
 
-function CrownEventExample() {
+function CrownGestureEventExample() {
   Page(routesInfo, () => {
     const height = remember(10)
     const targetHeight = remember(10)
+    const lastGesture = remember('')
 
     registerCrownEventHandler((delta: number) => {
       targetHeight.value = Math.max(10, targetHeight.value + delta * -1)
@@ -491,9 +493,16 @@ function CrownEventExample() {
       return true
     })
 
+    registerGestureEventHandler((gesture) => {
+      lastGesture.value = gesture
+      return true
+    })
+
     Column(ColumnConfig('column').alignment(Alignment.Center).arrangement(Arrangement.Center), () => {
       Stack(StackConfig('bar').width(50).height(height.value).background(0xff0000))
     })
+
+    Text(TextConfig('text').textColor(0xffffff).textSize(30), lastGesture.value)
   })
 }
 
@@ -505,5 +514,5 @@ registerNavigationRoutes('dynamicLayout', {
   animation: AnimationExample,
   startForResult: StartForResultExample,
   picker: NumberPickerExample,
-  crownEvent: CrownEventExample,
+  crownGestureEvent: CrownGestureEventExample,
 })
