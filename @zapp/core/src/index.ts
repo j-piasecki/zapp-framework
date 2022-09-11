@@ -6,6 +6,7 @@ export {
   setApplicationImplementation as __setApplicationImplementation,
 } from './Application.js'
 export { remember } from './working_tree/effects/remember.js'
+export { rememberObservable } from './working_tree/effects/rememberObservable.js'
 export { rememberLauncherForResult } from './working_tree/effects/rememberLauncherForResult.js'
 export { registerCrownEventHandler } from './working_tree/effects/registerCrownEventHandler.js'
 export { registerGestureEventHandler, GestureType } from './working_tree/effects/registerGestureEventHandler.js'
