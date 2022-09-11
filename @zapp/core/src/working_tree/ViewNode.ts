@@ -6,6 +6,7 @@ import { WorkingNode, WorkingNodeProps } from './WorkingNode.js'
 import { WorkingTree } from './WorkingTree.js'
 import { findRelativePath } from '../utils.js'
 import { CustomViewProps } from './views/Custom.js'
+import { EventNode } from './EventNode.js'
 
 export interface ViewNodeProps extends WorkingNodeProps {
   body?: () => void
@@ -71,6 +72,21 @@ export class ViewNode extends WorkingNode {
     const result = new EffectNode({
       id: (currentView.nextActionId++).toString(),
       type: NodeType.Effect,
+    })
+
+    result.parent = currentView.override ?? WorkingTree.current
+    result.path = this.path.concat(this.id)
+
+    return result
+  }
+
+  public event() {
+    // events may only be created inside view node
+    const currentView = WorkingTree.current as ViewNode
+
+    const result = new EventNode({
+      id: (currentView.nextActionId++).toString(),
+      type: NodeType.Event,
     })
 
     result.parent = currentView.override ?? WorkingTree.current

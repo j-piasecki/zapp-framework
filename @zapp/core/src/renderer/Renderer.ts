@@ -5,6 +5,8 @@ import { CustomViewProps } from '../working_tree/views/Custom.js'
 import { PointerEventManager } from './PointerEventManager.js'
 import { LayoutManager } from './LayoutManager.js'
 import { ViewManager } from './ViewManager.js'
+import { EventNode } from '../working_tree/EventNode.js'
+import { GlobalEventManager } from './GlobalEventManager.js'
 
 interface Layout {
   width: number
@@ -67,6 +69,7 @@ export abstract class Renderer {
   }
 
   public static commit(root: ViewNode) {
+    GlobalEventManager.clearHandlers()
     Renderer.newTree = Renderer.createNode(root)
   }
 
@@ -269,6 +272,11 @@ export abstract class Renderer {
     for (const child of node.children) {
       if (child instanceof ViewNode) {
         result.children.push(Renderer.createNode(child, result))
+      } else if (child instanceof EventNode) {
+        GlobalEventManager.registerHandler({
+          type: child.eventType,
+          handler: child.handler,
+        })
       }
     }
 

@@ -20,6 +20,7 @@ import {
   ColumnConfig,
   ArcConfig,
   Navigator,
+  registerCrownEventHandler,
 } from '@zapp/core'
 
 let cycle = [
@@ -68,8 +69,16 @@ SimpleScreen(Config('screen'), () => {
                 textVisible.value = !textVisible.value
               }),
             () => {
+              const deltaV = remember(0)
+              const counter = remember(0)
+              registerCrownEventHandler((delta) => {
+                deltaV.value = delta
+                counter.value = counter.value + 1
+                return false
+              })
+
               if (textVisible.value) {
-                Text(TextConfig('text').textColor(0xffffff).textSize(24), 'Random text')
+                Text(TextConfig('text').textColor(0xffffff).textSize(24), '' + deltaV.value + ', ' + counter.value)
               } else {
                 ActivityIndicator(ArcConfig('ac').width(60).height(60).color(0xffffff).lineWidth(10))
               }

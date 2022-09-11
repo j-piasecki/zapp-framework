@@ -22,6 +22,7 @@ import {
   Zapp,
   rememberLauncherForResult,
   Navigator,
+  registerCrownEventHandler,
 } from '@zapp/core'
 import { NavBar, RouteInfo } from './NavBar'
 import { Page } from './Page'
@@ -36,6 +37,7 @@ const routesInfo: RouteInfo[] = [
   { displayName: 'Row example', routeName: 'row' },
   { displayName: 'Animation example', routeName: 'animation' },
   { displayName: 'StartForResult example', routeName: 'startForResult' },
+  { displayName: 'Crown events example', routeName: 'crownEvent' },
 ]
 
 function StackExample() {
@@ -478,6 +480,23 @@ function NumberPickerExample() {
   })
 }
 
+function CrownEventExample() {
+  Page(routesInfo, () => {
+    const height = remember(10)
+    const targetHeight = remember(10)
+
+    registerCrownEventHandler((delta: number) => {
+      targetHeight.value = Math.max(10, targetHeight.value + delta * -1)
+      height.value = withTiming(targetHeight.value, { easing: Easing.easeOutCubic })
+      return true
+    })
+
+    Column(ColumnConfig('column').alignment(Alignment.Center).arrangement(Arrangement.Center), () => {
+      Stack(StackConfig('bar').width(50).height(height.value).background(0xff0000))
+    })
+  })
+}
+
 registerNavigationRoutes('dynamicLayout', {
   dynamicLayout: DynamicLayoutExample,
   stack: StackExample,
@@ -486,4 +505,5 @@ registerNavigationRoutes('dynamicLayout', {
   animation: AnimationExample,
   startForResult: StartForResultExample,
   picker: NumberPickerExample,
+  crownEvent: CrownEventExample,
 })
