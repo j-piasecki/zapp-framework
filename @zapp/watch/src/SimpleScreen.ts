@@ -6,7 +6,21 @@ import {
   WorkingTree,
   Navigator,
   GlobalEventManager,
+  GestureType,
 } from '@zapp/core'
+
+function mapGesture(gesture: unknown): GestureType {
+  switch (gesture) {
+    case hmApp.gesture.UP:
+      return GestureType.Up
+    case hmApp.gesture.DOWN:
+      return GestureType.Down
+    case hmApp.gesture.RIGHT:
+      return GestureType.Right
+    default:
+      return GestureType.Left
+  }
+}
 
 export function SimpleScreen(configBuilder: ConfigBuilderArg, body?: (params?: Record<string, unknown>) => void) {
   Page({
@@ -24,6 +38,10 @@ export function SimpleScreen(configBuilder: ConfigBuilderArg, body?: (params?: R
       hmUI.setLayerScrolling(false)
       hmApp.registerGestureEvent(function (event: unknown) {
         if (PointerEventManager.hasCapturedPointers()) {
+          return true
+        }
+
+        if (GlobalEventManager.dispatchGestureEvent(mapGesture(event))) {
           return true
         }
 

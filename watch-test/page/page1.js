@@ -19,6 +19,7 @@ import {
   ColumnConfig,
   ArcConfig,
   Navigator,
+  registerGestureEventHandler,
 } from '@zapp/core'
 
 SimpleScreen(Config('screen'), (params) => {
@@ -29,7 +30,15 @@ SimpleScreen(Config('screen'), (params) => {
       .arrangement(Arrangement.SpaceEvenly)
       .background(0xff0000),
     () => {
+      const lastGesture = remember('')
+
+      registerGestureEventHandler((gesture) => {
+        lastGesture.value = gesture
+        return true
+      })
+
       Text(TextConfig('text').textColor(0xffffff).textSize(40), `1, ${params.data}`)
+      Text(TextConfig('text2').textColor(0xffffff).textSize(40), lastGesture.value)
 
       Stack(
         StackConfig('button')
