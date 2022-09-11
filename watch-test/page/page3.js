@@ -20,6 +20,7 @@ import {
   ArcConfig,
   Navigator,
   rememberLauncherForResult,
+  registerCrownEventHandler,
 } from '@zapp/core'
 
 SimpleScreen(Config('screen'), (params) => {
@@ -37,6 +38,19 @@ SimpleScreen(Config('screen'), (params) => {
         launcher.launch()
       }),
     () => {
+      const height = remember(10)
+      const targetHeight = remember(10)
+
+      registerCrownEventHandler((delta) => {
+        targetHeight.value = Math.max(10, targetHeight.value + delta * -1)
+        height.value = withTiming(targetHeight.value, { easing: Easing.easeOutCubic })
+        return true
+      })
+
+      Column(ColumnConfig('column2').alignment(Alignment.Center).arrangement(Arrangement.Center), () => {
+        Stack(StackConfig('bar').width(50).height(height.value).background(0xff0000))
+      })
+
       Column(ColumnConfig('column'), () => {
         Text(TextConfig('text').textColor(0xffffff).textSize(40), `3, ${params.data}`)
         Text(TextConfig('text2').textColor(0xffffff).textSize(40), `Selected: ${selectedNumber.value}`)

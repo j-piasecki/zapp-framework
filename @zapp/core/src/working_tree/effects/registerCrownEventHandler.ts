@@ -1,0 +1,13 @@
+import { EventType } from '../EventNode.js'
+import { ViewNode } from '../ViewNode.js'
+import { WorkingTree } from '../WorkingTree.js'
+
+export function registerCrownEventHandler(handler: (delta: number) => boolean) {
+  const current = WorkingTree.current as ViewNode
+  const context = current.event()
+
+  context.handler = handler
+  context.eventType = EventType.Crown
+
+  current.children.push(context)
+}

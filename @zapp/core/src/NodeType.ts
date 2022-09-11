@@ -12,4 +12,5 @@ export enum NodeType {
 
   Remember = 'remember',
   Effect = 'effect',
+  Event = 'event',
 }

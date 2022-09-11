@@ -1,4 +1,12 @@
-import { ScreenBody, ConfigBuilderArg, Zapp, PointerEventManager, WorkingTree, Navigator } from '@zapp/core'
+import {
+  ScreenBody,
+  ConfigBuilderArg,
+  Zapp,
+  PointerEventManager,
+  WorkingTree,
+  Navigator,
+  GlobalEventManager,
+} from '@zapp/core'
 
 export function SimpleScreen(configBuilder: ConfigBuilderArg, body?: (params?: Record<string, unknown>) => void) {
   Page({
@@ -26,6 +34,10 @@ export function SimpleScreen(configBuilder: ConfigBuilderArg, body?: (params?: R
 
         return false
       })
+
+      hmApp.registerSpinEvent((_key: unknown, degree: number) => {
+        return GlobalEventManager.dispatchCrownEvent(degree)
+      })
     },
     build() {
       ScreenBody(configBuilder, () => {
@@ -35,6 +47,7 @@ export function SimpleScreen(configBuilder: ConfigBuilderArg, body?: (params?: R
     onDestroy() {
       Zapp.stopLoop()
       hmApp.unregisterGestureEvent()
+      hmApp.unregistSpinEvent()
     },
   })
 }
