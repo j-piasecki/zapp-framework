@@ -8,6 +8,9 @@ export class RememberedMutableValue<T> extends RememberedValue<T> {
   private _animation?: Animation<unknown>
 
   /** @internal */
+  public _observer?: (previous: T, current: T) => void
+
+  /** @internal */
   get animation() {
     return this._animation
   }
@@ -54,6 +57,10 @@ export class RememberedMutableValue<T> extends RememberedValue<T> {
         }
       } else if (oldValue !== newValue) {
         WorkingTree.queueUpdate(this.context.parent!)
+
+        // invoke observer only if node is in active tree, otherwise the assignment is delegated to
+        // the node in active tree, which should trigger its observer
+        this._observer?.(oldValue, newValue)
       }
     }
   }
