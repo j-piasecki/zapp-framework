@@ -6,6 +6,8 @@ import {
   Animation,
   GlobalEventManager,
   GestureType,
+  EventType,
+  ButtonAction,
 } from '@zapp/core'
 
 export class ZappWeb extends ZappInterface {
@@ -28,6 +30,17 @@ export class ZappWeb extends ZappInterface {
       }, 100)
     })
 
+    window.addEventListener('keydown', (e) => {
+      switch (e.key) {
+        case 'Home':
+          GlobalEventManager.dispatchButtonEvent(EventType.HomeButton, ButtonAction.Press)
+          break
+        case 'End':
+          GlobalEventManager.dispatchButtonEvent(EventType.ShortcutButton, ButtonAction.Press)
+          break
+      }
+    })
+
     window.addEventListener('keyup', (e) => {
       switch (e.key) {
         case 'ArrowUp':
@@ -41,6 +54,12 @@ export class ZappWeb extends ZappInterface {
           break
         case 'ArrowRight':
           GlobalEventManager.dispatchGestureEvent(GestureType.Right)
+          break
+        case 'Home':
+          GlobalEventManager.dispatchButtonEvent(EventType.HomeButton, ButtonAction.Release)
+          break
+        case 'End':
+          GlobalEventManager.dispatchButtonEvent(EventType.ShortcutButton, ButtonAction.Release)
           break
       }
     })
@@ -57,6 +76,7 @@ export class ZappWeb extends ZappInterface {
     }
 
     PointerEventManager.processEvents()
+    GlobalEventManager.tick()
     Animation.nextFrame(Date.now())
 
     if (WorkingTree.hasUpdates()) {

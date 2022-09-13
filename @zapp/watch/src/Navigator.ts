@@ -32,6 +32,10 @@ export class Navigator implements NavigatorInterface {
     hmApp.goBack()
   }
 
+  public goHome() {
+    hmApp.gotoHome()
+  }
+
   public registerResultCallback(page: string, path: string[]): void {
     this.data.registeredCallbacks.push({
       targetPage: page,

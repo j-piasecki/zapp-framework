@@ -33,6 +33,8 @@ export class HashNavigator implements NavigatorInterface {
     history.back()
   }
 
+  public goHome(): void {}
+
   public registerResultCallback(page: string, path: string[]): void {
     registeredCallbacks.push({
       targetPage: page,

@@ -9,6 +9,7 @@ export interface NavigatorInterface {
   readonly currentPage: string
   navigate(route: string, params?: Record<string, unknown>): void
   goBack(): void
+  goHome(): void
   registerResultCallback(page: string, path: string[]): void
   tryPoppingLauncherResult(page: string, path: string[]): RegisteredCallback | undefined
   finishWithResult(params: Record<string, unknown>): void
@@ -27,6 +28,10 @@ export abstract class Navigator {
 
   public static goBack(): void {
     navigator.goBack()
+  }
+
+  public static goHome(): void {
+    navigator.goHome()
   }
 
   public static registerResultCallback(page: string, path: string[]) {

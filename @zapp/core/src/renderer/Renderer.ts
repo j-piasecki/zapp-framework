@@ -275,6 +275,7 @@ export abstract class Renderer {
       } else if (child instanceof EventNode) {
         GlobalEventManager.registerHandler({
           type: child.eventType,
+          buttonAction: child.buttonAction,
           handler: child.handler,
         })
       }

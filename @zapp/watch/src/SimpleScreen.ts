@@ -7,6 +7,8 @@ import {
   Navigator,
   GlobalEventManager,
   GestureType,
+  EventType,
+  ButtonAction,
 } from '@zapp/core'
 
 function mapGesture(gesture: unknown): GestureType {
@@ -56,6 +58,36 @@ export function SimpleScreen(configBuilder: ConfigBuilderArg, body?: (params?: R
       hmApp.registerSpinEvent((_key: unknown, degree: number) => {
         return GlobalEventManager.dispatchCrownEvent(degree)
       })
+
+      hmApp.registerKeyEvent((key: unknown, sourceAction: unknown) => {
+        let type: EventType | null = null
+        let action: ButtonAction | null = null
+
+        switch (key) {
+          case hmApp.key.HOME:
+            type = EventType.HomeButton
+            break
+          case hmApp.key.SHORTCUT:
+            type = EventType.ShortcutButton
+            this.text = ''
+            break
+        }
+
+        switch (sourceAction) {
+          case hmApp.action.RELEASE:
+            action = ButtonAction.Release
+            break
+          case hmApp.action.PRESS:
+            action = ButtonAction.Press
+            break
+        }
+
+        if (type !== null && action !== null) {
+          GlobalEventManager.dispatchButtonEvent(type, action)
+        }
+
+        return key === hmApp.key.HOME || key === hmApp.key.SHORTCUT
+      })
     },
     build() {
       ScreenBody(configBuilder, () => {
@@ -66,6 +98,7 @@ export function SimpleScreen(configBuilder: ConfigBuilderArg, body?: (params?: R
       Zapp.stopLoop()
       hmApp.unregisterGestureEvent()
       hmApp.unregistSpinEvent()
+      hmApp.unregisterKeyEvent()
     },
   })
 }
