@@ -49,6 +49,14 @@ export abstract class Renderer {
     return Renderer.currentTree
   }
 
+  public static get screenWidth() {
+    return Renderer.viewManager.screenWidth
+  }
+
+  public static get screenHeight() {
+    return Renderer.viewManager.screenHeight
+  }
+
   public static render() {
     if (Renderer.newTree !== null) {
       Renderer.layoutManager.calculateLayout(Renderer.newTree)
@@ -71,6 +79,29 @@ export abstract class Renderer {
   public static commit(root: ViewNode) {
     GlobalEventManager.clearHandlers()
     Renderer.newTree = Renderer.createNode(root)
+  }
+
+  public static hitTest(x: number, y: number, parent: RenderNode | null = Renderer.currentTree): RenderNode | null {
+    // TODO: scrolling
+    if (
+      parent === null ||
+      x < parent.layout.x ||
+      x > parent.layout.x + parent.layout.width ||
+      y < parent.layout.y ||
+      y > parent.layout.y + parent.layout.height
+    ) {
+      return null
+    }
+
+    for (let i = parent.children.length - 1; i >= 0; i--) {
+      const result = Renderer.hitTest(x, y, parent.children[i])
+
+      if (result !== null) {
+        return result
+      }
+    }
+
+    return parent
   }
 
   private static diffNode(previous: RenderNode, next: RenderNode, previousZIndex: number): number {
