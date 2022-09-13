@@ -24,6 +24,8 @@ import {
   Navigator,
   registerCrownEventHandler,
   registerGestureEventHandler,
+  registerHomeButtonEventHandler,
+  registerShortcutButtonEventHandler,
 } from '@zapp/core'
 import { NavBar, RouteInfo } from './NavBar'
 import { Page } from './Page'
@@ -39,6 +41,7 @@ const routesInfo: RouteInfo[] = [
   { displayName: 'Animation example', routeName: 'animation' },
   { displayName: 'StartForResult example', routeName: 'startForResult' },
   { displayName: 'Crown & Gesture events example', routeName: 'crownGestureEvent' },
+  { displayName: 'Button events example', routeName: 'button' },
 ]
 
 function StackExample() {
@@ -506,6 +509,56 @@ function CrownGestureEventExample() {
   })
 }
 
+function ButtonEventExample() {
+  Page(routesInfo, () => {
+    const lastAction = remember('')
+
+    registerHomeButtonEventHandler({
+      onPress: () => {
+        lastAction.value = 'home press'
+        console.log('press')
+        return true
+      },
+      onClick: () => {
+        lastAction.value = 'home click'
+        console.log('click')
+        return true
+      },
+      onLongPress: () => {
+        lastAction.value = 'home longpress'
+        console.log('lp')
+        return true
+      },
+      onRelease: () => {
+        lastAction.value = 'home release'
+        console.log('release')
+        return true
+      },
+    })
+
+    registerShortcutButtonEventHandler({
+      onPress: () => {
+        lastAction.value = 'shortcut press'
+        return true
+      },
+      onClick: () => {
+        lastAction.value = 'shortcut click'
+        return true
+      },
+      onLongPress: () => {
+        lastAction.value = 'shortcut longpress'
+        return true
+      },
+      onRelease: () => {
+        lastAction.value = 'shortcut release'
+        return true
+      },
+    })
+
+    Text(TextConfig('text').textColor(0xffffff).textSize(30), lastAction.value)
+  })
+}
+
 registerNavigationRoutes('dynamicLayout', {
   dynamicLayout: DynamicLayoutExample,
   stack: StackExample,
@@ -515,4 +568,5 @@ registerNavigationRoutes('dynamicLayout', {
   startForResult: StartForResultExample,
   picker: NumberPickerExample,
   crownGestureEvent: CrownGestureEventExample,
+  button: ButtonEventExample,
 })
