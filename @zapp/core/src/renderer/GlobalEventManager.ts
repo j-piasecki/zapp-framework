@@ -1,6 +1,9 @@
 import { Navigator } from '../Navigator.js'
 import { GestureType } from '../working_tree/effects/registerGestureEventHandler.js'
 import { ButtonAction, EventType } from '../working_tree/EventNode.js'
+import { PointerEventType } from '../working_tree/props/types.js'
+import { PointerEventManager } from './PointerEventManager.js'
+import { Renderer } from './Renderer.js'
 
 export interface EventHandler {
   type: EventType
@@ -64,8 +67,32 @@ class ButtonEventManager {
       } else if (action === ButtonAction.LongPress) {
         Navigator.goHome()
       }
-    } else if (this.type === EventType.ShortcutButton) {
-      // TODO: trigger synthetic touch in the middle of the screen
+    } else if (this.type === EventType.ShortcutButton && action === ButtonAction.Click) {
+      const x = Renderer.screenWidth / 2
+      const y = Renderer.screenHeight / 2
+      const target = Renderer.hitTest(x, y)
+
+      if (target !== null) {
+        PointerEventManager.queueEvent({
+          target: target.id,
+          x: x,
+          y: y,
+          id: Number.MAX_SAFE_INTEGER,
+          type: PointerEventType.DOWN,
+          timestamp: Date.now(),
+          capture: () => {},
+        })
+
+        PointerEventManager.queueEvent({
+          target: target.id,
+          x: x,
+          y: y,
+          id: Number.MAX_SAFE_INTEGER,
+          type: PointerEventType.UP,
+          timestamp: Date.now(),
+          capture: () => {},
+        })
+      }
     }
 
     return false
