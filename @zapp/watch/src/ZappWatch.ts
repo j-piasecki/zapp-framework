@@ -1,4 +1,4 @@
-import { ZappInterface, WorkingTree, PointerEventManager, Renderer, Animation } from '@zapp/core'
+import { ZappInterface, WorkingTree, PointerEventManager, Renderer, Animation, GlobalEventManager } from '@zapp/core'
 
 export class ZappWatch extends ZappInterface {
   private timerRef: unknown
@@ -17,6 +17,7 @@ export class ZappWatch extends ZappInterface {
 
   private update() {
     PointerEventManager.processEvents()
+    GlobalEventManager.tick()
     Animation.nextFrame(Date.now())
 
     if (WorkingTree.hasUpdates()) {
