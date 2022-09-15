@@ -125,6 +125,23 @@ export class WebViewManager extends ViewManager {
       if (node.config.textColor !== undefined) {
         view.style.color = this.colorToRGBA(node.config.textColor)
       }
+    } else if (node.type === NodeType.Image) {
+      view.style.overflow = 'hidden'
+      const imageView = document.createElement('div')
+      imageView.style.width = view.style.width
+      imageView.style.height = view.style.height
+
+      if (node.config.source !== undefined) {
+        imageView.style.backgroundImage = `url("${node.config.source}")`
+        imageView.style.backgroundRepeat = 'no-repeat'
+      }
+
+      imageView.style.backgroundPositionX = `${node.config.innerOffsetX ?? 0}px`
+      imageView.style.backgroundPositionY = `${node.config.innerOffsetY ?? 0}px`
+      imageView.style.transformOrigin = `${node.config.originX ?? 0}px ${node.config.originY ?? 0}px`
+      imageView.style.transform = `rotate(${node.config.rotation}deg)`
+
+      view.appendChild(imageView)
     }
 
     let handler
@@ -214,6 +231,20 @@ export class WebViewManager extends ViewManager {
       if (next.config.textColor !== undefined) {
         view.style.color = this.colorToRGBA(next.config.textColor)
       }
+    } else if (next.type === NodeType.Image) {
+      const imageView = view.childNodes[0] as HTMLElement
+      imageView.style.width = view.style.width
+      imageView.style.height = view.style.height
+
+      if (next.config.source !== undefined) {
+        imageView.style.backgroundImage = `url("${next.config.source}")`
+        imageView.style.backgroundRepeat = 'no-repeat'
+      }
+
+      imageView.style.backgroundPositionX = `${next.config.innerOffsetX ?? 0}px`
+      imageView.style.backgroundPositionY = `${next.config.innerOffsetY ?? 0}px`
+      imageView.style.transformOrigin = `${next.config.originX ?? 0}px ${next.config.originY ?? 0}px`
+      imageView.style.transform = `rotate(${next.config.rotation}deg)`
     }
   }
 
