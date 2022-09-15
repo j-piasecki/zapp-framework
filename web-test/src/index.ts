@@ -26,6 +26,8 @@ import {
   registerGestureEventHandler,
   registerHomeButtonEventHandler,
   registerShortcutButtonEventHandler,
+  Image,
+  ImageConfig,
 } from '@zapp/core'
 import { NavBar, RouteInfo } from './NavBar'
 import { Page } from './Page'
@@ -365,7 +367,16 @@ function DynamicLayoutExample() {
         Row(RowConfig('row1.1').fillHeight(1).weight(1).background(0xff0000), () => {
           ActivityIndicator(ArcConfig('ac').width(100).height(100).color(0xffffff).lineWidth(10))
         })
-        Row(RowConfig('row1.2').fillHeight(0.5).weight(1).background(0xaa2299), () => {})
+        Row(RowConfig('row1.2').fillHeight(0.75).weight(1).background(0xaa2299), () => {
+          const rotation = remember(0)
+          sideEffect(() => {
+            rotation.value = withTiming(360, { duration: 5000, easing: Easing.easeInOutCubic })
+          })
+          Image(
+            ImageConfig('img').width(130).height(130).innerOffset(15, 15).origin(65, 65).rotation(rotation.value),
+            'zapp.png'
+          )
+        })
       })
 
       const background = size.value > 100 ? 0xffffff : undefined

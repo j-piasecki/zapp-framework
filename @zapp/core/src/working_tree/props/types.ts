@@ -55,6 +55,13 @@ export interface ConfigType {
   alignment?: Alignment
   stackAlignment?: StackAlignment
 
+  source?: string
+  innerOffsetX?: number
+  innerOffsetY?: number
+  originX?: number
+  originY?: number
+  rotation?: number
+
   onPointerDown?: (event: PointerData) => void
   onPointerMove?: (event: PointerData) => void
   onPointerUp?: (event: PointerData) => void

@@ -19,6 +19,7 @@ export { Custom } from './working_tree/views/Custom.js'
 export { Stack } from './working_tree/views/Stack.js'
 export { Column } from './working_tree/views/Column.js'
 export { Row } from './working_tree/views/Row.js'
+export { Image } from './working_tree/views/Image.js'
 export {
   ScreenBody,
   SimpleScreen,
@@ -39,6 +40,7 @@ export { ArcConfig, ArcConfigBuilder } from './working_tree/props/ArcConfig.js'
 export { TextConfig, TextConfigBuilder } from './working_tree/props/TextConfig.js'
 export { StackConfig, StackConfigBuilder } from './working_tree/props/StackConfig.js'
 export { ColumnConfig, ColumnConfigBuilder } from './working_tree/props/ColumnConfig.js'
+export { ImageConfig, ImageConfigBuilder } from './working_tree/props/ImageConfig.js'
 export { RowConfig, RowConfigBuilder } from './working_tree/props/RowConfig.js'
 export { Animation } from './working_tree/effects/animation/Animation.js'
 export { Easing } from './working_tree/effects/animation/Easing.js'

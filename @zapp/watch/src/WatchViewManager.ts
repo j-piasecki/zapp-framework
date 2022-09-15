@@ -87,6 +87,21 @@ export class WatchViewManager extends ViewManager {
             line_width: node.config.lineWidth,
           }),
         }
+      } else if (node.type === NodeType.Image) {
+        viewHolder = {
+          view: hmUI.createWidget(hmUI.widget.IMG, {
+            x: node.layout.x,
+            y: node.layout.y,
+            w: node.layout.width,
+            h: node.layout.height,
+            pos_x: node.config.innerOffsetX,
+            pos_y: node.config.innerOffsetY,
+            center_x: node.config.originX,
+            center_y: node.config.originY,
+            src: node.config.source,
+            angle: node.config.rotation,
+          }),
+        }
       } else {
         viewHolder = {
           view: hmUI.createWidget(hmUI.widget.FILL_RECT, {
@@ -184,6 +199,19 @@ export class WatchViewManager extends ViewManager {
         end_angle: next.config.endAngle,
         color: next.config.borderColor,
         line_width: next.config.lineWidth,
+      })
+    } else if (next.type === NodeType.Image) {
+      viewHolder.view.setProperty(hmUI.prop.MORE, {
+        x: next.layout.x,
+        y: next.layout.y,
+        w: next.layout.width,
+        h: next.layout.height,
+        pos_x: next.config.innerOffsetX,
+        pos_y: next.config.innerOffsetY,
+        center_x: next.config.originX,
+        center_y: next.config.originY,
+        src: next.config.source,
+        angle: next.config.rotation,
       })
     } else {
       viewHolder.view.setProperty(hmUI.prop.MORE, {
