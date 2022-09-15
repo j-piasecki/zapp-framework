@@ -21,6 +21,8 @@ import {
   ArcConfig,
   Navigator,
   registerCrownEventHandler,
+  Image,
+  ImageConfig,
 } from '@zapp/core'
 
 let cycle = [
@@ -60,25 +62,28 @@ SimpleScreen(Config('screen'), () => {
           }),
         () => {
           const textVisible = remember(false)
+          const angle = remember(0)
 
           Stack(
             StackConfig('wrapper')
               .padding(15)
-              .background(0xff00ff)
+              .background(0xaaaaff)
               .onPointerDown(() => {
                 textVisible.value = !textVisible.value
+                angle.value = 0
               }),
             () => {
-              const deltaV = remember(0)
-              const counter = remember(0)
-              registerCrownEventHandler((delta) => {
-                deltaV.value = delta
-                counter.value = counter.value + 1
-                return false
-              })
+              sideEffect(() => {
+                if (!textVisible.value) {
+                  angle.value = withTiming(360, { duration: 5000, easing: Easing.easeInOutCubic })
+                }
+              }, textVisible.value)
 
-              if (textVisible.value) {
-                Text(TextConfig('text').textColor(0xffffff).textSize(24), '' + deltaV.value + ', ' + counter.value)
+              if (!textVisible.value) {
+                Image(
+                  ImageConfig('img').width(80).height(80).origin(40, 40).innerOffset(8, 8).rotation(angle.value),
+                  'zapp.png'
+                )
               } else {
                 ActivityIndicator(ArcConfig('ac').width(60).height(60).color(0xffffff).lineWidth(10))
               }
