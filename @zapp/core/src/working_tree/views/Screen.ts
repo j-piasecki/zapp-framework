@@ -9,6 +9,10 @@ export function ScreenBody(
   body?: (params?: Record<string, unknown>) => void
 ) {
   const config = configBuilder.build()
+  if (config.background === undefined) {
+    config.background = 0x000000
+  }
+
   const current = WorkingTree.current as ViewNode
 
   const context = current.create({
