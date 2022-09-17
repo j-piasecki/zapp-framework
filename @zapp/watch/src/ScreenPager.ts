@@ -20,19 +20,23 @@ export enum Direction {
 
 let rememberedPage: RememberedMutableValue<number> | undefined = undefined
 let rememberedValues: RememberedMutableValue<number>[] = []
+let nextPageNumber = 0
+let currentDirection: Direction
 
 interface ScreenPagerConfigType extends ConfigType {
   direction: Direction
   startingPage: number
+  numberOfPages: number
 }
 
 export class ScreenPagerConfigBuilder extends ConfigBuilder {
   protected config: ScreenPagerConfigType
 
-  constructor(id: string) {
+  constructor(id: string, numberOfPages: number) {
     super(id)
     this.config.direction = Direction.Horizontal
     this.config.startingPage = 0
+    this.config.numberOfPages = numberOfPages
   }
 
   startingPage(page: number) {
@@ -50,14 +54,11 @@ export class ScreenPagerConfigBuilder extends ConfigBuilder {
   }
 }
 
-export function ScreenPagerConfig(id: string) {
-  return new ScreenPagerConfigBuilder(id)
+export function ScreenPagerConfig(id: string, numberOfPages: number) {
+  return new ScreenPagerConfigBuilder(id, numberOfPages)
 }
 
-export function ScreenPager(
-  configBuilder: ScreenPagerConfigBuilder,
-  pages: ((params: Record<string, unknown>) => void)[]
-) {
+export function ScreenPager(configBuilder: ScreenPagerConfigBuilder, body: (params: Record<string, unknown>) => void) {
   const config = configBuilder.build()
 
   PageWrapper({
@@ -74,23 +75,16 @@ export function ScreenPager(
         })
       })
 
-      for (let i = 0; i < pages.length; i++) {
-        ScreenBody(
-          Config(`${config.id}#page${i}`).offset(
-            config.direction === Direction.Horizontal ? DEVICE_WIDTH * i : 0,
-            config.direction === Direction.Vertical ? DEVICE_HEIGHT * i : 0
-          ),
-          () => {
-            pages[i](params)
-          }
-        )
-      }
+      nextPageNumber = 0
+      currentDirection = config.direction
+
+      body(params)
     },
     initialize: () => {
       hmUI.setScrollView(
         true,
         config.direction === Direction.Horizontal ? DEVICE_WIDTH : DEVICE_HEIGHT,
-        pages.length,
+        config.numberOfPages,
         config.direction === Direction.Vertical
       )
 
@@ -102,6 +96,19 @@ export function ScreenPager(
       rememberedValues = []
     },
   })
+}
+
+export function PagerEntry(configBuilder: ConfigBuilder, body: () => void) {
+  ScreenBody(
+    configBuilder.offset(
+      currentDirection === Direction.Horizontal ? DEVICE_WIDTH * nextPageNumber : 0,
+      currentDirection === Direction.Vertical ? DEVICE_HEIGHT * nextPageNumber : 0
+    ),
+    () => {
+      body()
+    }
+  )
+  nextPageNumber++
 }
 
 export function tryUpdatingRememberedPagePositions() {

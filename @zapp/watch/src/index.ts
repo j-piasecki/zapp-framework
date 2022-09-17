@@ -14,6 +14,7 @@ import { Application } from './Application.js'
 
 export {
   ScreenPager,
+  PagerEntry,
   ScreenPagerConfigBuilder,
   ScreenPagerConfig,
   rememberCurrentPage,

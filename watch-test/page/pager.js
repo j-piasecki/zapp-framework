@@ -1,4 +1,4 @@
-import { ScreenPager, rememberCurrentPage, ScreenPagerConfig } from '@zapp/watch'
+import { ScreenPager, PagerEntry, rememberCurrentPage, ScreenPagerConfig } from '@zapp/watch'
 import {
   SimpleScreen,
   Stack,
@@ -22,8 +22,8 @@ import {
   registerGestureEventHandler,
 } from '@zapp/core'
 
-ScreenPager(ScreenPagerConfig('screen').startingPage(1), [
-  (params) => {
+ScreenPager(ScreenPagerConfig('screen', 3).startingPage(1), () => {
+  PagerEntry(Config('page1'), () => {
     Stack(StackConfig('a'), () => {
       const page = rememberCurrentPage()
       console.log(page.value)
@@ -38,11 +38,13 @@ ScreenPager(ScreenPagerConfig('screen').startingPage(1), [
           })
       )
     })
-  },
-  (params) => {
+  })
+
+  PagerEntry(Config('page2'), () => {
     Column(ColumnConfig('col2').fillSize().background(0x00ff00))
-  },
-  (params) => {
+  })
+
+  PagerEntry(Config('page3'), () => {
     Column(
       ColumnConfig('col3')
         .fillSize()
@@ -51,5 +53,5 @@ ScreenPager(ScreenPagerConfig('screen').startingPage(1), [
         })
         .background(0x0000ff)
     )
-  },
-])
+  })
+})
