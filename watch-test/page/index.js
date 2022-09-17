@@ -53,6 +53,7 @@ SimpleScreen(Config('screen'), () => {
           })
           .onPointerUp(() => {
             background.value = 0x00ff00
+            Navigator.navigate('page/pager')
           })
           .onPointerEnter(() => {
             background.value = 0x00aa00
