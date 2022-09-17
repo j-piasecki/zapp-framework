@@ -1,4 +1,5 @@
 import { ViewManager, RenderNode, NodeType, PointerData, PointerEventType, PointerEventManager } from '@zapp/core'
+import { Direction } from './ScreenPager'
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = hmSetting.getDeviceInfo()
 
@@ -9,6 +10,9 @@ interface ViewHolder {
 
 export class WatchViewManager extends ViewManager {
   private _isRTL?: boolean = undefined
+
+  public pageScrollingEnabled = false
+  public pageScrollingDirection: Direction
 
   get screenWidth() {
     return DEVICE_WIDTH
@@ -246,7 +250,19 @@ export class WatchViewManager extends ViewManager {
   }
 
   getScrollOffset() {
-    return { x: 0, y: 0 }
+    let x = 0
+    let y = 0
+
+    if (this.pageScrollingEnabled) {
+      const page = hmUI.getScrollCurrentPage() - 1
+      if (this.pageScrollingDirection === Direction.Horizontal) {
+        x = page * DEVICE_WIDTH
+      } else if (this.pageScrollingDirection === Direction.Vertical) {
+        y = page * DEVICE_HEIGHT
+      }
+    }
+
+    return { x: x, y: y }
   }
 
   measureText(
@@ -294,3 +310,5 @@ export class WatchViewManager extends ViewManager {
     return this._isRTL
   }
 }
+
+export const viewManagerInstance = new WatchViewManager()

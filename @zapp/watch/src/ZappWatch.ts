@@ -1,4 +1,5 @@
 import { ZappInterface, WorkingTree, PointerEventManager, Renderer, Animation, GlobalEventManager } from '@zapp/core'
+import { tryUpdatingRememberedPagePositions } from './ScreenPager'
 
 export class ZappWatch extends ZappInterface {
   private timerRef: unknown
@@ -16,6 +17,8 @@ export class ZappWatch extends ZappInterface {
   }
 
   private update() {
+    tryUpdatingRememberedPagePositions()
+
     PointerEventManager.processEvents()
     GlobalEventManager.tick()
     Animation.nextFrame(Date.now())
