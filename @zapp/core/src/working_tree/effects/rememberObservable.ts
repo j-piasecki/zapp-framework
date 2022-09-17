@@ -8,7 +8,8 @@ import { TimingAnimation } from './animation/TimingAnimation.js'
 
 export function rememberObservable<T>(
   value: T,
-  observer?: (previous: T, current: T) => void
+  observer?: (previous: T, current: T) => void,
+  onValueRestored?: (value: T) => void
 ): RememberedMutableValue<T> {
   const current = WorkingTree.current as ViewNode
   const context = current.remember()
@@ -19,6 +20,9 @@ export function rememberObservable<T>(
 
   if (restoredState !== undefined) {
     value = restoredState.value as T
+
+    // TODO: this may be too early to restore layer scroll position
+    onValueRestored?.(value)
   } else {
     const path = findRelativePath(context.path, current.rememberedContext?.path)?.concat(context.id)
     if (path !== null && path !== undefined) {
