@@ -10,6 +10,8 @@ export abstract class ViewManager {
 
   public abstract updateView(previous: RenderNode, next: RenderNode): void
 
+  public abstract getScrollOffset(): { x: number; y: number }
+
   public abstract measureText(
     text: string,
     node: RenderNode,

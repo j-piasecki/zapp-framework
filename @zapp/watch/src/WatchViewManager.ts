@@ -19,13 +19,14 @@ export class WatchViewManager extends ViewManager {
   }
 
   private adaptEvent(event: any, target: string, type: PointerEventType): PointerData {
+    const { x: scrollX, y: scrollY } = this.getScrollOffset()
     return {
       target: target,
       id: event.id,
       timestamp: event.timeStamp,
       type: type,
-      x: event.x, // TODO: handle scrolling correctly
-      y: event.y,
+      x: event.x + scrollX,
+      y: event.y + scrollY,
       capture: () => {
         // TODO: abstract it to PointerEventManager?
         PointerEventManager.capturePointer(event.id, target)
@@ -242,6 +243,10 @@ export class WatchViewManager extends ViewManager {
         }
       }
     }
+  }
+
+  getScrollOffset() {
+    return { x: 0, y: 0 }
   }
 
   measureText(

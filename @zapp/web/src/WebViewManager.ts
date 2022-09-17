@@ -248,6 +248,10 @@ export class WebViewManager extends ViewManager {
     }
   }
 
+  getScrollOffset() {
+    return { x: 0, y: 0 }
+  }
+
   measureText(
     text: string,
     node: RenderNode,

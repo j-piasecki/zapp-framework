@@ -26,6 +26,10 @@ export class DummyViewManager extends ViewManager {
     console.log('update', next.id)
   }
 
+  public getScrollOffset(): { x: number; y: number } {
+    return { x: 0, y: 0 }
+  }
+
   public measureText(
     text: string,
     _node: RenderNode,

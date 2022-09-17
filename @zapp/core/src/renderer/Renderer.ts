@@ -82,7 +82,11 @@ export abstract class Renderer {
   }
 
   public static hitTest(x: number, y: number, parent: RenderNode | null = Renderer.currentTree): RenderNode | null {
-    // TODO: scrolling
+    const { x: scrollX, y: scrollY } = this.viewManager.getScrollOffset()
+
+    x += scrollX
+    y += scrollY
+
     if (
       parent === null ||
       x < parent.layout.x ||
@@ -205,6 +209,7 @@ export abstract class Renderer {
   private static isNodeLayoutOnly(node: RenderNode): boolean {
     return (
       node.config.background === undefined &&
+      node.type !== NodeType.Screen && // used to intercept pointer events
       node.type !== NodeType.Text &&
       node.type !== NodeType.Arc &&
       node.type !== NodeType.Custom &&
