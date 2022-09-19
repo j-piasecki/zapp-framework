@@ -3,6 +3,7 @@ export enum NodeType {
   Recomposing = 'recomposing',
 
   Custom = 'custom',
+  FlexibleScreen = 'flex-screen',
   Screen = 'screen',
   Stack = 'stack',
   Column = 'column',

@@ -6,6 +6,7 @@ import { ViewManager } from './ViewManager.js'
 export class LayoutManager {
   private viewManager!: ViewManager
   private recalculationStack: RenderNode[]
+  private pageHeight: number
 
   public setViewManager(viewManager: ViewManager) {
     this.viewManager = viewManager
@@ -13,10 +14,14 @@ export class LayoutManager {
 
   public calculateLayout(root: RenderNode) {
     this.recalculationStack = []
+    this.pageHeight = this.viewManager?.screenHeight ?? 0
 
     // split calculating sizes and positions, as measuring views may require double-traversal
     this.calculateSize(root, this.viewManager.screenWidth, this.viewManager.screenHeight)
     this.calculatePositions(root)
+
+    // update root height to reflect the potential flexible screen height
+    root.layout.height = this.pageHeight
   }
 
   private calculateSize(
@@ -48,6 +53,11 @@ export class LayoutManager {
         this.calculateSize(child, availableWidth, availableHeight, node)
       }
     } else {
+      if (node.type === NodeType.FlexibleScreen) {
+        // flexible screen fills max width
+        node.layout.width = this.viewManager?.screenWidth ?? 0
+      }
+
       const verticalPadding = (node.config.padding?.top ?? 0) + (node.config.padding?.bottom ?? 0)
       const horizontalPadding = (node.config.padding?.start ?? 0) + (node.config.padding?.end ?? 0)
 
@@ -162,7 +172,7 @@ export class LayoutManager {
         (node.layout.width === -1 || node.layout.height === -1) &&
         (node.config.fillWidth === undefined || node.config.fillHeight === undefined)
       ) {
-        if (node.type === NodeType.Column) {
+        if (node.type === NodeType.Column || node.type === NodeType.FlexibleScreen) {
           // column stacks its children one after another vertically so we want its height to be sum of
           // its children heights, while its width needs to match the widest child
           let maxWidth = -1
@@ -218,6 +228,11 @@ export class LayoutManager {
     }
 
     if (recalculating !== true) {
+      if (node.type === NodeType.FlexibleScreen) {
+        // fill the screen if not enough content
+        node.layout.height = Math.max(node.layout.height, this.viewManager.screenHeight ?? 0)
+      }
+
       // This algorithm performs a double-pass on parts of the tree when necessary, i.e.:
       // - parent
       //   - node width: 100, fillHeight: 0.5
@@ -259,8 +274,6 @@ export class LayoutManager {
   }
 
   private calculatePositions(node: RenderNode, parent?: RenderNode) {
-    // TODO: handle alignment and arrangement
-    // TODO: handle stack
     node.layout.x += node.config.offsetX ?? 0
     node.layout.y += node.config.offsetY ?? 0
 
@@ -268,7 +281,7 @@ export class LayoutManager {
     if (parent !== undefined) {
       const borderWidth = node.config.borderWidth ?? 0
 
-      if (node.type === NodeType.Column) {
+      if (node.type === NodeType.Column || node.type === NodeType.FlexibleScreen) {
         this.positionColumn(node)
       } else if (node.type === NodeType.Row) {
         this.positionRow(node)
@@ -285,6 +298,8 @@ export class LayoutManager {
         }
       }
     }
+
+    this.pageHeight = Math.max(this.pageHeight, node.layout.y + node.layout.height)
 
     for (const child of node.children) {
       this.calculatePositions(child, node)

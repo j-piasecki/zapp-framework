@@ -6,7 +6,8 @@ import { ConfigBuilder } from '../props/Config.js'
 
 export function ScreenBody(
   configBuilder: RequireSome<ConfigBuilder, 'build'>,
-  body?: (params?: Record<string, unknown>) => void
+  body?: (params?: Record<string, unknown>) => void,
+  isFlexible = false
 ) {
   const config = configBuilder.build()
   if (config.background === undefined) {
@@ -14,10 +15,10 @@ export function ScreenBody(
   }
 
   const current = WorkingTree.current as ViewNode
-
+  console.log(isFlexible ? NodeType.FlexibleScreen : NodeType.Screen)
   const context = current.create({
     id: config.id,
-    type: NodeType.Screen,
+    type: isFlexible ? NodeType.FlexibleScreen : NodeType.Screen,
     config: config,
     body: body,
   })
