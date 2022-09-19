@@ -76,7 +76,8 @@ exports[`Tree is generated correctly 1`] = `
         }
       ],
       \\"config\\": {
-        \\"id\\": \\"screen\\"
+        \\"id\\": \\"screen\\",
+        \\"background\\": 0
       },
       \\"nextActionId\\": 0,
       \\"rememberedContext\\": \\"no remembered context\\",
@@ -151,7 +152,8 @@ exports[`Tree is generated correctly after update 1`] = `
         }
       ],
       \\"config\\": {
-        \\"id\\": \\"screen\\"
+        \\"id\\": \\"screen\\",
+        \\"background\\": 0
       },
       \\"nextActionId\\": 0,
       \\"rememberedContext\\": \\"no remembered context\\",
@@ -204,7 +206,8 @@ exports[`Value is updated correctly when assigned an animation 1`] = `
         }
       ],
       \\"config\\": {
-        \\"id\\": \\"screen\\"
+        \\"id\\": \\"screen\\",
+        \\"background\\": 0
       },
       \\"nextActionId\\": 2,
       \\"rememberedContext\\": \\"no remembered context\\",
@@ -257,7 +260,8 @@ exports[`Value is updated correctly when assigned an animation 2`] = `
         }
       ],
       \\"config\\": {
-        \\"id\\": \\"screen\\"
+        \\"id\\": \\"screen\\",
+        \\"background\\": 0
       },
       \\"nextActionId\\": 2,
       \\"rememberedContext\\": \\"no remembered context\\",
@@ -310,7 +314,8 @@ exports[`Value is updated correctly when assigned an animation 3`] = `
         }
       ],
       \\"config\\": {
-        \\"id\\": \\"screen\\"
+        \\"id\\": \\"screen\\",
+        \\"background\\": 0
       },
       \\"nextActionId\\": 2,
       \\"rememberedContext\\": \\"no remembered context\\",
@@ -379,7 +384,8 @@ exports[`Value is updated correctly when captured in closure 1`] = `
         }
       ],
       \\"config\\": {
-        \\"id\\": \\"screen\\"
+        \\"id\\": \\"screen\\",
+        \\"background\\": 0
       },
       \\"nextActionId\\": 1,
       \\"rememberedContext\\": \\"no remembered context\\",
@@ -448,7 +454,8 @@ exports[`Value is updated correctly when captured in closure 2`] = `
         }
       ],
       \\"config\\": {
-        \\"id\\": \\"screen\\"
+        \\"id\\": \\"screen\\",
+        \\"background\\": 0
       },
       \\"nextActionId\\": 1,
       \\"rememberedContext\\": \\"no remembered context\\",
