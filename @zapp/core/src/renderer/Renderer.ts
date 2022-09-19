@@ -242,6 +242,7 @@ export abstract class Renderer {
       previous.config.originX !== next.config.originX ||
       previous.config.originY !== next.config.originY ||
       previous.config.rotation !== next.config.rotation ||
+      previous.config.source !== next.config.source ||
       previous.config.onPointerDown !== next.config.onPointerDown ||
       previous.config.onPointerMove !== next.config.onPointerMove ||
       previous.config.onPointerUp !== next.config.onPointerUp ||
