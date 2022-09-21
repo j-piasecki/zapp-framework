@@ -4,6 +4,7 @@ import { ButtonAction, EventType } from '../working_tree/EventNode.js'
 import { PointerEventType } from '../working_tree/props/types.js'
 import { PointerEventManager } from './PointerEventManager.js'
 import { Renderer } from './Renderer.js'
+import { ViewManager } from './ViewManager.js'
 
 export interface EventHandler {
   type: EventType
@@ -68,8 +69,8 @@ class ButtonEventManager {
         Navigator.goHome()
       }
     } else if (this.type === EventType.ShortcutButton && action === ButtonAction.Click) {
-      const x = Renderer.screenWidth / 2
-      const y = Renderer.screenHeight / 2
+      const x = ViewManager.screenWidth / 2
+      const y = ViewManager.screenHeight / 2
       const target = Renderer.hitTest(x, y)
 
       if (target !== null) {

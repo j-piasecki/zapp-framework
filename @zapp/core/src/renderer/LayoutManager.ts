@@ -4,20 +4,15 @@ import { RenderNode } from './Renderer.js'
 import { ViewManager } from './ViewManager.js'
 
 export class LayoutManager {
-  private viewManager!: ViewManager
   private recalculationStack: RenderNode[]
   private pageHeight: number
 
-  public setViewManager(viewManager: ViewManager) {
-    this.viewManager = viewManager
-  }
-
   public calculateLayout(root: RenderNode) {
     this.recalculationStack = []
-    this.pageHeight = this.viewManager?.screenHeight ?? 0
+    this.pageHeight = ViewManager.screenHeight
 
     // split calculating sizes and positions, as measuring views may require double-traversal
-    this.calculateSize(root, this.viewManager.screenWidth, this.viewManager.screenHeight)
+    this.calculateSize(root, ViewManager.screenWidth, ViewManager.screenHeight)
     this.calculatePositions(root)
 
     // update root height to reflect the potential flexible screen height
@@ -46,8 +41,8 @@ export class LayoutManager {
 
     // special case for root and screen as they always fill all available size
     if (node.type === NodeType.Root || node.type === NodeType.Screen) {
-      node.layout.width = this.viewManager?.screenWidth ?? 0
-      node.layout.height = this.viewManager?.screenHeight ?? 0
+      node.layout.width = ViewManager.screenWidth
+      node.layout.height = ViewManager.screenHeight
 
       for (const child of node.children) {
         this.calculateSize(child, availableWidth, availableHeight, node)
@@ -143,7 +138,7 @@ export class LayoutManager {
       // handle text as it may not be sized explicity, in which case we need to measure it with respect
       // to the available space
       if (node.type === NodeType.Text && (node.layout.width === -1 || node.layout.height === -1)) {
-        const { width, height } = this.viewManager.measureText(node.config.text!, node, availableWidth, availableHeight)
+        const { width, height } = ViewManager.measureText(node.config.text!, node, availableWidth, availableHeight)
 
         if (node.layout.width === -1) {
           node.layout.width = width
@@ -297,7 +292,7 @@ export class LayoutManager {
         for (const child of node.children) {
           child.layout.x =
             node.layout.x +
-            (this.viewManager.isRTL()
+            (ViewManager.isRTL()
               ? node.layout.width - child.layout.width - (node.config.padding?.start ?? 0) - borderWidth
               : (node.config.padding?.start ?? 0) + borderWidth)
           child.layout.y = node.layout.y + (node.config.padding?.end ?? 0) + borderWidth
@@ -320,14 +315,14 @@ export class LayoutManager {
       case Alignment.End:
         child.layout.x =
           parent.layout.x +
-          (this.viewManager.isRTL()
+          (ViewManager.isRTL()
             ? parent.config.padding?.end ?? 0
             : parent.layout.width - child.layout.width - (parent.config.padding?.end ?? 0))
         break
       default:
         child.layout.x =
           parent.layout.x +
-          (this.viewManager.isRTL()
+          (ViewManager.isRTL()
             ? parent.layout.width - child.layout.width - (parent.config.padding?.start ?? 0)
             : parent.config.padding?.start ?? 0)
         break
@@ -412,7 +407,7 @@ export class LayoutManager {
     }
 
     // second pass to position children horizontally depending on the arrangement
-    if (this.viewManager.isRTL()) {
+    if (ViewManager.isRTL()) {
       if (node.config.arrangement === undefined || node.config.arrangement === Arrangement.Start) {
         let nextX = node.layout.x + node.layout.width - (node.config.padding?.start ?? 0) - borderWidth
 

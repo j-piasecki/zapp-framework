@@ -1,8 +1,15 @@
-import { ViewManager, RenderNode, NodeType, PointerData, PointerEventType, PointerEventManager } from '@zapp/core'
+import {
+  ViewManagerInterface,
+  RenderNode,
+  NodeType,
+  PointerData,
+  PointerEventType,
+  PointerEventManager,
+} from '@zapp/core'
 
 const SVG_NS = 'http://www.w3.org/2000/svg'
 
-export class WebViewManager extends ViewManager {
+export class WebViewManager extends ViewManagerInterface {
   private _isRTL?: boolean = undefined
 
   get screenWidth() {

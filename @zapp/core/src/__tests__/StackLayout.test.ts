@@ -5,9 +5,10 @@ import { StackAlignment } from '../working_tree/props/types'
 import { Config } from '../working_tree/props/Config'
 import { Renderer } from '../renderer/Renderer'
 import { DummyViewManager } from '../renderer/DummyViewManager'
+import { setViewManager } from '../renderer/ViewManager'
 
 jest.useFakeTimers()
-Renderer.setViewManager(new DummyViewManager())
+setViewManager(new DummyViewManager())
 
 function getRenderedTreeString() {
   return JSON.stringify(Renderer.getCurrentTree(), undefined, 2)

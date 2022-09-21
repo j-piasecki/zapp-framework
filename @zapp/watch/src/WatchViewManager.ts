@@ -1,4 +1,11 @@
-import { ViewManager, RenderNode, NodeType, PointerData, PointerEventType, PointerEventManager } from '@zapp/core'
+import {
+  ViewManagerInterface,
+  RenderNode,
+  NodeType,
+  PointerData,
+  PointerEventType,
+  PointerEventManager,
+} from '@zapp/core'
 import { Direction } from './types.js'
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = hmSetting.getDeviceInfo()
@@ -8,7 +15,7 @@ interface ViewHolder {
   border?: any
 }
 
-export class WatchViewManager extends ViewManager {
+export class WatchViewManager extends ViewManagerInterface {
   private _isRTL?: boolean = undefined
 
   private freeScrollingEnabled = false

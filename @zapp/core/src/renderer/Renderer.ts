@@ -36,25 +36,11 @@ export abstract class Renderer {
   private static currentTree: RenderNode | null = null
   private static newTree: RenderNode | null = null
 
-  private static viewManager: ViewManager
   private static layoutManager = new LayoutManager()
-
-  public static setViewManager(viewManager: ViewManager) {
-    Renderer.viewManager = viewManager
-    Renderer.layoutManager.setViewManager(viewManager)
-  }
 
   /** @internal */
   public static getCurrentTree(): RenderNode | null {
     return Renderer.currentTree
-  }
-
-  public static get screenWidth() {
-    return Renderer.viewManager.screenWidth
-  }
-
-  public static get screenHeight() {
-    return Renderer.viewManager.screenHeight
   }
 
   public static render() {
@@ -82,7 +68,7 @@ export abstract class Renderer {
   }
 
   public static hitTest(x: number, y: number, parent: RenderNode | null = Renderer.currentTree): RenderNode | null {
-    const { x: scrollX, y: scrollY } = this.viewManager.getScrollOffset()
+    const { x: scrollX, y: scrollY } = ViewManager.getScrollOffset()
 
     x += scrollX
     y += scrollY
@@ -116,11 +102,11 @@ export abstract class Renderer {
     // has changed and it's going to be visible now, we need to create a view in this case
     if (next.view === null && !Renderer.isNodeLayoutOnly(next)) {
       next.zIndex = Renderer.nextZIndex++
-      next.view = Renderer.viewManager.createView(next)
+      next.view = ViewManager.createView(next)
     } else if (next.view !== null && Renderer.isNodeLayoutOnly(next)) {
       // when the view is not null but the node is layout-only, we need to drop the view as
       // it's not going to be visible anymore
-      Renderer.viewManager.dropView(next)
+      ViewManager.dropView(next)
       next.view = null
       next.zIndex = -1
     } else if (next.view !== null) {
@@ -183,7 +169,7 @@ export abstract class Renderer {
   private static createView(node: RenderNode, createChildren = true) {
     if (!Renderer.isNodeLayoutOnly(node)) {
       node.zIndex = Renderer.nextZIndex++
-      node.view = Renderer.viewManager.createView(node)
+      node.view = ViewManager.createView(node)
       PointerEventManager.addEventTarget(node)
     }
 
@@ -197,7 +183,7 @@ export abstract class Renderer {
   private static dropView(node: RenderNode) {
     if (node.view !== null) {
       PointerEventManager.dropEventTarget(node)
-      Renderer.viewManager.dropView(node)
+      ViewManager.dropView(node)
       node.view = null
     }
 
@@ -263,7 +249,7 @@ export abstract class Renderer {
 
   private static updateView(previous: RenderNode, next: RenderNode) {
     if (Renderer.shouldUpdateView(previous, next)) {
-      Renderer.viewManager.updateView(previous, next)
+      ViewManager.updateView(previous, next)
       PointerEventManager.addEventTarget(next)
     }
   }
@@ -336,8 +322,4 @@ export abstract class Renderer {
       measured: false,
     }
   }
-}
-
-export function setViewManager(viewManager: ViewManager) {
-  Renderer.setViewManager(viewManager)
 }
