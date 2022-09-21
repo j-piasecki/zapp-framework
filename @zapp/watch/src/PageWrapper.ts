@@ -39,7 +39,6 @@ export function PageWrapper(lifecycle: {
         WorkingTree.restoreState(navigatorData.savedStates.pop())
       }
 
-      hmUI.setLayerScrolling(false)
       hmApp.registerGestureEvent(function (event: unknown) {
         if (PointerEventManager.hasCapturedPointers()) {
           return true

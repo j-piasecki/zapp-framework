@@ -10,7 +10,8 @@ export function SimpleScreen(configBuilder: ConfigBuilderArg, body?: (params?: R
       })
     },
     initialize: () => {
-      viewManagerInstance.pageScrollingEnabled = false
+      hmUI.setLayerScrolling(false)
+      viewManagerInstance.setNoScrolling()
     },
   })
 }
