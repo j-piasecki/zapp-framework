@@ -21,7 +21,6 @@ export function rememberObservable<T>(
   if (restoredState !== undefined) {
     value = restoredState.value as T
 
-    // TODO: this may be too early to restore layer scroll position
     onValueRestored?.(value)
   } else {
     const path = findRelativePath(context.path, current.rememberedContext?.path)?.concat(context.id)

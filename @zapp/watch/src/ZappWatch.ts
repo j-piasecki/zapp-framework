@@ -1,5 +1,6 @@
 import { ZappInterface, WorkingTree, PointerEventManager, Renderer, Animation, GlobalEventManager } from '@zapp/core'
-import { tryUpdatingRememberedPagePositions } from './ScreenPager'
+import { tryUpdatingRememberedPagePositions } from './ScreenPager.js'
+import { tryUpdatingRememberedScrollPositions } from './ScrollableScreen.js'
 
 export class ZappWatch extends ZappInterface {
   private timerRef: unknown
@@ -18,6 +19,7 @@ export class ZappWatch extends ZappInterface {
 
   private update() {
     tryUpdatingRememberedPagePositions()
+    tryUpdatingRememberedScrollPositions()
 
     PointerEventManager.processEvents()
     GlobalEventManager.tick()

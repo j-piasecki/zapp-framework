@@ -20,6 +20,7 @@ export {
   rememberCurrentPage,
   Direction,
 } from './ScreenPager.js'
+export { ScrollableScreen, rememberScrollPosition } from './ScrollableScreen.js'
 
 PointerEventManager.fillLeaveEnterEvents()
 

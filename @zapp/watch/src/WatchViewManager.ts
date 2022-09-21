@@ -11,8 +11,25 @@ interface ViewHolder {
 export class WatchViewManager extends ViewManager {
   private _isRTL?: boolean = undefined
 
-  public pageScrollingEnabled = false
-  public pageScrollingDirection: Direction
+  private freeScrollingEnabled = false
+  private pageScrollingEnabled = false
+  private pageScrollingDirection: Direction
+
+  public setNoScrolling() {
+    this.freeScrollingEnabled = false
+    this.pageScrollingEnabled = false
+  }
+
+  public setPageScrolling(direction: Direction) {
+    this.freeScrollingEnabled = false
+    this.pageScrollingEnabled = true
+    this.pageScrollingDirection = direction
+  }
+
+  public setFreeScrolling() {
+    this.freeScrollingEnabled = true
+    this.pageScrollingEnabled = false
+  }
 
   get screenWidth() {
     return DEVICE_WIDTH
@@ -260,6 +277,8 @@ export class WatchViewManager extends ViewManager {
       } else if (this.pageScrollingDirection === Direction.Vertical) {
         y = page * DEVICE_HEIGHT
       }
+    } else if (this.freeScrollingEnabled) {
+      y = -hmApp.getLayerY()
     }
 
     return { x: x, y: y }

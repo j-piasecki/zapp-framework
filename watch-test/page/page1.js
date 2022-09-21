@@ -41,7 +41,17 @@ SimpleScreen(Config('screen'), (params) => {
       Text(TextConfig('text2').textColor(0xffffff).textSize(40), lastGesture.value)
 
       Stack(
-        StackConfig('button')
+        StackConfig('button1')
+          .width(200)
+          .height(50)
+          .background(0xaaaaff)
+          .onPointerDown(() => {
+            Navigator.navigate('page/scrollable', { data: 'from 1' })
+          })
+      )
+
+      Stack(
+        StackConfig('button2')
           .width(200)
           .height(50)
           .background(0xaaaaaa)
@@ -51,7 +61,7 @@ SimpleScreen(Config('screen'), (params) => {
       )
 
       Stack(
-        StackConfig('button2')
+        StackConfig('button3')
           .width(200)
           .height(50)
           .background(0x000000)
