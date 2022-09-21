@@ -92,6 +92,9 @@ export function ScreenPager(configBuilder: ScreenPagerConfigBuilder, body: (para
       viewManagerInstance.pageScrollingDirection = config.direction
     },
     destroy: () => {
+      // need to scroll to the first page, otherwise navigation may break and blank screen will be shown
+      hmUI.scrollToPage(0, false)
+
       rememberedPage = undefined
       rememberedValues = []
     },
