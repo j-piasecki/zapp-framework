@@ -8,6 +8,9 @@ export class RememberedMutableValue<T> extends RememberedValue<T> {
   private _animation?: Animation<unknown>
 
   /** @internal */
+  public _isMutable = true
+
+  /** @internal */
   public _observer?: (previous: T, current: T) => void
 
   /** @internal */

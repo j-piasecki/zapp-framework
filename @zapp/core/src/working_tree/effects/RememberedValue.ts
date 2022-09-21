@@ -4,6 +4,9 @@ export class RememberedValue<T> {
   protected _value: T
   protected context: RememberNode
 
+  /** @internal */
+  public _isMutable = false
+
   constructor(val: T, context: RememberNode) {
     this._value = val
     this.context = context

@@ -1,7 +1,9 @@
-import { ViewNode } from './ViewNode.js'
-import { WorkingNode } from './WorkingNode.js'
-import { RememberNode } from './RememberNode.js'
-import { RememberedMutableValue } from './effects/RememberedMutableValue.js'
+import type { ViewNode } from './ViewNode.js'
+import type { RememberNode } from './RememberNode.js'
+import type { WorkingNode } from './WorkingNode.js'
+import type { RememberedMutableValue } from './effects/RememberedMutableValue.js'
+import type { RememberedValue } from './effects/RememberedValue.js'
+import { NodeType } from '../NodeType.js'
 
 interface SavedState {
   value?: unknown
@@ -23,6 +25,18 @@ function isInnerNode(node: InnerNode | LeafNode): node is InnerNode {
   return node.children !== undefined
 }
 
+function isViewNode(node: WorkingNode): node is ViewNode {
+  return node.type !== NodeType.Remember && node.type !== NodeType.Effect && node.type !== NodeType.Event
+}
+
+function isRememberNode(node: WorkingNode): node is RememberNode {
+  return node.type === NodeType.Remember
+}
+
+function isRememberValueMutable<T>(value: RememberedValue<T>): value is RememberedMutableValue<T> {
+  return value._isMutable
+}
+
 export class SavedTreeState {
   private root: InnerNode
 
@@ -32,7 +46,7 @@ export class SavedTreeState {
 
   private createNode(node: WorkingNode): InnerNode | LeafNode | null {
     // dont't save nodes without children
-    if (node instanceof ViewNode && node.children.length > 0) {
+    if (isViewNode(node) && node.children.length > 0) {
       const result: InnerNode = {
         id: node.id,
         children: new Map(),
@@ -48,7 +62,7 @@ export class SavedTreeState {
 
         return result
       }
-    } else if (node instanceof RememberNode && node.remembered.shouldBeSaved()) {
+    } else if (isRememberNode(node) && node.remembered.shouldBeSaved()) {
       const result: LeafNode = {
         id: node.id,
         state: {
@@ -56,7 +70,7 @@ export class SavedTreeState {
         },
       }
 
-      if (node.remembered instanceof RememberedMutableValue && node.remembered.animation !== undefined) {
+      if (isRememberValueMutable(node.remembered) && node.remembered.animation !== undefined) {
         result.state.animationData = node.remembered.animation.save()
       }
 
