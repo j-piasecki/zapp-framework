@@ -15,7 +15,7 @@ export function ScreenBody(
   }
 
   const current = WorkingTree.current as ViewNode
-  console.log(isFlexible ? NodeType.FlexibleScreen : NodeType.Screen)
+
   const context = current.create({
     id: config.id,
     type: isFlexible ? NodeType.FlexibleScreen : NodeType.Screen,
