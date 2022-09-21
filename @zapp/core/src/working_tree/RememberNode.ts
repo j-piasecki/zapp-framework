@@ -1,7 +1,6 @@
 import { RememberedValue } from './effects/RememberedValue.js'
 import { WorkingNode } from './WorkingNode.js'
-import { findRelativePath } from '../utils.js'
-import { RememberedMutableValue } from './effects/RememberedMutableValue.js'
+import { findRelativePath, isRememberValueMutable } from '../utils.js'
 
 export class RememberNode extends WorkingNode {
   public remembered: RememberedValue<any>
@@ -9,7 +8,7 @@ export class RememberNode extends WorkingNode {
   public override drop(newSubtreeRoot: WorkingNode): void {
     super.drop(newSubtreeRoot)
 
-    if (this.remembered instanceof RememberedMutableValue && this.remembered.animation !== undefined) {
+    if (isRememberValueMutable(this.remembered) && this.remembered.animation !== undefined) {
       const thisPath = this.path.concat(this.id)
       const relativePath = findRelativePath(thisPath, newSubtreeRoot.path)
 

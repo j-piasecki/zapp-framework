@@ -1,3 +1,10 @@
+import type { RememberedMutableValue } from './working_tree/effects/RememberedMutableValue.js'
+import type { RememberedValue } from './working_tree/effects/RememberedValue.js'
+import type { RememberNode } from './working_tree/RememberNode.js'
+import type { ViewNode } from './working_tree/ViewNode.js'
+import type { WorkingNode } from './working_tree/WorkingNode.js'
+import { NodeType } from './NodeType.js'
+
 export function findRelativePath(child: string[], parent?: string[]) {
   if (parent === undefined) {
     return null
@@ -24,3 +31,15 @@ export function coerce(value: number, min: number, max: number) {
 }
 
 export type RequireSome<T, K extends keyof T> = Partial<T> & Pick<T, K>
+
+export function isViewNode(node: WorkingNode): node is ViewNode {
+  return node.type !== NodeType.Remember && node.type !== NodeType.Effect && node.type !== NodeType.Event
+}
+
+export function isRememberNode(node: WorkingNode): node is RememberNode {
+  return node.type === NodeType.Remember
+}
+
+export function isRememberValueMutable<T>(value: RememberedValue<T>): value is RememberedMutableValue<T> {
+  return value._isMutable
+}

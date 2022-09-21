@@ -1,9 +1,7 @@
 import type { ViewNode } from './ViewNode.js'
 import type { RememberNode } from './RememberNode.js'
 import type { WorkingNode } from './WorkingNode.js'
-import type { RememberedMutableValue } from './effects/RememberedMutableValue.js'
-import type { RememberedValue } from './effects/RememberedValue.js'
-import { NodeType } from '../NodeType.js'
+import { isViewNode, isRememberNode, isRememberValueMutable } from '../utils.js'
 
 interface SavedState {
   value?: unknown
@@ -23,18 +21,6 @@ interface LeafNode {
 function isInnerNode(node: InnerNode | LeafNode): node is InnerNode {
   // @ts-ignore
   return node.children !== undefined
-}
-
-function isViewNode(node: WorkingNode): node is ViewNode {
-  return node.type !== NodeType.Remember && node.type !== NodeType.Effect && node.type !== NodeType.Event
-}
-
-function isRememberNode(node: WorkingNode): node is RememberNode {
-  return node.type === NodeType.Remember
-}
-
-function isRememberValueMutable<T>(value: RememberedValue<T>): value is RememberedMutableValue<T> {
-  return value._isMutable
 }
 
 export class SavedTreeState {
