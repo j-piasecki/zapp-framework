@@ -53,11 +53,6 @@ export class LayoutManager {
         this.calculateSize(child, availableWidth, availableHeight, node)
       }
     } else {
-      if (node.type === NodeType.FlexibleScreen) {
-        // flexible screen fills max width
-        node.layout.width = this.viewManager?.screenWidth ?? 0
-      }
-
       const verticalPadding = (node.config.padding?.top ?? 0) + (node.config.padding?.bottom ?? 0)
       const horizontalPadding = (node.config.padding?.start ?? 0) + (node.config.padding?.end ?? 0)
 
@@ -172,7 +167,7 @@ export class LayoutManager {
         (node.layout.width === -1 || node.layout.height === -1) &&
         (node.config.fillWidth === undefined || node.config.fillHeight === undefined)
       ) {
-        if (node.type === NodeType.Column || node.type === NodeType.FlexibleScreen) {
+        if (node.type === NodeType.Column) {
           // column stacks its children one after another vertically so we want its height to be sum of
           // its children heights, while its width needs to match the widest child
           let maxWidth = -1
@@ -228,9 +223,20 @@ export class LayoutManager {
     }
 
     if (recalculating !== true) {
-      if (node.type === NodeType.FlexibleScreen) {
+      if (node.type === NodeType.Screen) {
         // fill the screen if not enough content
-        node.layout.height = Math.max(node.layout.height, this.viewManager.screenHeight ?? 0)
+        let maxHeight = -1
+
+        for (const child of node.children) {
+          maxHeight = Math.max(maxHeight, child.layout.height)
+        }
+
+        if (maxHeight !== -1) {
+          node.layout.height = Math.max(
+            node.layout.height,
+            maxHeight + (node.config.padding?.top ?? 0) + (node.config.padding?.bottom ?? 0)
+          )
+        }
       }
 
       // This algorithm performs a double-pass on parts of the tree when necessary, i.e.:
@@ -281,11 +287,11 @@ export class LayoutManager {
     if (parent !== undefined) {
       const borderWidth = node.config.borderWidth ?? 0
 
-      if (node.type === NodeType.Column || node.type === NodeType.FlexibleScreen) {
+      if (node.type === NodeType.Column) {
         this.positionColumn(node)
       } else if (node.type === NodeType.Row) {
         this.positionRow(node)
-      } else if (node.type === NodeType.Stack) {
+      } else if (node.type === NodeType.Stack || node.type === NodeType.Screen) {
         this.positionStack(node)
       } else {
         for (const child of node.children) {

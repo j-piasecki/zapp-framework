@@ -6,8 +6,7 @@ import { ConfigBuilder } from '../props/Config.js'
 
 export function ScreenBody(
   configBuilder: RequireSome<ConfigBuilder, 'build'>,
-  body?: (params?: Record<string, unknown>) => void,
-  isFlexible = false
+  body?: (params?: Record<string, unknown>) => void
 ) {
   const config = configBuilder.build()
   if (config.background === undefined) {
@@ -18,7 +17,7 @@ export function ScreenBody(
 
   const context = current.create({
     id: config.id,
-    type: isFlexible ? NodeType.FlexibleScreen : NodeType.Screen,
+    type: NodeType.Screen,
     config: config,
     body: body,
   })
