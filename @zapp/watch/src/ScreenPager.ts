@@ -2,7 +2,7 @@ import {
   Config,
   ConfigBuilder,
   ConfigType,
-  Custom,
+  Stack,
   RememberedMutableValue,
   rememberObservable,
   ScreenBody,
@@ -63,14 +63,13 @@ export function ScreenPager(configBuilder: ScreenPagerConfigBuilder, body: (para
 
   PageWrapper({
     build: (params) => {
-      Custom(Config('pagerSavedPage'), {}, () => {
+      Stack(Config('pagerSavedPage'), () => {
         sideEffect((restoring) => {
           if (!restoring) {
             hmUI.scrollToPage(config.startingPage, false)
           }
         })
         rememberedPage = rememberObservable(config.startingPage, undefined, (restored) => {
-          // for whatever reason, getScrollCurrentPage starts counting from 1 but scrollToPage starts from 0
           hmUI.scrollToPage(restored, false)
         })
       })
@@ -88,8 +87,7 @@ export function ScreenPager(configBuilder: ScreenPagerConfigBuilder, body: (para
         config.direction === Direction.Vertical
       )
 
-      viewManagerInstance.pageScrollingEnabled = true
-      viewManagerInstance.pageScrollingDirection = config.direction
+      viewManagerInstance.setPageScrolling(config.direction)
     },
     destroy: () => {
       // need to scroll to the first page, otherwise navigation may break and blank screen will be shown
@@ -127,6 +125,7 @@ export function tryUpdatingRememberedPagePositions() {
 }
 
 export function rememberCurrentPage(): RememberedMutableValue<number> {
+  // for whatever reason, getScrollCurrentPage starts counting from 1 but scrollToPage starts from 0
   const value = rememberObservable(hmUI.getScrollCurrentPage() - 1, (prev, current) => {
     hmUI.scrollToPage(current, true)
   })
