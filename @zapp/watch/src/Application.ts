@@ -1,5 +1,5 @@
 import { ApplicationConfig } from '@zapp/core'
-import { NavigatorData } from './Navigator'
+import { NavigatorData } from './Navigator.js'
 
 export function Application(config: ApplicationConfig) {
   const navigatorData: NavigatorData = {

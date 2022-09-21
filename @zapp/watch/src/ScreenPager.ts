@@ -8,15 +8,11 @@ import {
   ScreenBody,
   sideEffect,
 } from '@zapp/core'
-import { PageWrapper } from './PageWrapper'
-import { viewManagerInstance } from './WatchViewManager'
+import { PageWrapper } from './PageWrapper.js'
+import { viewManagerInstance } from './WatchViewManager.js'
+import { Direction } from './types.js'
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = hmSetting.getDeviceInfo()
-
-export enum Direction {
-  Vertical,
-  Horizontal,
-}
 
 let rememberedPage: RememberedMutableValue<number> | undefined = undefined
 let rememberedValues: RememberedMutableValue<number>[] = []

@@ -12,13 +12,13 @@ import { SimpleScreen } from './SimpleScreen.js'
 import { Navigator } from './Navigator.js'
 import { Application } from './Application.js'
 
+export { Direction } from './types.js'
 export {
   ScreenPager,
   PagerEntry,
   ScreenPagerConfigBuilder,
   ScreenPagerConfig,
   rememberCurrentPage,
-  Direction,
 } from './ScreenPager.js'
 export { ScrollableScreen, rememberScrollPosition } from './ScrollableScreen.js'
 

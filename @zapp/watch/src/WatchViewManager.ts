@@ -1,5 +1,5 @@
 import { ViewManager, RenderNode, NodeType, PointerData, PointerEventType, PointerEventManager } from '@zapp/core'
-import { Direction } from './ScreenPager'
+import { Direction } from './types.js'
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = hmSetting.getDeviceInfo()
 
