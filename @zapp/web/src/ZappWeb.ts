@@ -15,6 +15,7 @@ export class ZappWeb extends ZappInterface {
   private crownDelta = 0
   private previousCrownDelta = 0
   private crownResetTimeout = -1
+  private savedData: Record<string, unknown> = {}
 
   public startLoop() {
     this.running = true
@@ -63,6 +64,14 @@ export class ZappWeb extends ZappInterface {
           break
       }
     })
+  }
+
+  setValue(key: string, value: unknown): void {
+    this.savedData[key] = value
+  }
+
+  getValue(key: string): unknown {
+    return this.savedData[key]
   }
 
   stopLoop(): void {

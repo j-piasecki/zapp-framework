@@ -8,8 +8,16 @@ import { remember } from '../working_tree/effects/remember'
 import { sideEffect } from '../working_tree/effects/sideEffect'
 import { Animation } from '../working_tree/effects/animation/Animation'
 import { withTiming } from '../working_tree/effects/animation/TimingAnimation'
+import { setZappInterface } from '../ZappInterface'
 
 jest.useFakeTimers()
+
+setZappInterface({
+  startLoop: () => null,
+  stopLoop: () => null,
+  setValue: () => null,
+  getValue: () => null,
+})
 
 afterEach(() => {
   WorkingTree.dropAll()

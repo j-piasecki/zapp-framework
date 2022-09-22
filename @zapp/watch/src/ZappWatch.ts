@@ -31,4 +31,15 @@ export class ZappWatch extends ZappInterface {
       Renderer.render()
     }
   }
+
+  setValue(key: string, value: unknown): void {
+    getApp()._options.globalData[key] = value
+  }
+
+  getValue(key: string): unknown {
+    const app = getApp()
+    if (app !== undefined) {
+      return app._options.globalData[key]
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import { Arc, ArcConfigBuilder, Config, remember, sideEffect, Stack, withTiming } from '@zapp/core'
+import { Theme } from './Theme.js'
 
 export function ActivityIndicator(config: ArcConfigBuilder) {
   const rawConfig = config.build()
@@ -27,6 +28,10 @@ export function ActivityIndicator(config: ArcConfigBuilder) {
     }
 
     sideEffect(animateCycle)
+
+    if (rawConfig.borderColor === undefined) {
+      config.color(Theme.primary)
+    }
 
     Arc(config.startAngle(angle.value).endAngle(angle.value + size.value))
   })

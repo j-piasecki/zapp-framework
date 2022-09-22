@@ -365,7 +365,7 @@ function DynamicLayoutExample() {
 
       Row(Config('row1').fillWidth(1).weight(1), () => {
         Row(RowConfig('row1.1').fillHeight(1).weight(1).background(0xff0000), () => {
-          ActivityIndicator(ArcConfig('ac').width(100).height(100).color(0xffffff).lineWidth(10))
+          ActivityIndicator(ArcConfig('ac').width(100).height(100).lineWidth(10))
         })
         Row(RowConfig('row1.2').fillHeight(0.75).weight(1).background(0xaa2299), () => {
           const rotation = remember(0)

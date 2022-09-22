@@ -3,6 +3,7 @@ import { ViewNode } from '../ViewNode.js'
 import { WorkingTree } from '../WorkingTree.js'
 import { NodeType } from '../../NodeType.js'
 import { ConfigBuilder } from '../props/Config.js'
+import { Zapp } from '../../ZappInterface.js'
 
 export function ScreenBody(
   configBuilder: RequireSome<ConfigBuilder, 'build'>,
@@ -10,7 +11,8 @@ export function ScreenBody(
 ) {
   const config = configBuilder.build()
   if (config.background === undefined) {
-    config.background = 0x000000
+    // @ts-ignore
+    config.background = Zapp.getValue('zapp#theme')?.background ?? 0x000000
   }
 
   const current = WorkingTree.current as ViewNode
