@@ -1,13 +1,12 @@
 import { RememberedMutableValue } from '../RememberedMutableValue.js'
-import { Easing } from './Easing.js'
 
 export interface AnimationProps {
   onEnd?: (completed: boolean) => void
-  easing?: (t: number) => number
 }
 
 export enum AnimationType {
   Timing,
+  Repeat,
 }
 
 export abstract class Animation<T> {
@@ -24,22 +23,24 @@ export abstract class Animation<T> {
   // set when assigned to a remembered value
   public startValue: T
   public rememberedValue: RememberedMutableValue<T>
+  public isFinished = false
 
   protected startTimestamp: number
   protected endHandler?: (completed: boolean) => void
-  protected easingFunction: (t: number) => number
-  protected isFinished = false
   protected isRunning = true
 
   constructor(props?: AnimationProps) {
     this.endHandler = props?.onEnd
-    this.easingFunction = props?.easing ?? Easing.linear
 
     this.startTimestamp = Date.now()
     Animation.runningAnimations.push(this)
   }
 
-  protected abstract calculateValue(timestamp: number): T
+  public abstract calculateValue(timestamp: number): T
+
+  public calculateReversedValue(value: T) {
+    return value
+  }
 
   public onFrame(timestamp: number) {
     this.rememberedValue.value = this.calculateValue(timestamp)
@@ -63,6 +64,12 @@ export abstract class Animation<T> {
     if (index !== -1) {
       Animation.runningAnimations.splice(index, 1)
     }
+  }
+
+  public reset() {
+    this.startTimestamp = Date.now()
+    this.isFinished = false
+    this.isRunning = true
   }
 
   public inheritEndCallback(from: Animation<T>) {

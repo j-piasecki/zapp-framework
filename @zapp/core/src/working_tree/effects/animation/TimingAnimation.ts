@@ -1,16 +1,19 @@
 import { Animation, AnimationProps, AnimationType } from './Animation.js'
 import { coerce } from '../../../utils.js'
+import { Easing } from './Easing.js'
 
 const DEFAULT_DURATION = 300
 
 export interface TimingAnimationProps extends AnimationProps {
   duration?: number
+  easing?: (t: number) => number
 }
 
 export class TimingAnimation extends Animation<number> {
   private targetValue: number
   private duration: number
   private progress: number
+  private easingFunction: (t: number) => number
 
   constructor(targetValue: number, props?: TimingAnimationProps) {
     super(props)
@@ -18,9 +21,10 @@ export class TimingAnimation extends Animation<number> {
     this.progress = 0
     this.targetValue = targetValue
     this.duration = props?.duration ?? DEFAULT_DURATION
+    this.easingFunction = props?.easing ?? Easing.linear
   }
 
-  protected calculateValue(timestamp: number): number {
+  public calculateValue(timestamp: number): number {
     this.progress = coerce((timestamp - this.startTimestamp) / this.duration, 0, 1)
 
     if (this.progress === 1) {
@@ -30,11 +34,11 @@ export class TimingAnimation extends Animation<number> {
     return this.startValue + (this.targetValue - this.startValue) * this.easingFunction(this.progress)
   }
 
-  public save(): Record<string, unknown> | undefined {
-    if (this.progress === 1) {
-      return undefined
-    }
+  public calculateReversedValue(value: number): number {
+    return this.targetValue - value + this.startValue
+  }
 
+  public save(): Record<string, unknown> | undefined {
     const result = super.save()!
 
     result.type = AnimationType.Timing
