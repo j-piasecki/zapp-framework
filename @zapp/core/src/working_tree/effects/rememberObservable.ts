@@ -5,6 +5,7 @@ import { WorkingTree } from '../WorkingTree.js'
 import { RememberedMutableValue } from './RememberedMutableValue.js'
 import { Animation, AnimationType } from './animation/Animation.js'
 import { TimingAnimation } from './animation/TimingAnimation.js'
+import { RepeatAnimation } from './animation/RepeatAnimation.js'
 
 export function rememberObservable<T>(
   value: T,
@@ -42,6 +43,8 @@ export function rememberObservable<T>(
 
     if (restoredState.animationData.type === AnimationType.Timing) {
       anim = TimingAnimation.restore(restoredState.animationData)
+    } else if (restoredState.animationData.type === AnimationType.Repeat) {
+      anim = RepeatAnimation.restore(restoredState.animationData)
     }
 
     if (anim !== null) {
