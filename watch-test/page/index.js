@@ -1,5 +1,5 @@
 import '@zapp/watch'
-import { ActivityIndicator } from '@zapp/ui'
+import { ActivityIndicator, Theme } from '@zapp/ui'
 import {
   SimpleScreen,
   Stack,
@@ -35,7 +35,7 @@ let cycle = [
 ]
 
 SimpleScreen(Config('screen'), () => {
-  Stack(StackConfig('stack').fillSize().alignment(StackAlignment.Center).background(0x222222), () => {
+  Stack(StackConfig('stack').fillSize().alignment(StackAlignment.Center), () => {
     Column(ColumnConfig('column').fillWidth(0.75).fillHeight(0.75).background(0xff0000).padding(10), () => {
       const weight = remember(1)
       sideEffect(() => {
@@ -68,7 +68,7 @@ SimpleScreen(Config('screen'), () => {
           Stack(
             StackConfig('wrapper')
               .padding(15)
-              .background(0xaaaaff)
+              .background(Theme.surface)
               .onPointerDown(() => {
                 textVisible.value = !textVisible.value
                 angle.value = 0
@@ -86,7 +86,7 @@ SimpleScreen(Config('screen'), () => {
                   'zapp.png'
                 )
               } else {
-                ActivityIndicator(ArcConfig('ac').width(60).height(60).color(0xffffff).lineWidth(10))
+                ActivityIndicator(ArcConfig('ac').width(60).height(60).lineWidth(10))
               }
             }
           )
