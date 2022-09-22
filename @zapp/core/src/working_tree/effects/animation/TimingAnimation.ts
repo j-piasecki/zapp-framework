@@ -20,14 +20,14 @@ export class TimingAnimation extends Animation<number> {
     this.duration = props?.duration ?? DEFAULT_DURATION
   }
 
-  public onFrame(timestamp: number): void {
+  protected calculateValue(timestamp: number): number {
     this.progress = coerce((timestamp - this.startTimestamp) / this.duration, 0, 1)
-    this.rememberedValue.value =
-      this.startValue + (this.targetValue - this.startValue) * this.easingFunction(this.progress)
 
     if (this.progress === 1) {
-      this.onEnd(true)
+      this.isFinished = true
     }
+
+    return this.startValue + (this.targetValue - this.startValue) * this.easingFunction(this.progress)
   }
 
   public save(): Record<string, unknown> | undefined {

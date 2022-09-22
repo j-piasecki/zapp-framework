@@ -28,6 +28,7 @@ export abstract class Animation<T> {
   protected startTimestamp: number
   protected endHandler?: (completed: boolean) => void
   protected easingFunction: (t: number) => number
+  protected isFinished = false
   protected isRunning = true
 
   constructor(props?: AnimationProps) {
@@ -38,7 +39,15 @@ export abstract class Animation<T> {
     Animation.runningAnimations.push(this)
   }
 
-  public abstract onFrame(timestamp: number): void
+  protected abstract calculateValue(timestamp: number): T
+
+  public onFrame(timestamp: number) {
+    this.rememberedValue.value = this.calculateValue(timestamp)
+
+    if (this.isFinished) {
+      this.onEnd(true)
+    }
+  }
 
   protected onEnd(completed: boolean) {
     if (this.isRunning) {
