@@ -4,6 +4,7 @@ import { ColumnConfig } from '../working_tree/props/ColumnConfig'
 import { Alignment, Arrangement } from '../working_tree/props/types'
 import { Config } from '../working_tree/props/Config'
 import { Renderer } from '../renderer/Renderer'
+import { RenderedTree } from '../renderer/RenderedTree'
 import { DummyViewManager } from '../renderer/DummyViewManager'
 import { Column } from '../working_tree/views/Column'
 import { setViewManager } from '../renderer/ViewManager'
@@ -12,7 +13,7 @@ jest.useFakeTimers()
 setViewManager(new DummyViewManager())
 
 function getRenderedTreeString() {
-  return JSON.stringify(Renderer.getCurrentTree(), undefined, 2)
+  return JSON.stringify(RenderedTree.current, undefined, 2)
 }
 
 afterEach(() => {

@@ -7,12 +7,13 @@ import { Renderer } from '../renderer/Renderer'
 import { DummyViewManager } from '../renderer/DummyViewManager'
 import { Row } from '../working_tree/views/Row'
 import { setViewManager } from '../renderer/ViewManager'
+import { RenderedTree } from '../renderer/RenderedTree'
 
 jest.useFakeTimers()
 setViewManager(new DummyViewManager())
 
 function getRenderedTreeString() {
-  return JSON.stringify(Renderer.getCurrentTree(), undefined, 2)
+  return JSON.stringify(RenderedTree.current, undefined, 2)
 }
 
 afterEach(() => {

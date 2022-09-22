@@ -7,7 +7,9 @@ exports[`Tree is generated correctly 1`] = `
   \\"parent\\": \\"no parent\\",
   \\"path\\": \\"\\",
   \\"isDropped\\": false,
-  \\"body\\": \\"body\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\"
+  },
   \\"children\\": [
     {
       \\"id\\": \\"screen\\",
@@ -83,11 +85,7 @@ exports[`Tree is generated correctly 1`] = `
       \\"rememberedContext\\": \\"no remembered context\\",
       \\"override\\": \\"no override\\"
     }
-  ],
-  \\"config\\": {
-    \\"id\\": \\"#__root\\"
-  },
-  \\"nextActionId\\": 0
+  ]
 }"
 `;
 
@@ -98,7 +96,9 @@ exports[`Tree is generated correctly after update 1`] = `
   \\"parent\\": \\"no parent\\",
   \\"path\\": \\"\\",
   \\"isDropped\\": false,
-  \\"body\\": \\"body\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\"
+  },
   \\"children\\": [
     {
       \\"id\\": \\"screen\\",
@@ -159,11 +159,7 @@ exports[`Tree is generated correctly after update 1`] = `
       \\"rememberedContext\\": \\"no remembered context\\",
       \\"override\\": \\"no override\\"
     }
-  ],
-  \\"config\\": {
-    \\"id\\": \\"#__root\\"
-  },
-  \\"nextActionId\\": 0
+  ]
 }"
 `;
 
@@ -174,7 +170,9 @@ exports[`Value is updated correctly when assigned an animation 1`] = `
   \\"parent\\": \\"no parent\\",
   \\"path\\": \\"\\",
   \\"isDropped\\": false,
-  \\"body\\": \\"body\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\"
+  },
   \\"children\\": [
     {
       \\"id\\": \\"screen\\",
@@ -213,11 +211,7 @@ exports[`Value is updated correctly when assigned an animation 1`] = `
       \\"rememberedContext\\": \\"no remembered context\\",
       \\"override\\": \\"no override\\"
     }
-  ],
-  \\"config\\": {
-    \\"id\\": \\"#__root\\"
-  },
-  \\"nextActionId\\": 0
+  ]
 }"
 `;
 
@@ -228,7 +222,9 @@ exports[`Value is updated correctly when assigned an animation 2`] = `
   \\"parent\\": \\"no parent\\",
   \\"path\\": \\"\\",
   \\"isDropped\\": false,
-  \\"body\\": \\"body\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\"
+  },
   \\"children\\": [
     {
       \\"id\\": \\"screen\\",
@@ -267,11 +263,7 @@ exports[`Value is updated correctly when assigned an animation 2`] = `
       \\"rememberedContext\\": \\"no remembered context\\",
       \\"override\\": \\"no override\\"
     }
-  ],
-  \\"config\\": {
-    \\"id\\": \\"#__root\\"
-  },
-  \\"nextActionId\\": 0
+  ]
 }"
 `;
 
@@ -282,7 +274,9 @@ exports[`Value is updated correctly when assigned an animation 3`] = `
   \\"parent\\": \\"no parent\\",
   \\"path\\": \\"\\",
   \\"isDropped\\": false,
-  \\"body\\": \\"body\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\"
+  },
   \\"children\\": [
     {
       \\"id\\": \\"screen\\",
@@ -321,11 +315,7 @@ exports[`Value is updated correctly when assigned an animation 3`] = `
       \\"rememberedContext\\": \\"no remembered context\\",
       \\"override\\": \\"no override\\"
     }
-  ],
-  \\"config\\": {
-    \\"id\\": \\"#__root\\"
-  },
-  \\"nextActionId\\": 0
+  ]
 }"
 `;
 
@@ -336,7 +326,9 @@ exports[`Value is updated correctly when captured in closure 1`] = `
   \\"parent\\": \\"no parent\\",
   \\"path\\": \\"\\",
   \\"isDropped\\": false,
-  \\"body\\": \\"body\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\"
+  },
   \\"children\\": [
     {
       \\"id\\": \\"screen\\",
@@ -391,11 +383,7 @@ exports[`Value is updated correctly when captured in closure 1`] = `
       \\"rememberedContext\\": \\"no remembered context\\",
       \\"override\\": \\"no override\\"
     }
-  ],
-  \\"config\\": {
-    \\"id\\": \\"#__root\\"
-  },
-  \\"nextActionId\\": 0
+  ]
 }"
 `;
 
@@ -406,7 +394,9 @@ exports[`Value is updated correctly when captured in closure 2`] = `
   \\"parent\\": \\"no parent\\",
   \\"path\\": \\"\\",
   \\"isDropped\\": false,
-  \\"body\\": \\"body\\",
+  \\"config\\": {
+    \\"id\\": \\"#__root\\"
+  },
   \\"children\\": [
     {
       \\"id\\": \\"screen\\",
@@ -461,10 +451,6 @@ exports[`Value is updated correctly when captured in closure 2`] = `
       \\"rememberedContext\\": \\"no remembered context\\",
       \\"override\\": \\"no override\\"
     }
-  ],
-  \\"config\\": {
-    \\"id\\": \\"#__root\\"
-  },
-  \\"nextActionId\\": 0
+  ]
 }"
 `;
