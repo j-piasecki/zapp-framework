@@ -50,7 +50,7 @@ export abstract class Animation<T> {
     }
   }
 
-  protected onEnd(completed: boolean) {
+  public onEnd(completed: boolean) {
     if (this.isRunning) {
       this.isRunning = false
       this.endHandler?.(completed)

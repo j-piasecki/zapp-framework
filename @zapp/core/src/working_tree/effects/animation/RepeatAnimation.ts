@@ -39,6 +39,7 @@ export class RepeatAnimation extends Animation<number> {
 
     if (this.animation.isFinished) {
       this.repetitionsDone++
+      this.animation.onEnd(true)
 
       if (this.repeatCount > 0 && this.repetitionsDone >= this.repeatCount) {
         this.isFinished = true
