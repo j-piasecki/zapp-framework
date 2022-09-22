@@ -1,5 +1,5 @@
 import { PointerData, PointerEventType } from '../working_tree/props/types.js'
-import { RenderNode } from './Renderer.js'
+import { RenderNode } from './RenderedTree.js'
 
 export abstract class PointerEventManager {
   private static eventQueue: PointerData[] = []

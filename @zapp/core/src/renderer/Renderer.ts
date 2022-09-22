@@ -1,97 +1,39 @@
 import { NodeType } from '../NodeType.js'
-import { ConfigType } from '../working_tree/props/types.js'
 import { ViewNode } from '../working_tree/ViewNode.js'
-import { CustomViewProps } from '../working_tree/views/Custom.js'
 import { PointerEventManager } from './PointerEventManager.js'
 import { LayoutManager } from './LayoutManager.js'
 import { ViewManager } from './ViewManager.js'
 import { EventNode } from '../working_tree/EventNode.js'
 import { GlobalEventManager } from './GlobalEventManager.js'
-
-interface Layout {
-  width: number
-  height: number
-  x: number
-  y: number
-  measured: boolean
-}
-
-interface RenderConfig extends ConfigType {
-  isInherited: Map<string, boolean>
-}
-
-export interface RenderNode {
-  id: string
-  type: NodeType
-  config: RenderConfig
-  children: RenderNode[]
-  view: unknown
-  zIndex: number
-  layout: Layout
-  customViewProps?: CustomViewProps
-}
+import { Layout, RenderConfig, RenderedTree, RenderNode } from './RenderedTree.js'
+import { RootNode } from '../working_tree/WorkingTree.js'
 
 export abstract class Renderer {
-  private static nextZIndex = 0
-  private static currentTree: RenderNode | null = null
-  private static newTree: RenderNode | null = null
-
   private static layoutManager = new LayoutManager()
-
-  /** @internal */
-  public static getCurrentTree(): RenderNode | null {
-    return Renderer.currentTree
-  }
+  private static nextZIndex = 0
 
   public static render() {
-    if (Renderer.newTree !== null) {
-      Renderer.layoutManager.calculateLayout(Renderer.newTree)
+    if (RenderedTree.next !== null) {
+      Renderer.layoutManager.calculateLayout(RenderedTree.next)
 
-      if (Renderer.currentTree == null || Renderer.currentTree.id !== Renderer.newTree.id) {
-        if (this.currentTree !== null) {
-          Renderer.dropView(this.currentTree)
+      if (RenderedTree.current == null || RenderedTree.current.id !== RenderedTree.next.id) {
+        if (RenderedTree.current !== null) {
+          Renderer.dropView(RenderedTree.current)
         }
 
-        Renderer.createView(Renderer.newTree)
+        Renderer.createView(RenderedTree.next)
       } else {
-        Renderer.diffNode(Renderer.currentTree, Renderer.newTree, -1)
+        Renderer.diffNode(RenderedTree.current, RenderedTree.next, -1)
       }
 
-      Renderer.currentTree = Renderer.newTree
-      Renderer.newTree = null
+      RenderedTree.current = RenderedTree.next
+      RenderedTree.next = null
     }
   }
 
-  public static commit(root: ViewNode) {
+  public static commit(root: RootNode) {
     GlobalEventManager.clearHandlers()
-    Renderer.newTree = Renderer.createNode(root)
-  }
-
-  public static hitTest(x: number, y: number, parent: RenderNode | null = Renderer.currentTree): RenderNode | null {
-    const { x: scrollX, y: scrollY } = ViewManager.getScrollOffset()
-
-    x += scrollX
-    y += scrollY
-
-    if (
-      parent === null ||
-      x < parent.layout.x ||
-      x > parent.layout.x + parent.layout.width ||
-      y < parent.layout.y ||
-      y > parent.layout.y + parent.layout.height
-    ) {
-      return null
-    }
-
-    for (let i = parent.children.length - 1; i >= 0; i--) {
-      const result = Renderer.hitTest(x, y, parent.children[i])
-
-      if (result !== null) {
-        return result
-      }
-    }
-
-    return parent
+    RenderedTree.next = Renderer.createNode(root)
   }
 
   private static diffNode(previous: RenderNode, next: RenderNode, previousZIndex: number): number {
@@ -254,7 +196,7 @@ export abstract class Renderer {
     }
   }
 
-  private static createNode(node: ViewNode, parent?: RenderNode): RenderNode {
+  private static createNode(node: ViewNode | RootNode, parent?: RenderNode): RenderNode {
     const config: RenderConfig = { ...node.config, isInherited: new Map() }
 
     // TODO: check whether all or nothing is the right way to handle event inheritance
@@ -295,6 +237,7 @@ export abstract class Renderer {
       view: null,
       zIndex: -1,
       layout: Renderer.createLayout(),
+      // @ts-ignore customViewProps doesn't exist on root node, so it will be undefinded anyway
       customViewProps: node.customViewProps,
     }
 

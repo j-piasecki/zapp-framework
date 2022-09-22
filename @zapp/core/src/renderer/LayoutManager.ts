@@ -1,6 +1,6 @@
 import { NodeType } from '../NodeType.js'
 import { Alignment, Arrangement, StackAlignment } from '../working_tree/props/types.js'
-import { RenderNode } from './Renderer.js'
+import { RenderNode } from './RenderedTree.js'
 import { ViewManager } from './ViewManager.js'
 
 export class LayoutManager {

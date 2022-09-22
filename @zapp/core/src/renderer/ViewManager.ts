@@ -1,4 +1,4 @@
-import { RenderNode } from './Renderer.js'
+import { RenderNode } from './RenderedTree.js'
 
 let viewManagerInstance: ViewManagerInterface
 

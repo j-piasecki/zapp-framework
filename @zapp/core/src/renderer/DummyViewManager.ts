@@ -1,4 +1,4 @@
-import { RenderNode } from './Renderer.js'
+import { RenderNode } from './RenderedTree.js'
 import { ViewManager } from './ViewManager.js'
 
 export class DummyViewManager extends ViewManager {

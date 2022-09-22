@@ -11,7 +11,7 @@ import { WorkingNode } from './WorkingNode.js'
 
 export const ROOT_ID = '#__root'
 
-class RootNode extends WorkingNode {
+export class RootNode extends WorkingNode {
   public savedState?: SavedTreeState
   public children: WorkingNode[]
   public config: ConfigType

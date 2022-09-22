@@ -3,7 +3,7 @@ import { ViewNode } from '../ViewNode.js'
 import { WorkingTree } from '../WorkingTree.js'
 import { NodeType } from '../../NodeType.js'
 import { ConfigBuilder } from '../props/Config.js'
-import { RenderNode } from '../../renderer/Renderer.js'
+import { RenderNode } from '../../renderer/RenderedTree.js'
 
 export interface CustomViewProps extends Record<string, unknown> {
   /**
