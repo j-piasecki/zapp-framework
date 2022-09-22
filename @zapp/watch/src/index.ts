@@ -8,7 +8,7 @@ import {
 } from '@zapp/core'
 import { viewManagerInstance } from './WatchViewManager.js'
 import { ZappWatch } from './ZappWatch.js'
-import { SimpleScreen } from './SimpleScreen.js'
+import { SimpleScreen } from './screens/SimpleScreen.js'
 import { Navigator } from './Navigator.js'
 import { Application } from './Application.js'
 
@@ -19,8 +19,8 @@ export {
   ScreenPagerConfigBuilder,
   ScreenPagerConfig,
   rememberCurrentPage,
-} from './ScreenPager.js'
-export { ScrollableScreen, rememberScrollPosition } from './ScrollableScreen.js'
+} from './screens/ScreenPager.js'
+export { ScrollableScreen, rememberScrollPosition } from './screens/ScrollableScreen.js'
 
 PointerEventManager.fillLeaveEnterEvents()
 

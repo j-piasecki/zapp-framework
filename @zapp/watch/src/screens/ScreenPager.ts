@@ -9,8 +9,8 @@ import {
   sideEffect,
 } from '@zapp/core'
 import { PageWrapper } from './PageWrapper.js'
-import { viewManagerInstance } from './WatchViewManager.js'
-import { Direction } from './types.js'
+import { viewManagerInstance } from './../WatchViewManager.js'
+import { Direction } from './../types.js'
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = hmSetting.getDeviceInfo()
 

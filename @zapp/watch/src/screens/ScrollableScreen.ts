@@ -1,15 +1,6 @@
-import {
-  ScreenBody,
-  ConfigBuilderArg,
-  RememberedMutableValue,
-  rememberObservable,
-  Config,
-  Custom,
-  sideEffect,
-  Stack,
-} from '@zapp/core'
+import { ScreenBody, ConfigBuilderArg, RememberedMutableValue, rememberObservable, Config, Stack } from '@zapp/core'
 import { PageWrapper } from './PageWrapper.js'
-import { viewManagerInstance } from './WatchViewManager.js'
+import { viewManagerInstance } from './../WatchViewManager.js'
 
 let rememberedScroll: RememberedMutableValue<number> | undefined = undefined
 let rememberedValues: RememberedMutableValue<number>[] = []
