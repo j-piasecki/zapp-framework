@@ -1,21 +1,29 @@
 import { NodeType } from '../NodeType.js'
 import { PrefixTree } from '../PrefixTree.js'
+import { EffectNode } from './EffectNode.js'
+import { EventNode } from './EventNode.js'
+import { ConfigType } from './props/types.js'
+import { RememberNode } from './RememberNode.js'
 import { SavedTreeState } from './SavedTreeState.js'
-import { ViewNode } from './ViewNode.js'
+import { ViewNode, ViewNodeProps } from './ViewNode.js'
+import { CustomViewProps } from './views/Custom.js'
 import { WorkingNode } from './WorkingNode.js'
 
 export const ROOT_ID = '#__root'
 
-class RootNode extends ViewNode {
+class RootNode extends WorkingNode {
   public savedState?: SavedTreeState
+  public children: WorkingNode[]
+  public config: ConfigType
 
   constructor() {
     super({
       id: ROOT_ID,
       type: NodeType.Root,
-      config: { id: ROOT_ID },
-      body: () => {},
     })
+
+    this.config = { id: ROOT_ID }
+    this.children = []
   }
 }
 
@@ -99,6 +107,65 @@ export abstract class WorkingTree {
 
     this.updatePaths.clear()
     this.updateRequested = false
+  }
+
+  public static create(parent: WorkingNode, props: ViewNodeProps, customViewProps?: CustomViewProps) {
+    const result = new ViewNode(props)
+
+    // new view nodes may only be created inside another view node
+    const currentView = WorkingTree.current as ViewNode
+
+    result.customViewProps = customViewProps
+    result.parent = currentView.override ?? WorkingTree.current
+    result.rememberedContext = currentView.rememberedContext
+    result.path = parent.path.concat(parent.id)
+
+    return result
+  }
+
+  public static remember(parent: WorkingNode) {
+    // remember may only be called inside view node
+    const currentView = WorkingTree.current as ViewNode
+
+    const result = new RememberNode({
+      id: (currentView.nextActionId++).toString(),
+      type: NodeType.Remember,
+    })
+
+    result.parent = currentView.override ?? WorkingTree.current
+    result.path = parent.path.concat(parent.id)
+
+    return result
+  }
+
+  public static effect(parent: WorkingNode) {
+    // effects may only be created inside view node
+    const currentView = WorkingTree.current as ViewNode
+
+    const result = new EffectNode({
+      id: (currentView.nextActionId++).toString(),
+      type: NodeType.Effect,
+    })
+
+    result.parent = currentView.override ?? WorkingTree.current
+    result.path = parent.path.concat(parent.id)
+
+    return result
+  }
+
+  public static event(parent: WorkingNode) {
+    // events may only be created inside view node
+    const currentView = WorkingTree.current as ViewNode
+
+    const result = new EventNode({
+      id: (currentView.nextActionId++).toString(),
+      type: NodeType.Event,
+    })
+
+    result.parent = currentView.override ?? WorkingTree.current
+    result.path = parent.path.concat(parent.id)
+
+    return result
   }
 
   public static dropAll() {

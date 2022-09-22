@@ -10,7 +10,7 @@ interface LauncherForResult {
 
 export function rememberLauncherForResult(page: string, callback: CallbackType): LauncherForResult {
   const current = WorkingTree.current as ViewNode
-  const context = current.remember()
+  const context = WorkingTree.remember(current)
 
   const result = Navigator.tryPoppingLauncherResult(page, context.path.concat(context.id))
   if (result !== undefined && result.ready) {

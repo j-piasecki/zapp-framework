@@ -8,7 +8,7 @@ export function Arc(configBuilder: RequireSome<ConfigBuilder, 'build'>) {
   const config = configBuilder.build()
   const current = WorkingTree.current as ViewNode
 
-  const context = current.create({
+  const context = WorkingTree.create(current, {
     id: config.id,
     type: NodeType.Arc,
     config: config,

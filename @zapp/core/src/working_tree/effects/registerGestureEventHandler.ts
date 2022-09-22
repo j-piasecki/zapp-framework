@@ -11,7 +11,7 @@ export enum GestureType {
 
 export function registerGestureEventHandler(handler: (gesture: GestureType) => boolean) {
   const current = WorkingTree.current as ViewNode
-  const context = current.event()
+  const context = WorkingTree.event(current)
 
   context.handler = handler
   context.eventType = EventType.Gesture

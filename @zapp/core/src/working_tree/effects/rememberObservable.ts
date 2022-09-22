@@ -12,7 +12,7 @@ export function rememberObservable<T>(
   onValueRestored?: (value: T) => void
 ): RememberedMutableValue<T> {
   const current = WorkingTree.current as ViewNode
-  const context = current.remember()
+  const context = WorkingTree.remember(current)
 
   let savedRemembered: RememberedMutableValue<T> | null = null
 

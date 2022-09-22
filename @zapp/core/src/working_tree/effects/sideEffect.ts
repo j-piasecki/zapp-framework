@@ -4,7 +4,7 @@ import { WorkingTree } from '../WorkingTree.js'
 
 export function sideEffect(effect: (isRestoring: boolean) => (() => void) | void, ...keys: any) {
   const current = WorkingTree.current as ViewNode
-  const context = current.effect()
+  const context = WorkingTree.effect(current)
 
   const path = context.path.slice(current.rememberedContext?.path.length).concat(context.id)
   const rememberedNode = current.rememberedContext?.getNodeFromPath(path) ?? null

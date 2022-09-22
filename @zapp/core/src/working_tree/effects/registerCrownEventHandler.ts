@@ -4,7 +4,7 @@ import { WorkingTree } from '../WorkingTree.js'
 
 export function registerCrownEventHandler(handler: (delta: number) => boolean) {
   const current = WorkingTree.current as ViewNode
-  const context = current.event()
+  const context = WorkingTree.event(current)
 
   context.handler = handler
   context.eventType = EventType.Crown

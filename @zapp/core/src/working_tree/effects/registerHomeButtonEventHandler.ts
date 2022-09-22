@@ -10,7 +10,7 @@ export function registerHomeButtonEventHandler(actions: ButtonActions) {
     const handler = actions[handlerName]
 
     if (handler !== undefined) {
-      const context = current.event()
+      const context = WorkingTree.event(current)
 
       context.handler = handler
       context.eventType = EventType.HomeButton

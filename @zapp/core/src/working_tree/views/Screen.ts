@@ -15,7 +15,7 @@ export function ScreenBody(
 
   const current = WorkingTree.current as ViewNode
 
-  const context = current.create({
+  const context = WorkingTree.create(current, {
     id: config.id,
     type: NodeType.Screen,
     config: config,

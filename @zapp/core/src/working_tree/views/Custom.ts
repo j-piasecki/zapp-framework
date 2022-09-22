@@ -43,7 +43,8 @@ export function Custom(
   const config = configBuilder.build()
   const current = WorkingTree.current as ViewNode
 
-  const context = current.create(
+  const context = WorkingTree.create(
+    current,
     {
       id: config.id,
       type: NodeType.Custom,

@@ -26,7 +26,7 @@ function isInnerNode(node: InnerNode | LeafNode): node is InnerNode {
 export class SavedTreeState {
   private root: InnerNode
 
-  constructor(root: ViewNode) {
+  constructor(root: WorkingNode) {
     this.root = (this.createNode(root) ?? { id: root.id, children: new Map() }) as InnerNode
   }
 
