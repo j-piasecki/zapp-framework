@@ -263,6 +263,8 @@ export abstract class Renderer {
       x: 0,
       y: 0,
       measured: false,
+      widthInferred: false,
+      heightInferred: false,
     }
   }
 }

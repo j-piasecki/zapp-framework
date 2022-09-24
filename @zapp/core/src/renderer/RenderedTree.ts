@@ -9,6 +9,8 @@ export interface Layout {
   x: number
   y: number
   measured: boolean
+  widthInferred: boolean
+  heightInferred: boolean
 }
 
 export interface RenderConfig extends ConfigType {
