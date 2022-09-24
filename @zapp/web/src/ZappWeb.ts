@@ -3,6 +3,7 @@ import {
   Renderer,
   WorkingTree,
   ZappInterface,
+  Platform,
   Animation,
   GlobalEventManager,
   GestureType,
@@ -76,6 +77,10 @@ export class ZappWeb extends ZappInterface {
 
   stopLoop(): void {
     this.running = false
+  }
+
+  get platform(): Platform {
+    return Platform.Web
   }
 
   private update = () => {

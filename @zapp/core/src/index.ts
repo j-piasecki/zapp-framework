@@ -52,7 +52,7 @@ export { ViewManagerInterface, setViewManager as __setViewManager } from './rend
 export { PointerEventManager } from './renderer/PointerEventManager.js'
 export { GlobalEventManager } from './renderer/GlobalEventManager.js'
 export { NodeType } from './NodeType.js'
-export { ZappInterface, Zapp, setZappInterface as __setZappInterface } from './ZappInterface.js'
+export { ZappInterface, Platform, Zapp, setZappInterface as __setZappInterface } from './ZappInterface.js'
 export { NavigatorInterface, Navigator, RegisteredCallback, setNavigator as __setNavigator } from './Navigator.js'
 export { SavedTreeState } from './working_tree/SavedTreeState.js'
 export { Color } from './Color.js'

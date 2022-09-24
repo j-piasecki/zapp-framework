@@ -1,4 +1,12 @@
-import { ZappInterface, WorkingTree, PointerEventManager, Renderer, Animation, GlobalEventManager } from '@zapp/core'
+import {
+  ZappInterface,
+  Platform,
+  WorkingTree,
+  PointerEventManager,
+  Renderer,
+  Animation,
+  GlobalEventManager,
+} from '@zapp/core'
 import { tryUpdatingRememberedPagePositions } from './screens/ScreenPager.js'
 import { tryUpdatingRememberedScrollPositions } from './screens/ScrollableScreen.js'
 
@@ -41,5 +49,9 @@ export class ZappWatch extends ZappInterface {
     if (app !== undefined) {
       return app._options.globalData[key]
     }
+  }
+
+  get platform() {
+    return Platform.Watch
   }
 }
