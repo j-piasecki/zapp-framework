@@ -1,7 +1,7 @@
 import { Custom, remember, Stack, StackConfig, StackAlignment, TextConfig, Text, ColumnConfig } from '@zapp/core'
 import { ConfigBuilder } from '@zapp/core/build/working_tree/props/Config'
 
-export function Button(config: ConfigBuilder, text: string, onClick: () => void) {
+export function CustomButton(config: ConfigBuilder, text: string, onClick: () => void) {
   const id = config.build().id
   Custom(ColumnConfig(`${id}#wrapper`).padding(10), {}, () => {
     const defaultColor = 0x333333

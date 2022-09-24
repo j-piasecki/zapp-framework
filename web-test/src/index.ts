@@ -31,7 +31,7 @@ import {
 } from '@zapp/core'
 import { NavBar, RouteInfo } from './NavBar'
 import { Page } from './Page'
-import { Button } from './Button'
+import { CustomButton } from './CustomButton'
 
 Zapp.startLoop()
 
@@ -53,37 +53,37 @@ function StackExample() {
     Column(ColumnConfig('stack-example').alignment(Alignment.Center).arrangement(Arrangement.Center).fillSize(), () => {
       Column(ColumnConfig('align-chooser').alignment(Alignment.Center).padding(0, 0, 0, 50), () => {
         Row(Config('align-chooser-top'), () => {
-          Button(Config('btn-alignment-topstart'), 'TopStart', () => {
+          CustomButton(Config('btn-alignment-topstart'), 'TopStart', () => {
             alignment.value = StackAlignment.TopStart
           })
-          Button(Config('btn-alignment-topcenter'), 'TopCenter', () => {
+          CustomButton(Config('btn-alignment-topcenter'), 'TopCenter', () => {
             alignment.value = StackAlignment.TopCenter
           })
-          Button(Config('btn-alignment-topend'), 'TopEnd', () => {
+          CustomButton(Config('btn-alignment-topend'), 'TopEnd', () => {
             alignment.value = StackAlignment.TopEnd
           })
         })
 
         Row(Config('align-chooser-center'), () => {
-          Button(Config('btn-alignment-centerstart'), 'CenterStart', () => {
+          CustomButton(Config('btn-alignment-centerstart'), 'CenterStart', () => {
             alignment.value = StackAlignment.CenterStart
           })
-          Button(Config('btn-alignment-center'), 'Center', () => {
+          CustomButton(Config('btn-alignment-center'), 'Center', () => {
             alignment.value = StackAlignment.Center
           })
-          Button(Config('btn-alignment-centerend'), 'CenterEnd', () => {
+          CustomButton(Config('btn-alignment-centerend'), 'CenterEnd', () => {
             alignment.value = StackAlignment.CenterEnd
           })
         })
 
         Row(Config('align-chooser-bottom'), () => {
-          Button(Config('btn-alignment-bottomstart'), 'BottomStart', () => {
+          CustomButton(Config('btn-alignment-bottomstart'), 'BottomStart', () => {
             alignment.value = StackAlignment.BottomStart
           })
-          Button(Config('btn-alignment-bottomcenter'), 'BottomCenter', () => {
+          CustomButton(Config('btn-alignment-bottomcenter'), 'BottomCenter', () => {
             alignment.value = StackAlignment.BottomCenter
           })
-          Button(Config('btn-alignment-bottomend'), 'BottomEnd', () => {
+          CustomButton(Config('btn-alignment-bottomend'), 'BottomEnd', () => {
             alignment.value = StackAlignment.BottomEnd
           })
         })
@@ -128,38 +128,38 @@ function ColumnExample() {
       () => {
         Text(TextConfig('align-header').textColor(0xffffff).textSize(24), 'Alignment')
         Row(RowConfig('align-chooser').padding(0, 0, 0, 25), () => {
-          Button(Config('btn-alignment-topstart'), 'Start', () => {
+          CustomButton(Config('btn-alignment-topstart'), 'Start', () => {
             alignment.value = Alignment.Start
           })
-          Button(Config('btn-alignment-topcenter'), 'Center', () => {
+          CustomButton(Config('btn-alignment-topcenter'), 'Center', () => {
             alignment.value = Alignment.Center
           })
-          Button(Config('btn-alignment-topend'), 'End', () => {
+          CustomButton(Config('btn-alignment-topend'), 'End', () => {
             alignment.value = Alignment.End
           })
         })
 
         Text(TextConfig('arrange-header').textColor(0xffffff).textSize(24), 'Arrangement')
         Row(Config('arrangement-chooser-one'), () => {
-          Button(Config('btn-arrangement-start'), 'Start', () => {
+          CustomButton(Config('btn-arrangement-start'), 'Start', () => {
             arrangement.value = Arrangement.Start
           })
-          Button(Config('btn-arrangement-center'), 'Center', () => {
+          CustomButton(Config('btn-arrangement-center'), 'Center', () => {
             arrangement.value = Arrangement.Center
           })
-          Button(Config('btn-arrangement-end'), 'End', () => {
+          CustomButton(Config('btn-arrangement-end'), 'End', () => {
             arrangement.value = Arrangement.End
           })
         })
 
         Row(RowConfig('arrangement-chooser-two').padding(0, 0, 0, 70), () => {
-          Button(Config('btn-arrangement-between'), 'SpaceBetween', () => {
+          CustomButton(Config('btn-arrangement-between'), 'SpaceBetween', () => {
             arrangement.value = Arrangement.SpaceBetween
           })
-          Button(Config('btn-arrangement-around'), 'SpaceAround', () => {
+          CustomButton(Config('btn-arrangement-around'), 'SpaceAround', () => {
             arrangement.value = Arrangement.SpaceAround
           })
-          Button(Config('btn-arrangement-evenly'), 'SpaceEvenly', () => {
+          CustomButton(Config('btn-arrangement-evenly'), 'SpaceEvenly', () => {
             arrangement.value = Arrangement.SpaceEvenly
           })
         })
@@ -214,38 +214,38 @@ function RowExample() {
       () => {
         Text(TextConfig('align-header').textColor(0xffffff).textSize(24), 'Alignment')
         Row(RowConfig('align-chooser').padding(0, 0, 0, 25), () => {
-          Button(Config('btn-alignment-topstart'), 'Start', () => {
+          CustomButton(Config('btn-alignment-topstart'), 'Start', () => {
             alignment.value = Alignment.Start
           })
-          Button(Config('btn-alignment-topcenter'), 'Center', () => {
+          CustomButton(Config('btn-alignment-topcenter'), 'Center', () => {
             alignment.value = Alignment.Center
           })
-          Button(Config('btn-alignment-topend'), 'End', () => {
+          CustomButton(Config('btn-alignment-topend'), 'End', () => {
             alignment.value = Alignment.End
           })
         })
 
         Text(TextConfig('arrange-header').textColor(0xffffff).textSize(24), 'Arrangement')
         Row(Config('arrangement-chooser-one'), () => {
-          Button(Config('btn-arrangement-start'), 'Start', () => {
+          CustomButton(Config('btn-arrangement-start'), 'Start', () => {
             arrangement.value = Arrangement.Start
           })
-          Button(Config('btn-arrangement-center'), 'Center', () => {
+          CustomButton(Config('btn-arrangement-center'), 'Center', () => {
             arrangement.value = Arrangement.Center
           })
-          Button(Config('btn-arrangement-end'), 'End', () => {
+          CustomButton(Config('btn-arrangement-end'), 'End', () => {
             arrangement.value = Arrangement.End
           })
         })
 
         Row(RowConfig('arrangement-chooser-two').padding(0, 0, 0, 70), () => {
-          Button(Config('btn-arrangement-between'), 'SpaceBetween', () => {
+          CustomButton(Config('btn-arrangement-between'), 'SpaceBetween', () => {
             arrangement.value = Arrangement.SpaceBetween
           })
-          Button(Config('btn-arrangement-around'), 'SpaceAround', () => {
+          CustomButton(Config('btn-arrangement-around'), 'SpaceAround', () => {
             arrangement.value = Arrangement.SpaceAround
           })
-          Button(Config('btn-arrangement-evenly'), 'SpaceEvenly', () => {
+          CustomButton(Config('btn-arrangement-evenly'), 'SpaceEvenly', () => {
             arrangement.value = Arrangement.SpaceEvenly
           })
         })
@@ -304,38 +304,38 @@ function AnimationExample() {
         const easing = remember(Easing.linear)
 
         Row(Config('animation-chooser-one'), () => {
-          Button(Config('btn-animation-linear'), 'Linear', () => {
+          CustomButton(Config('btn-animation-linear'), 'Linear', () => {
             easing.value = Easing.linear
           })
-          Button(Config('btn-animation-ease'), 'Ease', () => {
+          CustomButton(Config('btn-animation-ease'), 'Ease', () => {
             easing.value = Easing.ease
           })
         })
         Row(Config('animation-chooser-two'), () => {
-          Button(Config('btn-animation-inquad'), 'EaseInQuad', () => {
+          CustomButton(Config('btn-animation-inquad'), 'EaseInQuad', () => {
             easing.value = Easing.easeInQuad
           })
-          Button(Config('btn-animation-outquad'), 'EaseOutQuad', () => {
+          CustomButton(Config('btn-animation-outquad'), 'EaseOutQuad', () => {
             easing.value = Easing.easeOutQuad
           })
-          Button(Config('btn-animation-inoutquad'), 'EaseInOutQuad', () => {
+          CustomButton(Config('btn-animation-inoutquad'), 'EaseInOutQuad', () => {
             easing.value = Easing.easeInOutQuad
           })
         })
         Row(RowConfig('animation-chooser-three').padding(0, 0, 0, 70), () => {
-          Button(Config('btn-animation-incubic'), 'EaseInCubic', () => {
+          CustomButton(Config('btn-animation-incubic'), 'EaseInCubic', () => {
             easing.value = Easing.easeInCubic
           })
-          Button(Config('btn-animation-outcubic'), 'EaseOutCubic', () => {
+          CustomButton(Config('btn-animation-outcubic'), 'EaseOutCubic', () => {
             easing.value = Easing.easeOutCubic
           })
-          Button(Config('btn-animation-inoutcubic'), 'EaseInOutCubic', () => {
+          CustomButton(Config('btn-animation-inoutcubic'), 'EaseInOutCubic', () => {
             easing.value = Easing.easeInOutCubic
           })
         })
         Stack(RowConfig('stack').width(100).height(100).background(0x00ff00).offset(x.value, 0))
         Stack(Config('spacer').height(50))
-        Button(Config('btn-animate'), 'Animate', () => {
+        CustomButton(Config('btn-animate'), 'Animate', () => {
           x.value = withTiming(target.value, { easing: easing.value, duration: 1000 })
           target.value = target.value * -1
         })
@@ -364,7 +364,7 @@ function DynamicLayoutExample() {
       })
 
       Row(Config('row1').fillWidth(1).weight(1), () => {
-        Row(RowConfig('row1.1').fillHeight(1).weight(1).background(0xff0000), () => {
+        Column(ColumnConfig('col1.1').fillHeight(1).weight(1).background(0xff0000), () => {
           ActivityIndicator(ArcConfig('ac').width(100).height(100).lineWidth(10))
         })
         Row(RowConfig('row1.2').fillHeight(0.75).weight(1).background(0xaa2299), () => {
@@ -466,11 +466,11 @@ function StartForResultExample() {
 
       Text(TextConfig('value-text').textColor(0xffffff).textSize(40), value.value)
 
-      Button(Config('btn'), 'Open', () => {
+      CustomButton(Config('btn'), 'Open', () => {
         launcher.launch()
       })
 
-      Button(Config('clear'), 'Clear', () => {
+      CustomButton(Config('clear'), 'Clear', () => {
         value.value = 'nothing'
       })
     })
@@ -480,15 +480,15 @@ function StartForResultExample() {
 function NumberPickerExample() {
   Page(routesInfo, () => {
     Column(ColumnConfig('column').alignment(Alignment.Center).arrangement(Arrangement.Center), () => {
-      Button(Config('btn1'), 'Send 1', () => {
+      CustomButton(Config('btn1'), 'Send 1', () => {
         Navigator.finishWithResult({ res: '1' })
       })
 
-      Button(Config('btn2'), 'Send 2', () => {
+      CustomButton(Config('btn2'), 'Send 2', () => {
         Navigator.finishWithResult({ res: '2' })
       })
 
-      Button(Config('btn3'), 'Send 3', () => {
+      CustomButton(Config('btn3'), 'Send 3', () => {
         Navigator.finishWithResult({ res: '3' })
       })
     })
