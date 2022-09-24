@@ -17,3 +17,6 @@ export function registerNavigationRoutes(
 ) {
   navigator.register(startingRoute, routes)
 }
+
+// @ts-ignore
+window.px = (x: number) => x
