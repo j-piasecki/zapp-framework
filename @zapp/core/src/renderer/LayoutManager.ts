@@ -197,7 +197,9 @@ export class LayoutManager {
 
           for (const child of node.children) {
             maxWidth = Math.max(maxWidth, child.layout.width)
-            height += child.layout.height
+            if (child.layout.height !== -1) {
+              height += child.layout.height
+            }
           }
 
           if ((node.layout.height === -1 || node.layout.heightInferred) && node.config.fillHeight === undefined) {
@@ -219,7 +221,9 @@ export class LayoutManager {
 
           for (const child of node.children) {
             maxHeight = Math.max(maxHeight, child.layout.height)
-            width += child.layout.width
+            if (child.layout.width !== -1) {
+              width += child.layout.width
+            }
           }
 
           if ((node.layout.width === -1 || node.layout.widthInferred) && node.config.fillWidth === undefined) {
