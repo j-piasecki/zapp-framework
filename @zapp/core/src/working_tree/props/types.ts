@@ -46,6 +46,7 @@ export interface ConfigType {
   padding?: Padding
   offsetX?: number
   offsetY?: number
+  isPositionedAbsolutely?: boolean
 
   text?: string
   textSize?: number

@@ -62,6 +62,11 @@ export class ConfigBuilder {
     return this
   }
 
+  public positionAbsolutely(value: boolean) {
+    this.config.isPositionedAbsolutely = value
+    return this
+  }
+
   public onPointerDown(onPointerDown: (event: PointerData) => void) {
     this.config.onPointerDown = onPointerDown
     return this
