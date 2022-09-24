@@ -39,6 +39,9 @@ export class LayoutManager {
       this.recalculationStack.push(node)
     }
 
+    const verticalPadding = (node.config.padding?.top ?? 0) + (node.config.padding?.bottom ?? 0)
+    const horizontalPadding = (node.config.padding?.start ?? 0) + (node.config.padding?.end ?? 0)
+
     // special case for root and screen as they always fill all available size
     if (node.type === NodeType.Root || node.type === NodeType.Screen) {
       node.layout.width = ViewManager.screenWidth
@@ -48,9 +51,6 @@ export class LayoutManager {
         this.calculateSize(child, availableWidth, availableHeight, node)
       }
     } else {
-      const verticalPadding = (node.config.padding?.top ?? 0) + (node.config.padding?.bottom ?? 0)
-      const horizontalPadding = (node.config.padding?.start ?? 0) + (node.config.padding?.end ?? 0)
-
       const parentVerticalPadding = (parent?.config.padding?.top ?? 0) + (parent?.config.padding?.bottom ?? 0)
       const parentHorizontalPadding = (parent?.config.padding?.start ?? 0) + (parent?.config.padding?.end ?? 0)
 
@@ -61,8 +61,17 @@ export class LayoutManager {
         node.layout.width = node.config.width + totalBorderWidth
       } else if (node.config.fillWidth !== undefined) {
         if (parent!.layout.width !== -1) {
-          node.layout.width =
-            node.config.fillWidth * (parent!.layout.width - parentHorizontalPadding - totalBorderWidth)
+          if (parent!.layout.widthInferred) {
+            // if parent width is inferred from children, it only takes explicitly sized nodes under consideration
+            // in that case we want this node to fill availableWidth - width of explicitly sized nodes
+            // which in this situation is the inferred width of the parent
+            node.layout.width =
+              node.config.fillWidth *
+              (availableWidth - parent!.layout.width - parentHorizontalPadding - totalBorderWidth)
+          } else {
+            node.layout.width =
+              node.config.fillWidth * (parent!.layout.width - parentHorizontalPadding - totalBorderWidth)
+          }
         } else if (recalculating === true && availableWidth !== -1) {
           node.layout.width = node.config.fillWidth * availableWidth
         }
@@ -72,8 +81,17 @@ export class LayoutManager {
         node.layout.height = node.config.height + totalBorderWidth
       } else if (node.config.fillHeight !== undefined) {
         if (parent!.layout.height !== -1) {
-          node.layout.height =
-            node.config.fillHeight * (parent!.layout.height - parentVerticalPadding - totalBorderWidth)
+          if (parent!.layout.heightInferred) {
+            // if parent height is inferred from children, it only takes explicitly sized nodes under consideration
+            // in that case we want this node to fill availableHeight - height of explicitly sized nodes
+            // which in this situation is the inferred height of the parent
+            node.layout.height =
+              node.config.fillHeight *
+              (availableHeight - parent!.layout.height - parentVerticalPadding - totalBorderWidth)
+          } else {
+            node.layout.height =
+              node.config.fillHeight * (parent!.layout.height - parentVerticalPadding - totalBorderWidth)
+          }
         } else if (recalculating === true && availableHeight !== -1) {
           node.layout.height = node.config.fillHeight * availableHeight
         }
@@ -102,6 +120,7 @@ export class LayoutManager {
           for (const child of node.children) {
             if (child.config.weight !== undefined) {
               child.layout.height = weightHeight * child.config.weight
+              child.layout.heightInferred = false
             }
           }
         }
@@ -130,6 +149,7 @@ export class LayoutManager {
           for (const child of node.children) {
             if (child.config.weight !== undefined) {
               child.layout.width = weightWidth * child.config.weight
+              child.layout.widthInferred = false
             }
           }
         }
@@ -150,8 +170,12 @@ export class LayoutManager {
 
       // calculate available width and height for children, which is used for measuring views when it and its
       // ancestors are not sized explicitly
-      const childAvailableWidth = (node.layout.width === -1 ? availableWidth : node.layout.width) - horizontalPadding
-      const childAvailableHeight = (node.layout.height === -1 ? availableHeight : node.layout.height) - verticalPadding
+      const childAvailableWidth =
+        (node.layout.width === -1 || node.layout.widthInferred ? availableWidth : node.layout.width) - horizontalPadding
+      const childAvailableHeight =
+        (node.layout.height === -1 || node.layout.heightInferred ? availableHeight : node.layout.height) -
+        verticalPadding
+
       for (const child of node.children) {
         this.calculateSize(child, childAvailableWidth, childAvailableHeight, node, recalculating)
       }
@@ -159,7 +183,10 @@ export class LayoutManager {
       // if the size of the node is still unknown, update it after measuring children, assuming it's not sized
       // relative to the parent
       if (
-        (node.layout.width === -1 || node.layout.height === -1) &&
+        (node.layout.width === -1 ||
+          node.layout.height === -1 ||
+          node.layout.widthInferred ||
+          node.layout.heightInferred) &&
         (node.config.fillWidth === undefined || node.config.fillHeight === undefined)
       ) {
         if (node.type === NodeType.Column) {
@@ -170,28 +197,42 @@ export class LayoutManager {
 
           for (const child of node.children) {
             maxWidth = Math.max(maxWidth, child.layout.width)
-            height += child.layout.height
+            if (child.layout.height !== -1) {
+              height += child.layout.height
+            }
           }
 
-          if (node.layout.height === -1 && node.config.fillHeight === undefined) {
+          if ((node.layout.height === -1 || node.layout.heightInferred) && node.config.fillHeight === undefined) {
             node.layout.height = height
+            // some of the children may have `fill*` property set, in which case we need to recalculate
+            // this subtree so they can correctly fill the remaining available space and this node expands
+            // to contain them
+            node.layout.heightInferred = true
+            requiresRecalculation = true
           }
           if (node.layout.width === -1 && maxWidth !== -1 && node.config.fillWidth === undefined) {
             node.layout.width = Math.max(node.layout.width, maxWidth + horizontalPadding)
           }
         } else if (node.type === NodeType.Row) {
-          // column stacks its children one after another horizontally so we want its width to be sum of
+          // row stacks its children one after another horizontally so we want its width to be sum of
           // its children widths, while its height needs to match the highest child
           let width = horizontalPadding
           let maxHeight = -1
 
           for (const child of node.children) {
             maxHeight = Math.max(maxHeight, child.layout.height)
-            width += child.layout.width
+            if (child.layout.width !== -1) {
+              width += child.layout.width
+            }
           }
 
-          if (node.layout.width === -1 && node.config.fillWidth === undefined) {
+          if ((node.layout.width === -1 || node.layout.widthInferred) && node.config.fillWidth === undefined) {
             node.layout.width = width
+            // some of the children may have `fill*` property set, in which case we need to recalculate
+            // this subtree so they can correctly fill the remaining available space and this node expands
+            // to contain them
+            node.layout.widthInferred = true
+            requiresRecalculation = true
           }
           if (node.layout.height === -1 && maxHeight !== -1 && node.config.fillHeight === undefined) {
             node.layout.height = Math.max(node.layout.height, maxHeight + verticalPadding)
@@ -253,8 +294,12 @@ export class LayoutManager {
       // We have two cases: curent view is fully measured, so we can recalculate its children if there are
       // any left on the stack
       if (node.layout.width !== -1 && node.layout.height !== -1 && !requiresRecalculation) {
+        const childAvailableWidth = (node.layout.width === -1 ? availableWidth : node.layout.width) - horizontalPadding
+        const childAvailableHeight =
+          (node.layout.height === -1 ? availableHeight : node.layout.height) - verticalPadding
+
         while (this.recalculationStack[this.recalculationStack.length - 1] !== node) {
-          this.calculateSize(this.recalculationStack.pop()!, availableWidth, availableHeight, node, true)
+          this.calculateSize(this.recalculationStack.pop()!, childAvailableWidth, childAvailableHeight, node, true)
         }
         // the measured view is also popped from stack so it's not measured again in case its siblings do
         const measuredNode = this.recalculationStack.pop()!
@@ -275,27 +320,34 @@ export class LayoutManager {
   }
 
   private calculatePositions(node: RenderNode, parent?: RenderNode) {
-    node.layout.x += node.config.offsetX ?? 0
-    node.layout.y += node.config.offsetY ?? 0
+    if (node.config.isPositionedAbsolutely === true && parent !== undefined) {
+      node.layout.x =
+        (ViewManager.isRTL() ? parent.layout.x + parent.layout.width - node.layout.width : parent.layout.x) +
+        (node.config.offsetX ?? 0)
+      node.layout.y = parent.layout.y + (node.config.offsetY ?? 0)
+    } else {
+      node.layout.x += node.config.offsetX ?? 0
+      node.layout.y += node.config.offsetY ?? 0
 
-    // root is positioned at 0,0 and all other nodes should have a parent
-    if (parent !== undefined) {
-      const borderWidth = node.config.borderWidth ?? 0
+      // root is positioned at 0,0 and all other nodes should have a parent
+      if (parent !== undefined) {
+        const borderWidth = node.config.borderWidth ?? 0
 
-      if (node.type === NodeType.Column) {
-        this.positionColumn(node)
-      } else if (node.type === NodeType.Row) {
-        this.positionRow(node)
-      } else if (node.type === NodeType.Stack || node.type === NodeType.Screen) {
-        this.positionStack(node)
-      } else {
-        for (const child of node.children) {
-          child.layout.x =
-            node.layout.x +
-            (ViewManager.isRTL()
-              ? node.layout.width - child.layout.width - (node.config.padding?.start ?? 0) - borderWidth
-              : (node.config.padding?.start ?? 0) + borderWidth)
-          child.layout.y = node.layout.y + (node.config.padding?.end ?? 0) + borderWidth
+        if (node.type === NodeType.Column) {
+          this.positionColumn(node)
+        } else if (node.type === NodeType.Row) {
+          this.positionRow(node)
+        } else if (node.type === NodeType.Stack || node.type === NodeType.Screen) {
+          this.positionStack(node)
+        } else {
+          for (const child of node.children) {
+            child.layout.x =
+              node.layout.x +
+              (ViewManager.isRTL()
+                ? node.layout.width - child.layout.width - (node.config.padding?.start ?? 0) - borderWidth
+                : (node.config.padding?.start ?? 0) + borderWidth)
+            child.layout.y = node.layout.y + (node.config.padding?.end ?? 0) + borderWidth
+          }
         }
       }
     }

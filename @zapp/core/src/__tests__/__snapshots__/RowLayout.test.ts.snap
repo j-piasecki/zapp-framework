@@ -43,7 +43,9 @@ exports[`Children of Row(alignment=Center) get positioned correctly 1`] = `
             \\"height\\": 50,
             \\"x\\": 10,
             \\"y\\": 175,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -63,7 +65,9 @@ exports[`Children of Row(alignment=Center) get positioned correctly 1`] = `
             \\"height\\": 80,
             \\"x\\": 60,
             \\"y\\": 160,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -83,7 +87,9 @@ exports[`Children of Row(alignment=Center) get positioned correctly 1`] = `
             \\"height\\": 100,
             \\"x\\": 140,
             \\"y\\": 150,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         }
       ],
@@ -94,7 +100,9 @@ exports[`Children of Row(alignment=Center) get positioned correctly 1`] = `
         \\"height\\": 400,
         \\"x\\": 0,
         \\"y\\": 0,
-        \\"measured\\": false
+        \\"measured\\": false,
+        \\"widthInferred\\": false,
+        \\"heightInferred\\": false
       }
     }
   ],
@@ -105,7 +113,9 @@ exports[`Children of Row(alignment=Center) get positioned correctly 1`] = `
     \\"height\\": 400,
     \\"x\\": 0,
     \\"y\\": 0,
-    \\"measured\\": true
+    \\"measured\\": true,
+    \\"widthInferred\\": false,
+    \\"heightInferred\\": false
   }
 }"
 `;
@@ -153,7 +163,9 @@ exports[`Children of Row(alignment=End) get positioned correctly 1`] = `
             \\"height\\": 50,
             \\"x\\": 10,
             \\"y\\": 340,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -173,7 +185,9 @@ exports[`Children of Row(alignment=End) get positioned correctly 1`] = `
             \\"height\\": 80,
             \\"x\\": 60,
             \\"y\\": 310,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -193,7 +207,9 @@ exports[`Children of Row(alignment=End) get positioned correctly 1`] = `
             \\"height\\": 100,
             \\"x\\": 140,
             \\"y\\": 290,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         }
       ],
@@ -204,7 +220,9 @@ exports[`Children of Row(alignment=End) get positioned correctly 1`] = `
         \\"height\\": 400,
         \\"x\\": 0,
         \\"y\\": 0,
-        \\"measured\\": false
+        \\"measured\\": false,
+        \\"widthInferred\\": false,
+        \\"heightInferred\\": false
       }
     }
   ],
@@ -215,7 +233,9 @@ exports[`Children of Row(alignment=End) get positioned correctly 1`] = `
     \\"height\\": 400,
     \\"x\\": 0,
     \\"y\\": 0,
-    \\"measured\\": true
+    \\"measured\\": true,
+    \\"widthInferred\\": false,
+    \\"heightInferred\\": false
   }
 }"
 `;
@@ -263,7 +283,9 @@ exports[`Children of Row(alignment=Start) get positioned correctly 1`] = `
             \\"height\\": 50,
             \\"x\\": 10,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -283,7 +305,9 @@ exports[`Children of Row(alignment=Start) get positioned correctly 1`] = `
             \\"height\\": 80,
             \\"x\\": 60,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -303,7 +327,9 @@ exports[`Children of Row(alignment=Start) get positioned correctly 1`] = `
             \\"height\\": 100,
             \\"x\\": 140,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         }
       ],
@@ -314,7 +340,9 @@ exports[`Children of Row(alignment=Start) get positioned correctly 1`] = `
         \\"height\\": 400,
         \\"x\\": 0,
         \\"y\\": 0,
-        \\"measured\\": false
+        \\"measured\\": false,
+        \\"widthInferred\\": false,
+        \\"heightInferred\\": false
       }
     }
   ],
@@ -325,7 +353,9 @@ exports[`Children of Row(alignment=Start) get positioned correctly 1`] = `
     \\"height\\": 400,
     \\"x\\": 0,
     \\"y\\": 0,
-    \\"measured\\": true
+    \\"measured\\": true,
+    \\"widthInferred\\": false,
+    \\"heightInferred\\": false
   }
 }"
 `;
@@ -373,7 +403,9 @@ exports[`Children of Row(arrangement=Center) get positioned correctly 1`] = `
             \\"height\\": 50,
             \\"x\\": 85,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -393,7 +425,9 @@ exports[`Children of Row(arrangement=Center) get positioned correctly 1`] = `
             \\"height\\": 80,
             \\"x\\": 135,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -413,7 +447,9 @@ exports[`Children of Row(arrangement=Center) get positioned correctly 1`] = `
             \\"height\\": 100,
             \\"x\\": 215,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         }
       ],
@@ -424,7 +460,9 @@ exports[`Children of Row(arrangement=Center) get positioned correctly 1`] = `
         \\"height\\": 400,
         \\"x\\": 0,
         \\"y\\": 0,
-        \\"measured\\": false
+        \\"measured\\": false,
+        \\"widthInferred\\": false,
+        \\"heightInferred\\": false
       }
     }
   ],
@@ -435,7 +473,9 @@ exports[`Children of Row(arrangement=Center) get positioned correctly 1`] = `
     \\"height\\": 400,
     \\"x\\": 0,
     \\"y\\": 0,
-    \\"measured\\": true
+    \\"measured\\": true,
+    \\"widthInferred\\": false,
+    \\"heightInferred\\": false
   }
 }"
 `;
@@ -483,7 +523,9 @@ exports[`Children of Row(arrangement=End) get positioned correctly 1`] = `
             \\"height\\": 50,
             \\"x\\": 160,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -503,7 +545,9 @@ exports[`Children of Row(arrangement=End) get positioned correctly 1`] = `
             \\"height\\": 80,
             \\"x\\": 210,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -523,7 +567,9 @@ exports[`Children of Row(arrangement=End) get positioned correctly 1`] = `
             \\"height\\": 100,
             \\"x\\": 290,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         }
       ],
@@ -534,7 +580,9 @@ exports[`Children of Row(arrangement=End) get positioned correctly 1`] = `
         \\"height\\": 400,
         \\"x\\": 0,
         \\"y\\": 0,
-        \\"measured\\": false
+        \\"measured\\": false,
+        \\"widthInferred\\": false,
+        \\"heightInferred\\": false
       }
     }
   ],
@@ -545,7 +593,9 @@ exports[`Children of Row(arrangement=End) get positioned correctly 1`] = `
     \\"height\\": 400,
     \\"x\\": 0,
     \\"y\\": 0,
-    \\"measured\\": true
+    \\"measured\\": true,
+    \\"widthInferred\\": false,
+    \\"heightInferred\\": false
   }
 }"
 `;
@@ -593,7 +643,9 @@ exports[`Children of Row(arrangement=SpaceAround) get positioned correctly 1`] =
             \\"height\\": 50,
             \\"x\\": 35,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -613,7 +665,9 @@ exports[`Children of Row(arrangement=SpaceAround) get positioned correctly 1`] =
             \\"height\\": 80,
             \\"x\\": 135,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -633,7 +687,9 @@ exports[`Children of Row(arrangement=SpaceAround) get positioned correctly 1`] =
             \\"height\\": 100,
             \\"x\\": 265,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         }
       ],
@@ -644,7 +700,9 @@ exports[`Children of Row(arrangement=SpaceAround) get positioned correctly 1`] =
         \\"height\\": 400,
         \\"x\\": 0,
         \\"y\\": 0,
-        \\"measured\\": false
+        \\"measured\\": false,
+        \\"widthInferred\\": false,
+        \\"heightInferred\\": false
       }
     }
   ],
@@ -655,7 +713,9 @@ exports[`Children of Row(arrangement=SpaceAround) get positioned correctly 1`] =
     \\"height\\": 400,
     \\"x\\": 0,
     \\"y\\": 0,
-    \\"measured\\": true
+    \\"measured\\": true,
+    \\"widthInferred\\": false,
+    \\"heightInferred\\": false
   }
 }"
 `;
@@ -703,7 +763,9 @@ exports[`Children of Row(arrangement=SpaceBetween) get positioned correctly 1`] 
             \\"height\\": 50,
             \\"x\\": 10,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -723,7 +785,9 @@ exports[`Children of Row(arrangement=SpaceBetween) get positioned correctly 1`] 
             \\"height\\": 80,
             \\"x\\": 135,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -743,7 +807,9 @@ exports[`Children of Row(arrangement=SpaceBetween) get positioned correctly 1`] 
             \\"height\\": 100,
             \\"x\\": 290,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         }
       ],
@@ -754,7 +820,9 @@ exports[`Children of Row(arrangement=SpaceBetween) get positioned correctly 1`] 
         \\"height\\": 400,
         \\"x\\": 0,
         \\"y\\": 0,
-        \\"measured\\": false
+        \\"measured\\": false,
+        \\"widthInferred\\": false,
+        \\"heightInferred\\": false
       }
     }
   ],
@@ -765,7 +833,9 @@ exports[`Children of Row(arrangement=SpaceBetween) get positioned correctly 1`] 
     \\"height\\": 400,
     \\"x\\": 0,
     \\"y\\": 0,
-    \\"measured\\": true
+    \\"measured\\": true,
+    \\"widthInferred\\": false,
+    \\"heightInferred\\": false
   }
 }"
 `;
@@ -813,7 +883,9 @@ exports[`Children of Row(arrangement=SpaceEvenly) get positioned correctly 1`] =
             \\"height\\": 50,
             \\"x\\": 47.5,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -833,7 +905,9 @@ exports[`Children of Row(arrangement=SpaceEvenly) get positioned correctly 1`] =
             \\"height\\": 80,
             \\"x\\": 135,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -853,7 +927,9 @@ exports[`Children of Row(arrangement=SpaceEvenly) get positioned correctly 1`] =
             \\"height\\": 100,
             \\"x\\": 252.5,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         }
       ],
@@ -864,7 +940,9 @@ exports[`Children of Row(arrangement=SpaceEvenly) get positioned correctly 1`] =
         \\"height\\": 400,
         \\"x\\": 0,
         \\"y\\": 0,
-        \\"measured\\": false
+        \\"measured\\": false,
+        \\"widthInferred\\": false,
+        \\"heightInferred\\": false
       }
     }
   ],
@@ -875,7 +953,9 @@ exports[`Children of Row(arrangement=SpaceEvenly) get positioned correctly 1`] =
     \\"height\\": 400,
     \\"x\\": 0,
     \\"y\\": 0,
-    \\"measured\\": true
+    \\"measured\\": true,
+    \\"widthInferred\\": false,
+    \\"heightInferred\\": false
   }
 }"
 `;
@@ -923,7 +1003,9 @@ exports[`Children of Row(arrangement=Start) get positioned correctly 1`] = `
             \\"height\\": 50,
             \\"x\\": 10,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -943,7 +1025,9 @@ exports[`Children of Row(arrangement=Start) get positioned correctly 1`] = `
             \\"height\\": 80,
             \\"x\\": 60,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -963,7 +1047,9 @@ exports[`Children of Row(arrangement=Start) get positioned correctly 1`] = `
             \\"height\\": 100,
             \\"x\\": 140,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         }
       ],
@@ -974,7 +1060,9 @@ exports[`Children of Row(arrangement=Start) get positioned correctly 1`] = `
         \\"height\\": 400,
         \\"x\\": 0,
         \\"y\\": 0,
-        \\"measured\\": false
+        \\"measured\\": false,
+        \\"widthInferred\\": false,
+        \\"heightInferred\\": false
       }
     }
   ],
@@ -985,7 +1073,9 @@ exports[`Children of Row(arrangement=Start) get positioned correctly 1`] = `
     \\"height\\": 400,
     \\"x\\": 0,
     \\"y\\": 0,
-    \\"measured\\": true
+    \\"measured\\": true,
+    \\"widthInferred\\": false,
+    \\"heightInferred\\": false
   }
 }"
 `;
