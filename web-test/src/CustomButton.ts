@@ -1,4 +1,4 @@
-import { Custom, remember, Stack, StackConfig, StackAlignment, TextConfig, Text, ColumnConfig } from '@zapp/core'
+import { Custom, remember, Stack, StackConfig, StackAlignment, TextConfig, BareText, ColumnConfig } from '@zapp/core'
 import { ConfigBuilder } from '@zapp/core/build/working_tree/props/Config'
 
 export function CustomButton(config: ConfigBuilder, text: string, onClick: () => void) {
@@ -34,7 +34,7 @@ export function CustomButton(config: ConfigBuilder, text: string, onClick: () =>
           background.value = defaultColor
         }),
       () => {
-        Text(TextConfig(`${id}#text`).textColor(0xffffff).textSize(20), text)
+        BareText(TextConfig(`${id}#text`).textColor(0xffffff).textSize(20), text)
       }
     )
   })

@@ -5,7 +5,7 @@ import {
   StackConfig,
   StackAlignment,
   Config,
-  Text,
+  BareText,
   TextConfig,
   remember,
   sideEffect,
@@ -33,8 +33,8 @@ SimpleScreen(Config('screen'), (params) => {
     () => {
       const text = remember('')
 
-      Text(TextConfig('text').textColor(0xffffff).textSize(40), `2, ${params.data}`)
-      Text(TextConfig('text2').textColor(0xffffff).textSize(40), `${text.value}`)
+      BareText(TextConfig('text').textColor(0xffffff).textSize(40), `2, ${params.data}`)
+      BareText(TextConfig('text2').textColor(0xffffff).textSize(40), `${text.value}`)
 
       registerHomeButtonEventHandler({
         onClick: () => {

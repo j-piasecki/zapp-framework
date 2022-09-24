@@ -3,7 +3,7 @@ import {
   Stack,
   StackAlignment,
   StackConfig,
-  Text,
+  BareText,
   TextConfig,
   Custom,
   remember,
@@ -43,7 +43,7 @@ function NavButton(text: string, route: string) {
           background.value = defaultColor
         }),
       () => {
-        Text(TextConfig(`buttontext#${route}`).textColor(0xffffff).textSize(20), text)
+        BareText(TextConfig(`buttontext#${route}`).textColor(0xffffff).textSize(20), text)
       }
     )
   })

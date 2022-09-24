@@ -5,7 +5,7 @@ import {
   StackConfig,
   StackAlignment,
   Config,
-  Text,
+  BareText,
   TextConfig,
   remember,
   sideEffect,
@@ -52,8 +52,8 @@ SimpleScreen(Config('screen'), (params) => {
       })
 
       Column(ColumnConfig('column'), () => {
-        Text(TextConfig('text').textColor(0xffffff).textSize(40), `3, ${params.data}`)
-        Text(TextConfig('text2').textColor(0xffffff).textSize(40), `Selected: ${selectedNumber.value}`)
+        BareText(TextConfig('text').textColor(0xffffff).textSize(40), `3, ${params.data}`)
+        BareText(TextConfig('text2').textColor(0xffffff).textSize(40), `Selected: ${selectedNumber.value}`)
       })
     }
   )

@@ -5,7 +5,7 @@ import {
   StackConfig,
   StackAlignment,
   Config,
-  Text,
+  BareText,
   TextConfig,
   remember,
   sideEffect,
@@ -37,8 +37,8 @@ SimpleScreen(Config('screen'), (params) => {
         return true
       })
 
-      Text(TextConfig('text').textColor(0xffffff).textSize(40), `1, ${params.data}`)
-      Text(TextConfig('text2').textColor(0xffffff).textSize(40), lastGesture.value)
+      BareText(TextConfig('text').textColor(0xffffff).textSize(40), `1, ${params.data}`)
+      BareText(TextConfig('text2').textColor(0xffffff).textSize(40), lastGesture.value)
 
       Stack(
         StackConfig('button1')

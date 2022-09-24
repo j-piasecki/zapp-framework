@@ -4,7 +4,7 @@ import { WorkingTree } from '../WorkingTree.js'
 import { NodeType } from '../../NodeType.js'
 import { ConfigBuilder } from '../props/Config.js'
 
-export function Text(configBuilder: RequireSome<ConfigBuilder, 'build'>, text: string) {
+export function BareText(configBuilder: RequireSome<ConfigBuilder, 'build'>, text: string) {
   const config = configBuilder.build()
   config.text = text
   const current = WorkingTree.current as ViewNode

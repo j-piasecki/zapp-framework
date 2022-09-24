@@ -5,7 +5,7 @@ import {
   StackConfig,
   StackAlignment,
   Config,
-  Text,
+  BareText,
   TextConfig,
   remember,
   sideEffect,
@@ -33,7 +33,7 @@ SimpleScreen(Config('screen'), (params) => {
             Navigator.finishWithResult(1)
           }),
         () => {
-          Text(TextConfig('text1').textColor(0xffffff).textSize(40), `Pick 1`)
+          BareText(TextConfig('text1').textColor(0xffffff).textSize(40), `Pick 1`)
         }
       )
 
@@ -46,7 +46,7 @@ SimpleScreen(Config('screen'), (params) => {
             Navigator.finishWithResult(2)
           }),
         () => {
-          Text(TextConfig('text2').textColor(0xffffff).textSize(40), `Pick 2`)
+          BareText(TextConfig('text2').textColor(0xffffff).textSize(40), `Pick 2`)
         }
       )
 
@@ -59,7 +59,7 @@ SimpleScreen(Config('screen'), (params) => {
             Navigator.finishWithResult(3)
           }),
         () => {
-          Text(TextConfig('text3').textColor(0xffffff).textSize(40), `Pick 3`)
+          BareText(TextConfig('text3').textColor(0xffffff).textSize(40), `Pick 3`)
         }
       )
     })

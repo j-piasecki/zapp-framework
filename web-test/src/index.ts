@@ -5,7 +5,7 @@ import {
   TextConfig,
   Column,
   Row,
-  Text,
+  BareText,
   remember,
   sideEffect,
   withTiming,
@@ -126,7 +126,7 @@ function ColumnExample() {
         .fillSize()
         .padding(50, 0),
       () => {
-        Text(TextConfig('align-header').textColor(0xffffff).textSize(24), 'Alignment')
+        BareText(TextConfig('align-header').textColor(0xffffff).textSize(24), 'Alignment')
         Row(RowConfig('align-chooser').padding(0, 0, 0, 25), () => {
           CustomButton(Config('btn-alignment-topstart'), 'Start', () => {
             alignment.value = Alignment.Start
@@ -139,7 +139,7 @@ function ColumnExample() {
           })
         })
 
-        Text(TextConfig('arrange-header').textColor(0xffffff).textSize(24), 'Arrangement')
+        BareText(TextConfig('arrange-header').textColor(0xffffff).textSize(24), 'Arrangement')
         Row(Config('arrangement-chooser-one'), () => {
           CustomButton(Config('btn-arrangement-start'), 'Start', () => {
             arrangement.value = Arrangement.Start
@@ -212,7 +212,7 @@ function RowExample() {
     Column(
       ColumnConfig('row-example').alignment(Alignment.Center).arrangement(Arrangement.Center).fillSize().padding(50, 0),
       () => {
-        Text(TextConfig('align-header').textColor(0xffffff).textSize(24), 'Alignment')
+        BareText(TextConfig('align-header').textColor(0xffffff).textSize(24), 'Alignment')
         Row(RowConfig('align-chooser').padding(0, 0, 0, 25), () => {
           CustomButton(Config('btn-alignment-topstart'), 'Start', () => {
             alignment.value = Alignment.Start
@@ -225,7 +225,7 @@ function RowExample() {
           })
         })
 
-        Text(TextConfig('arrange-header').textColor(0xffffff).textSize(24), 'Arrangement')
+        BareText(TextConfig('arrange-header').textColor(0xffffff).textSize(24), 'Arrangement')
         Row(Config('arrangement-chooser-one'), () => {
           CustomButton(Config('btn-arrangement-start'), 'Start', () => {
             arrangement.value = Arrangement.Start
@@ -406,8 +406,8 @@ function DynamicLayoutExample() {
             Column(ColumnConfig('col3').width(size.value).height(size.value).background(0xff00ff), () => {
               Column(ColumnConfig('pad1').padding(10).background(0x9f0000), () => {
                 Column(ColumnConfig('pad2').padding(10).background(0x009f00), () => {
-                  Text(
-                    TextConfig('text').textColor(0xffffff).textSize(20),
+                  BareText(
+                    TextConfig('BareText').textColor(0xffffff).textSize(20),
                     'a b c d e f g h i j k l m n o p q r s t u v w x y z'
                   )
                 })
@@ -464,7 +464,7 @@ function StartForResultExample() {
 
       Stack(StackConfig('box').width(100).height(100).background(0xff0000).offset(0, anim.value))
 
-      Text(TextConfig('value-text').textColor(0xffffff).textSize(40), value.value)
+      BareText(TextConfig('value-BareText').textColor(0xffffff).textSize(40), value.value)
 
       CustomButton(Config('btn'), 'Open', () => {
         launcher.launch()
@@ -516,7 +516,7 @@ function CrownGestureEventExample() {
       Stack(StackConfig('bar').width(50).height(height.value).background(0xff0000))
     })
 
-    Text(TextConfig('text').textColor(0xffffff).textSize(30), lastGesture.value)
+    BareText(TextConfig('BareText').textColor(0xffffff).textSize(30), lastGesture.value)
   })
 }
 
@@ -566,7 +566,7 @@ function ButtonEventExample() {
       },
     })
 
-    Text(TextConfig('text').textColor(0xffffff).textSize(30), lastAction.value)
+    BareText(TextConfig('BareText').textColor(0xffffff).textSize(30), lastAction.value)
   })
 }
 

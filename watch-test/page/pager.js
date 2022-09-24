@@ -5,7 +5,7 @@ import {
   StackConfig,
   StackAlignment,
   Config,
-  Text,
+  BareText,
   TextConfig,
   remember,
   sideEffect,

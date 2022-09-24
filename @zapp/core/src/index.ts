@@ -25,7 +25,7 @@ export {
   SimpleScreen,
   setSimpleScreenImplementation as __setSimpleScreenImplementation,
 } from './working_tree/views/Screen.js'
-export { Text } from './working_tree/views/Text.js'
+export { BareText } from './working_tree/views/BareText.js'
 export { WorkingTree } from './working_tree/WorkingTree.js'
 export { Config, ConfigBuilder } from './working_tree/props/Config.js'
 export {
