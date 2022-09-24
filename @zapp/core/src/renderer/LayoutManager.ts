@@ -320,27 +320,34 @@ export class LayoutManager {
   }
 
   private calculatePositions(node: RenderNode, parent?: RenderNode) {
-    node.layout.x += node.config.offsetX ?? 0
-    node.layout.y += node.config.offsetY ?? 0
+    if (node.config.isPositionedAbsolutely === true && parent !== undefined) {
+      node.layout.x =
+        (ViewManager.isRTL() ? parent.layout.x + parent.layout.width - node.layout.width : parent.layout.x) +
+        (node.config.offsetX ?? 0)
+      node.layout.y = parent.layout.y + (node.config.offsetY ?? 0)
+    } else {
+      node.layout.x += node.config.offsetX ?? 0
+      node.layout.y += node.config.offsetY ?? 0
 
-    // root is positioned at 0,0 and all other nodes should have a parent
-    if (parent !== undefined) {
-      const borderWidth = node.config.borderWidth ?? 0
+      // root is positioned at 0,0 and all other nodes should have a parent
+      if (parent !== undefined) {
+        const borderWidth = node.config.borderWidth ?? 0
 
-      if (node.type === NodeType.Column) {
-        this.positionColumn(node)
-      } else if (node.type === NodeType.Row) {
-        this.positionRow(node)
-      } else if (node.type === NodeType.Stack || node.type === NodeType.Screen) {
-        this.positionStack(node)
-      } else {
-        for (const child of node.children) {
-          child.layout.x =
-            node.layout.x +
-            (ViewManager.isRTL()
-              ? node.layout.width - child.layout.width - (node.config.padding?.start ?? 0) - borderWidth
-              : (node.config.padding?.start ?? 0) + borderWidth)
-          child.layout.y = node.layout.y + (node.config.padding?.end ?? 0) + borderWidth
+        if (node.type === NodeType.Column) {
+          this.positionColumn(node)
+        } else if (node.type === NodeType.Row) {
+          this.positionRow(node)
+        } else if (node.type === NodeType.Stack || node.type === NodeType.Screen) {
+          this.positionStack(node)
+        } else {
+          for (const child of node.children) {
+            child.layout.x =
+              node.layout.x +
+              (ViewManager.isRTL()
+                ? node.layout.width - child.layout.width - (node.config.padding?.start ?? 0) - borderWidth
+                : (node.config.padding?.start ?? 0) + borderWidth)
+            child.layout.y = node.layout.y + (node.config.padding?.end ?? 0) + borderWidth
+          }
         }
       }
     }
