@@ -137,6 +137,7 @@ export abstract class Renderer {
   private static isNodeLayoutOnly(node: RenderNode): boolean {
     return (
       node.config.background === undefined &&
+      node.config.borderWidth === undefined &&
       node.type !== NodeType.Screen && // used to intercept pointer events
       node.type !== NodeType.Text &&
       node.type !== NodeType.Arc &&
@@ -176,11 +177,12 @@ export abstract class Renderer {
 
   private static shouldRecreateView(previous: RenderNode, next: RenderNode): boolean {
     // recreate view if it has a border while it didn't have one before to preserve z-index
-    // as border is a separate view on the zepp os
+    // as border is a separate view on the zepp os (same with background)
     return (
-      (previous.config.borderWidth === undefined || previous.config.borderWidth <= 0) &&
-      next.config.borderWidth !== undefined &&
-      next.config.borderWidth > 0
+      ((previous.config.borderWidth === undefined || previous.config.borderWidth <= 0) &&
+        next.config.borderWidth !== undefined &&
+        next.config.borderWidth > 0) ||
+      (previous.config.background === undefined && next.config.background !== undefined)
     )
   }
 

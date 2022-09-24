@@ -11,7 +11,7 @@ import { Direction } from './types.js'
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = hmSetting.getDeviceInfo()
 
 interface ViewHolder {
-  view: any
+  view?: any
   border?: any
 }
 
@@ -132,15 +132,17 @@ export class WatchViewManager extends ViewManagerInterface {
           }),
         }
       } else {
-        viewHolder = {
-          view: hmUI.createWidget(hmUI.widget.FILL_RECT, {
+        viewHolder = {}
+
+        if (node.config.background !== undefined) {
+          viewHolder.view = hmUI.createWidget(hmUI.widget.FILL_RECT, {
             x: node.layout.x,
             y: node.layout.y,
             w: node.layout.width,
             h: node.layout.height,
             radius: node.config.cornerRadius,
             color: node.config.background,
-          }),
+          })
         }
 
         if (node.config.borderWidth !== undefined && node.config.borderWidth > 0) {
@@ -159,24 +161,24 @@ export class WatchViewManager extends ViewManagerInterface {
 
     let handler
     handler = (event: PointerEvent) => this.pointerDownHandler(event, node.id)
-    viewHolder.view.addEventListener(hmUI.event.CLICK_DOWN, handler)
+    viewHolder.view?.addEventListener(hmUI.event.CLICK_DOWN, handler)
     viewHolder.border?.addEventListener(hmUI.event.CLICK_DOWN, handler)
 
     handler = (event: PointerEvent) => this.pointerMoveHandler(event, node.id)
-    viewHolder.view.addEventListener(hmUI.event.MOVE, handler)
+    viewHolder.view?.addEventListener(hmUI.event.MOVE, handler)
     viewHolder.border?.addEventListener(hmUI.event.MOVE, handler)
 
     handler = (event: PointerEvent) => this.pointerUpHandler(event, node.id)
-    viewHolder.view.addEventListener(hmUI.event.CLICK_UP, handler)
+    viewHolder.view?.addEventListener(hmUI.event.CLICK_UP, handler)
     viewHolder.border?.addEventListener(hmUI.event.CLICK_UP, handler)
 
     // Those two seem not to be be sent by the os...
     handler = (event: PointerEvent) => this.pointerEnterHandler(event, node.id)
-    viewHolder.view.addEventListener(hmUI.event.MOVE_IN, handler)
+    viewHolder.view?.addEventListener(hmUI.event.MOVE_IN, handler)
     viewHolder.border?.addEventListener(hmUI.event.MOVE_IN, handler)
 
     handler = (event: PointerEvent) => this.pointerLeaveHandler(event, node.id)
-    viewHolder.view.addEventListener(hmUI.event.MOVE_OUT, handler)
+    viewHolder.view?.addEventListener(hmUI.event.MOVE_OUT, handler)
     viewHolder.border?.addEventListener(hmUI.event.MOVE_OUT, handler)
 
     if (node.customViewProps?.overrideViewProps !== undefined) {
@@ -192,7 +194,9 @@ export class WatchViewManager extends ViewManagerInterface {
     if (node.customViewProps?.deleteView !== undefined) {
       node.customViewProps.deleteView(viewHolder.view)
     } else {
-      hmUI.deleteWidget(viewHolder.view)
+      if (viewHolder.view !== undefined) {
+        hmUI.deleteWidget(viewHolder.view)
+      }
 
       if (viewHolder.border !== undefined) {
         hmUI.deleteWidget(viewHolder.border)
@@ -243,14 +247,21 @@ export class WatchViewManager extends ViewManagerInterface {
         angle: next.config.rotation,
       })
     } else {
-      viewHolder.view.setProperty(hmUI.prop.MORE, {
-        x: next.layout.x,
-        y: next.layout.y,
-        w: next.layout.width,
-        h: next.layout.height,
-        radius: next.config.cornerRadius,
-        color: next.config.background,
-      })
+      if (viewHolder.view !== undefined) {
+        if (next.config.background === undefined) {
+          hmUI.deleteWidget(viewHolder.view)
+          viewHolder.view = undefined
+        } else {
+          viewHolder.view.setProperty(hmUI.prop.MORE, {
+            x: next.layout.x,
+            y: next.layout.y,
+            w: next.layout.width,
+            h: next.layout.height,
+            radius: next.config.cornerRadius,
+            color: next.config.background,
+          })
+        }
+      }
 
       if (viewHolder.border !== undefined) {
         if (next.config.borderWidth === undefined || next.config.borderWidth <= 0) {
