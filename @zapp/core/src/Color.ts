@@ -1,12 +1,4 @@
 export abstract class Color {
-  private static toRGB(color: number): [red: number, green: number, blue: number] {
-    const r = (color & 0xff0000) >> 16
-    const g = (color & 0x00ff00) >> 8
-    const b = color & 0x0000ff
-
-    return [r, g, b]
-  }
-
   public static rgb(r: number, g: number, b: number): number {
     return (r << 16) + (g << 8) + b
   }
@@ -38,14 +30,20 @@ export abstract class Color {
     return (r << 16) + (g << 8) + b
   }
 
-  /** @internal */
+  public static toRGB(color: number): [red: number, green: number, blue: number] {
+    const r = (color & 0xff0000) >> 16
+    const g = (color & 0x00ff00) >> 8
+    const b = color & 0x0000ff
+
+    return [r, g, b]
+  }
+
   public static isDark(color: number): boolean {
     const [r, g, b] = this.toRGB(color)
 
     return (0.299 * r + 0.587 * g + 0.114 * b) / 255 < 0.5
   }
 
-  /** @internal */
   public static tint(color: number, factor: number): number {
     const [r, g, b] = this.toRGB(color)
 
@@ -56,10 +54,13 @@ export abstract class Color {
     )
   }
 
-  /** @internal */
   public static shade(color: number, factor: number): number {
     const [r, g, b] = this.toRGB(color)
 
     return this.rgb(Math.floor(r * (1 - factor)), Math.floor(g * (1 - factor)), Math.floor(b * (1 - factor)))
+  }
+
+  public static accent(color: number, factor: number): number {
+    return this.isDark(color) ? this.tint(color, factor) : this.shade(color, factor)
   }
 }
