@@ -5,7 +5,7 @@ import { LayoutManager } from './LayoutManager.js'
 import { ViewManager } from './ViewManager.js'
 import { EventNode } from '../working_tree/EventNode.js'
 import { GlobalEventManager } from './GlobalEventManager.js'
-import { Layout, RenderConfig, RenderedTree, RenderNode } from './RenderedTree.js'
+import { Layout, RenderedTree, RenderNode } from './RenderedTree.js'
 import { RootNode } from '../working_tree/WorkingTree.js'
 
 export abstract class Renderer {
@@ -141,12 +141,7 @@ export abstract class Renderer {
       node.type !== NodeType.Text &&
       node.type !== NodeType.Arc &&
       node.type !== NodeType.Custom &&
-      node.type !== NodeType.Image &&
-      (node.config.onPointerMove === undefined || node.config.isInherited?.get('onPointerMove') === true) &&
-      (node.config.onPointerDown === undefined || node.config.isInherited?.get('onPointerDown') === true) &&
-      (node.config.onPointerUp === undefined || node.config.isInherited?.get('onPointerUp') === true) &&
-      (node.config.onPointerEnter === undefined || node.config.isInherited?.get('onPointerEnter') === true) &&
-      (node.config.onPointerLeave === undefined || node.config.isInherited?.get('onPointerLeave') === true)
+      node.type !== NodeType.Image
     )
   }
 
@@ -197,7 +192,7 @@ export abstract class Renderer {
   }
 
   private static createNode(node: ViewNode | RootNode, parent?: RenderNode): RenderNode {
-    const config: RenderConfig = { ...node.config, isInherited: new Map() }
+    const config = { ...node.config }
 
     // TODO: check whether all or nothing is the right way to handle event inheritance
     if (
@@ -209,23 +204,18 @@ export abstract class Renderer {
     ) {
       if (parent?.config.onPointerDown !== undefined) {
         config.onPointerDown = parent.config.onPointerDown
-        config.isInherited.set('onPointerDown', true)
       }
       if (parent?.config.onPointerMove !== undefined) {
         config.onPointerMove = parent.config.onPointerMove
-        config.isInherited.set('onPointerMove', true)
       }
       if (parent?.config.onPointerUp !== undefined) {
         config.onPointerUp = parent.config.onPointerUp
-        config.isInherited.set('onPointerUp', true)
       }
       if (parent?.config.onPointerEnter !== undefined) {
         config.onPointerEnter = parent.config.onPointerEnter
-        config.isInherited.set('onPointerEnter', true)
       }
       if (parent?.config.onPointerLeave !== undefined) {
         config.onPointerLeave = parent.config.onPointerLeave
-        config.isInherited.set('onPointerLeave', true)
       }
     }
 

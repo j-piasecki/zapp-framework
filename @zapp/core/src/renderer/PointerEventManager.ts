@@ -1,5 +1,5 @@
 import { PointerData, PointerEventType } from '../working_tree/props/types.js'
-import { RenderNode } from './RenderedTree.js'
+import { RenderedTree, RenderNode } from './RenderedTree.js'
 
 export abstract class PointerEventManager {
   private static eventQueue: PointerData[] = []
@@ -109,9 +109,9 @@ export abstract class PointerEventManager {
   public static processEvents() {
     // TODO: consider sending move event only to the view that received down event
     PointerEventManager.eventQueue.forEach((event) => {
-      const target = PointerEventManager.eventTargets.get(event.target)
+      const target = RenderedTree.hitTest(event.x, event.y, PointerEventManager.eventTargets.get(event.target))
 
-      if (target !== undefined) {
+      if (target !== null) {
         switch (event.type) {
           case PointerEventType.DOWN:
             target.config.onPointerDown?.(event)

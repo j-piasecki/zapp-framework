@@ -69,8 +69,9 @@ class ButtonEventManager {
         Navigator.goHome()
       }
     } else if (this.type === EventType.ShortcutButton && action === ButtonAction.Click) {
-      const x = ViewManager.screenWidth / 2
-      const y = ViewManager.screenHeight / 2
+      const { x: scrollX, y: scrollY } = ViewManager.getScrollOffset()
+      const x = ViewManager.screenWidth / 2 + scrollX
+      const y = ViewManager.screenHeight / 2 + scrollY
       const target = RenderedTree.hitTest(x, y)
 
       if (target !== null) {
