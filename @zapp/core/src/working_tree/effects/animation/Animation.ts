@@ -17,7 +17,13 @@ export abstract class Animation<T> {
       animation.onFrame(timestamp)
     }
 
-    Animation.runningAnimations = Animation.runningAnimations.filter((animation) => animation.isRunning)
+    Animation.runningAnimations = Animation.runningAnimations.filter((animation) => {
+      if (!animation.isRunning && animation.rememberedValue.animation === animation) {
+        animation.rememberedValue.animation = undefined
+      }
+
+      return animation.isRunning
+    })
   }
 
   // set when assigned to a remembered value
