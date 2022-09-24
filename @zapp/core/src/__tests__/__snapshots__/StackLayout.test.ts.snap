@@ -43,7 +43,9 @@ exports[`Children of Stack(alignment=BottomCenter) get positioned correctly 1`] 
             \\"height\\": 200,
             \\"x\\": 100,
             \\"y\\": 190,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -63,7 +65,9 @@ exports[`Children of Stack(alignment=BottomCenter) get positioned correctly 1`] 
             \\"height\\": 100,
             \\"x\\": 150,
             \\"y\\": 290,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         }
       ],
@@ -74,7 +78,9 @@ exports[`Children of Stack(alignment=BottomCenter) get positioned correctly 1`] 
         \\"height\\": 400,
         \\"x\\": 0,
         \\"y\\": 0,
-        \\"measured\\": true
+        \\"measured\\": true,
+        \\"widthInferred\\": false,
+        \\"heightInferred\\": false
       }
     }
   ],
@@ -85,7 +91,9 @@ exports[`Children of Stack(alignment=BottomCenter) get positioned correctly 1`] 
     \\"height\\": 400,
     \\"x\\": 0,
     \\"y\\": 0,
-    \\"measured\\": true
+    \\"measured\\": true,
+    \\"widthInferred\\": false,
+    \\"heightInferred\\": false
   }
 }"
 `;
@@ -133,7 +141,9 @@ exports[`Children of Stack(alignment=BottomEnd) get positioned correctly 1`] = `
             \\"height\\": 200,
             \\"x\\": 190,
             \\"y\\": 190,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -153,7 +163,9 @@ exports[`Children of Stack(alignment=BottomEnd) get positioned correctly 1`] = `
             \\"height\\": 100,
             \\"x\\": 290,
             \\"y\\": 290,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         }
       ],
@@ -164,7 +176,9 @@ exports[`Children of Stack(alignment=BottomEnd) get positioned correctly 1`] = `
         \\"height\\": 400,
         \\"x\\": 0,
         \\"y\\": 0,
-        \\"measured\\": true
+        \\"measured\\": true,
+        \\"widthInferred\\": false,
+        \\"heightInferred\\": false
       }
     }
   ],
@@ -175,7 +189,9 @@ exports[`Children of Stack(alignment=BottomEnd) get positioned correctly 1`] = `
     \\"height\\": 400,
     \\"x\\": 0,
     \\"y\\": 0,
-    \\"measured\\": true
+    \\"measured\\": true,
+    \\"widthInferred\\": false,
+    \\"heightInferred\\": false
   }
 }"
 `;
@@ -223,7 +239,9 @@ exports[`Children of Stack(alignment=BottomStart) get positioned correctly 1`] =
             \\"height\\": 200,
             \\"x\\": 10,
             \\"y\\": 190,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -243,7 +261,9 @@ exports[`Children of Stack(alignment=BottomStart) get positioned correctly 1`] =
             \\"height\\": 100,
             \\"x\\": 10,
             \\"y\\": 290,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         }
       ],
@@ -254,7 +274,9 @@ exports[`Children of Stack(alignment=BottomStart) get positioned correctly 1`] =
         \\"height\\": 400,
         \\"x\\": 0,
         \\"y\\": 0,
-        \\"measured\\": true
+        \\"measured\\": true,
+        \\"widthInferred\\": false,
+        \\"heightInferred\\": false
       }
     }
   ],
@@ -265,7 +287,9 @@ exports[`Children of Stack(alignment=BottomStart) get positioned correctly 1`] =
     \\"height\\": 400,
     \\"x\\": 0,
     \\"y\\": 0,
-    \\"measured\\": true
+    \\"measured\\": true,
+    \\"widthInferred\\": false,
+    \\"heightInferred\\": false
   }
 }"
 `;
@@ -313,7 +337,9 @@ exports[`Children of Stack(alignment=Center) get positioned correctly 1`] = `
             \\"height\\": 200,
             \\"x\\": 100,
             \\"y\\": 100,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -333,7 +359,9 @@ exports[`Children of Stack(alignment=Center) get positioned correctly 1`] = `
             \\"height\\": 100,
             \\"x\\": 150,
             \\"y\\": 150,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         }
       ],
@@ -344,7 +372,9 @@ exports[`Children of Stack(alignment=Center) get positioned correctly 1`] = `
         \\"height\\": 400,
         \\"x\\": 0,
         \\"y\\": 0,
-        \\"measured\\": true
+        \\"measured\\": true,
+        \\"widthInferred\\": false,
+        \\"heightInferred\\": false
       }
     }
   ],
@@ -355,7 +385,9 @@ exports[`Children of Stack(alignment=Center) get positioned correctly 1`] = `
     \\"height\\": 400,
     \\"x\\": 0,
     \\"y\\": 0,
-    \\"measured\\": true
+    \\"measured\\": true,
+    \\"widthInferred\\": false,
+    \\"heightInferred\\": false
   }
 }"
 `;
@@ -403,7 +435,9 @@ exports[`Children of Stack(alignment=CenterEnd) get positioned correctly 1`] = `
             \\"height\\": 200,
             \\"x\\": 190,
             \\"y\\": 100,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -423,7 +457,9 @@ exports[`Children of Stack(alignment=CenterEnd) get positioned correctly 1`] = `
             \\"height\\": 100,
             \\"x\\": 290,
             \\"y\\": 150,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         }
       ],
@@ -434,7 +470,9 @@ exports[`Children of Stack(alignment=CenterEnd) get positioned correctly 1`] = `
         \\"height\\": 400,
         \\"x\\": 0,
         \\"y\\": 0,
-        \\"measured\\": true
+        \\"measured\\": true,
+        \\"widthInferred\\": false,
+        \\"heightInferred\\": false
       }
     }
   ],
@@ -445,7 +483,9 @@ exports[`Children of Stack(alignment=CenterEnd) get positioned correctly 1`] = `
     \\"height\\": 400,
     \\"x\\": 0,
     \\"y\\": 0,
-    \\"measured\\": true
+    \\"measured\\": true,
+    \\"widthInferred\\": false,
+    \\"heightInferred\\": false
   }
 }"
 `;
@@ -493,7 +533,9 @@ exports[`Children of Stack(alignment=CenterStart) get positioned correctly 1`] =
             \\"height\\": 200,
             \\"x\\": 10,
             \\"y\\": 100,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -513,7 +555,9 @@ exports[`Children of Stack(alignment=CenterStart) get positioned correctly 1`] =
             \\"height\\": 100,
             \\"x\\": 10,
             \\"y\\": 150,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         }
       ],
@@ -524,7 +568,9 @@ exports[`Children of Stack(alignment=CenterStart) get positioned correctly 1`] =
         \\"height\\": 400,
         \\"x\\": 0,
         \\"y\\": 0,
-        \\"measured\\": true
+        \\"measured\\": true,
+        \\"widthInferred\\": false,
+        \\"heightInferred\\": false
       }
     }
   ],
@@ -535,7 +581,9 @@ exports[`Children of Stack(alignment=CenterStart) get positioned correctly 1`] =
     \\"height\\": 400,
     \\"x\\": 0,
     \\"y\\": 0,
-    \\"measured\\": true
+    \\"measured\\": true,
+    \\"widthInferred\\": false,
+    \\"heightInferred\\": false
   }
 }"
 `;
@@ -583,7 +631,9 @@ exports[`Children of Stack(alignment=TopCenter) get positioned correctly 1`] = `
             \\"height\\": 200,
             \\"x\\": 100,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -603,7 +653,9 @@ exports[`Children of Stack(alignment=TopCenter) get positioned correctly 1`] = `
             \\"height\\": 100,
             \\"x\\": 150,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         }
       ],
@@ -614,7 +666,9 @@ exports[`Children of Stack(alignment=TopCenter) get positioned correctly 1`] = `
         \\"height\\": 400,
         \\"x\\": 0,
         \\"y\\": 0,
-        \\"measured\\": true
+        \\"measured\\": true,
+        \\"widthInferred\\": false,
+        \\"heightInferred\\": false
       }
     }
   ],
@@ -625,7 +679,9 @@ exports[`Children of Stack(alignment=TopCenter) get positioned correctly 1`] = `
     \\"height\\": 400,
     \\"x\\": 0,
     \\"y\\": 0,
-    \\"measured\\": true
+    \\"measured\\": true,
+    \\"widthInferred\\": false,
+    \\"heightInferred\\": false
   }
 }"
 `;
@@ -673,7 +729,9 @@ exports[`Children of Stack(alignment=TopEnd) get positioned correctly 1`] = `
             \\"height\\": 200,
             \\"x\\": 190,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -693,7 +751,9 @@ exports[`Children of Stack(alignment=TopEnd) get positioned correctly 1`] = `
             \\"height\\": 100,
             \\"x\\": 290,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         }
       ],
@@ -704,7 +764,9 @@ exports[`Children of Stack(alignment=TopEnd) get positioned correctly 1`] = `
         \\"height\\": 400,
         \\"x\\": 0,
         \\"y\\": 0,
-        \\"measured\\": true
+        \\"measured\\": true,
+        \\"widthInferred\\": false,
+        \\"heightInferred\\": false
       }
     }
   ],
@@ -715,7 +777,9 @@ exports[`Children of Stack(alignment=TopEnd) get positioned correctly 1`] = `
     \\"height\\": 400,
     \\"x\\": 0,
     \\"y\\": 0,
-    \\"measured\\": true
+    \\"measured\\": true,
+    \\"widthInferred\\": false,
+    \\"heightInferred\\": false
   }
 }"
 `;
@@ -763,7 +827,9 @@ exports[`Children of Stack(alignment=TopStart) get positioned correctly 1`] = `
             \\"height\\": 200,
             \\"x\\": 10,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         },
         {
@@ -783,7 +849,9 @@ exports[`Children of Stack(alignment=TopStart) get positioned correctly 1`] = `
             \\"height\\": 100,
             \\"x\\": 10,
             \\"y\\": 10,
-            \\"measured\\": true
+            \\"measured\\": true,
+            \\"widthInferred\\": false,
+            \\"heightInferred\\": false
           }
         }
       ],
@@ -794,7 +862,9 @@ exports[`Children of Stack(alignment=TopStart) get positioned correctly 1`] = `
         \\"height\\": 400,
         \\"x\\": 0,
         \\"y\\": 0,
-        \\"measured\\": true
+        \\"measured\\": true,
+        \\"widthInferred\\": false,
+        \\"heightInferred\\": false
       }
     }
   ],
@@ -805,7 +875,9 @@ exports[`Children of Stack(alignment=TopStart) get positioned correctly 1`] = `
     \\"height\\": 400,
     \\"x\\": 0,
     \\"y\\": 0,
-    \\"measured\\": true
+    \\"measured\\": true,
+    \\"widthInferred\\": false,
+    \\"heightInferred\\": false
   }
 }"
 `;
