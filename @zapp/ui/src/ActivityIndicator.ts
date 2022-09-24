@@ -3,7 +3,7 @@ import { Theme } from './Theme.js'
 
 export function ActivityIndicator(config: ArcConfigBuilder) {
   const rawConfig = config.build()
-  Stack(Config(`${rawConfig.id}#wrapper`), () => {
+  Stack(Config(`${rawConfig.id}#wrapper`).positionAbsolutely(rawConfig.isPositionedAbsolutely!), () => {
     const angle = remember(-90)
     const size = remember(30)
 
