@@ -305,6 +305,10 @@ export class LayoutManager {
         const measuredNode = this.recalculationStack.pop()!
         // we also mark it as measured in case recalculation happend higher on the tree, in which case we
         // don't want to recalculate this subtree again
+
+        // TODO: measuring text doesn't guarantee correct dimentions, it may use availableWidth when the
+        // width of the parent is yet unknown - during the second pass it's possible that text will have
+        // larger width than its parent but since it's measured it won't be recalculated
         measuredNode.layout.measured = true
       } else {
         // current view is not fully measured, so we pop all nodes after it (its children) as they will be

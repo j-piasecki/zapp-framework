@@ -1,6 +1,7 @@
 import { Arc, ArcConfigBuilder, Config, remember, sideEffect, Stack, withRepeat, withTiming } from '@zapp/core'
 import { Theme } from './Theme.js'
 
+// TODO: consider making separate config & builder
 export function ActivityIndicator(config: ArcConfigBuilder) {
   const rawConfig = config.build()
   Stack(Config(`${rawConfig.id}#wrapper`).positionAbsolutely(rawConfig.isPositionedAbsolutely!), () => {
