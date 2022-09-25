@@ -1,5 +1,5 @@
 import { registerNavigationRoutes } from '@zapp/web'
-import { ActivityIndicator } from '@zapp/ui'
+import { ActivityIndicator, PageIndicator, PageIndicatorConfig } from '@zapp/ui'
 import {
   Config,
   TextConfig,
@@ -28,6 +28,7 @@ import {
   registerShortcutButtonEventHandler,
   Image,
   ImageConfig,
+  GestureType,
 } from '@zapp/core'
 import { NavBar, RouteInfo } from './NavBar'
 import { Page } from './Page'
@@ -44,6 +45,7 @@ const routesInfo: RouteInfo[] = [
   { displayName: 'StartForResult example', routeName: 'startForResult' },
   { displayName: 'Crown & Gesture events example', routeName: 'crownGestureEvent' },
   { displayName: 'Button events example', routeName: 'button' },
+  { displayName: 'Page indicators', routeName: 'pageIndicators' },
 ]
 
 function StackExample() {
@@ -570,6 +572,74 @@ function ButtonEventExample() {
   })
 }
 
+function PageIndicators() {
+  const renderIndicator = (
+    id: string,
+    horizontal: boolean,
+    radius: number,
+    curved: boolean,
+    currentPage: number,
+    numberOfPages: number
+  ) => {
+    PageIndicator(
+      PageIndicatorConfig(id)
+        .horizontal(horizontal)
+        .curveRadius(radius)
+        .curved(curved)
+        .numberOfPages(numberOfPages)
+        .currentPage(currentPage)
+    )
+  }
+
+  Page(routesInfo, () => {
+    Column(ColumnConfig('column').fillSize().background(0x333333), () => {
+      const numberOfPages = 11
+      const currentPage = remember(0)
+
+      registerGestureEventHandler((type) => {
+        let next = currentPage.value
+        if (type === GestureType.Up) {
+          next--
+        } else if (type === GestureType.Down) {
+          next++
+        }
+        next = Math.max(0, Math.min(next, numberOfPages - 1))
+
+        currentPage.value = next
+        return true
+      })
+
+      Row(RowConfig('horizontal').fillWidth().weight(1), () => {
+        Row(RowConfig('horizontalSquareWrapper').fillHeight(1).weight(1).alignment(Alignment.Center), () => {
+          Stack(StackConfig('horizontalSquare').width(300).height(300).background(0x000000), () => {
+            renderIndicator('indicatorHS', true, 150, false, currentPage.value, numberOfPages)
+          })
+        })
+
+        Row(RowConfig('horizontalRoundWrapper').fillHeight(1).weight(1).alignment(Alignment.Center), () => {
+          Stack(StackConfig('horizontalRound').width(400).height(400).cornerRadius(200).background(0x000000), () => {
+            renderIndicator('indicatorHR', true, 200, true, currentPage.value, numberOfPages)
+          })
+        })
+      })
+
+      Row(RowConfig('vertical').fillWidth().weight(1), () => {
+        Row(RowConfig('verticalSquareWrapper').fillHeight(1).weight(1).alignment(Alignment.Center), () => {
+          Stack(StackConfig('verticalSquare').width(300).height(300).background(0x000000), () => {
+            renderIndicator('indicatorVS', false, 150, false, currentPage.value, numberOfPages)
+          })
+        })
+
+        Row(RowConfig('verticalRoundWrapper').fillHeight(1).weight(1).alignment(Alignment.Center), () => {
+          Stack(StackConfig('verticalRound').width(300).height(300).cornerRadius(150).background(0x000000), () => {
+            renderIndicator('indicatorVR', false, 150, true, currentPage.value, numberOfPages)
+          })
+        })
+      })
+    })
+  })
+}
+
 registerNavigationRoutes('dynamicLayout', {
   dynamicLayout: DynamicLayoutExample,
   stack: StackExample,
@@ -580,4 +650,5 @@ registerNavigationRoutes('dynamicLayout', {
   picker: NumberPickerExample,
   crownGestureEvent: CrownGestureEventExample,
   button: ButtonEventExample,
+  pageIndicators: PageIndicators,
 })
