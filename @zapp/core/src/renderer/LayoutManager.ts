@@ -26,17 +26,15 @@ export class LayoutManager {
     parent?: RenderNode,
     recalculating?: boolean
   ) {
-    // in case this node has already been measured, we don't want to continue and recalculate
-    // its subtree
-    if (node.layout.measured) {
-      return
-    }
-
     // this is more of a workaround than a solution for text taking all available space during
     // first pass, and not adjusting for smaller space during the second one
     if (node.layout.width > availableWidth || node.layout.height > availableHeight) {
       node.layout.width = -1
       node.layout.height = -1
+    } else if (node.layout.measured) {
+      // in case this node has already been measured, we don't want to continue and recalculate
+      // its subtree
+      return
     }
 
     // flag used by different layouts when they don't have enough information about children
@@ -316,9 +314,7 @@ export class LayoutManager {
         // larger width than its parent but since it's measured it won't be recalculated
         // this makes it work correctly, but sacrifaces performance by allowing the subtrees containing
         // text nodes to be calculated more than twice
-        if (measuredNode.children.reduce((value, node) => value && node.layout.measured, true)) {
-          measuredNode.layout.measured = measuredNode.type !== NodeType.Text
-        }
+        measuredNode.layout.measured = true
       } else {
         // current view is not fully measured, so we pop all nodes after it (its children) as they will be
         // measured again anyway when visiting again

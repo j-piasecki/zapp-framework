@@ -8,7 +8,7 @@ import { remember } from '../working_tree/effects/remember'
 import { sideEffect } from '../working_tree/effects/sideEffect'
 import { Animation } from '../working_tree/effects/animation/Animation'
 import { withTiming } from '../working_tree/effects/animation/TimingAnimation'
-import { setZappInterface } from '../ZappInterface'
+import { Platform, ScreenShape, setZappInterface } from '../ZappInterface'
 
 jest.useFakeTimers()
 
@@ -17,6 +17,8 @@ setZappInterface({
   stopLoop: () => null,
   setValue: () => null,
   getValue: () => null,
+  platform: Platform.Web,
+  screenShape: ScreenShape.Square,
 })
 
 afterEach(() => {

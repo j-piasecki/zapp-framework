@@ -294,7 +294,7 @@ exports[`Value is updated correctly when assigned an animation 3`] = `
           \\"isDropped\\": false,
           \\"remembered\\": {
             \\"value\\": 100,
-            \\"animation\\": \\"animation\\"
+            \\"animation\\": \\"no animation\\"
           }
         },
         {
