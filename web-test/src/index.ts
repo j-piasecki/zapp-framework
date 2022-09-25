@@ -1,5 +1,14 @@
 import { registerNavigationRoutes } from '@zapp/web'
-import { ActivityIndicator, PageIndicator, PageIndicatorConfig } from '@zapp/ui'
+import {
+  ActivityIndicator,
+  Button,
+  ButtonConfig,
+  PageIndicator,
+  PageIndicatorConfig,
+  Text,
+  Switch,
+  SwitchConfig,
+} from '@zapp/ui'
 import {
   Config,
   TextConfig,
@@ -368,6 +377,10 @@ function DynamicLayoutExample() {
       Row(Config('row1').fillWidth(1).weight(1), () => {
         Column(ColumnConfig('col1.1').fillHeight(1).weight(1).background(0xff0000), () => {
           ActivityIndicator(ArcConfig('ac').width(100).height(100).lineWidth(10))
+          Button(ButtonConfig('button'), () => {
+            Text(TextConfig('buttontext'), 'Button')
+          })
+          Switch(SwitchConfig('switch'))
         })
         Row(RowConfig('row1.2').fillHeight(0.75).weight(1).background(0xaa2299), () => {
           const rotation = remember(0)

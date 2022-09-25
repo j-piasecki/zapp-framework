@@ -21,7 +21,7 @@ import {
   Navigator,
   registerGestureEventHandler,
 } from '@zapp/core'
-import { Button, ButtonConfig, PageIndicator, PageIndicatorConfig, Text } from '@zapp/ui'
+import { Button, ButtonConfig, PageIndicator, PageIndicatorConfig, Text, Switch, SwitchConfig } from '@zapp/ui'
 
 function renderPageIndicator(current) {
   Stack(Config('indicatorContainer'), () => {
@@ -35,14 +35,7 @@ function renderPageIndicator(current) {
 ScreenPager(ScreenPagerConfig('screen', 5).startingPage(2), () => {
   PagerEntry(Config('page1'), () => {
     Column(ColumnConfig('page1Column').fillSize().alignment(Alignment.Center).arrangement(Arrangement.Center), () => {
-      Button(
-        ButtonConfig('page1Button').onPress(() => {
-          Navigator.navigate('page/page3')
-        }),
-        () => {
-          Text(TextConfig('page1ButtonText'), 'Do stuff')
-        }
-      )
+      Switch(SwitchConfig('switch'))
       Text(TextConfig('page1Text').textSize(80), '1')
     })
 
@@ -51,14 +44,7 @@ ScreenPager(ScreenPagerConfig('screen', 5).startingPage(2), () => {
 
   PagerEntry(Config('page2'), () => {
     Column(ColumnConfig('page2Column').fillSize().alignment(Alignment.Center).arrangement(Arrangement.Center), () => {
-      Button(
-        ButtonConfig('page2Button').onPress(() => {
-          Navigator.navigate('page/page3')
-        }),
-        () => {
-          Text(TextConfig('page2ButtonText'), 'Do stuff')
-        }
-      )
+      Switch(SwitchConfig('switch2'))
       Text(TextConfig('page2Text').textSize(80), '2')
     })
 
@@ -67,14 +53,9 @@ ScreenPager(ScreenPagerConfig('screen', 5).startingPage(2), () => {
 
   PagerEntry(Config('page3'), () => {
     Column(ColumnConfig('page3Column').fillSize().alignment(Alignment.Center).arrangement(Arrangement.Center), () => {
-      Button(
-        ButtonConfig('page3Button').onPress(() => {
-          Navigator.navigate('page/page3')
-        }),
-        () => {
-          Text(TextConfig('page3ButtonText'), 'Do stuff')
-        }
-      )
+      Button(ButtonConfig('page3Button'), () => {
+        Text(TextConfig('page3ButtonText'), 'Do stuff')
+      })
       Text(TextConfig('page3Text').textSize(80), '3')
     })
 
@@ -85,7 +66,7 @@ ScreenPager(ScreenPagerConfig('screen', 5).startingPage(2), () => {
     Column(ColumnConfig('page4Column').fillSize().alignment(Alignment.Center).arrangement(Arrangement.Center), () => {
       Button(
         ButtonConfig('page4Button').onPress(() => {
-          Navigator.navigate('page/page3')
+          Navigator.navigate('page/page2')
         }),
         () => {
           Text(TextConfig('page4ButtonText'), 'Do stuff')
