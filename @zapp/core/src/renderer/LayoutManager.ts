@@ -32,6 +32,13 @@ export class LayoutManager {
       return
     }
 
+    // this is more of a workaround than a solution for text taking all available space during
+    // first pass, and not adjusting for smaller space during the second one
+    if (node.layout.width > availableWidth || node.layout.height > availableHeight) {
+      node.layout.width = -1
+      node.layout.height = -1
+    }
+
     // flag used by different layouts when they don't have enough information about children
     let requiresRecalculation = false
     if (recalculating !== true) {
@@ -157,15 +164,13 @@ export class LayoutManager {
 
       // handle text as it may not be sized explicity, in which case we need to measure it with respect
       // to the available space
-      if (node.type === NodeType.Text && (node.layout.width === -1 || node.layout.height === -1)) {
+      if (
+        node.type === NodeType.Text &&
+        (node.layout.width === -1 || node.layout.height === -1 || node.layout.width > availableWidth)
+      ) {
         const { width, height } = ViewManager.measureText(node.config.text!, node, availableWidth, availableHeight)
-
-        if (node.layout.width === -1) {
-          node.layout.width = width
-        }
-        if (node.layout.height === -1) {
-          node.layout.height = height
-        }
+        node.layout.width = width
+        node.layout.height = height
       }
 
       // calculate available width and height for children, which is used for measuring views when it and its
@@ -306,10 +311,14 @@ export class LayoutManager {
         // we also mark it as measured in case recalculation happend higher on the tree, in which case we
         // don't want to recalculate this subtree again
 
-        // TODO: measuring text doesn't guarantee correct dimentions, it may use availableWidth when the
+        // TODO: measuring text doesn't guarantee correct dimensions, it may use availableWidth when the
         // width of the parent is yet unknown - during the second pass it's possible that text will have
         // larger width than its parent but since it's measured it won't be recalculated
-        measuredNode.layout.measured = true
+        // this makes it work correctly, but sacrifaces performance by allowing the subtrees containing
+        // text nodes to be calculated more than twice
+        if (measuredNode.children.reduce((value, node) => value && node.layout.measured, true)) {
+          measuredNode.layout.measured = measuredNode.type !== NodeType.Text
+        }
       } else {
         // current view is not fully measured, so we pop all nodes after it (its children) as they will be
         // measured again anyway when visiting again

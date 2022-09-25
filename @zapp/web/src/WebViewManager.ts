@@ -268,7 +268,8 @@ export class WebViewManager extends ViewManagerInterface {
     const wrapper = document.createElement('div')
     const textWrapper = document.createElement('div')
 
-    wrapper.style.width = `${node.layout.width > 0 ? node.layout.width : availableWidth}px`
+    // subtract 2 from width as the text sometimes would get broken anyway ¯\_(ツ)_/¯
+    wrapper.style.width = `${(node.config.width !== undefined ? node.config.width : availableWidth) - 2}px`
     if (node.config.textSize !== undefined) {
       wrapper.style.fontSize = `${node.config.textSize}px`
     }
