@@ -1,3 +1,5 @@
+import { ViewManager } from './renderer/ViewManager.js'
+
 let zappInstance: ZappInterface
 
 export enum Platform {
@@ -23,17 +25,17 @@ export abstract class ZappInterface {
   public abstract readonly screenShape: ScreenShape
 }
 
-export const Zapp: ZappInterface = {
+export const Zapp = {
   startLoop() {
     zappInstance.startLoop()
   },
   stopLoop() {
     zappInstance.stopLoop()
   },
-  setValue(key, value) {
+  setValue(key: string, value: unknown) {
     zappInstance.setValue(key, value)
   },
-  getValue(key) {
+  getValue(key: string): unknown {
     return zappInstance.getValue(key)
   },
   get platform() {
@@ -41,5 +43,11 @@ export const Zapp: ZappInterface = {
   },
   get screenShape() {
     return zappInstance.screenShape
+  },
+  get screenWidth() {
+    return ViewManager.screenWidth
+  },
+  get screenHeight() {
+    return ViewManager.screenHeight
   },
 }
