@@ -40,11 +40,16 @@ export abstract class Renderer {
     next.view = previous.view
     next.zIndex = previous.zIndex
 
+    // reset previousZIndex when encountering a Screen node, applies to ScreenPager where we don't
+    // want to drop a bunch of screens because something changes on the first one
+    if (next.type === NodeType.Screen) {
+      previousZIndex = next.zIndex
+    }
+
     // if the view is null, it means that the node was layout-only previous frame but its config
     // has changed and it's going to be visible now, we need to create a view in this case
     if (next.view === null && !Renderer.isNodeLayoutOnly(next)) {
-      next.zIndex = Renderer.nextZIndex++
-      next.view = ViewManager.createView(next)
+      Renderer.createView(next, false)
     } else if (next.view !== null && Renderer.isNodeLayoutOnly(next)) {
       // when the view is not null but the node is layout-only, we need to drop the view as
       // it's not going to be visible anymore
@@ -67,7 +72,11 @@ export abstract class Renderer {
         Renderer.updateView(previous, next)
       }
     }
-    previousZIndex = next.zIndex
+
+    // only update previousZIndex when currently considered node actually renders a view
+    if (next.zIndex !== -1) {
+      previousZIndex = next.zIndex
+    }
 
     // keep index of the last node that was found in both trees, as nodes can only be added or removed
     // they will be in the same order in the both trees, so we can start looking from there
