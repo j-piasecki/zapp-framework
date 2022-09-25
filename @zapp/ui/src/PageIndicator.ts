@@ -101,12 +101,7 @@ function calculateDotOffset(index: number, config: PageIndicatorConfigType, radi
 }
 
 function renderDot(index: number, rawConfig: PageIndicatorConfigType) {
-  const { x: oX, y: oY } = calculateDotOffset(index, rawConfig)
-
-  // call remembers in top-level to minimize amount of nodes created, this means that the number
-  // of pages should not change while the indicator is visible
-  const offsetX = remember(oX)
-  const offsetY = remember(oY)
+  const { x: offsetX, y: offsetY } = calculateDotOffset(index, rawConfig)
 
   Stack(
     StackConfig(`${rawConfig.id}#dot#${index}`)
@@ -114,7 +109,7 @@ function renderDot(index: number, rawConfig: PageIndicatorConfigType) {
       .width(DOT_SIZE)
       .height(DOT_SIZE)
       .cornerRadius(DOT_SIZE / 2)
-      .offset(offsetX.value, offsetY.value)
+      .offset(offsetX, offsetY)
   )
 }
 
