@@ -9,6 +9,7 @@ import {
   GestureType,
   EventType,
   ButtonAction,
+  ScreenShape,
 } from '@zapp/core'
 
 export class ZappWeb extends ZappInterface {
@@ -81,6 +82,10 @@ export class ZappWeb extends ZappInterface {
 
   get platform(): Platform {
     return Platform.Web
+  }
+
+  get screenShape() {
+    return ScreenShape.Square
   }
 
   private update = () => {

@@ -1,6 +1,7 @@
 import {
   ZappInterface,
   Platform,
+  ScreenShape,
   WorkingTree,
   PointerEventManager,
   Renderer,
@@ -12,6 +13,13 @@ import { tryUpdatingRememberedScrollPositions } from './screens/ScrollableScreen
 
 export class ZappWatch extends ZappInterface {
   private timerRef: unknown
+  private _screenShape: ScreenShape
+
+  constructor() {
+    super()
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    this._screenShape = hmSetting.getDeviceInfo().screenShape ? ScreenShape.Round : ScreenShape.Square
+  }
 
   public startLoop(): void {
     WorkingTree.requestUpdate()
@@ -53,5 +61,9 @@ export class ZappWatch extends ZappInterface {
 
   get platform() {
     return Platform.Watch
+  }
+
+  get screenShape() {
+    return this._screenShape
   }
 }

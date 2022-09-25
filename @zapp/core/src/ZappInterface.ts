@@ -5,6 +5,11 @@ export enum Platform {
   Watch,
 }
 
+export enum ScreenShape {
+  Square,
+  Round,
+}
+
 export function setZappInterface(zapp: ZappInterface) {
   zappInstance = zapp
 }
@@ -15,6 +20,7 @@ export abstract class ZappInterface {
   public abstract setValue(key: string, value: unknown): void
   public abstract getValue(key: string): unknown
   public abstract readonly platform: Platform
+  public abstract readonly screenShape: ScreenShape
 }
 
 export const Zapp: ZappInterface = {
@@ -32,5 +38,8 @@ export const Zapp: ZappInterface = {
   },
   get platform() {
     return zappInstance.platform
+  },
+  get screenShape() {
+    return zappInstance.screenShape
   },
 }
