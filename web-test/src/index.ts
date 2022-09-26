@@ -1,6 +1,7 @@
 import { registerNavigationRoutes } from '@zapp/web'
 import {
   ActivityIndicator,
+  ActivityIndicatorConfig,
   Button,
   ButtonConfig,
   PageIndicator,
@@ -428,7 +429,7 @@ function DynamicLayoutExample() {
             ImageConfig('img').width(130).height(130).innerOffset(15, 15).origin(65, 65).rotation(rotation.value),
             'zapp.png'
           )
-          ActivityIndicator(ArcConfig('ac').width(100).height(100).lineWidth(10))
+          ActivityIndicator(ActivityIndicatorConfig('ac').size(100).lineWidth(10))
         })
       })
 

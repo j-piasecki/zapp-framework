@@ -1,5 +1,5 @@
 import '@zapp/watch'
-import { ActivityIndicator, Theme } from '@zapp/ui'
+import { ActivityIndicator, ActivityIndicatorConfig, Theme } from '@zapp/ui'
 import {
   SimpleScreen,
   Stack,
@@ -86,7 +86,7 @@ SimpleScreen(Config('screen'), () => {
                   'zapp.png'
                 )
               } else {
-                ActivityIndicator(ArcConfig('ac').width(60).height(60).lineWidth(10))
+                ActivityIndicator(ActivityIndicatorConfig('ac').size(60).lineWidth(10))
               }
             }
           )
