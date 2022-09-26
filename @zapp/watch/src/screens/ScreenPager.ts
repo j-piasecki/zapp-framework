@@ -115,8 +115,17 @@ export function tryUpdatingRememberedPagePositions() {
     rememberedPage.value = currentPage
   }
 
+  let needsClear = false
   for (const val of rememberedValues) {
     val.value = currentPage
+
+    // @ts-ignore that's private in the core package
+    needsClear = needsClear || val.context.isDropped
+  }
+
+  if (needsClear) {
+    // @ts-ignore that's private in the core package
+    rememberedValues = rememberedValues.filter((v) => !v.context.isDropped)
   }
 }
 
@@ -126,6 +135,8 @@ export function rememberCurrentPage(): RememberedMutableValue<number> {
     hmUI.scrollToPage(current, true)
   })
 
-  rememberedValues.push(value)
+  if (rememberedValues.indexOf(value) === -1) {
+    rememberedValues.push(value)
+  }
   return value
 }

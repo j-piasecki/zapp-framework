@@ -34,9 +34,19 @@ export function tryUpdatingRememberedScrollPositions() {
   const currentScroll = -hmApp.getLayerY()
   if (rememberedScroll !== undefined) {
     rememberedScroll.value = currentScroll
+
+    // @ts-ignore that's private in the core package
+    needsClear = needsClear || val.context.isDropped
   }
+
+  let needsClear = false
   for (const val of rememberedValues) {
     val.value = currentScroll
+  }
+
+  if (needsClear) {
+    // @ts-ignore that's private in the core package
+    rememberedValues = rememberedValues.filter((v) => !v.context.isDropped)
   }
 }
 
@@ -44,6 +54,8 @@ export function rememberScrollPosition(): RememberedMutableValue<number> {
   const value = rememberObservable(hmApp.getLayerY(), (prev, current) => {
     hmApp.setLayerY(-current)
   })
-  rememberedValues.push(value)
+  if (rememberedValues.indexOf(value) === -1) {
+    rememberedValues.push(value)
+  }
   return value
 }
