@@ -25,6 +25,14 @@ export class RootNode extends WorkingNode {
     this.config = { id: ROOT_ID }
     this.children = []
   }
+
+  public drop(newSubtreeRoot: WorkingNode): void {
+    super.drop(newSubtreeRoot)
+
+    for (const child of this.children) {
+      child.drop(newSubtreeRoot)
+    }
+  }
 }
 
 export abstract class WorkingTree {
