@@ -49,10 +49,9 @@ export function Switch(config: SwitchConfigBuilder) {
   const [r, g, b] = Color.toRGB(rawConfig.isChecked ? Theme.primaryContainer : Theme.surfaceVariant)
 
   Stack(StackConfig(`${rawConfig.id}#wrapper`), () => {
-    const checked = remember(rawConfig.isChecked)
     const pressed = remember(false)
     const pressPosition = remember({ x: 0, y: 0 })
-    const foregroundOffset = remember(0)
+    const foregroundOffset = remember(rawConfig.isChecked ? px(60) : 0)
 
     const backgroundR = remember(r)
     const backgroundG = remember(g)
@@ -60,13 +59,13 @@ export function Switch(config: SwitchConfigBuilder) {
 
     sideEffect(() => {
       const animationConfig = { duration: 200, easing: Easing.easeOutQuad }
-      const [r, g, b] = Color.toRGB(checked.value ? Theme.primaryContainer : Theme.surfaceVariant)
+      const [r, g, b] = Color.toRGB(rawConfig.isChecked ? Theme.primaryContainer : Theme.surfaceVariant)
 
-      foregroundOffset.value = withTiming(checked.value ? px(60) : 0, animationConfig)
+      foregroundOffset.value = withTiming(rawConfig.isChecked ? px(60) : 0, animationConfig)
       backgroundR.value = withTiming(r, animationConfig)
       backgroundG.value = withTiming(g, animationConfig)
       backgroundB.value = withTiming(b, animationConfig)
-    }, checked.value)
+    }, rawConfig.isChecked)
 
     Stack(
       StackConfig(`${rawConfig.id}#background`)
@@ -82,8 +81,7 @@ export function Switch(config: SwitchConfigBuilder) {
         .onPointerUp(() => {
           if (pressed.value) {
             pressed.value = false
-            checked.value = !checked.value
-            rawConfig.onChange?.(checked.value)
+            rawConfig.onChange?.(!rawConfig.isChecked)
           }
         })
         .onPointerMove((e) => {
@@ -105,7 +103,7 @@ export function Switch(config: SwitchConfigBuilder) {
             .width(px(40))
             .height(px(40))
             .cornerRadius(px(20))
-            .background(Theme.onSurfaceVariant)
+            .background(Theme.onPrimaryContainer)
             .offset(foregroundOffset.value, 0)
         )
       }

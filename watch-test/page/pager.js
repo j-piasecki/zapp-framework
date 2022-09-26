@@ -24,18 +24,20 @@ import {
 import { Button, ButtonConfig, PageIndicator, PageIndicatorConfig, Text, Switch, SwitchConfig } from '@zapp/ui'
 
 function renderPageIndicator(current) {
-  Stack(Config('indicatorContainer'), () => {
-    const page = rememberCurrentPage()
-    if (page.value === current) {
-      PageIndicator(PageIndicatorConfig('indicator').numberOfPages(5).currentPage(page.value))
-    }
-  })
+  PageIndicator(PageIndicatorConfig('indicator').numberOfPages(5).currentPage(current))
 }
 
 ScreenPager(ScreenPagerConfig('screen', 5).startingPage(2), () => {
   PagerEntry(Config('page1'), () => {
     Column(ColumnConfig('page1Column').fillSize().alignment(Alignment.Center).arrangement(Arrangement.Center), () => {
-      Switch(SwitchConfig('switch'))
+      const isChecked = remember(true)
+      Switch(
+        SwitchConfig('switch')
+          .isChecked(isChecked.value)
+          .onChange((v) => {
+            isChecked.value = v
+          })
+      )
       Text(TextConfig('page1Text').textSize(80), '1')
     })
 
@@ -44,7 +46,14 @@ ScreenPager(ScreenPagerConfig('screen', 5).startingPage(2), () => {
 
   PagerEntry(Config('page2'), () => {
     Column(ColumnConfig('page2Column').fillSize().alignment(Alignment.Center).arrangement(Arrangement.Center), () => {
-      Switch(SwitchConfig('switch2'))
+      const isChecked = remember(true)
+      Switch(
+        SwitchConfig('switch2')
+          .isChecked(isChecked.value)
+          .onChange((v) => {
+            isChecked.value = v
+          })
+      )
       Text(TextConfig('page2Text').textSize(80), '2')
     })
 
