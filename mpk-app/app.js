@@ -1,20 +1,15 @@
 import './shared/device-polyfill'
+import '@zapp/watch'
+import { Application, Zapp } from '@zapp/core'
+import { setTheme } from '@zapp/ui'
 import { MessageBuilder } from './shared/message'
 
 const appId = 23920
 const messageBuilder = new MessageBuilder({ appId })
 
-App({
-  globalData: {
-    messageBuilder: messageBuilder,
-  },
-  onCreate(options) {
-    console.log('app on create invoke')
-    messageBuilder.connect()
-  },
-
-  onDestroy(options) {
-    console.log('app on destroy invoke')
-    messageBuilder.disConnect()
+Application({
+  onInit() {
+    setTheme()
+    Zapp.setValue('message', messageBuilder)
   },
 })
