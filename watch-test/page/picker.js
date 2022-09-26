@@ -1,4 +1,4 @@
-import '@zapp/watch'
+import { rememberSaveable } from '@zapp/watch'
 import {
   SimpleScreen,
   Stack,
@@ -24,13 +24,13 @@ import { Button, ButtonConfig, Text, RadioButton, RadioGroup, RadioGroupConfig }
 
 SimpleScreen(Config('screen'), (params) => {
   Column(ColumnConfig('wrapper').fillSize().arrangement(Arrangement.Center).alignment(Alignment.Center), () => {
-    const selected = remember(0)
+    const selected = rememberSaveable('number', 1)
 
     RadioGroup(
       RadioGroupConfig('radio')
-        .selected(selected.value)
+        .selected(selected.value - 1)
         .onChange((v) => {
-          selected.value = v
+          selected.value = v + 1
         }),
       () => {
         Column(ColumnConfig('radiowrapper').padding(0, 0, 0, 24), () => {
@@ -49,7 +49,7 @@ SimpleScreen(Config('screen'), (params) => {
 
     Button(
       ButtonConfig('button').onPress(() => {
-        Navigator.finishWithResult(selected.value + 1)
+        Navigator.finishWithResult(selected.value)
       }),
       () => {
         Text(TextConfig('buttontext'), 'Ok')

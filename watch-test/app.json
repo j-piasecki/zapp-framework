@@ -12,7 +12,7 @@
     "vender": "zepp",
     "description": "empty app"
   },
-  "permissions": [],
+  "permissions": ["device:os.local_storage"],
   "runtime": {
     "apiVersion": {
       "compatible": "1.0.0",

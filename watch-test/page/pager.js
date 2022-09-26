@@ -1,4 +1,4 @@
-import { ScreenPager, PagerEntry, rememberCurrentPage, ScreenPagerConfig } from '@zapp/watch'
+import { ScreenPager, PagerEntry, rememberCurrentPage, ScreenPagerConfig, rememberSaveable } from '@zapp/watch'
 import {
   SimpleScreen,
   Stack,
@@ -73,15 +73,17 @@ ScreenPager(ScreenPagerConfig('screen', 5).startingPage(2), () => {
 
   PagerEntry(Config('page4'), () => {
     Column(ColumnConfig('page4Column').fillSize().alignment(Alignment.Center).arrangement(Arrangement.Center), () => {
+      const saved = rememberSaveable('number', 1)
       Button(
         ButtonConfig('page4Button').onPress(() => {
-          Navigator.navigate('page/page2')
+          Navigator.navigate('page/picker')
         }),
         () => {
           Text(TextConfig('page4ButtonText'), 'Do stuff')
         }
       )
       Text(TextConfig('page4Text').textSize(80), '4')
+      Text(TextConfig('page4Text').textSize(20), `Picked number: ${saved.value}`)
     })
 
     renderPageIndicator(3)
@@ -91,7 +93,7 @@ ScreenPager(ScreenPagerConfig('screen', 5).startingPage(2), () => {
     Column(ColumnConfig('page5Column').fillSize().alignment(Alignment.Center).arrangement(Arrangement.Center), () => {
       Button(
         ButtonConfig('page5Button').onPress(() => {
-          Navigator.navigate('page/page3')
+          Navigator.navigate('page/picker')
         }),
         () => {
           Text(TextConfig('page5ButtonText'), 'Do stuff')
