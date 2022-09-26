@@ -34,14 +34,14 @@ export function tryUpdatingRememberedScrollPositions() {
   const currentScroll = -hmApp.getLayerY()
   if (rememberedScroll !== undefined) {
     rememberedScroll.value = currentScroll
-
-    // @ts-ignore that's private in the core package
-    needsClear = needsClear || val.context.isDropped
   }
 
   let needsClear = false
   for (const val of rememberedValues) {
     val.value = currentScroll
+
+    // @ts-ignore that's private in the core package
+    needsClear = needsClear || val.context.isDropped
   }
 
   if (needsClear) {
