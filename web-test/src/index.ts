@@ -13,6 +13,8 @@ import {
   RadioButton,
   RadioGroup,
   RadioGroupConfig,
+  CheckBox,
+  CheckBoxConfig,
 } from '@zapp/ui'
 import {
   Config,
@@ -494,6 +496,18 @@ function DynamicLayoutExample() {
               )
             })
           })
+
+          const checked = remember(false)
+          CheckBox(
+            CheckBoxConfig('checkbox')
+              .checked(checked.value)
+              .onChange((c) => {
+                checked.value = c
+              }),
+            () => {
+              Text(TextConfig('checkboxtext'), 'CheckBox')
+            }
+          )
         }
       )
     })
