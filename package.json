@@ -1,11 +1,12 @@
 {
-  "private":"true",
+  "private": "true",
   "scripts": {
     "build": "cd @zapp/core && yarn build && cd .. && cd web && yarn build && cd .. && cd watch && yarn build && cd .. && cd ui && yarn build"
   },
   "workspaces": [
     "@zapp/*",
     "web-test",
-    "watch-test"
+    "watch-test",
+    "mpk-app"
   ]
 }
