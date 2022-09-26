@@ -1,5 +1,6 @@
 import { ApplicationConfig } from '@zapp/core'
 import { NavigatorData } from './Navigator.js'
+import { KeyValueStorage } from './KeyValueStorage.js'
 
 export function Application(config: ApplicationConfig) {
   const navigatorData: NavigatorData = {
@@ -13,13 +14,16 @@ export function Application(config: ApplicationConfig) {
   App({
     globalData: {
       _navigator: navigatorData,
+      _keyValue: {},
     },
     onCreate(params: string) {
+      KeyValueStorage.load()
       config.onInit?.(params)
     },
 
     onDestroy() {
       config.onDestroy?.()
+      KeyValueStorage.save()
     },
   })
 }
