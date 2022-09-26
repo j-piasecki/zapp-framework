@@ -8,6 +8,8 @@ import {
   Text,
   Switch,
   SwitchConfig,
+  Divider,
+  DividerConfig,
 } from '@zapp/ui'
 import {
   Config,
@@ -379,9 +381,11 @@ function DynamicLayoutExample() {
           const isChecked = remember(true)
 
           ActivityIndicator(ArcConfig('ac').width(100).height(100).lineWidth(10))
+          Divider(DividerConfig('div1').fillWidth())
           Button(ButtonConfig('button'), () => {
             Text(TextConfig('buttontext'), 'Button')
           })
+          Divider(DividerConfig('div1').fillWidth())
           Switch(
             SwitchConfig('switch')
               .isChecked(isChecked.value)
