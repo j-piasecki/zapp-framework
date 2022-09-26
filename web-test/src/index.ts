@@ -10,6 +10,9 @@ import {
   SwitchConfig,
   Divider,
   DividerConfig,
+  RadioButton,
+  RadioGroup,
+  RadioGroupConfig,
 } from '@zapp/ui'
 import {
   Config,
@@ -379,9 +382,8 @@ function DynamicLayoutExample() {
       Row(Config('row1').fillWidth(1).weight(1), () => {
         Column(ColumnConfig('col1.1').fillHeight(1).weight(1).background(0xff0000), () => {
           const isChecked = remember(true)
+          const selected = remember(0)
 
-          ActivityIndicator(ArcConfig('ac').width(100).height(100).lineWidth(10))
-          Divider(DividerConfig('div1').fillWidth())
           Button(ButtonConfig('button'), () => {
             Text(TextConfig('buttontext'), 'Button')
           })
@@ -393,6 +395,27 @@ function DynamicLayoutExample() {
                 isChecked.value = v
               })
           )
+          Divider(DividerConfig('div1').fillWidth())
+          RadioGroup(
+            RadioGroupConfig('radiogroup')
+              .selected(selected.value)
+              .onChange((s) => {
+                selected.value = s
+              }),
+            () => {
+              Column(ColumnConfig('radiocolumn'), () => {
+                RadioButton(Config('radio1'), () => {
+                  Text(TextConfig('radio1text'), 'Item 1')
+                })
+                RadioButton(Config('radio2'), () => {
+                  Text(TextConfig('radio2text'), 'Item 2')
+                })
+                RadioButton(Config('radio3'), () => {
+                  Text(TextConfig('radio3text'), 'Item 3')
+                })
+              })
+            }
+          )
         })
         Row(RowConfig('row1.2').fillHeight(0.75).weight(1).background(0xaa2299), () => {
           const rotation = remember(0)
@@ -403,6 +426,7 @@ function DynamicLayoutExample() {
             ImageConfig('img').width(130).height(130).innerOffset(15, 15).origin(65, 65).rotation(rotation.value),
             'zapp.png'
           )
+          ActivityIndicator(ArcConfig('ac').width(100).height(100).lineWidth(10))
         })
       })
 
