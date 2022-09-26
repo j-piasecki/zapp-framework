@@ -203,7 +203,7 @@ export abstract class Renderer {
   }
 
   private static createNode(node: ViewNode | RootNode, parent?: RenderNode): RenderNode {
-    const config = { ...node.config }
+    const config = node.config
 
     // TODO: check whether all or nothing is the right way to handle event inheritance
     if (
