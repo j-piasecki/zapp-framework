@@ -207,27 +207,18 @@ export abstract class Renderer {
 
     // TODO: check whether all or nothing is the right way to handle event inheritance
     if (
+      parent !== undefined &&
       node.config.onPointerDown === undefined &&
       node.config.onPointerMove === undefined &&
       node.config.onPointerUp === undefined &&
       node.config.onPointerEnter === undefined &&
       node.config.onPointerLeave === undefined
     ) {
-      if (parent?.config.onPointerDown !== undefined) {
-        config.onPointerDown = parent.config.onPointerDown
-      }
-      if (parent?.config.onPointerMove !== undefined) {
-        config.onPointerMove = parent.config.onPointerMove
-      }
-      if (parent?.config.onPointerUp !== undefined) {
-        config.onPointerUp = parent.config.onPointerUp
-      }
-      if (parent?.config.onPointerEnter !== undefined) {
-        config.onPointerEnter = parent.config.onPointerEnter
-      }
-      if (parent?.config.onPointerLeave !== undefined) {
-        config.onPointerLeave = parent.config.onPointerLeave
-      }
+      config.onPointerDown = parent.config.onPointerDown
+      config.onPointerMove = parent.config.onPointerMove
+      config.onPointerUp = parent.config.onPointerUp
+      config.onPointerEnter = parent.config.onPointerEnter
+      config.onPointerLeave = parent.config.onPointerLeave
     }
 
     const result: RenderNode = {
