@@ -52,6 +52,7 @@ export function Switch(config: SwitchConfigBuilder) {
     const pressed = remember(false)
     const pressPosition = remember({ x: 0, y: 0 })
     const foregroundOffset = remember(rawConfig.isChecked ? px(60) : 0)
+    const timer = remember(0)
 
     const backgroundR = remember(r)
     const backgroundG = remember(g)
@@ -77,6 +78,15 @@ export function Switch(config: SwitchConfigBuilder) {
         .onPointerDown((e) => {
           pressed.value = true
           pressPosition.value = { x: e.x, y: e.y }
+
+          timer.value = withTiming(0, {
+            duration: 500,
+            onEnd: (finished) => {
+              if (finished) {
+                pressed.value = false
+              }
+            },
+          })
         })
         .onPointerUp(() => {
           if (pressed.value) {

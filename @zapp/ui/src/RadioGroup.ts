@@ -69,6 +69,7 @@ export function RadioButton(config: ConfigBuilder, body?: () => void) {
   Stack(StackConfig(`${rawConfig.id}#wrapper`), () => {
     const pressed = remember(false)
     const pressPosition = remember({ x: 0, y: 0 })
+    const timer = remember(0)
 
     Row(
       RowConfig(`${rawConfig.id}#row`)
@@ -77,6 +78,15 @@ export function RadioButton(config: ConfigBuilder, body?: () => void) {
         .onPointerDown((e) => {
           pressed.value = true
           pressPosition.value = { x: e.x, y: e.y }
+
+          timer.value = withTiming(0, {
+            duration: 500,
+            onEnd: (finished) => {
+              if (finished) {
+                pressed.value = false
+              }
+            },
+          })
         })
         .onPointerUp(() => {
           if (pressed.value) {

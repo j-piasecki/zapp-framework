@@ -76,6 +76,7 @@ export function Button(config: ButtonConfigBuilder, body: () => void) {
         const pressed = remember(false)
         const pressPosition = remember({ x: 0, y: 0 })
         const background = remember(rawConfig.background ?? Theme.primary)
+        const timer = remember(0)
 
         const cancelPress = () => {
           pressed.value = false
@@ -98,6 +99,15 @@ export function Button(config: ButtonConfigBuilder, body: () => void) {
             pressPosition.value = { x: e.x, y: e.y }
             outerPadding.value = 0
             background.value = Color.accent(rawConfig.background ?? Theme.primary, 0.1)
+
+            timer.value = withTiming(0, {
+              duration: 500,
+              onEnd: (finished) => {
+                if (finished) {
+                  cancelPress()
+                }
+              },
+            })
           })
           .onPointerUp(() => {
             if (pressed.value) {
