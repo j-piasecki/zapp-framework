@@ -4,31 +4,48 @@ AppSettingsPage({
   build(props) {
     const stops = props.settingsStorage.getItem('stops') ? JSON.parse(props.settingsStorage.getItem('stops')) : []
 
+    // dunnow why but adding another view makes `width: '100%'` work on TextInput
     const addBTN = View(
       {
         style: {
-          fontSize: '16px',
-          lineHeight: '30px',
-          borderRadius: '30px',
-          background: '#650033',
-          color: 'white',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          padding: '0 15px',
           width: '100%',
-          height: '48px',
         },
       },
       [
-        TextInput({
-          label: getText('addStop'),
-          onChange: (val) => {
-            stops.push({ name: val })
-
-            props.settingsStorage.setItem('stops', JSON.stringify(stops))
+        View(
+          {
+            style: {
+              fontSize: '16px',
+              lineHeight: '30px',
+              borderRadius: '30px',
+              background: '#650033',
+              color: 'white',
+              padding: '0 15px',
+              width: '100%',
+              height: '48px',
+            },
           },
-        }),
+          [
+            TextInput({
+              label: getText('addStop'),
+              labelStyle: {
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
+                height: '48px',
+              },
+              onChange: (val) => {
+                stops.push({ name: val })
+
+                props.settingsStorage.setItem('stops', JSON.stringify(stops))
+              },
+            }),
+          ]
+        ),
       ]
     )
 
