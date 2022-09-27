@@ -39,6 +39,9 @@ export class LayoutManager {
 
     // flag used by different layouts when they don't have enough information about children
     let requiresRecalculation = false
+    // when recalculation is forced, the node is calculated again with the same params, unless
+    // it would be recalculated normally
+    let forceRecalculation = false
     if (recalculating !== true) {
       // if not recalculating at the moment, push current node as a candidate for recalculation
       this.recalculationStack.push(node)
@@ -115,6 +118,7 @@ export class LayoutManager {
           } else {
             // not enough information about children dimensions to calculate weights
             requiresRecalculation = true
+            forceRecalculation = true
             break
           }
         }
@@ -139,11 +143,12 @@ export class LayoutManager {
         for (const child of node.children) {
           if (child.config.weight !== undefined) {
             weights += child.config.weight
-          } else if (child.layout.height !== -1) {
+          } else if (child.layout.width !== -1) {
             absolute += child.layout.width
           } else {
             // not enough information about children dimensions to calculate weights
             requiresRecalculation = true
+            forceRecalculation = true
             break
           }
         }
@@ -155,6 +160,7 @@ export class LayoutManager {
             if (child.config.weight !== undefined) {
               child.layout.width = weightWidth * child.config.weight
               child.layout.widthInferred = false
+              child.layout.measured = false
             }
           }
         }
@@ -213,8 +219,13 @@ export class LayoutManager {
             node.layout.heightInferred = true
             requiresRecalculation = true
           }
+
+          if (node.layout.widthInferred) {
+            node.layout.width = -1
+          }
           if (node.layout.width === -1 && maxWidth !== -1 && node.config.fillWidth === undefined) {
             node.layout.width = Math.max(node.layout.width, maxWidth + horizontalPadding)
+            node.layout.widthInferred = true
           }
         } else if (node.type === NodeType.Row) {
           // row stacks its children one after another horizontally so we want its width to be sum of
@@ -237,14 +248,26 @@ export class LayoutManager {
             node.layout.widthInferred = true
             requiresRecalculation = true
           }
+
+          if (node.layout.heightInferred) {
+            node.layout.height = -1
+          }
           if (node.layout.height === -1 && maxHeight !== -1 && node.config.fillHeight === undefined) {
             node.layout.height = Math.max(node.layout.height, maxHeight + verticalPadding)
+            node.layout.heightInferred = true
           }
         } else if (node.type === NodeType.Stack || node.type === NodeType.Custom) {
           // stack stacks its children on top of each other so we want both its width and height to match
           // the widest and highest child respectively, we also treat custom views in the same way as stack
           let maxWidth = -1
           let maxHeight = -1
+
+          if (node.layout.widthInferred) {
+            node.layout.width = -1
+          }
+          if (node.layout.heightInferred) {
+            node.layout.height = -1
+          }
 
           for (const child of node.children) {
             maxWidth = Math.max(maxWidth, child.layout.width)
@@ -253,9 +276,13 @@ export class LayoutManager {
 
           if (node.layout.width === -1 && maxWidth !== -1 && node.config.fillWidth === undefined) {
             node.layout.width = maxWidth + horizontalPadding
+            node.layout.widthInferred = true
+            requiresRecalculation = true
           }
           if (node.layout.height === -1 && maxHeight !== -1 && node.config.fillHeight === undefined) {
             node.layout.height = maxHeight + verticalPadding
+            node.layout.heightInferred = true
+            requiresRecalculation = true
           }
         }
       }
@@ -278,7 +305,7 @@ export class LayoutManager {
         }
       }
 
-      // This algorithm performs a double-pass on parts of the tree when necessary, i.e.:
+      // This algorithm performs a ~~double-pass~~ a-few-passes on parts of the tree when necessary, i.e.:
       // - parent
       //   - node width: 100, fillHeight: 0.5
       //   - node height: 100, fillWidth: 0.5
@@ -296,7 +323,7 @@ export class LayoutManager {
 
       // We have two cases: curent view is fully measured, so we can recalculate its children if there are
       // any left on the stack
-      if (node.layout.width !== -1 && node.layout.height !== -1 && !requiresRecalculation) {
+      if (node.layout.width !== -1 && node.layout.height !== -1 && !requiresRecalculation && !forceRecalculation) {
         const childAvailableWidth = (node.layout.width === -1 ? availableWidth : node.layout.width) - horizontalPadding
         const childAvailableHeight =
           (node.layout.height === -1 ? availableHeight : node.layout.height) - verticalPadding
@@ -325,6 +352,8 @@ export class LayoutManager {
           this.recalculationStack.pop()
         }
       }
+    } else if (recalculating === true && forceRecalculation) {
+      this.calculateSize(node, availableWidth, availableHeight, parent, true)
     }
   }
 
@@ -369,7 +398,14 @@ export class LayoutManager {
   private alignHorizontally(child: RenderNode, parent: RenderNode, alignment?: Alignment) {
     switch (alignment ?? parent.config.alignment) {
       case Alignment.Center:
-        child.layout.x = parent.layout.x + (parent.layout.width - child.layout.width) / 2
+        child.layout.x =
+          parent.layout.x +
+          (parent.layout.width -
+            (parent.config.padding?.end ?? 0) -
+            (parent.config.padding?.start ?? 0) -
+            child.layout.width) /
+            2 +
+          (ViewManager.isRTL() ? parent.config.padding?.end ?? 0 : parent.config.padding?.start ?? 0)
         break
       case Alignment.End:
         child.layout.x =
@@ -391,7 +427,14 @@ export class LayoutManager {
   private alignVertically(child: RenderNode, parent: RenderNode, alignment?: Alignment) {
     switch (alignment ?? parent.config.alignment) {
       case Alignment.Center:
-        child.layout.y = parent.layout.y + (parent.layout.height - child.layout.height) / 2
+        child.layout.y =
+          parent.layout.y +
+          (parent.layout.height -
+            (parent.config.padding?.top ?? 0) -
+            (parent.config.padding?.bottom ?? 0) -
+            child.layout.height) /
+            2 +
+          (parent.config.padding?.top ?? 0)
         break
       case Alignment.End:
         child.layout.y =
