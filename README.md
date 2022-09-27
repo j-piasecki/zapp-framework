@@ -8,8 +8,8 @@
 Declarative framework for making ZeppOS apps with syntax inspired by Jetpack Compose and some React Native sprinkled in. I made this because I wanted an app that would show me real-time time table for exacly three bus stops and I didn't want to bother with the ZeppOS API 🙂. It came out great btw., here's how it looks:
 
 <p align="center">
-<img src="https://github.com/j-piasecki/zapp-framework/blob/main/assets/screenshot1.png?raw=true" width="240">
-<img src="https://github.com/j-piasecki/zapp-framework/blob/main/assets/screenshot2.png?raw=true" width="240">
+<img src="https://github.com/j-piasecki/zapp-framework/blob/main/assets/screenshot1.png?raw=true" width="300">
+<img src="https://github.com/j-piasecki/zapp-framework/blob/main/assets/screenshot2.png?raw=true" width="300">
 </p>
 
 ## What's inside?
