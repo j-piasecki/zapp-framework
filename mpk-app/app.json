@@ -12,7 +12,7 @@
     "vender": "zepp",
     "description": "empty app"
   },
-  "permissions": [],
+  "permissions": ["device:os.local_storage"],
   "runtime": {
     "apiVersion": {
       "compatible": "1.0.0",
@@ -45,6 +45,54 @@
         {
           "name": "gtr3-pro-meilin",
           "deviceSource": 6095106
+        },
+        {
+          "name": "gtr3",
+          "deviceSource": 226
+        },
+        {
+          "name": "gtr3-w",
+          "deviceSource": 227
+        },
+        {
+          "name": "gts3",
+          "deviceSource": 224
+        },
+        {
+          "name": "gts3-w",
+          "deviceSource": 225
+        },
+        {
+          "name": "trex2",
+          "deviceSource": 418
+        },
+        {
+          "name": "trex2-w",
+          "deviceSource": 419
+        },
+        {
+          "name": "gtr-4",
+          "deviceSource": 7930112
+        },
+        {
+          "name": "gtr-4-w",
+          "deviceSource": 7930113
+        },
+        {
+          "name": "gts-4",
+          "deviceSource": 7995648
+        },
+        {
+          "name": "gts-4-w",
+          "deviceSource": 7995649
+        },
+        {
+          "name": "gts-4-mini",
+          "deviceSource": 246
+        },
+        {
+          "name": "gts-4-mini-w",
+          "deviceSource": 247
         }
       ],
       "designWidth": 480

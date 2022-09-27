@@ -21,6 +21,7 @@ import {
   Arrangement,
   ImageConfig,
   Image,
+  ScreenShape,
 } from '@zapp/core'
 import { ActivityIndicator, ActivityIndicatorConfig, ButtonConfig, Text, Theme, Divider, DividerConfig } from '@zapp/ui'
 import { Clickable } from '../components/Clickable'
@@ -35,7 +36,12 @@ function StopEntry(stop) {
       Row(
         RowConfig(`${stop.name}#wrapper`)
           .fillWidth()
-          .padding(Zapp.screenWidth * 0.15, px(24), Zapp.screenWidth * 0.1, px(24)),
+          .padding(
+            Zapp.screenShape === ScreenShape.Round ? Zapp.screenWidth * 0.15 : px(16),
+            px(24),
+            Zapp.screenShape === ScreenShape.Round ? Zapp.screenWidth * 0.1 : px(16),
+            px(24)
+          ),
         () => {
           Text(TextConfig(`${stop.name}#name`).textSize(px(40)), stop.name)
         }
@@ -80,16 +86,21 @@ ScrollableScreen(Config('screen'), () => {
             ColumnConfig('header')
               .alignment(Alignment.Center)
               .arrangement(connected ? Arrangement.End : Arrangement.SpaceBetween)
-              .padding(Zapp.screenWidth * 0.2, px(8), Zapp.screenWidth * 0.2, px(8))
+              .padding(
+                Zapp.screenShape === ScreenShape.Round ? Zapp.screenWidth * 0.2 : px(24),
+                Zapp.screenShape === ScreenShape.Round ? px(8) : Zapp.screenHeight * 0.15,
+                Zapp.screenShape === ScreenShape.Round ? Zapp.screenWidth * 0.2 : px(24),
+                px(8)
+              )
               .fillWidth()
-              .height(Zapp.screenHeight * 0.35)
+              .height(Zapp.screenShape === ScreenShape.Round ? Zapp.screenHeight * 0.35 : Zapp.screenHeight * 0.4)
               .background(Theme.surface),
             () => {
               if (!connected) {
                 Image(ImageConfig('noConnection').width(32).height(32), 'no_connection.png')
               }
 
-              Text(TextConfig('header#text').alignment(Alignment.Center), getText('stopsHeader'))
+              Text(TextConfig('header#text').alignment(Alignment.Center).textSize(px(40)), getText('stopsHeader'))
             }
           )
 

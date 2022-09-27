@@ -56,12 +56,21 @@ async function fetchStopData(ctx, data) {
     ctx.response({ data: { error: true, code: 3, message: `${getText('ttssConnectionError')} (${response.status})` } })
     return
   }
-  const json = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
-  const result = json.actual.slice(0, 10).map((item) => {
-    return { relativeTime: item.actualRelativeTime, direction: item.direction, number: item.patternText, isLive: true }
-  })
+  try {
+    const json = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
+    const result = json.actual.slice(0, 10).map((item) => {
+      return {
+        relativeTime: item.actualRelativeTime,
+        direction: item.direction,
+        number: item.patternText,
+        isLive: true,
+      }
+    })
 
-  ctx.response({ data: result })
+    ctx.response({ data: result })
+  } catch (e) {
+    ctx.response({ data: { error: true, code: 4 } })
+  }
 }
 
 AppSideService({

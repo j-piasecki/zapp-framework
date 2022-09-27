@@ -17,6 +17,7 @@ import {
   Color,
   Arrangement,
   Navigator,
+  ScreenShape,
 } from '@zapp/core'
 import {
   ActivityIndicator,
@@ -144,12 +145,17 @@ ScrollableScreen(Config('screen'), (params) => {
           Stack(
             StackConfig('header')
               .alignment(StackAlignment.BottomCenter)
-              .padding(Zapp.screenWidth * 0.2, 0, Zapp.screenWidth * 0.2, px(8))
+              .padding(
+                Zapp.screenShape === ScreenShape.Round ? Zapp.screenWidth * 0.2 : px(24),
+                px(8),
+                Zapp.screenShape === ScreenShape.Round ? Zapp.screenWidth * 0.2 : px(24),
+                px(8)
+              )
               .fillWidth()
-              .height(Zapp.screenHeight * 0.35)
+              .height(Zapp.screenShape === ScreenShape.Round ? Zapp.screenHeight * 0.35 : Zapp.screenHeight * 0.4)
               .background(Theme.surface),
             () => {
-              Text(TextConfig('header#text'), params.name)
+              Text(TextConfig('header#text').alignment(Alignment.Center), params.name)
             }
           )
 
