@@ -10,6 +10,7 @@ import {
 } from '@zapp/core'
 import { tryUpdatingRememberedPagePositions } from './screens/ScreenPager.js'
 import { tryUpdatingRememberedScrollPositions } from './screens/ScrollableScreen.js'
+import { viewManagerInstance } from './WatchViewManager.js'
 
 export class ZappWatch extends ZappInterface {
   private timerRef: unknown
@@ -34,8 +35,12 @@ export class ZappWatch extends ZappInterface {
   }
 
   private update() {
-    tryUpdatingRememberedPagePositions()
-    tryUpdatingRememberedScrollPositions()
+    if (viewManagerInstance.isPaginated) {
+      tryUpdatingRememberedPagePositions()
+    }
+    if (viewManagerInstance.isFreeScrolling) {
+      tryUpdatingRememberedScrollPositions()
+    }
 
     PointerEventManager.processEvents()
     GlobalEventManager.tick()
