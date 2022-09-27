@@ -49,44 +49,35 @@ function NumberMarker(id, number, departed) {
   Stack(
     StackConfig(`${id}#border`)
       .alignment(StackAlignment.Center)
-      .borderWidth(1)
+      .borderWidth(2)
       .borderColor(color)
-      .cornerRadius(px(8))
+      .cornerRadius(px(12))
       .width(px(48)),
     () => {
-      Text(TextConfig(`${id}#text`).textColor(color).textSize(px(20)).offset(0, -px(2)), `${number}`)
+      Text(TextConfig(`${id}#text`).textColor(color).textSize(px(22)).offset(0, -px(2)), `${number}`)
     }
   )
 }
 
 function RouteInfo(index, route) {
-  Row(
-    RowConfig(`wrapper#${index}`)
-      .fillWidth()
-      .padding(0, px(12), Zapp.screenWidth * 0.1, px(16))
-      .alignment(Alignment.Center),
-    () => {
-      const departed = route.relativeTime < 0
-      const textColor = departed ? Theme.outline : Theme.onBackground
-      const secondaryColor = departed ? Color.shade(Theme.secondary, 0.25) : Theme.secondary
+  Row(RowConfig(`wrapper#${index}`).fillWidth().padding(0, px(12), px(16), px(16)).alignment(Alignment.Center), () => {
+    const departed = route.relativeTime < 0
+    const textColor = departed ? Theme.outline : Theme.onBackground
+    const secondaryColor = departed ? Color.shade(Theme.secondary, 0.25) : Theme.secondary
 
-      Stack(StackConfig(`stop#${index}#wrap`).fillWidth(0.25).alignment(StackAlignment.CenterEnd), () => {
-        Text(
-          TextConfig(`stop#${index}#time`).textSize(px(48)).textColor(textColor),
-          getDisplayedTime(route.relativeTime)
-        )
-      })
+    Stack(StackConfig(`stop#${index}#wrap`).fillWidth(0.25).alignment(StackAlignment.CenterEnd), () => {
+      Text(TextConfig(`stop#${index}#time`).textSize(px(52)).textColor(textColor), getDisplayedTime(route.relativeTime))
+    })
 
-      Column(ColumnConfig(`stop#${index}#column`).alignment(Alignment.Center).padding(0, px(12)), () => {
-        Text(TextConfig(`stop#${index}#unit`).textColor(secondaryColor).textSize(px(24)).offset(0, -px(4)), 'min')
-        NumberMarker(`stop#${index}#number`, route.number, departed)
-      })
+    Column(ColumnConfig(`stop#${index}#column`).alignment(Alignment.Center).padding(0, px(12)), () => {
+      Text(TextConfig(`stop#${index}#unit`).textColor(secondaryColor).textSize(px(26)).offset(0, -px(4)), 'min')
+      NumberMarker(`stop#${index}#number`, route.number, departed)
+    })
 
-      Stack(StackConfig('sdfsdf').weight(1), () => {
-        Text(TextConfig(`stop#${index}#direction`).textColor(textColor).textSize(px(26)), route.direction)
-      })
-    }
-  )
+    Stack(StackConfig('sdfsdf').weight(1), () => {
+      Text(TextConfig(`stop#${index}#direction`).textColor(textColor).textSize(px(28)), route.direction)
+    })
+  })
 }
 
 ScrollableScreen(Config('screen'), (params) => {
@@ -150,7 +141,7 @@ ScrollableScreen(Config('screen'), (params) => {
               .alignment(StackAlignment.BottomCenter)
               .padding(Zapp.screenWidth * 0.2, 0, Zapp.screenWidth * 0.2, px(8))
               .fillWidth()
-              .height(Zapp.screenHeight * 0.4)
+              .height(Zapp.screenHeight * 0.35)
               .background(Theme.surface),
             () => {
               Text(TextConfig('header#text'), params.name)

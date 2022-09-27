@@ -20,14 +20,16 @@ async function fetchStopData(ctx, data) {
     })
 
     if (response.status !== 200) {
-      ctx.response({ data: { error: true, code: 1 } })
+      ctx.response({
+        data: { error: true, code: 1, message: `Błąd z połączeniem do systemu TTSS (${response.status})` },
+      })
       return
     }
 
     const route = JSON.parse(response.body)
 
     if (!Array.isArray(route) || route.length < 2) {
-      ctx.response({ data: { error: true, code: 2 } })
+      ctx.response({ data: { error: true, code: 2, message: 'Niepoprawna nazwa przystanku' } })
     } else {
       const stopInfo = route.splice(1).sort((a, b) => a.name.length - b.name.length)[0]
       data.id = stopInfo.id
@@ -49,7 +51,7 @@ async function fetchStopData(ctx, data) {
   })
 
   if (response.status !== 200) {
-    ctx.response({ data: { error: true, code: 3 } })
+    ctx.response({ data: { error: true, code: 3, message: `Błąd z połączeniem do systemu TTSS (${response.status})` } })
     return
   }
   const json = typeof response.body === 'string' ? JSON.parse(response.body) : response.body

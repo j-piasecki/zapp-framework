@@ -67,7 +67,7 @@ AppSettingsPage({
                   maxLength: 200,
                   onChange: (val) => {
                     if (val.length > 0 && val.length <= 200) {
-                      item.name = val
+                      item.name = val.trim()
                       item.id = undefined
                       props.settingsStorage.setItem('stops', JSON.stringify(stops))
                     }

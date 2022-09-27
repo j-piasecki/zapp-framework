@@ -83,12 +83,13 @@ ScrollableScreen(Config('screen'), () => {
               .arrangement(connected ? Arrangement.End : Arrangement.SpaceBetween)
               .padding(Zapp.screenWidth * 0.2, px(8), Zapp.screenWidth * 0.2, px(8))
               .fillWidth()
-              .height(Zapp.screenHeight * 0.4)
+              .height(Zapp.screenHeight * 0.35)
               .background(Theme.surface),
             () => {
               if (!connected) {
                 Image(ImageConfig('noConnection').width(32).height(32), 'no_connection.png')
               }
+
               Text(TextConfig('header#text').alignment(Alignment.Center), 'Przystanki')
             }
           )
