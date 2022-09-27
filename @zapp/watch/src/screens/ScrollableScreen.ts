@@ -1,19 +1,14 @@
-import { ScreenBody, ConfigBuilderArg, RememberedMutableValue, rememberObservable, Config, Stack } from '@zapp/core'
+import { ScreenBody, ConfigBuilder, RememberedMutableValue, rememberObservable, PointerEventManager } from '@zapp/core'
 import { PageWrapper } from './PageWrapper.js'
 import { viewManagerInstance } from './../WatchViewManager.js'
+import { navigatorInstance } from '../Navigator.js'
 
-let rememberedScroll: RememberedMutableValue<number> | undefined = undefined
 let rememberedValues: RememberedMutableValue<number>[] = []
+let previousScroll = 0
 
-export function ScrollableScreen(configBuilder: ConfigBuilderArg, body?: (params?: Record<string, unknown>) => void) {
+export function ScrollableScreen(configBuilder: ConfigBuilder, body?: (params?: Record<string, unknown>) => void) {
   PageWrapper({
     build: (params) => {
-      Stack(Config('rememberedScrollPosition'), () => {
-        rememberedScroll = rememberObservable(-hmApp.getLayerY(), undefined, (restored) => {
-          hmApp.setLayerY(-restored)
-        })
-      })
-
       ScreenBody(configBuilder, () => {
         body?.(params)
       })
@@ -24,16 +19,20 @@ export function ScrollableScreen(configBuilder: ConfigBuilderArg, body?: (params
       viewManagerInstance.setFreeScrolling()
     },
     destroy: () => {
-      rememberedScroll = undefined
       rememberedValues = []
+    },
+
+    restoreState: (scrollPosition: number) => {
+      hmApp.setLayerY(-scrollPosition)
     },
   })
 }
 
 export function tryUpdatingRememberedScrollPositions() {
   const currentScroll = -hmApp.getLayerY()
-  if (rememberedScroll !== undefined) {
-    rememberedScroll.value = currentScroll
+  if (previousScroll !== currentScroll) {
+    navigatorInstance.saveScreenState(currentScroll)
+    PointerEventManager.cancelPointers()
   }
 
   let needsClear = false
@@ -48,6 +47,8 @@ export function tryUpdatingRememberedScrollPositions() {
     // @ts-ignore that's private in the core package
     rememberedValues = rememberedValues.filter((v) => !v.context.isDropped)
   }
+
+  previousScroll = currentScroll
 }
 
 export function rememberScrollPosition(): RememberedMutableValue<number> {

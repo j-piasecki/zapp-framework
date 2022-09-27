@@ -22,10 +22,13 @@ function mapGesture(gesture: unknown): GestureType {
   }
 }
 
+let restoredState: unknown = null
+
 export function PageWrapper(lifecycle: {
   build: (params: Record<string, unknown>) => void
   initialize?: () => void
   destroy?: () => void
+  restoreState?: (state: unknown) => void
 }) {
   Page({
     onInit(params) {
@@ -35,8 +38,11 @@ export function PageWrapper(lifecycle: {
 
       const navigatorData = getApp()._options.globalData._navigator
       if (navigatorData.shouldRestore as boolean) {
+        const state = navigatorData.savedStates.pop()
         navigatorData.shouldRestore = false
-        WorkingTree.restoreState(navigatorData.savedStates.pop())
+        WorkingTree.restoreState(state.treeState)
+
+        restoredState = state.screenState
       }
 
       hmApp.registerGestureEvent(function (event: unknown) {
@@ -93,6 +99,10 @@ export function PageWrapper(lifecycle: {
       lifecycle.initialize?.()
     },
     build() {
+      if (restoredState !== null) {
+        lifecycle.restoreState?.(restoredState)
+        restoredState = null
+      }
       lifecycle.build(this.receivedParams)
     },
     onDestroy() {
