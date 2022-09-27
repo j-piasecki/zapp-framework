@@ -29,7 +29,9 @@ async function fetchStopData(ctx, data) {
     if (!Array.isArray(route) || route.length < 2) {
       ctx.response({ data: { error: true, code: 2 } })
     } else {
-      data.id = route[1].id
+      const stopInfo = route.splice(1).sort((a, b) => a.name.length - b.name.length)[0]
+      data.id = stopInfo.id
+      data.name = stopInfo.name
       const stops = getStops()
       for (let i = 0; i < stops.length; i++) {
         if (stops[i].name === data.name) {

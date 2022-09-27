@@ -1,4 +1,4 @@
-import { ScrollableScreen } from '@zapp/watch'
+import { rememberSaveable, ScrollableScreen } from '@zapp/watch'
 import {
   Config,
   Column,
@@ -40,19 +40,19 @@ function StopEntry(stop) {
 }
 
 ScrollableScreen(Config('screen'), () => {
-  const availableStops = remember(null)
+  const availableStops = rememberSaveable('followedStops', null)
 
   sideEffect((restoring) => {
-    // if (!restoring) {
-    //   Zapp.getValue('message')
-    //     .request({
-    //       method: 'GET_STOPS',
-    //     })
-    //     .then((data) => {
-    //       availableStops.value = data
-    //     })
-    // }
-    availableStops.value = [{ name: 'Test' }]
+    if (!restoring) {
+      Zapp.getValue('message')
+        .request({
+          method: 'GET_STOPS',
+        })
+        .then((data) => {
+          availableStops.value = data
+        })
+    }
+    // availableStops.value = [{ name: 'Test' }]
   })
 
   Column(ColumnConfig('column').fillWidth().alignment(Alignment.Center).background(Theme.background), () => {
@@ -70,10 +70,22 @@ ScrollableScreen(Config('screen'), () => {
     } else {
       Column(
         ColumnConfig('stopsWrapper')
-          .padding(Zapp.screenHeight * 0.35, 0)
+          .padding(0, 0, 0, Zapp.screenHeight * 0.35)
           .fillWidth()
           .alignment(Alignment.Center),
         () => {
+          Stack(
+            StackConfig('header')
+              .alignment(StackAlignment.BottomCenter)
+              .padding(Zapp.screenWidth * 0.2, 0, Zapp.screenWidth * 0.2, px(8))
+              .fillWidth()
+              .height(Zapp.screenHeight * 0.4)
+              .background(Theme.surface),
+            () => {
+              Text(TextConfig('header#text'), 'Obserwowane przystanki')
+            }
+          )
+
           for (let i = 0; i < availableStops.value.length; i++) {
             const stop = availableStops.value[i]
 
