@@ -1,4 +1,4 @@
-import { TextConfigBuilder, BareText } from '@zapp/core'
+import { TextConfig, BareText } from '@zapp/core'
 import { Theme } from './Theme.js'
 
 const nextColors: number[] = []
@@ -6,7 +6,7 @@ const nextFontSizes: number[] = []
 
 const DEFAULT_TEXT_SIZE = 32
 
-export function Text(config: TextConfigBuilder, text: string) {
+export function Text(config: ReturnType<typeof TextConfig>, text: string) {
   const rawConfig = config.build()
 
   const nextColor = nextColors[nextColors.length - 1]

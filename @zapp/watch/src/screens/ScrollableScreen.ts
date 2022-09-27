@@ -1,6 +1,6 @@
 import {
   ScreenBody,
-  ConfigBuilderArg,
+  ConfigBuilder,
   RememberedMutableValue,
   rememberObservable,
   Config,
@@ -14,7 +14,7 @@ let rememberedScroll: RememberedMutableValue<number> | undefined = undefined
 let rememberedValues: RememberedMutableValue<number>[] = []
 let previousScroll = 0
 
-export function ScrollableScreen(configBuilder: ConfigBuilderArg, body?: (params?: Record<string, unknown>) => void) {
+export function ScrollableScreen(configBuilder: ConfigBuilder, body?: (params?: Record<string, unknown>) => void) {
   PageWrapper({
     build: (params) => {
       Stack(Config('rememberedScrollPosition'), () => {
