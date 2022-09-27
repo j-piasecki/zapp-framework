@@ -38,6 +38,14 @@ export class WatchViewManager extends ViewManagerInterface {
     this.pageScrollingEnabled = false
   }
 
+  get isFreeScrolling() {
+    return this.freeScrollingEnabled
+  }
+
+  get isPaginated() {
+    return this.pageScrollingEnabled
+  }
+
   get screenWidth() {
     return DEVICE_WIDTH
   }
