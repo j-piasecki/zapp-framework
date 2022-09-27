@@ -2,7 +2,7 @@
   "configVersion": "v2",
   "app": {
     "appId": 23920,
-    "appName": "MPK Kraków",
+    "appName": "TTSS Kraków",
     "appType": "app",
     "version": {
       "code": 1,
@@ -21,7 +21,7 @@
     }
   },
   "targets": {
-    "480x480-gtr-3-pro": {
+    "shared": {
       "module": {
         "page": {
           "pages": ["page/index", "page/stop"]
@@ -52,7 +52,7 @@
   },
   "i18n": {
     "en-US": {
-      "appName": "MPK Kraków"
+      "appName": "TTSS Kraków"
     }
   },
   "defaultLanguage": "en-US"

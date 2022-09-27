@@ -1,3 +1,4 @@
+import { gettext as getText } from 'i18n'
 import { MessageBuilder } from '../shared/message'
 import { REQUEST_STOPS_LIST, REQUEST_STOP_DEPARTURES } from '../shared/const'
 
@@ -22,7 +23,7 @@ async function fetchStopData(ctx, data) {
 
     if (response.status !== 200) {
       ctx.response({
-        data: { error: true, code: 1, message: `Błąd z połączeniem do systemu TTSS (${response.status})` },
+        data: { error: true, code: 1, message: `${getText('ttssConnectionError')} (${response.status})` },
       })
       return
     }
@@ -30,7 +31,7 @@ async function fetchStopData(ctx, data) {
     const route = JSON.parse(response.body)
 
     if (!Array.isArray(route) || route.length < 2) {
-      ctx.response({ data: { error: true, code: 2, message: 'Niepoprawna nazwa przystanku' } })
+      ctx.response({ data: { error: true, code: 2, message: getText('incorrectStopName') } })
     } else {
       const stopInfo = route.splice(1).sort((a, b) => a.name.length - b.name.length)[0]
       data.id = stopInfo.id
@@ -52,7 +53,7 @@ async function fetchStopData(ctx, data) {
   })
 
   if (response.status !== 200) {
-    ctx.response({ data: { error: true, code: 3, message: `Błąd z połączeniem do systemu TTSS (${response.status})` } })
+    ctx.response({ data: { error: true, code: 3, message: `${getText('ttssConnectionError')} (${response.status})` } })
     return
   }
   const json = typeof response.body === 'string' ? JSON.parse(response.body) : response.body

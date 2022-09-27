@@ -1,0 +1,4 @@
+msgid "incorrectStopName"
+msgstr "Niepoprawna nazwa przystanku"
+msgid "ttssConnectionError"
+msgstr "Błąd z połączeniem do systemu TTSS"

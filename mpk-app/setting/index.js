@@ -1,4 +1,4 @@
-import { gettext } from 'i18n'
+import { gettext as getText } from 'i18n'
 
 AppSettingsPage({
   build(props) {
@@ -7,21 +7,22 @@ AppSettingsPage({
     const addBTN = View(
       {
         style: {
-          fontSize: '12px',
+          fontSize: '16px',
           lineHeight: '30px',
           borderRadius: '30px',
-          background: '#409EFF',
+          background: '#650033',
           color: 'white',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           padding: '0 15px',
           width: '100%',
+          height: '48px',
         },
       },
       [
         TextInput({
-          label: 'Add new stop',
+          label: getText('addStop'),
           onChange: (val) => {
             stops.push({ name: val })
 
@@ -38,7 +39,7 @@ AppSettingsPage({
         View(
           {
             style: {
-              borderBottom: '1px solid #eaeaea',
+              borderBottom: '1px solid #e3bdc6',
               padding: '6px 0',
               marginBottom: '6px',
               display: 'flex',
@@ -80,7 +81,7 @@ AppSettingsPage({
               style: {
                 fontSize: '16px',
                 borderRadius: '30px',
-                background: '#D85E33',
+                background: '#93000a',
                 color: 'white',
               },
               onClick: () => {
@@ -107,7 +108,7 @@ AppSettingsPage({
               style: {
                 marginTop: '12px',
                 padding: '10px',
-                border: '1px solid #eaeaea',
+                border: '1px solid #ffd9e2',
                 borderRadius: '6px',
                 backgroundColor: 'white',
               },

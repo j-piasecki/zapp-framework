@@ -1,3 +1,4 @@
+import { gettext as getText } from 'i18n'
 import { ScrollableScreen } from '@zapp/watch'
 import {
   Config,
@@ -67,7 +68,10 @@ function RouteInfo(index, route) {
     })
 
     Column(ColumnConfig(`stop#${index}#column`).alignment(Alignment.Center).padding(0, px(12)), () => {
-      Text(TextConfig(`stop#${index}#unit`).textColor(secondaryColor).textSize(px(26)).offset(0, -px(4)), 'min')
+      Text(
+        TextConfig(`stop#${index}#unit`).textColor(secondaryColor).textSize(px(26)).offset(0, -px(4)),
+        getText('minuteUnit')
+      )
       NumberMarker(`stop#${index}#number`, route.number, departed)
     })
 
@@ -96,7 +100,7 @@ ScrollableScreen(Config('screen'), (params) => {
             departuresToRenderCount.value = Math.min(4, data.length)
           })
       } else {
-        departures.value = { error: true, code: -1, message: 'Brak połączenia z telefonem' }
+        departures.value = { error: true, code: -1, message: getText('noConnection') }
       }
     }
   })
@@ -116,7 +120,7 @@ ScrollableScreen(Config('screen'), (params) => {
         () => {
           Text(
             TextConfig('errorText').textColor(Theme.error).alignment(Alignment.Center),
-            departures.value.message ?? `Wystąpił błąd (${departures.value.code})`
+            departures.value.message ?? `${getText('error')} (${departures.value.code})`
           )
 
           Stack(Config('spacer').height(px(24)))
@@ -126,7 +130,7 @@ ScrollableScreen(Config('screen'), (params) => {
               Navigator.goBack()
             }),
             () => {
-              Text(TextConfig('okText'), 'Ok')
+              Text(TextConfig('okText'), getText('ok'))
             }
           )
         }
@@ -155,7 +159,7 @@ ScrollableScreen(Config('screen'), (params) => {
               () => {
                 Text(
                   TextConfig('noResultText').textColor(Theme.outline).alignment(Alignment.Center),
-                  'Brak odjazdów w najbliższym czasie'
+                  getText('noDepartures')
                 )
               }
             )

@@ -1,3 +1,4 @@
+import { gettext as getText } from 'i18n'
 import { rememberSaveable, ScrollableScreen } from '@zapp/watch'
 import {
   Config,
@@ -34,9 +35,9 @@ function StopEntry(stop) {
       Row(
         RowConfig(`${stop.name}#wrapper`)
           .fillWidth()
-          .padding(px(Zapp.screenWidth * 0.2), px(24), px(16), px(24)),
+          .padding(Zapp.screenWidth * 0.15, px(24), Zapp.screenWidth * 0.1, px(24)),
         () => {
-          Text(TextConfig(`${stop.name}#name`), stop.name)
+          Text(TextConfig(`${stop.name}#name`).textSize(px(40)), stop.name)
         }
       )
     }
@@ -65,10 +66,7 @@ ScrollableScreen(Config('screen'), () => {
       })
     } else if (availableStops.value.length === 0) {
       Stack(StackConfig('noStopsWrapper').fillHeight().fillWidth(0.7).alignment(StackAlignment.Center), () => {
-        Text(
-          TextConfig('noStopsText').textColor(Theme.outline).alignment(Alignment.Center),
-          'Dodaj przystanki w ustawieniach'
-        )
+        Text(TextConfig('noStopsText').textColor(Theme.outline).alignment(Alignment.Center), getText('noStops'))
       })
     } else {
       const connected = hmBle.connectStatus()
@@ -91,7 +89,7 @@ ScrollableScreen(Config('screen'), () => {
                 Image(ImageConfig('noConnection').width(32).height(32), 'no_connection.png')
               }
 
-              Text(TextConfig('header#text').alignment(Alignment.Center), 'Przystanki')
+              Text(TextConfig('header#text').alignment(Alignment.Center), getText('stopsHeader'))
             }
           )
 
