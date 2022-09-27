@@ -51,9 +51,9 @@ function NumberMarker(id, number, departed) {
       .borderWidth(2)
       .borderColor(color)
       .cornerRadius(px(12))
-      .width(px(48)),
+      .width(px(52)),
     () => {
-      Text(TextConfig(`${id}#text`).textColor(color).textSize(px(22)).offset(0, -px(2)), `${number}`)
+      Text(TextConfig(`${id}#text`).textColor(color).textSize(px(26)).offset(px(1), -px(2)), `${number}`)
     }
   )
 }
@@ -65,12 +65,12 @@ function RouteInfo(index, route) {
     const secondaryColor = departed ? Color.shade(Theme.secondary, 0.25) : Theme.secondary
 
     Stack(StackConfig(`stop#${index}#wrap`).fillWidth(0.25).alignment(StackAlignment.CenterEnd), () => {
-      Text(TextConfig(`stop#${index}#time`).textSize(px(52)).textColor(textColor), getDisplayedTime(route.relativeTime))
+      Text(TextConfig(`stop#${index}#time`).textSize(px(66)).textColor(textColor), getDisplayedTime(route.relativeTime))
     })
 
     Column(ColumnConfig(`stop#${index}#column`).alignment(Alignment.Center).padding(0, px(12)), () => {
       Text(
-        TextConfig(`stop#${index}#unit`).textColor(secondaryColor).textSize(px(26)).offset(0, -px(4)),
+        TextConfig(`stop#${index}#unit`).textColor(secondaryColor).textSize(px(22)).offset(0, -px(4)),
         getText('minuteUnit')
       )
       NumberMarker(`stop#${index}#number`, route.number, departed)
