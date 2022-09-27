@@ -5,6 +5,7 @@ import {
   PointerData,
   PointerEventType,
   PointerEventManager,
+  Alignment,
 } from '@zapp/core'
 import { Direction } from './types.js'
 
@@ -97,6 +98,14 @@ export class WatchViewManager extends ViewManagerInterface {
       viewHolder = { view: node.customViewProps.createView(node) }
     } else {
       if (node.type === NodeType.Text) {
+        let alignH = this.isRTL() ? hmUI.align.RIGHT : hmUI.align.LEFT
+
+        if (node.config.alignment === Alignment.Center) {
+          alignH = hmUI.align.CENTER_H
+        } else if (node.config.alignment === Alignment.End) {
+          alignH = this.isRTL() ? hmUI.align.LEFT : hmUI.align.RIGHT
+        }
+
         viewHolder = {
           view: hmUI.createWidget(hmUI.widget.TEXT, {
             x: node.layout.x,
@@ -105,8 +114,8 @@ export class WatchViewManager extends ViewManagerInterface {
             h: node.layout.height,
             color: node.config.textColor,
             text_size: node.config.textSize,
-            align_h: hmUI.align.TOP,
-            align_v: hmUI.align.LEFT,
+            align_h: alignH,
+            align_v: hmUI.align.TOP,
             text_style: hmUI.text_style.WRAP,
             text: node.config.text,
           }),
@@ -218,6 +227,14 @@ export class WatchViewManager extends ViewManagerInterface {
     if (next.customViewProps?.updateView !== undefined) {
       next.customViewProps.updateView(previous, next, viewHolder.view)
     } else if (next.type === NodeType.Text) {
+      let alignH = this.isRTL() ? hmUI.align.RIGHT : hmUI.align.LEFT
+
+      if (next.config.alignment === Alignment.Center) {
+        alignH = hmUI.align.CENTER_H
+      } else if (next.config.alignment === Alignment.End) {
+        alignH = this.isRTL() ? hmUI.align.LEFT : hmUI.align.RIGHT
+      }
+
       viewHolder.view.setProperty(hmUI.prop.MORE, {
         x: next.layout.x,
         y: next.layout.y,
@@ -225,8 +242,8 @@ export class WatchViewManager extends ViewManagerInterface {
         h: next.layout.height,
         color: next.config.textColor,
         text_size: next.config.textSize,
-        align_h: hmUI.align.TOP,
-        align_v: hmUI.align.LEFT,
+        align_h: alignH,
+        align_v: hmUI.align.TOP,
         text_style: hmUI.text_style.WRAP,
         text: next.config.text,
       })

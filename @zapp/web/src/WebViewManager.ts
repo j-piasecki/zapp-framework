@@ -5,6 +5,7 @@ import {
   PointerData,
   PointerEventType,
   PointerEventManager,
+  Alignment,
 } from '@zapp/core'
 
 const SVG_NS = 'http://www.w3.org/2000/svg'
@@ -132,6 +133,17 @@ export class WebViewManager extends ViewManagerInterface {
       if (node.config.textColor !== undefined) {
         view.style.color = this.colorToRGBA(node.config.textColor)
       }
+      switch (node.config.alignment) {
+        case Alignment.Center:
+          view.style.textAlign = 'center'
+          break
+        case Alignment.End:
+          view.style.textAlign = this.isRTL() ? 'left' : 'right'
+          break
+        default:
+          view.style.textAlign = this.isRTL() ? 'right' : 'left'
+          break
+      }
     } else if (node.type === NodeType.Image) {
       view.style.overflow = 'hidden'
       const imageView = document.createElement('div')
@@ -237,6 +249,17 @@ export class WebViewManager extends ViewManagerInterface {
       }
       if (next.config.textColor !== undefined) {
         view.style.color = this.colorToRGBA(next.config.textColor)
+      }
+      switch (next.config.alignment) {
+        case Alignment.Center:
+          view.style.textAlign = 'center'
+          break
+        case Alignment.End:
+          view.style.textAlign = this.isRTL() ? 'left' : 'right'
+          break
+        default:
+          view.style.textAlign = this.isRTL() ? 'right' : 'left'
+          break
       }
     } else if (next.type === NodeType.Image) {
       const imageView = view.childNodes[0] as HTMLElement
