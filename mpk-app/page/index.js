@@ -23,6 +23,7 @@ import {
 } from '@zapp/core'
 import { ActivityIndicator, ActivityIndicatorConfig, ButtonConfig, Text, Theme, Divider, DividerConfig } from '@zapp/ui'
 import { Clickable } from '../components/Clickable'
+import { REQUEST_STOPS_LIST } from '../shared/const'
 
 function StopEntry(stop) {
   Clickable(
@@ -49,7 +50,7 @@ ScrollableScreen(Config('screen'), () => {
     if (!restoring) {
       Zapp.getValue('message')
         .request({
-          method: 'GET_STOPS',
+          method: REQUEST_STOPS_LIST,
         })
         .then((data) => {
           availableStops.value = data

@@ -4,14 +4,11 @@ import {
   Column,
   ColumnConfig,
   remember,
-  ArcConfig,
   Stack,
   StackConfig,
   StackAlignment,
   sideEffect,
   Zapp,
-  SimpleScreen,
-  withTiming,
   TextConfig,
   Alignment,
   Row,
@@ -30,7 +27,7 @@ import {
   Text,
   Theme,
 } from '@zapp/ui'
-import { Clickable } from '../components/Clickable'
+import { REQUEST_STOP_DEPARTURES } from '../shared/const'
 
 function getDisplayedTime(time) {
   const minutes = Math.floor(time / 60)
@@ -81,31 +78,35 @@ function RouteInfo(index, route) {
 }
 
 ScrollableScreen(Config('screen'), (params) => {
-  const stopInfo = remember(null)
+  const departures = remember(null)
+  const departuresToRenderCount = remember(0)
 
   sideEffect((restoring) => {
     if (!restoring) {
       if (hmBle.connectStatus()) {
         Zapp.getValue('message')
           .request({
-            method: 'GET_STOP_DATA',
+            method: REQUEST_STOP_DEPARTURES,
             data: params,
           })
           .then((data) => {
-            stopInfo.value = data
+            departures.value = data
+
+            // render only 4 entries at first so it's quicker
+            departuresToRenderCount.value = Math.min(4, data.length)
           })
       } else {
-        stopInfo.value = { error: true, code: -1, message: 'Brak połączenia z telefonem' }
+        departures.value = { error: true, code: -1, message: 'Brak połączenia z telefonem' }
       }
     }
   })
 
   Column(ColumnConfig('column').fillWidth().alignment(Alignment.Center).background(Theme.background), () => {
-    if (stopInfo.value === null) {
+    if (departures.value === null) {
       Stack(StackConfig('loadingWrapper').fillSize().positionAbsolutely(true).alignment(StackAlignment.Center), () => {
         ActivityIndicator(ActivityIndicatorConfig('loading'))
       })
-    } else if (stopInfo.value.error) {
+    } else if (departures.value.error) {
       Column(
         ColumnConfig('errorWrapper')
           .fillHeight()
@@ -115,7 +116,7 @@ ScrollableScreen(Config('screen'), (params) => {
         () => {
           Text(
             TextConfig('errorText').textColor(Theme.error).alignment(Alignment.Center),
-            stopInfo.value.message ?? `Wystąpił błąd (${stopInfo.value.code})`
+            departures.value.message ?? `Wystąpił błąd (${departures.value.code})`
           )
 
           Stack(Config('spacer').height(px(24)))
@@ -148,7 +149,7 @@ ScrollableScreen(Config('screen'), (params) => {
             }
           )
 
-          if (stopInfo.value.length === 0) {
+          if (departures.value.length === 0) {
             Stack(
               StackConfig('noResultTextWrapper').offset(0, px(24)).fillWidth(0.7).alignment(StackAlignment.Center),
               () => {
@@ -159,16 +160,21 @@ ScrollableScreen(Config('screen'), (params) => {
               }
             )
           } else {
-            for (let i = 0; i < stopInfo.value.length; i++) {
-              const item = stopInfo.value[i]
+            for (let i = 0; i < departuresToRenderCount.value; i++) {
+              const item = departures.value[i]
 
               RouteInfo(i, item)
 
-              if (i < stopInfo.value.length - 1) {
+              if (i < departuresToRenderCount.value - 1) {
                 Divider(DividerConfig(`divider#${i}`).fillWidth(0.8))
               }
             }
           }
+
+          sideEffect(() => {
+            // after first render, all
+            departuresToRenderCount.value = departures.value.length
+          })
         }
       )
     }

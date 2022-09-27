@@ -1,4 +1,5 @@
 import { MessageBuilder } from '../shared/message'
+import { REQUEST_STOPS_LIST, REQUEST_STOP_DEPARTURES } from '../shared/const'
 
 const messageBuilder = new MessageBuilder()
 
@@ -68,9 +69,9 @@ AppSideService({
 
     messageBuilder.on('request', (ctx) => {
       const jsonRpc = messageBuilder.buf2Json(ctx.request.payload)
-      if (jsonRpc.method === 'GET_STOPS') {
+      if (jsonRpc.method === REQUEST_STOPS_LIST) {
         ctx.response({ data: getStops() })
-      } else if (jsonRpc.method === 'GET_STOP_DATA') {
+      } else if (jsonRpc.method === REQUEST_STOP_DEPARTURES) {
         fetchStopData(ctx, jsonRpc.data)
       }
     })
