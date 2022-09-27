@@ -6,40 +6,56 @@ function getStops() {
   return settings.settingsStorage.getItem('stops') ? JSON.parse(settings.settingsStorage.getItem('stops')) : []
 }
 
-const fetchData = async (ctx) => {
-  try {
-    // Requesting network data using the fetch API
-    // The sample program is for simulation only and does not request real network data, so it is commented here
-    // Example of a GET method request
-    // const { body: { data = {} } = {} } = await fetch({
-    //   url: 'https://xxx.com/api/xxx',
-    //   method: 'GET'
-    // })
-    // Example of a POST method request
-    // const { body: { data = {} } = {} } = await fetch({
-    //   url: 'https://xxx.com/api/xxx',
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     text: 'Hello Zepp OS'
-    //   })
-    // })
+function saveStops(stops) {
+  settings.settingsStorage.setItem('stops', JSON.stringify(stops))
+}
 
-    // A network request is simulated here
-    const data = {
-      text: 'test',
+async function fetchStopData(ctx, data) {
+  if (data.id === undefined) {
+    const response = await fetch({
+      url:
+        'http://www.ttss.krakow.pl/internetservice/services/lookup/autocomplete/json?query=' +
+        encodeURIComponent(data.name),
+      method: 'GET',
+    })
+
+    if (response.status !== 200) {
+      ctx.response({ data: { error: true, code: 1 } })
+      return
     }
 
-    ctx.response({
-      data: { result: data },
-    })
-  } catch (error) {
-    ctx.response({
-      data: { result: 'ERROR' },
-    })
+    const route = JSON.parse(response.body)
+
+    if (!Array.isArray(route) || route.length < 2) {
+      ctx.response({ data: { error: true, code: 2 } })
+    } else {
+      data.id = route[1].id
+      const stops = getStops()
+      for (let i = 0; i < stops.length; i++) {
+        if (stops[i].name === data.name) {
+          stops[i].id = data.id
+          break
+        }
+      }
+      saveStops(stops)
+    }
   }
+
+  const response = await fetch({
+    url: `http://www.ttss.krakow.pl/internetservice/services/passageInfo/stopPassages/stop?stop=${data.id}&mode=departure`,
+    method: 'GET',
+  })
+
+  if (response.status !== 200) {
+    ctx.response({ data: { error: true, code: 3 } })
+    return
+  }
+  const json = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
+  const result = json.actual.slice(0, 10).map((item) => {
+    return { relativeTime: item.actualRelativeTime, direction: item.direction, number: item.patternText, isLive: true }
+  })
+
+  ctx.response({ data: result })
 }
 
 AppSideService({
@@ -50,6 +66,8 @@ AppSideService({
       const jsonRpc = messageBuilder.buf2Json(ctx.request.payload)
       if (jsonRpc.method === 'GET_STOPS') {
         ctx.response({ data: getStops() })
+      } else if (jsonRpc.method === 'GET_STOP_DATA') {
+        fetchStopData(ctx, jsonRpc.data)
       }
     })
   },

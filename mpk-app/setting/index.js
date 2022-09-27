@@ -16,6 +16,7 @@ AppSettingsPage({
           justifyContent: 'center',
           alignItems: 'center',
           padding: '0 15px',
+          width: '100%',
         },
       },
       [
@@ -67,6 +68,7 @@ AppSettingsPage({
                   onChange: (val) => {
                     if (val.length > 0 && val.length <= 200) {
                       item.name = val
+                      item.id = undefined
                       props.settingsStorage.setItem('stops', JSON.stringify(stops))
                     }
                   },

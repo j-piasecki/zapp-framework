@@ -11,5 +11,10 @@ Application({
   onInit() {
     setTheme()
     Zapp.setValue('message', messageBuilder)
+
+    messageBuilder.connect()
+  },
+  onDestroy() {
+    messageBuilder.disConnect()
   },
 })

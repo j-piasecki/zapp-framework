@@ -2,7 +2,7 @@
   "configVersion": "v2",
   "app": {
     "appId": 23920,
-    "appName": "Empty",
+    "appName": "MPK Kraków",
     "appType": "app",
     "version": {
       "code": 1,
@@ -24,9 +24,7 @@
     "480x480-gtr-3-pro": {
       "module": {
         "page": {
-          "pages": [
-            "page/index"
-          ]
+          "pages": ["page/index", "page/stop"]
         },
         "app-side": {
           "path": "app-side/index"
@@ -54,7 +52,7 @@
   },
   "i18n": {
     "en-US": {
-      "appName": "Empty"
+      "appName": "MPK Kraków"
     }
   },
   "defaultLanguage": "en-US"
