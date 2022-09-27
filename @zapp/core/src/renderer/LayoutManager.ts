@@ -69,17 +69,8 @@ export class LayoutManager {
         node.layout.width = node.config.width + totalBorderWidth
       } else if (node.config.fillWidth !== undefined) {
         if (parent!.layout.width !== -1) {
-          if (parent!.layout.widthInferred) {
-            // if parent width is inferred from children, it only takes explicitly sized nodes under consideration
-            // in that case we want this node to fill availableWidth - width of explicitly sized nodes
-            // which in this situation is the inferred width of the parent
-            node.layout.width =
-              node.config.fillWidth *
-              (availableWidth - parent!.layout.width - parentHorizontalPadding - totalBorderWidth)
-          } else {
-            node.layout.width =
-              node.config.fillWidth * (parent!.layout.width - parentHorizontalPadding - totalBorderWidth)
-          }
+          const widthToFill = parent!.layout.widthInferred ? availableWidth : parent!.layout.width
+          node.layout.width = node.config.fillWidth * (widthToFill - parentHorizontalPadding - totalBorderWidth)
         } else if (recalculating === true && availableWidth !== -1) {
           node.layout.width = node.config.fillWidth * availableWidth
         }
@@ -89,17 +80,8 @@ export class LayoutManager {
         node.layout.height = node.config.height + totalBorderWidth
       } else if (node.config.fillHeight !== undefined) {
         if (parent!.layout.height !== -1) {
-          if (parent!.layout.heightInferred) {
-            // if parent height is inferred from children, it only takes explicitly sized nodes under consideration
-            // in that case we want this node to fill availableHeight - height of explicitly sized nodes
-            // which in this situation is the inferred height of the parent
-            node.layout.height =
-              node.config.fillHeight *
-              (availableHeight - parent!.layout.height - parentVerticalPadding - totalBorderWidth)
-          } else {
-            node.layout.height =
-              node.config.fillHeight * (parent!.layout.height - parentVerticalPadding - totalBorderWidth)
-          }
+          const heightToFill = parent!.layout.heightInferred ? availableHeight : parent!.layout.height
+          node.layout.height = node.config.fillHeight * (heightToFill - parentVerticalPadding - totalBorderWidth)
         } else if (recalculating === true && availableHeight !== -1) {
           node.layout.height = node.config.fillHeight * availableHeight
         }
