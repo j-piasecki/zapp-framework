@@ -1,9 +1,18 @@
-import { ScreenBody, ConfigBuilderArg, RememberedMutableValue, rememberObservable, Config, Stack } from '@zapp/core'
+import {
+  ScreenBody,
+  ConfigBuilderArg,
+  RememberedMutableValue,
+  rememberObservable,
+  Config,
+  Stack,
+  PointerEventManager,
+} from '@zapp/core'
 import { PageWrapper } from './PageWrapper.js'
 import { viewManagerInstance } from './../WatchViewManager.js'
 
 let rememberedScroll: RememberedMutableValue<number> | undefined = undefined
 let rememberedValues: RememberedMutableValue<number>[] = []
+let previousScroll = 0
 
 export function ScrollableScreen(configBuilder: ConfigBuilderArg, body?: (params?: Record<string, unknown>) => void) {
   PageWrapper({
@@ -32,6 +41,10 @@ export function ScrollableScreen(configBuilder: ConfigBuilderArg, body?: (params
 
 export function tryUpdatingRememberedScrollPositions() {
   const currentScroll = -hmApp.getLayerY()
+  if (previousScroll !== currentScroll) {
+    PointerEventManager.cancelPointers()
+  }
+
   if (rememberedScroll !== undefined) {
     rememberedScroll.value = currentScroll
   }
@@ -48,6 +61,8 @@ export function tryUpdatingRememberedScrollPositions() {
     // @ts-ignore that's private in the core package
     rememberedValues = rememberedValues.filter((v) => !v.context.isDropped)
   }
+
+  previousScroll = currentScroll
 }
 
 export function rememberScrollPosition(): RememberedMutableValue<number> {

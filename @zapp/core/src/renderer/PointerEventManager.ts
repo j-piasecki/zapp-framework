@@ -9,6 +9,7 @@ export abstract class PointerEventManager {
   private static lastMoveEvent?: PointerData
 
   private static capturedPointers: Map<number, string> = new Map()
+  private static lastReceivedEvent: PointerData[] = []
 
   public static fillLeaveEnterEvents() {
     PointerEventManager.shouldFillLeaveEnterEvents = true
@@ -89,6 +90,8 @@ export abstract class PointerEventManager {
     } else {
       PointerEventManager.eventQueue[indexToCoalesce] = event
     }
+
+    PointerEventManager.lastReceivedEvent[event.id] = event
   }
 
   public static addEventTarget(node: RenderNode) {
@@ -144,6 +147,18 @@ export abstract class PointerEventManager {
 
   public static hasCapturedPointers() {
     return PointerEventManager.capturedPointers.size !== 0
+  }
+
+  public static cancelPointers() {
+    for (const data of PointerEventManager.lastReceivedEvent) {
+      if (data !== undefined && data.type !== PointerEventType.UP) {
+        PointerEventManager.queueEvent({
+          ...data,
+          // TODO: make a CANCEL event?
+          type: PointerEventType.LEAVE,
+        })
+      }
+    }
   }
 
   private static isParent(parent: RenderNode, childCandidate: RenderNode): boolean {

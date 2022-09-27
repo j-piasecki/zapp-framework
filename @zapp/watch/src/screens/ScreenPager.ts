@@ -7,6 +7,7 @@ import {
   rememberObservable,
   ScreenBody,
   sideEffect,
+  PointerEventManager,
 } from '@zapp/core'
 import { PageWrapper } from './PageWrapper.js'
 import { viewManagerInstance } from './../WatchViewManager.js'
@@ -18,6 +19,7 @@ let rememberedPage: RememberedMutableValue<number> | undefined = undefined
 let rememberedValues: RememberedMutableValue<number>[] = []
 let nextPageNumber = 0
 let currentDirection: Direction
+let previousPage = 0
 
 interface ScreenPagerConfigType extends ConfigType {
   direction: Direction
@@ -110,6 +112,9 @@ export function PagerEntry(configBuilder: ConfigBuilder, body: () => void) {
 
 export function tryUpdatingRememberedPagePositions() {
   const currentPage = hmUI.getScrollCurrentPage() - 1
+  if (previousPage !== currentPage) {
+    PointerEventManager.cancelPointers()
+  }
 
   if (rememberedPage !== undefined) {
     rememberedPage.value = currentPage
@@ -127,6 +132,8 @@ export function tryUpdatingRememberedPagePositions() {
     // @ts-ignore that's private in the core package
     rememberedValues = rememberedValues.filter((v) => !v.context.isDropped)
   }
+
+  previousPage = currentPage
 }
 
 export function rememberCurrentPage(): RememberedMutableValue<number> {
