@@ -17,6 +17,9 @@ import {
   Row,
   RowConfig,
   Navigator,
+  Arrangement,
+  ImageConfig,
+  Image,
 } from '@zapp/core'
 import { ActivityIndicator, ActivityIndicatorConfig, ButtonConfig, Text, Theme, Divider, DividerConfig } from '@zapp/ui'
 import { Clickable } from '../components/Clickable'
@@ -52,7 +55,6 @@ ScrollableScreen(Config('screen'), () => {
           availableStops.value = data
         })
     }
-    // availableStops.value = [{ name: 'Test' }]
   })
 
   Column(ColumnConfig('column').fillWidth().alignment(Alignment.Center).background(Theme.background), () => {
@@ -62,27 +64,32 @@ ScrollableScreen(Config('screen'), () => {
       })
     } else if (availableStops.value.length === 0) {
       Stack(StackConfig('noStopsWrapper').fillHeight().fillWidth(0.7).alignment(StackAlignment.Center), () => {
-        Column(ColumnConfig('lineBreak').alignment(Alignment.Center), () => {
-          Text(TextConfig('noStopsText1').textColor(Theme.outline), 'Dodaj przystanki')
-          Text(TextConfig('noStopsText2').textColor(Theme.outline), 'w ustawieniach')
-        })
+        Text(
+          TextConfig('noStopsText').textColor(Theme.outline).alignment(Alignment.Center),
+          'Dodaj przystanki w ustawieniach'
+        )
       })
     } else {
+      const connected = hmBle.connectStatus()
       Column(
         ColumnConfig('stopsWrapper')
           .padding(0, 0, 0, Zapp.screenHeight * 0.35)
           .fillWidth()
           .alignment(Alignment.Center),
         () => {
-          Stack(
-            StackConfig('header')
-              .alignment(StackAlignment.BottomCenter)
-              .padding(Zapp.screenWidth * 0.2, 0, Zapp.screenWidth * 0.2, px(8))
+          Column(
+            ColumnConfig('header')
+              .alignment(Alignment.Center)
+              .arrangement(connected ? Arrangement.End : Arrangement.SpaceBetween)
+              .padding(Zapp.screenWidth * 0.2, px(8), Zapp.screenWidth * 0.2, px(8))
               .fillWidth()
               .height(Zapp.screenHeight * 0.4)
               .background(Theme.surface),
             () => {
-              Text(TextConfig('header#text'), 'Obserwowane przystanki')
+              if (!connected) {
+                Image(ImageConfig('noConnection').width(32).height(32), 'no_connection.png')
+              }
+              Text(TextConfig('header#text').alignment(Alignment.Center), 'Przystanki')
             }
           )
 

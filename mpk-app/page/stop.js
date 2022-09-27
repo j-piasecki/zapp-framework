@@ -17,8 +17,19 @@ import {
   Row,
   RowConfig,
   Color,
+  Arrangement,
+  Navigator,
 } from '@zapp/core'
-import { ActivityIndicator, ActivityIndicatorConfig, ButtonConfig, Divider, DividerConfig, Text, Theme } from '@zapp/ui'
+import {
+  ActivityIndicator,
+  ActivityIndicatorConfig,
+  Button,
+  ButtonConfig,
+  Divider,
+  DividerConfig,
+  Text,
+  Theme,
+} from '@zapp/ui'
 import { Clickable } from '../components/Clickable'
 
 function getDisplayedTime(time) {
@@ -83,52 +94,18 @@ ScrollableScreen(Config('screen'), (params) => {
 
   sideEffect((restoring) => {
     if (!restoring) {
-      Zapp.getValue('message')
-        .request({
-          method: 'GET_STOP_DATA',
-          data: params,
-        })
-        .then((data) => {
-          stopInfo.value = data
-        })
-      // stopInfo.value = [
-      //   {
-      //     relativeTime: 31,
-      //     direction: 'Direction 1',
-      //     number: 1,
-      //     isLive: true,
-      //   },
-      //   {
-      //     relativeTime: 61,
-      //     direction: 'Direction 2',
-      //     number: 2,
-      //     isLive: true,
-      //   },
-      //   {
-      //     relativeTime: 91,
-      //     direction: 'Direction 1',
-      //     number: 10,
-      //     isLive: true,
-      //   },
-      //   {
-      //     relativeTime: 121,
-      //     direction: 'Direction 4',
-      //     number: 512,
-      //     isLive: true,
-      //   },
-      //   {
-      //     relativeTime: 191,
-      //     direction: 'a b c d e f g h i j k l m n o p q r s t u v w x y z',
-      //     number: 9,
-      //     isLive: true,
-      //   },
-      //   {
-      //     relativeTime: 3601,
-      //     direction: 'Dworzec Płaszów Estakada',
-      //     number: 555,
-      //     isLive: true,
-      //   },
-      // ]
+      if (hmBle.connectStatus()) {
+        Zapp.getValue('message')
+          .request({
+            method: 'GET_STOP_DATA',
+            data: params,
+          })
+          .then((data) => {
+            stopInfo.value = data
+          })
+      } else {
+        stopInfo.value = { error: true, code: -1, message: 'Brak połączenia z telefonem' }
+      }
     }
   })
 
@@ -138,21 +115,33 @@ ScrollableScreen(Config('screen'), (params) => {
         ActivityIndicator(ActivityIndicatorConfig('loading'))
       })
     } else if (stopInfo.value.error) {
-      Stack(StackConfig('errorWrapper').fillHeight().fillWidth(0.7).alignment(StackAlignment.Center), () => {
-        Column(ColumnConfig('lineBreak').alignment(Alignment.Center), () => {
-          Text(TextConfig('errorText').textColor(Theme.error), `Wystąpił błąd (${stopInfo.value.code})`)
-        })
-      })
-    } else if (stopInfo.value.length === 0) {
-      Stack(StackConfig('noResultWrapper').fillHeight().fillWidth(0.7).alignment(StackAlignment.Center), () => {
-        Column(ColumnConfig('lineBreak').alignment(Alignment.Center), () => {
-          Text(TextConfig('noResultText1').textColor(Theme.outline), 'Brak odjazdów w')
-          Text(TextConfig('noResultText2').textColor(Theme.outline), 'najbliższym czasie')
-        })
-      })
+      Column(
+        ColumnConfig('errorWrapper')
+          .fillHeight()
+          .fillWidth(0.7)
+          .alignment(Alignment.Center)
+          .arrangement(Arrangement.Center),
+        () => {
+          Text(
+            TextConfig('errorText').textColor(Theme.error).alignment(Alignment.Center),
+            stopInfo.value.message ?? `Wystąpił błąd (${stopInfo.value.code})`
+          )
+
+          Stack(Config('spacer').height(px(24)))
+
+          Button(
+            ButtonConfig('errorOk').onPress(() => {
+              Navigator.goBack()
+            }),
+            () => {
+              Text(TextConfig('okText'), 'Ok')
+            }
+          )
+        }
+      )
     } else {
       Column(
-        ColumnConfig('stopWrapper')
+        ColumnConfig('stopsWrapper')
           .padding(0, 0, 0, Zapp.screenHeight * 0.35)
           .alignment(Alignment.Center),
         () => {
@@ -168,13 +157,25 @@ ScrollableScreen(Config('screen'), (params) => {
             }
           )
 
-          for (let i = 0; i < stopInfo.value.length; i++) {
-            const item = stopInfo.value[i]
+          if (stopInfo.value.length === 0) {
+            Stack(
+              StackConfig('noResultTextWrapper').offset(0, px(24)).fillWidth(0.7).alignment(StackAlignment.Center),
+              () => {
+                Text(
+                  TextConfig('noResultText').textColor(Theme.outline).alignment(Alignment.Center),
+                  'Brak odjazdów w najbliższym czasie'
+                )
+              }
+            )
+          } else {
+            for (let i = 0; i < stopInfo.value.length; i++) {
+              const item = stopInfo.value[i]
 
-            RouteInfo(i, item)
+              RouteInfo(i, item)
 
-            if (i < stopInfo.value.length - 1) {
-              Divider(DividerConfig(`divider#${i}`).fillWidth(0.8))
+              if (i < stopInfo.value.length - 1) {
+                Divider(DividerConfig(`divider#${i}`).fillWidth(0.8))
+              }
             }
           }
         }
