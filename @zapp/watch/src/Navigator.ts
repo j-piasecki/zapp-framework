@@ -1,12 +1,19 @@
 import { NavigatorInterface, RegisteredCallback, WorkingTree, SavedTreeState } from '@zapp/core'
 
+interface SavedState {
+  treeState: SavedTreeState
+  screenState: unknown
+}
+
 export interface NavigatorData {
   currentPage: string
   navStack: string[]
-  savedStates: SavedTreeState[]
+  savedStates: SavedState[]
   registeredCallbacks: RegisteredCallback[]
   shouldRestore: boolean
 }
+
+let savedScreenState: unknown = null
 
 export class Navigator implements NavigatorInterface {
   get currentPage(): string {
@@ -20,7 +27,10 @@ export class Navigator implements NavigatorInterface {
   public navigate(page: string, params?: Record<string, unknown>) {
     this.data.navStack.push(this.data.currentPage)
     this.data.currentPage = page
-    this.data.savedStates.push(WorkingTree.saveState())
+    this.data.savedStates.push({
+      treeState: WorkingTree.saveState(),
+      screenState: savedScreenState,
+    })
 
     hmApp.gotoPage({ url: page, param: JSON.stringify(params ?? {}) })
   }
@@ -74,4 +84,10 @@ export class Navigator implements NavigatorInterface {
 
     this.goBack()
   }
+
+  public saveScreenState(state: unknown) {
+    savedScreenState = state
+  }
 }
+
+export const navigatorInstance = new Navigator()

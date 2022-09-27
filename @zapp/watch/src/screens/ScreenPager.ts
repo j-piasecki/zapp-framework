@@ -12,10 +12,10 @@ import {
 import { PageWrapper } from './PageWrapper.js'
 import { viewManagerInstance } from './../WatchViewManager.js'
 import { Direction } from './../types.js'
+import { navigatorInstance } from '../Navigator.js'
 
 const { width: DEVICE_WIDTH, height: DEVICE_HEIGHT } = hmSetting.getDeviceInfo()
 
-let rememberedPage: RememberedMutableValue<number> | undefined = undefined
 let rememberedValues: RememberedMutableValue<number>[] = []
 let nextPageNumber = 0
 let currentDirection: Direction
@@ -61,14 +61,11 @@ export function ScreenPager(configBuilder: ScreenPagerConfigBuilder, body: (para
 
   PageWrapper({
     build: (params) => {
-      Stack(Config('pagerSavedPage'), () => {
+      Stack(Config('#pagerOpenStartingPage'), () => {
         sideEffect((restoring) => {
           if (!restoring) {
             hmUI.scrollToPage(config.startingPage, false)
           }
-        })
-        rememberedPage = rememberObservable(config.startingPage, undefined, (restored) => {
-          hmUI.scrollToPage(restored, false)
         })
       })
 
@@ -90,9 +87,10 @@ export function ScreenPager(configBuilder: ScreenPagerConfigBuilder, body: (para
     destroy: () => {
       // need to scroll to the first page, otherwise navigation may break and blank screen will be shown
       hmUI.scrollToPage(0, false)
-
-      rememberedPage = undefined
       rememberedValues = []
+    },
+    restoreState: (page: number) => {
+      hmUI.scrollToPage(page, false)
     },
   })
 }
@@ -113,11 +111,8 @@ export function PagerEntry(configBuilder: ConfigBuilder, body: () => void) {
 export function tryUpdatingRememberedPagePositions() {
   const currentPage = hmUI.getScrollCurrentPage() - 1
   if (previousPage !== currentPage) {
+    navigatorInstance.saveScreenState(currentPage)
     PointerEventManager.cancelPointers()
-  }
-
-  if (rememberedPage !== undefined) {
-    rememberedPage.value = currentPage
   }
 
   let needsClear = false
