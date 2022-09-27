@@ -87,7 +87,11 @@ export abstract class WorkingTree {
   public static performUpdate() {
     WorkingTree.root.savedState = undefined
 
-    for (const path of this.updatePaths.getPaths()) {
+    const pathsToUpdate = this.updatePaths.getPaths()
+    this.updatePaths.clear()
+    this.updateRequested = false
+
+    for (const path of pathsToUpdate) {
       const nodeToUpdate = WorkingTree.root.getNodeFromPath(path) as ViewNode
 
       if (nodeToUpdate !== null) {
@@ -112,9 +116,6 @@ export abstract class WorkingTree {
         }
       }
     }
-
-    this.updatePaths.clear()
-    this.updateRequested = false
   }
 
   public static create(parent: WorkingNode, props: ViewNodeProps, customViewProps?: CustomViewProps) {
