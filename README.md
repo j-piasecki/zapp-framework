@@ -29,7 +29,7 @@ The general idea is that executing a function related to the view or effect crea
 
 Yes, it does. The heavier the tree (the more nodes it has), the more time those operations take and, since the ZeppOS watches are not really powerful devices, the time required to perform update quickly rises. It's not making apps unusable but it certainly gets noticable. There is a lot of room to improvement so things may get better in the future, but many of the shortcomings may be solved by some original ideas. For example, in the bus stop app the first render took a bit more time than I liked, causing a very noticable lag when hiding activity indicator, so I made only four first departures visible during the first render. The rest gets rendered after that - the lag is still there, but it's divided into two parts, and the second, longer, one happens when the screen is populated so it's almost unnoticable.
 
-## Ok, so why should I use it despite the performance hit?
+## So why should I use it despite the performance hit?
 
 Well, it provides a lot of things that are missing in the native ZeppOS:
 
