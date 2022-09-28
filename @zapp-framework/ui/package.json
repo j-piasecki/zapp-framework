@@ -11,6 +11,8 @@
   "type": "module",
   "scripts": {
     "build": "yarn tsc",
+    "lint": "yarn eslint --ext .ts src/ && yarn prettier --check src/",
+    "format": "prettier --write --list-different src/",
     "prepack": "yarn build"
   },
   "files": [
