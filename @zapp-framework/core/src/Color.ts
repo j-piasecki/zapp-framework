@@ -57,7 +57,11 @@ export abstract class Color {
   public static shade(color: number, factor: number): number {
     const [r, g, b] = this.toRGB(color)
 
-    return this.rgb(Math.floor(r * (1 - factor)), Math.floor(g * (1 - factor)), Math.floor(b * (1 - factor)))
+    return this.rgb(
+      Math.floor(r * (1 - factor)),
+      Math.floor(g * (1 - factor)),
+      Math.floor(b * (1 - factor))
+    )
   }
 
   public static accent(color: number, factor: number): number {

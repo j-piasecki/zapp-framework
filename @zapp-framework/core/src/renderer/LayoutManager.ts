@@ -59,8 +59,10 @@ export class LayoutManager {
         this.calculateSize(child, availableWidth, availableHeight, node)
       }
     } else {
-      const parentVerticalPadding = (parent?.config.padding?.top ?? 0) + (parent?.config.padding?.bottom ?? 0)
-      const parentHorizontalPadding = (parent?.config.padding?.start ?? 0) + (parent?.config.padding?.end ?? 0)
+      const parentVerticalPadding =
+        (parent?.config.padding?.top ?? 0) + (parent?.config.padding?.bottom ?? 0)
+      const parentHorizontalPadding =
+        (parent?.config.padding?.start ?? 0) + (parent?.config.padding?.end ?? 0)
 
       const totalBorderWidth = (node.config.borderWidth ?? 0) * 2
 
@@ -70,7 +72,8 @@ export class LayoutManager {
       } else if (node.config.fillWidth !== undefined) {
         if (parent!.layout.width !== -1) {
           const widthToFill = parent!.layout.widthInferred ? availableWidth : parent!.layout.width
-          node.layout.width = node.config.fillWidth * (widthToFill - parentHorizontalPadding - totalBorderWidth)
+          node.layout.width =
+            node.config.fillWidth * (widthToFill - parentHorizontalPadding - totalBorderWidth)
         } else if (recalculating === true && availableWidth !== -1) {
           node.layout.width = node.config.fillWidth * availableWidth
         }
@@ -80,8 +83,11 @@ export class LayoutManager {
         node.layout.height = node.config.height + totalBorderWidth
       } else if (node.config.fillHeight !== undefined) {
         if (parent!.layout.height !== -1) {
-          const heightToFill = parent!.layout.heightInferred ? availableHeight : parent!.layout.height
-          node.layout.height = node.config.fillHeight * (heightToFill - parentVerticalPadding - totalBorderWidth)
+          const heightToFill = parent!.layout.heightInferred
+            ? availableHeight
+            : parent!.layout.height
+          node.layout.height =
+            node.config.fillHeight * (heightToFill - parentVerticalPadding - totalBorderWidth)
         } else if (recalculating === true && availableHeight !== -1) {
           node.layout.height = node.config.fillHeight * availableHeight
         }
@@ -152,9 +158,16 @@ export class LayoutManager {
       // to the available space
       if (
         node.type === NodeType.Text &&
-        (node.layout.width === -1 || node.layout.height === -1 || node.layout.width > availableWidth)
+        (node.layout.width === -1 ||
+          node.layout.height === -1 ||
+          node.layout.width > availableWidth)
       ) {
-        const { width, height } = ViewManager.measureText(node.config.text!, node, availableWidth, availableHeight)
+        const { width, height } = ViewManager.measureText(
+          node.config.text!,
+          node,
+          availableWidth,
+          availableHeight
+        )
         node.layout.width = width
         node.layout.height = height
       }
@@ -162,10 +175,13 @@ export class LayoutManager {
       // calculate available width and height for children, which is used for measuring views when it and its
       // ancestors are not sized explicitly
       const childAvailableWidth =
-        (node.layout.width === -1 || node.layout.widthInferred ? availableWidth : node.layout.width) - horizontalPadding
+        (node.layout.width === -1 || node.layout.widthInferred
+          ? availableWidth
+          : node.layout.width) - horizontalPadding
       const childAvailableHeight =
-        (node.layout.height === -1 || node.layout.heightInferred ? availableHeight : node.layout.height) -
-        verticalPadding
+        (node.layout.height === -1 || node.layout.heightInferred
+          ? availableHeight
+          : node.layout.height) - verticalPadding
 
       for (const child of node.children) {
         this.calculateSize(child, childAvailableWidth, childAvailableHeight, node, recalculating)
@@ -193,7 +209,10 @@ export class LayoutManager {
             }
           }
 
-          if ((node.layout.height === -1 || node.layout.heightInferred) && node.config.fillHeight === undefined) {
+          if (
+            (node.layout.height === -1 || node.layout.heightInferred) &&
+            node.config.fillHeight === undefined
+          ) {
             node.layout.height = height
             // some of the children may have `fill*` property set, in which case we need to recalculate
             // this subtree so they can correctly fill the remaining available space and this node expands
@@ -222,7 +241,10 @@ export class LayoutManager {
             }
           }
 
-          if ((node.layout.width === -1 || node.layout.widthInferred) && node.config.fillWidth === undefined) {
+          if (
+            (node.layout.width === -1 || node.layout.widthInferred) &&
+            node.config.fillWidth === undefined
+          ) {
             node.layout.width = width
             // some of the children may have `fill*` property set, in which case we need to recalculate
             // this subtree so they can correctly fill the remaining available space and this node expands
@@ -234,7 +256,11 @@ export class LayoutManager {
           if (node.layout.heightInferred) {
             node.layout.height = -1
           }
-          if (node.layout.height === -1 && maxHeight !== -1 && node.config.fillHeight === undefined) {
+          if (
+            node.layout.height === -1 &&
+            maxHeight !== -1 &&
+            node.config.fillHeight === undefined
+          ) {
             node.layout.height = Math.max(node.layout.height, maxHeight + verticalPadding)
             node.layout.heightInferred = true
           }
@@ -261,7 +287,11 @@ export class LayoutManager {
             node.layout.widthInferred = true
             requiresRecalculation = true
           }
-          if (node.layout.height === -1 && maxHeight !== -1 && node.config.fillHeight === undefined) {
+          if (
+            node.layout.height === -1 &&
+            maxHeight !== -1 &&
+            node.config.fillHeight === undefined
+          ) {
             node.layout.height = maxHeight + verticalPadding
             node.layout.heightInferred = true
             requiresRecalculation = true
@@ -305,13 +335,25 @@ export class LayoutManager {
 
       // We have two cases: curent view is fully measured, so we can recalculate its children if there are
       // any left on the stack
-      if (node.layout.width !== -1 && node.layout.height !== -1 && !requiresRecalculation && !forceRecalculation) {
-        const childAvailableWidth = (node.layout.width === -1 ? availableWidth : node.layout.width) - horizontalPadding
+      if (
+        node.layout.width !== -1 &&
+        node.layout.height !== -1 &&
+        !requiresRecalculation &&
+        !forceRecalculation
+      ) {
+        const childAvailableWidth =
+          (node.layout.width === -1 ? availableWidth : node.layout.width) - horizontalPadding
         const childAvailableHeight =
           (node.layout.height === -1 ? availableHeight : node.layout.height) - verticalPadding
 
         while (this.recalculationStack[this.recalculationStack.length - 1] !== node) {
-          this.calculateSize(this.recalculationStack.pop()!, childAvailableWidth, childAvailableHeight, node, true)
+          this.calculateSize(
+            this.recalculationStack.pop()!,
+            childAvailableWidth,
+            childAvailableHeight,
+            node,
+            true
+          )
         }
         // the measured view is also popped from stack so it's not measured again in case its siblings do
         const measuredNode = this.recalculationStack.pop()!
@@ -341,7 +383,9 @@ export class LayoutManager {
 
   private calculatePositions(node: RenderNode, parent?: RenderNode) {
     if (node.config.isPositionedAbsolutely === true && parent !== undefined) {
-      node.layout.x = ViewManager.isRTL() ? parent.layout.x + parent.layout.width - node.layout.width : parent.layout.x
+      node.layout.x = ViewManager.isRTL()
+        ? parent.layout.x + parent.layout.width - node.layout.width
+        : parent.layout.x
       node.layout.y = parent.layout.y
     }
 
@@ -363,7 +407,10 @@ export class LayoutManager {
           child.layout.x =
             node.layout.x +
             (ViewManager.isRTL()
-              ? node.layout.width - child.layout.width - (node.config.padding?.start ?? 0) - borderWidth
+              ? node.layout.width -
+                child.layout.width -
+                (node.config.padding?.start ?? 0) -
+                borderWidth
               : (node.config.padding?.start ?? 0) + borderWidth)
           child.layout.y = node.layout.y + (node.config.padding?.end ?? 0) + borderWidth
         }
@@ -387,7 +434,9 @@ export class LayoutManager {
             (parent.config.padding?.start ?? 0) -
             child.layout.width) /
             2 +
-          (ViewManager.isRTL() ? parent.config.padding?.end ?? 0 : parent.config.padding?.start ?? 0)
+          (ViewManager.isRTL()
+            ? parent.config.padding?.end ?? 0
+            : parent.config.padding?.start ?? 0)
         break
       case Alignment.End:
         child.layout.x =
@@ -420,7 +469,10 @@ export class LayoutManager {
         break
       case Alignment.End:
         child.layout.y =
-          parent.layout.y + parent.layout.height - child.layout.height - (parent.config.padding?.bottom ?? 0)
+          parent.layout.y +
+          parent.layout.height -
+          child.layout.height -
+          (parent.config.padding?.bottom ?? 0)
         break
       default:
         child.layout.y = parent.layout.y + (parent.config.padding?.top ?? 0)
@@ -431,7 +483,10 @@ export class LayoutManager {
   private positionColumn(node: RenderNode) {
     const borderWidth = node.config.borderWidth ?? 0
     let freeSpace =
-      node.layout.height - (node.config.padding?.top ?? 0) - (node.config.padding?.bottom ?? 0) - borderWidth * 2
+      node.layout.height -
+      (node.config.padding?.top ?? 0) -
+      (node.config.padding?.bottom ?? 0) -
+      borderWidth * 2
     // one pass over children to determine the amount of free space and position children horizontally
     for (const child of node.children) {
       freeSpace -= child.layout.height
@@ -447,7 +502,8 @@ export class LayoutManager {
         nextY += child.layout.height
       }
     } else if (node.config.arrangement === Arrangement.End) {
-      let nextY = node.layout.y + node.layout.height - (node.config.padding?.bottom ?? 0) - borderWidth
+      let nextY =
+        node.layout.y + node.layout.height - (node.config.padding?.bottom ?? 0) - borderWidth
 
       for (let i = node.children.length - 1; i >= 0; i--) {
         const child = node.children[i]
@@ -483,7 +539,10 @@ export class LayoutManager {
   private positionRow(node: RenderNode) {
     const borderWidth = node.config.borderWidth ?? 0
     let freeSpace =
-      node.layout.width - (node.config.padding?.start ?? 0) - (node.config.padding?.end ?? 0) - borderWidth * 2
+      node.layout.width -
+      (node.config.padding?.start ?? 0) -
+      (node.config.padding?.end ?? 0) -
+      borderWidth * 2
     // one pass over children to determine the amount of free space and position children vertically
     for (const child of node.children) {
       freeSpace -= child.layout.width
@@ -493,7 +552,8 @@ export class LayoutManager {
     // second pass to position children horizontally depending on the arrangement
     if (ViewManager.isRTL()) {
       if (node.config.arrangement === undefined || node.config.arrangement === Arrangement.Start) {
-        let nextX = node.layout.x + node.layout.width - (node.config.padding?.start ?? 0) - borderWidth
+        let nextX =
+          node.layout.x + node.layout.width - (node.config.padding?.start ?? 0) - borderWidth
 
         for (const child of node.children) {
           nextX -= child.layout.width
@@ -517,7 +577,8 @@ export class LayoutManager {
         }
       } else {
         let space = freeSpace / (node.children.length - 1)
-        let nextX = node.layout.x + node.layout.width - (node.config.padding?.start ?? 0) - borderWidth
+        let nextX =
+          node.layout.x + node.layout.width - (node.config.padding?.start ?? 0) - borderWidth
 
         if (node.config.arrangement === Arrangement.SpaceEvenly) {
           space = freeSpace / (node.children.length + 1)
@@ -542,7 +603,8 @@ export class LayoutManager {
           nextX += child.layout.width
         }
       } else if (node.config.arrangement === Arrangement.End) {
-        let nextX = node.layout.x + node.layout.width - (node.config.padding?.end ?? 0) - borderWidth
+        let nextX =
+          node.layout.x + node.layout.width - (node.config.padding?.end ?? 0) - borderWidth
 
         for (let i = node.children.length - 1; i >= 0; i--) {
           const child = node.children[i]

@@ -47,23 +47,26 @@ export function ActivityIndicatorConfig(id: string): ActivityIndicatorConfigBuil
 export function ActivityIndicator(config: ActivityIndicatorConfigBuilder) {
   const rawConfig = config.build()
 
-  Stack(Config(`${rawConfig.id}#wrapper`).positionAbsolutely(rawConfig.isPositionedAbsolutely!), () => {
-    const angle = remember(-90)
-    const size = remember(30)
+  Stack(
+    Config(`${rawConfig.id}#wrapper`).positionAbsolutely(rawConfig.isPositionedAbsolutely!),
+    () => {
+      const angle = remember(-90)
+      const size = remember(30)
 
-    sideEffect(() => {
-      angle.value = withRepeat(withTiming(270, { duration: 1000 }))
-      size.value = withRepeat(withTiming(120, { duration: 500 }), { reverse: true })
-    })
+      sideEffect(() => {
+        angle.value = withRepeat(withTiming(270, { duration: 1000 }))
+        size.value = withRepeat(withTiming(120, { duration: 500 }), { reverse: true })
+      })
 
-    Arc(
-      ArcConfig(rawConfig.id)
-        .startAngle(angle.value)
-        .endAngle(angle.value + size.value)
-        .width(rawConfig.size)
-        .height(rawConfig.size)
-        .lineWidth(rawConfig.lineWidth!)
-        .color(Theme.primary)
-    )
-  })
+      Arc(
+        ArcConfig(rawConfig.id)
+          .startAngle(angle.value)
+          .endAngle(angle.value + size.value)
+          .width(rawConfig.size)
+          .height(rawConfig.size)
+          .lineWidth(rawConfig.lineWidth!)
+          .color(Theme.primary)
+      )
+    }
+  )
 }

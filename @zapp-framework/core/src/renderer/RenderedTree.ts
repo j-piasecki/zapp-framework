@@ -27,7 +27,11 @@ export abstract class RenderedTree {
   public static current: RenderNode | null = null
   public static next: RenderNode | null = null
 
-  public static hitTest(x: number, y: number, parent: RenderNode | null = RenderedTree.current): RenderNode | null {
+  public static hitTest(
+    x: number,
+    y: number,
+    parent: RenderNode | null = RenderedTree.current
+  ): RenderNode | null {
     // TODO: consider handling corner radius
     if (
       parent === null ||

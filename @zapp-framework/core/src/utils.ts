@@ -33,13 +33,17 @@ export function coerce(value: number, min: number, max: number) {
 export type RequireSome<T, K extends keyof T> = Partial<T> & Pick<T, K>
 
 export function isViewNode(node: WorkingNode): node is ViewNode {
-  return node.type !== NodeType.Remember && node.type !== NodeType.Effect && node.type !== NodeType.Event
+  return (
+    node.type !== NodeType.Remember && node.type !== NodeType.Effect && node.type !== NodeType.Event
+  )
 }
 
 export function isRememberNode(node: WorkingNode): node is RememberNode {
   return node.type === NodeType.Remember
 }
 
-export function isRememberValueMutable<T>(value: RememberedValue<T>): value is RememberedMutableValue<T> {
+export function isRememberValueMutable<T>(
+  value: RememberedValue<T>
+): value is RememberedMutableValue<T> {
   return value._isMutable
 }

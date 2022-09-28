@@ -38,7 +38,9 @@ export class SavedTreeState {
         children: new Map(),
       }
 
-      const mappedChildren = node.children.map((child) => this.createNode(child)).filter((child) => child !== null)
+      const mappedChildren = node.children
+        .map((child) => this.createNode(child))
+        .filter((child) => child !== null)
 
       // if there are no children to save, don't save this node
       if (mappedChildren.length > 0) {

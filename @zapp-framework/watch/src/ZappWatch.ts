@@ -19,7 +19,9 @@ export class ZappWatch extends ZappInterface {
   constructor() {
     super()
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    this._screenShape = hmSetting.getDeviceInfo().screenShape ? ScreenShape.Round : ScreenShape.Square
+    this._screenShape = hmSetting.getDeviceInfo().screenShape
+      ? ScreenShape.Round
+      : ScreenShape.Square
   }
 
   public startLoop(): void {

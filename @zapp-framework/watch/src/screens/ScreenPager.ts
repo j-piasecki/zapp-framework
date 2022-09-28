@@ -56,7 +56,10 @@ export function ScreenPagerConfig(id: string, numberOfPages: number) {
   return new ScreenPagerConfigBuilder(id, numberOfPages)
 }
 
-export function ScreenPager(configBuilder: ScreenPagerConfigBuilder, body: (params: Record<string, unknown>) => void) {
+export function ScreenPager(
+  configBuilder: ScreenPagerConfigBuilder,
+  body: (params: Record<string, unknown>) => void
+) {
   const config = configBuilder.build()
 
   PageWrapper({

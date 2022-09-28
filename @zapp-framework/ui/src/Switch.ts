@@ -60,7 +60,9 @@ export function Switch(config: SwitchConfigBuilder) {
 
     sideEffect(() => {
       const animationConfig = { duration: 200, easing: Easing.easeOutQuad }
-      const [r, g, b] = Color.toRGB(rawConfig.isChecked ? Theme.primaryContainer : Theme.surfaceVariant)
+      const [r, g, b] = Color.toRGB(
+        rawConfig.isChecked ? Theme.primaryContainer : Theme.surfaceVariant
+      )
 
       foregroundOffset.value = withTiming(rawConfig.isChecked ? px(60) : 0, animationConfig)
       backgroundR.value = withTiming(r, animationConfig)

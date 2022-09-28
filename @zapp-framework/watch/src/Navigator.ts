@@ -1,4 +1,9 @@
-import { NavigatorInterface, RegisteredCallback, WorkingTree, SavedTreeState } from '@zapp-framework/core'
+import {
+  NavigatorInterface,
+  RegisteredCallback,
+  WorkingTree,
+  SavedTreeState,
+} from '@zapp-framework/core'
 
 interface SavedState {
   treeState: SavedTreeState

@@ -29,7 +29,8 @@ export class RememberedMutableValue<T> extends RememberedValue<T> {
 
   public set value(newValue: T | Animation<T>) {
     // skip assignment of the new value if we are currently restoring saved state and we are inside side effect
-    const skipAssignment = WorkingTree.current instanceof EffectNode && WorkingTree.isRestoringState()
+    const skipAssignment =
+      WorkingTree.current instanceof EffectNode && WorkingTree.isRestoringState()
 
     if (newValue instanceof Animation) {
       if (skipAssignment && this._animation !== undefined) {

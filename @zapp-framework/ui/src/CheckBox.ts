@@ -101,7 +101,9 @@ export function CheckBox(config: CheckBoxConfigBuilder, body?: () => void) {
 
         sideEffect(() => {
           const animationConfig = { duration: 200, easing: Easing.easeOutQuad }
-          const [r, g, b] = Color.toRGB(rawConfig.checked ? Theme.primaryContainer : Theme.surfaceVariant)
+          const [r, g, b] = Color.toRGB(
+            rawConfig.checked ? Theme.primaryContainer : Theme.surfaceVariant
+          )
 
           foregroundSize.value = withTiming(rawConfig.checked ? px(30) : 0, animationConfig)
           backgroundR.value = withTiming(r, animationConfig)

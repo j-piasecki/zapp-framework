@@ -82,7 +82,8 @@ export class WebViewManager extends ViewManagerInterface {
       const radius = (node.layout.width - node.config.lineWidth!) / 2
       const circumference = 2 * Math.PI * radius
       const strokeOffset = (-node.config.startAngle! / 360) * circumference
-      const strokeDasharray = ((node.config.endAngle! - node.config.startAngle!) / 360) * circumference
+      const strokeDasharray =
+        ((node.config.endAngle! - node.config.startAngle!) / 360) * circumference
 
       circle.setAttribute('cx', `${node.layout.width / 2}`)
       circle.setAttribute('cy', `${node.layout.width / 2}`)
@@ -90,7 +91,10 @@ export class WebViewManager extends ViewManagerInterface {
       circle.setAttribute('fill', 'transparent')
       circle.setAttribute('stroke', this.colorToRGBA(node.config.borderColor!))
       circle.setAttribute('stroke-width', `${node.config.lineWidth!}`)
-      circle.setAttribute('stroke-dasharray', [strokeDasharray, circumference - strokeDasharray].join(','))
+      circle.setAttribute(
+        'stroke-dasharray',
+        [strokeDasharray, circumference - strokeDasharray].join(',')
+      )
       circle.setAttribute('stroke-dashoffset', `${strokeOffset}`)
 
       view.appendChild(circle)
@@ -157,7 +161,9 @@ export class WebViewManager extends ViewManagerInterface {
 
       imageView.style.backgroundPositionX = `${node.config.innerOffsetX ?? 0}px`
       imageView.style.backgroundPositionY = `${node.config.innerOffsetY ?? 0}px`
-      imageView.style.transformOrigin = `${node.config.originX ?? 0}px ${node.config.originY ?? 0}px`
+      imageView.style.transformOrigin = `${node.config.originX ?? 0}px ${
+        node.config.originY ?? 0
+      }px`
       imageView.style.transform = `rotate(${node.config.rotation}deg)`
 
       view.appendChild(imageView)
@@ -205,7 +211,8 @@ export class WebViewManager extends ViewManagerInterface {
       const radius = (next.layout.width - next.config.lineWidth!) / 2
       const circumference = 2 * Math.PI * radius
       const strokeOffset = (-next.config.startAngle! / 360) * circumference
-      const strokeDasharray = ((next.config.endAngle! - next.config.startAngle!) / 360) * circumference
+      const strokeDasharray =
+        ((next.config.endAngle! - next.config.startAngle!) / 360) * circumference
 
       circle.setAttribute('cx', `${next.layout.width / 2}`)
       circle.setAttribute('cy', `${next.layout.width / 2}`)
@@ -213,7 +220,10 @@ export class WebViewManager extends ViewManagerInterface {
       circle.setAttribute('fill', 'transparent')
       circle.setAttribute('stroke', this.colorToRGBA(next.config.borderColor!))
       circle.setAttribute('stroke-width', `${next.config.lineWidth!}`)
-      circle.setAttribute('stroke-dasharray', [strokeDasharray, circumference - strokeDasharray].join(','))
+      circle.setAttribute(
+        'stroke-dasharray',
+        [strokeDasharray, circumference - strokeDasharray].join(',')
+      )
       circle.setAttribute('stroke-dashoffset', `${strokeOffset}`)
     }
 
@@ -273,7 +283,9 @@ export class WebViewManager extends ViewManagerInterface {
 
       imageView.style.backgroundPositionX = `${next.config.innerOffsetX ?? 0}px`
       imageView.style.backgroundPositionY = `${next.config.innerOffsetY ?? 0}px`
-      imageView.style.transformOrigin = `${next.config.originX ?? 0}px ${next.config.originY ?? 0}px`
+      imageView.style.transformOrigin = `${next.config.originX ?? 0}px ${
+        next.config.originY ?? 0
+      }px`
       imageView.style.transform = `rotate(${next.config.rotation}deg)`
     }
   }
@@ -292,7 +304,9 @@ export class WebViewManager extends ViewManagerInterface {
     const textWrapper = document.createElement('div')
 
     // subtract 2 from width as the text sometimes would get broken anyway ¯\_(ツ)_/¯
-    wrapper.style.width = `${(node.config.width !== undefined ? node.config.width : availableWidth) - 2}px`
+    wrapper.style.width = `${
+      (node.config.width !== undefined ? node.config.width : availableWidth) - 2
+    }px`
     if (node.config.textSize !== undefined) {
       wrapper.style.fontSize = `${node.config.textSize}px`
     }
@@ -314,7 +328,8 @@ export class WebViewManager extends ViewManagerInterface {
 
   isRTL(): boolean {
     if (this._isRTL === undefined) {
-      this._isRTL = window.getComputedStyle(document.getElementsByTagName('body')[0]).direction === 'rtl'
+      this._isRTL =
+        window.getComputedStyle(document.getElementsByTagName('body')[0]).direction === 'rtl'
     }
 
     return this._isRTL

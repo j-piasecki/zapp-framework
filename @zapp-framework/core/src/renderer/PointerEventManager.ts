@@ -31,7 +31,10 @@ export abstract class PointerEventManager {
           PointerEventManager.lastMoveEvent !== undefined &&
           PointerEventManager.lastMoveEvent.target !== event.target
         ) {
-          PointerEventManager.queueEvent({ ...PointerEventManager.lastMoveEvent, type: PointerEventType.LEAVE })
+          PointerEventManager.queueEvent({
+            ...PointerEventManager.lastMoveEvent,
+            type: PointerEventType.LEAVE,
+          })
           PointerEventManager.queueEvent({ ...event, type: PointerEventType.ENTER })
 
           PointerEventManager.lastMoveEvent = event
@@ -112,7 +115,11 @@ export abstract class PointerEventManager {
   public static processEvents() {
     // TODO: consider sending move event only to the view that received down event
     PointerEventManager.eventQueue.forEach((event) => {
-      const target = RenderedTree.hitTest(event.x, event.y, PointerEventManager.eventTargets.get(event.target))
+      const target = RenderedTree.hitTest(
+        event.x,
+        event.y,
+        PointerEventManager.eventTargets.get(event.target)
+      )
 
       if (target !== null) {
         switch (event.type) {

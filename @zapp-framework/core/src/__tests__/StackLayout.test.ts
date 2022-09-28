@@ -21,10 +21,13 @@ afterEach(() => {
 })
 
 test('Children of Stack(alignment=TopStart) get positioned correctly', () => {
-  Stack(StackConfig('stack').width(400).height(400).alignment(StackAlignment.TopStart).padding(10), () => {
-    Stack(Config('inner.1').width(200).height(200))
-    Stack(Config('inner.2').width(100).height(100))
-  })
+  Stack(
+    StackConfig('stack').width(400).height(400).alignment(StackAlignment.TopStart).padding(10),
+    () => {
+      Stack(Config('inner.1').width(200).height(200))
+      Stack(Config('inner.2').width(100).height(100))
+    }
+  )
 
   WorkingTree.performUpdate()
   Renderer.commit(WorkingTree.root)
@@ -34,10 +37,13 @@ test('Children of Stack(alignment=TopStart) get positioned correctly', () => {
 })
 
 test('Children of Stack(alignment=TopCenter) get positioned correctly', () => {
-  Stack(StackConfig('stack').width(400).height(400).alignment(StackAlignment.TopCenter).padding(10), () => {
-    Stack(Config('inner.1').width(200).height(200))
-    Stack(Config('inner.2').width(100).height(100))
-  })
+  Stack(
+    StackConfig('stack').width(400).height(400).alignment(StackAlignment.TopCenter).padding(10),
+    () => {
+      Stack(Config('inner.1').width(200).height(200))
+      Stack(Config('inner.2').width(100).height(100))
+    }
+  )
 
   WorkingTree.performUpdate()
   Renderer.commit(WorkingTree.root)
@@ -47,10 +53,13 @@ test('Children of Stack(alignment=TopCenter) get positioned correctly', () => {
 })
 
 test('Children of Stack(alignment=TopEnd) get positioned correctly', () => {
-  Stack(StackConfig('stack').width(400).height(400).alignment(StackAlignment.TopEnd).padding(10), () => {
-    Stack(Config('inner.1').width(200).height(200))
-    Stack(Config('inner.2').width(100).height(100))
-  })
+  Stack(
+    StackConfig('stack').width(400).height(400).alignment(StackAlignment.TopEnd).padding(10),
+    () => {
+      Stack(Config('inner.1').width(200).height(200))
+      Stack(Config('inner.2').width(100).height(100))
+    }
+  )
 
   WorkingTree.performUpdate()
   Renderer.commit(WorkingTree.root)
@@ -60,10 +69,13 @@ test('Children of Stack(alignment=TopEnd) get positioned correctly', () => {
 })
 
 test('Children of Stack(alignment=CenterStart) get positioned correctly', () => {
-  Stack(StackConfig('stack').width(400).height(400).alignment(StackAlignment.CenterStart).padding(10), () => {
-    Stack(Config('inner.1').width(200).height(200))
-    Stack(Config('inner.2').width(100).height(100))
-  })
+  Stack(
+    StackConfig('stack').width(400).height(400).alignment(StackAlignment.CenterStart).padding(10),
+    () => {
+      Stack(Config('inner.1').width(200).height(200))
+      Stack(Config('inner.2').width(100).height(100))
+    }
+  )
 
   WorkingTree.performUpdate()
   Renderer.commit(WorkingTree.root)
@@ -73,10 +85,13 @@ test('Children of Stack(alignment=CenterStart) get positioned correctly', () => 
 })
 
 test('Children of Stack(alignment=Center) get positioned correctly', () => {
-  Stack(StackConfig('stack').width(400).height(400).alignment(StackAlignment.Center).padding(10), () => {
-    Stack(Config('inner.1').width(200).height(200))
-    Stack(Config('inner.2').width(100).height(100))
-  })
+  Stack(
+    StackConfig('stack').width(400).height(400).alignment(StackAlignment.Center).padding(10),
+    () => {
+      Stack(Config('inner.1').width(200).height(200))
+      Stack(Config('inner.2').width(100).height(100))
+    }
+  )
 
   WorkingTree.performUpdate()
   Renderer.commit(WorkingTree.root)
@@ -86,10 +101,13 @@ test('Children of Stack(alignment=Center) get positioned correctly', () => {
 })
 
 test('Children of Stack(alignment=CenterEnd) get positioned correctly', () => {
-  Stack(StackConfig('stack').width(400).height(400).alignment(StackAlignment.CenterEnd).padding(10), () => {
-    Stack(Config('inner.1').width(200).height(200))
-    Stack(Config('inner.2').width(100).height(100))
-  })
+  Stack(
+    StackConfig('stack').width(400).height(400).alignment(StackAlignment.CenterEnd).padding(10),
+    () => {
+      Stack(Config('inner.1').width(200).height(200))
+      Stack(Config('inner.2').width(100).height(100))
+    }
+  )
 
   WorkingTree.performUpdate()
   Renderer.commit(WorkingTree.root)
@@ -99,10 +117,13 @@ test('Children of Stack(alignment=CenterEnd) get positioned correctly', () => {
 })
 
 test('Children of Stack(alignment=BottomStart) get positioned correctly', () => {
-  Stack(StackConfig('stack').width(400).height(400).alignment(StackAlignment.BottomStart).padding(10), () => {
-    Stack(Config('inner.1').width(200).height(200))
-    Stack(Config('inner.2').width(100).height(100))
-  })
+  Stack(
+    StackConfig('stack').width(400).height(400).alignment(StackAlignment.BottomStart).padding(10),
+    () => {
+      Stack(Config('inner.1').width(200).height(200))
+      Stack(Config('inner.2').width(100).height(100))
+    }
+  )
 
   WorkingTree.performUpdate()
   Renderer.commit(WorkingTree.root)
@@ -112,10 +133,13 @@ test('Children of Stack(alignment=BottomStart) get positioned correctly', () => 
 })
 
 test('Children of Stack(alignment=BottomCenter) get positioned correctly', () => {
-  Stack(StackConfig('stack').width(400).height(400).alignment(StackAlignment.BottomCenter).padding(10), () => {
-    Stack(Config('inner.1').width(200).height(200))
-    Stack(Config('inner.2').width(100).height(100))
-  })
+  Stack(
+    StackConfig('stack').width(400).height(400).alignment(StackAlignment.BottomCenter).padding(10),
+    () => {
+      Stack(Config('inner.1').width(200).height(200))
+      Stack(Config('inner.2').width(100).height(100))
+    }
+  )
 
   WorkingTree.performUpdate()
   Renderer.commit(WorkingTree.root)
@@ -125,10 +149,13 @@ test('Children of Stack(alignment=BottomCenter) get positioned correctly', () =>
 })
 
 test('Children of Stack(alignment=BottomEnd) get positioned correctly', () => {
-  Stack(StackConfig('stack').width(400).height(400).alignment(StackAlignment.BottomEnd).padding(10), () => {
-    Stack(Config('inner.1').width(200).height(200))
-    Stack(Config('inner.2').width(100).height(100))
-  })
+  Stack(
+    StackConfig('stack').width(400).height(400).alignment(StackAlignment.BottomEnd).padding(10),
+    () => {
+      Stack(Config('inner.1').width(200).height(200))
+      Stack(Config('inner.2').width(100).height(100))
+    }
+  )
 
   WorkingTree.performUpdate()
   Renderer.commit(WorkingTree.root)

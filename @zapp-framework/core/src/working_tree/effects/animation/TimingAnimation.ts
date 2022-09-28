@@ -31,7 +31,9 @@ export class TimingAnimation extends Animation<number> {
       this.isFinished = true
     }
 
-    return this.startValue + (this.targetValue - this.startValue) * this.easingFunction(this.progress)
+    return (
+      this.startValue + (this.targetValue - this.startValue) * this.easingFunction(this.progress)
+    )
   }
 
   public calculateReversedValue(value: number): number {

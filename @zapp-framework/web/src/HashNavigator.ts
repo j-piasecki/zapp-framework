@@ -1,4 +1,9 @@
-import { SavedTreeState, WorkingTree, NavigatorInterface, RegisteredCallback } from '@zapp-framework/core'
+import {
+  SavedTreeState,
+  WorkingTree,
+  NavigatorInterface,
+  RegisteredCallback,
+} from '@zapp-framework/core'
 
 const historyStack: SavedTreeState[] = []
 const registeredCallbacks: RegisteredCallback[] = []
@@ -8,8 +13,12 @@ export class HashNavigator implements NavigatorInterface {
   private routes: Record<string, (params?: Record<string, unknown>) => void>
   private currentRoute: string
 
-  public register(startingRoute: string, routes: Record<string, (params?: Record<string, unknown>) => void>) {
-    const routeToRender = window.location.hash.length === 0 ? startingRoute : window.location.hash.substring(1)
+  public register(
+    startingRoute: string,
+    routes: Record<string, (params?: Record<string, unknown>) => void>
+  ) {
+    const routeToRender =
+      window.location.hash.length === 0 ? startingRoute : window.location.hash.substring(1)
 
     this.routes = routes
     this.changeRoute(routeToRender)

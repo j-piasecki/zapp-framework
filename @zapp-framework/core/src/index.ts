@@ -9,7 +9,10 @@ export { rememberLauncherForResult } from './working_tree/effects/rememberLaunch
 export { registerCrownEventHandler } from './working_tree/effects/registerCrownEventHandler.js'
 export { registerHomeButtonEventHandler } from './working_tree/effects/registerHomeButtonEventHandler.js'
 export { registerShortcutButtonEventHandler } from './working_tree/effects/registerShortcutButtonEventHandler.js'
-export { registerGestureEventHandler, GestureType } from './working_tree/effects/registerGestureEventHandler.js'
+export {
+  registerGestureEventHandler,
+  GestureType,
+} from './working_tree/effects/registerGestureEventHandler.js'
 export { RememberedMutableValue } from './working_tree/effects/RememberedMutableValue.js'
 export { sideEffect } from './working_tree/effects/sideEffect.js'
 export { Arc } from './working_tree/views/Arc.js'
@@ -50,8 +53,19 @@ export { ViewManagerInterface, setViewManager as __setViewManager } from './rend
 export { PointerEventManager } from './renderer/PointerEventManager.js'
 export { GlobalEventManager } from './renderer/GlobalEventManager.js'
 export { NodeType } from './NodeType.js'
-export { ZappInterface, Platform, ScreenShape, Zapp, setZappInterface as __setZappInterface } from './ZappInterface.js'
-export { NavigatorInterface, Navigator, RegisteredCallback, setNavigator as __setNavigator } from './Navigator.js'
+export {
+  ZappInterface,
+  Platform,
+  ScreenShape,
+  Zapp,
+  setZappInterface as __setZappInterface,
+} from './ZappInterface.js'
+export {
+  NavigatorInterface,
+  Navigator,
+  RegisteredCallback,
+  setNavigator as __setNavigator,
+} from './Navigator.js'
 export { SavedTreeState } from './working_tree/SavedTreeState.js'
 export { Color } from './Color.js'
 export { EventType, ButtonAction } from './working_tree/EventNode.js'

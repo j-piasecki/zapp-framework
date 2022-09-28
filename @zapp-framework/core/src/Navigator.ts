@@ -38,7 +38,10 @@ export abstract class Navigator {
     navigator.registerResultCallback(page, path)
   }
 
-  public static tryPoppingLauncherResult(page: string, path: string[]): RegisteredCallback | undefined {
+  public static tryPoppingLauncherResult(
+    page: string,
+    path: string[]
+  ): RegisteredCallback | undefined {
     return navigator.tryPoppingLauncherResult(page, path)
   }
 

@@ -118,7 +118,11 @@ export abstract class WorkingTree {
     }
   }
 
-  public static create(parent: WorkingNode, props: ViewNodeProps, customViewProps?: CustomViewProps) {
+  public static create(
+    parent: WorkingNode,
+    props: ViewNodeProps,
+    customViewProps?: CustomViewProps
+  ) {
     const result = new ViewNode(props)
 
     // new view nodes may only be created inside another view node

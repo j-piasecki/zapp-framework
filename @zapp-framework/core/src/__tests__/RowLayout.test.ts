@@ -106,11 +106,14 @@ test('Children of Row(arrangement=End) get positioned correctly', () => {
 })
 
 test('Children of Row(arrangement=SpaceBetween) get positioned correctly', () => {
-  Row(RowConfig('row').width(400).height(400).arrangement(Arrangement.SpaceBetween).padding(10), () => {
-    Stack(Config('inner.1').width(50).height(50))
-    Stack(Config('inner.2').width(80).height(80))
-    Stack(Config('inner.3').width(100).height(100))
-  })
+  Row(
+    RowConfig('row').width(400).height(400).arrangement(Arrangement.SpaceBetween).padding(10),
+    () => {
+      Stack(Config('inner.1').width(50).height(50))
+      Stack(Config('inner.2').width(80).height(80))
+      Stack(Config('inner.3').width(100).height(100))
+    }
+  )
 
   WorkingTree.performUpdate()
   Renderer.commit(WorkingTree.root)
@@ -120,11 +123,14 @@ test('Children of Row(arrangement=SpaceBetween) get positioned correctly', () =>
 })
 
 test('Children of Row(arrangement=SpaceAround) get positioned correctly', () => {
-  Row(RowConfig('row').width(400).height(400).arrangement(Arrangement.SpaceAround).padding(10), () => {
-    Stack(Config('inner.1').width(50).height(50))
-    Stack(Config('inner.2').width(80).height(80))
-    Stack(Config('inner.3').width(100).height(100))
-  })
+  Row(
+    RowConfig('row').width(400).height(400).arrangement(Arrangement.SpaceAround).padding(10),
+    () => {
+      Stack(Config('inner.1').width(50).height(50))
+      Stack(Config('inner.2').width(80).height(80))
+      Stack(Config('inner.3').width(100).height(100))
+    }
+  )
 
   WorkingTree.performUpdate()
   Renderer.commit(WorkingTree.root)
@@ -134,11 +140,14 @@ test('Children of Row(arrangement=SpaceAround) get positioned correctly', () => 
 })
 
 test('Children of Row(arrangement=SpaceEvenly) get positioned correctly', () => {
-  Row(RowConfig('row').width(400).height(400).arrangement(Arrangement.SpaceEvenly).padding(10), () => {
-    Stack(Config('inner.1').width(50).height(50))
-    Stack(Config('inner.2').width(80).height(80))
-    Stack(Config('inner.3').width(100).height(100))
-  })
+  Row(
+    RowConfig('row').width(400).height(400).arrangement(Arrangement.SpaceEvenly).padding(10),
+    () => {
+      Stack(Config('inner.1').width(50).height(50))
+      Stack(Config('inner.2').width(80).height(80))
+      Stack(Config('inner.3').width(100).height(100))
+    }
+  )
 
   WorkingTree.performUpdate()
   Renderer.commit(WorkingTree.root)

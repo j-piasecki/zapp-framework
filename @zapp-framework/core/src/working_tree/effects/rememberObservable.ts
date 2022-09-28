@@ -28,7 +28,10 @@ export function rememberObservable<T>(
     if (path !== null && path !== undefined) {
       const rememberedNode = current.rememberedContext?.getNodeFromPath(path) ?? null
 
-      if (rememberedNode instanceof RememberNode && rememberedNode.remembered instanceof RememberedMutableValue) {
+      if (
+        rememberedNode instanceof RememberNode &&
+        rememberedNode.remembered instanceof RememberedMutableValue
+      ) {
         savedRemembered = rememberedNode.remembered
         // TODO: investigate context switching in remembered values more
         savedRemembered.switchContext(context)
@@ -36,7 +39,8 @@ export function rememberObservable<T>(
     }
   }
 
-  const result = savedRemembered === null ? new RememberedMutableValue(value, context) : savedRemembered
+  const result =
+    savedRemembered === null ? new RememberedMutableValue(value, context) : savedRemembered
 
   if (restoredState !== undefined && restoredState.animationData !== undefined) {
     let anim: Animation<unknown> | null = null

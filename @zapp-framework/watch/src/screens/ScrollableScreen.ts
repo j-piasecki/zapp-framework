@@ -12,7 +12,10 @@ import { navigatorInstance } from '../Navigator.js'
 let rememberedValues: RememberedMutableValue<number>[] = []
 let previousScroll = 0
 
-export function ScrollableScreen(configBuilder: ConfigBuilder, body?: (params?: Record<string, unknown>) => void) {
+export function ScrollableScreen(
+  configBuilder: ConfigBuilder,
+  body?: (params?: Record<string, unknown>) => void
+) {
   PageWrapper({
     build: (params) => {
       ScreenBody(configBuilder, () => {

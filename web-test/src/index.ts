@@ -69,67 +69,81 @@ function StackExample() {
   Page(routesInfo, () => {
     const alignment = remember(StackAlignment.Center)
 
-    Column(ColumnConfig('stack-example').alignment(Alignment.Center).arrangement(Arrangement.Center).fillSize(), () => {
-      Column(ColumnConfig('align-chooser').alignment(Alignment.Center).padding(0, 0, 0, 50), () => {
-        Row(Config('align-chooser-top'), () => {
-          CustomButton(Config('btn-alignment-topstart'), 'TopStart', () => {
-            alignment.value = StackAlignment.TopStart
-          })
-          CustomButton(Config('btn-alignment-topcenter'), 'TopCenter', () => {
-            alignment.value = StackAlignment.TopCenter
-          })
-          CustomButton(Config('btn-alignment-topend'), 'TopEnd', () => {
-            alignment.value = StackAlignment.TopEnd
-          })
-        })
+    Column(
+      ColumnConfig('stack-example')
+        .alignment(Alignment.Center)
+        .arrangement(Arrangement.Center)
+        .fillSize(),
+      () => {
+        Column(
+          ColumnConfig('align-chooser').alignment(Alignment.Center).padding(0, 0, 0, 50),
+          () => {
+            Row(Config('align-chooser-top'), () => {
+              CustomButton(Config('btn-alignment-topstart'), 'TopStart', () => {
+                alignment.value = StackAlignment.TopStart
+              })
+              CustomButton(Config('btn-alignment-topcenter'), 'TopCenter', () => {
+                alignment.value = StackAlignment.TopCenter
+              })
+              CustomButton(Config('btn-alignment-topend'), 'TopEnd', () => {
+                alignment.value = StackAlignment.TopEnd
+              })
+            })
 
-        Row(Config('align-chooser-center'), () => {
-          CustomButton(Config('btn-alignment-centerstart'), 'CenterStart', () => {
-            alignment.value = StackAlignment.CenterStart
-          })
-          CustomButton(Config('btn-alignment-center'), 'Center', () => {
-            alignment.value = StackAlignment.Center
-          })
-          CustomButton(Config('btn-alignment-centerend'), 'CenterEnd', () => {
-            alignment.value = StackAlignment.CenterEnd
-          })
-        })
+            Row(Config('align-chooser-center'), () => {
+              CustomButton(Config('btn-alignment-centerstart'), 'CenterStart', () => {
+                alignment.value = StackAlignment.CenterStart
+              })
+              CustomButton(Config('btn-alignment-center'), 'Center', () => {
+                alignment.value = StackAlignment.Center
+              })
+              CustomButton(Config('btn-alignment-centerend'), 'CenterEnd', () => {
+                alignment.value = StackAlignment.CenterEnd
+              })
+            })
 
-        Row(Config('align-chooser-bottom'), () => {
-          CustomButton(Config('btn-alignment-bottomstart'), 'BottomStart', () => {
-            alignment.value = StackAlignment.BottomStart
-          })
-          CustomButton(Config('btn-alignment-bottomcenter'), 'BottomCenter', () => {
-            alignment.value = StackAlignment.BottomCenter
-          })
-          CustomButton(Config('btn-alignment-bottomend'), 'BottomEnd', () => {
-            alignment.value = StackAlignment.BottomEnd
-          })
-        })
-      })
+            Row(Config('align-chooser-bottom'), () => {
+              CustomButton(Config('btn-alignment-bottomstart'), 'BottomStart', () => {
+                alignment.value = StackAlignment.BottomStart
+              })
+              CustomButton(Config('btn-alignment-bottomcenter'), 'BottomCenter', () => {
+                alignment.value = StackAlignment.BottomCenter
+              })
+              CustomButton(Config('btn-alignment-bottomend'), 'BottomEnd', () => {
+                alignment.value = StackAlignment.BottomEnd
+              })
+            })
+          }
+        )
 
-      Stack(
-        StackConfig('stack').alignment(alignment.value).background(0xff0000).width(350).height(350).padding(10),
-        () => {
-          Stack(
-            StackConfig('innerstack.1')
-              .width(200)
-              .height(200)
-              .background(0x00ff00)
-              .borderWidth(10)
-              .borderColor(0xff00ff)
-          )
-          Stack(
-            StackConfig('innerstack.2')
-              .width(100)
-              .height(100)
-              .background(0x0000ff)
-              .borderWidth(10)
-              .borderColor(0xffff00)
-          )
-        }
-      )
-    })
+        Stack(
+          StackConfig('stack')
+            .alignment(alignment.value)
+            .background(0xff0000)
+            .width(350)
+            .height(350)
+            .padding(10),
+          () => {
+            Stack(
+              StackConfig('innerstack.1')
+                .width(200)
+                .height(200)
+                .background(0x00ff00)
+                .borderWidth(10)
+                .borderColor(0xff00ff)
+            )
+            Stack(
+              StackConfig('innerstack.2')
+                .width(100)
+                .height(100)
+                .background(0x0000ff)
+                .borderWidth(10)
+                .borderColor(0xffff00)
+            )
+          }
+        )
+      }
+    )
   })
 }
 
@@ -229,7 +243,11 @@ function RowExample() {
     const arrangement = remember(Arrangement.Start)
 
     Column(
-      ColumnConfig('row-example').alignment(Alignment.Center).arrangement(Arrangement.Center).fillSize().padding(50, 0),
+      ColumnConfig('row-example')
+        .alignment(Alignment.Center)
+        .arrangement(Arrangement.Center)
+        .fillSize()
+        .padding(50, 0),
       () => {
         BareText(TextConfig('align-header').textColor(0xffffff).textSize(24), 'Alignment')
         Row(RowConfig('align-chooser').padding(0, 0, 0, 25), () => {
@@ -426,7 +444,12 @@ function DynamicLayoutExample() {
             rotation.value = withTiming(360, { duration: 5000, easing: Easing.easeInOutCubic })
           })
           Image(
-            ImageConfig('img').width(130).height(130).innerOffset(15, 15).origin(65, 65).rotation(rotation.value),
+            ImageConfig('img')
+              .width(130)
+              .height(130)
+              .innerOffset(15, 15)
+              .origin(65, 65)
+              .rotation(rotation.value),
             'zapp.png'
           )
           ActivityIndicator(ActivityIndicatorConfig('ac').size(100).lineWidth(10))
@@ -457,45 +480,51 @@ function DynamicLayoutExample() {
           }),
         () => {
           Row(RowConfig('row3').padding(20).background(0x0000ff), () => {
-            Column(ColumnConfig('col3').width(size.value).height(size.value).background(0xff00ff), () => {
-              Column(ColumnConfig('pad1').padding(10).background(0x9f0000), () => {
-                Column(ColumnConfig('pad2').padding(10).background(0x009f00), () => {
-                  BareText(
-                    TextConfig('BareText').textColor(0xffffff).textSize(20),
-                    'a b c d e f g h i j k l m n o p q r s t u v w x y z'
-                  )
+            Column(
+              ColumnConfig('col3').width(size.value).height(size.value).background(0xff00ff),
+              () => {
+                Column(ColumnConfig('pad1').padding(10).background(0x9f0000), () => {
+                  Column(ColumnConfig('pad2').padding(10).background(0x009f00), () => {
+                    BareText(
+                      TextConfig('BareText').textColor(0xffffff).textSize(20),
+                      'a b c d e f g h i j k l m n o p q r s t u v w x y z'
+                    )
+                  })
                 })
-              })
-            })
+              }
+            )
             // @ts-ignore
-            Column(ColumnConfig('margin').padding(size.value, 0, 0, 0).background(background), () => {
-              Column(
-                ColumnConfig('col4')
-                  .width(50)
-                  .height(50)
-                  .background(0x00ffff)
-                  .onPointerDown((e) => {
-                    e.capture()
-                    start.value = { x: e.x, y: e.y }
-                  })
-                  .onPointerMove((e) => {
-                    position.value = {
-                      x: position.value.x + e.x - start.value.x,
-                      y: position.value.y + e.y - start.value.y,
-                    }
+            Column(
+              ColumnConfig('margin').padding(size.value, 0, 0, 0).background(background),
+              () => {
+                Column(
+                  ColumnConfig('col4')
+                    .width(50)
+                    .height(50)
+                    .background(0x00ffff)
+                    .onPointerDown((e) => {
+                      e.capture()
+                      start.value = { x: e.x, y: e.y }
+                    })
+                    .onPointerMove((e) => {
+                      position.value = {
+                        x: position.value.x + e.x - start.value.x,
+                        y: position.value.y + e.y - start.value.y,
+                      }
 
-                    start.value = { x: e.x, y: e.y }
-                  })
-                  .onPointerEnter(() => {
-                    console.log('inner enter')
-                  })
-                  .onPointerLeave(() => {
-                    console.log('inner leave')
-                  })
-                  .offset(position.value.x, position.value.y),
-                () => {}
-              )
-            })
+                      start.value = { x: e.x, y: e.y }
+                    })
+                    .onPointerEnter(() => {
+                      console.log('inner enter')
+                    })
+                    .onPointerLeave(() => {
+                      console.log('inner leave')
+                    })
+                    .offset(position.value.x, position.value.y),
+                  () => {}
+                )
+              }
+            )
           })
 
           const checked = remember(false)
@@ -517,47 +546,53 @@ function DynamicLayoutExample() {
 
 function StartForResultExample() {
   Page(routesInfo, () => {
-    Column(ColumnConfig('column').alignment(Alignment.Center).arrangement(Arrangement.Center), () => {
-      const value = remember('nothing')
-      const anim = remember(0)
-      const launcher = rememberLauncherForResult('picker', (result) => {
-        value.value = result!.res as string
-      })
+    Column(
+      ColumnConfig('column').alignment(Alignment.Center).arrangement(Arrangement.Center),
+      () => {
+        const value = remember('nothing')
+        const anim = remember(0)
+        const launcher = rememberLauncherForResult('picker', (result) => {
+          value.value = result!.res as string
+        })
 
-      sideEffect(() => {
-        anim.value = withTiming(400, { duration: 1000 })
-      })
+        sideEffect(() => {
+          anim.value = withTiming(400, { duration: 1000 })
+        })
 
-      Stack(StackConfig('box').width(100).height(100).background(0xff0000).offset(0, anim.value))
+        Stack(StackConfig('box').width(100).height(100).background(0xff0000).offset(0, anim.value))
 
-      BareText(TextConfig('value-BareText').textColor(0xffffff).textSize(40), value.value)
+        BareText(TextConfig('value-BareText').textColor(0xffffff).textSize(40), value.value)
 
-      CustomButton(Config('btn'), 'Open', () => {
-        launcher.launch()
-      })
+        CustomButton(Config('btn'), 'Open', () => {
+          launcher.launch()
+        })
 
-      CustomButton(Config('clear'), 'Clear', () => {
-        value.value = 'nothing'
-      })
-    })
+        CustomButton(Config('clear'), 'Clear', () => {
+          value.value = 'nothing'
+        })
+      }
+    )
   })
 }
 
 function NumberPickerExample() {
   Page(routesInfo, () => {
-    Column(ColumnConfig('column').alignment(Alignment.Center).arrangement(Arrangement.Center), () => {
-      CustomButton(Config('btn1'), 'Send 1', () => {
-        Navigator.finishWithResult({ res: '1' })
-      })
+    Column(
+      ColumnConfig('column').alignment(Alignment.Center).arrangement(Arrangement.Center),
+      () => {
+        CustomButton(Config('btn1'), 'Send 1', () => {
+          Navigator.finishWithResult({ res: '1' })
+        })
 
-      CustomButton(Config('btn2'), 'Send 2', () => {
-        Navigator.finishWithResult({ res: '2' })
-      })
+        CustomButton(Config('btn2'), 'Send 2', () => {
+          Navigator.finishWithResult({ res: '2' })
+        })
 
-      CustomButton(Config('btn3'), 'Send 3', () => {
-        Navigator.finishWithResult({ res: '3' })
-      })
-    })
+        CustomButton(Config('btn3'), 'Send 3', () => {
+          Navigator.finishWithResult({ res: '3' })
+        })
+      }
+    )
   })
 }
 
@@ -578,9 +613,12 @@ function CrownGestureEventExample() {
       return true
     })
 
-    Column(ColumnConfig('column').alignment(Alignment.Center).arrangement(Arrangement.Center), () => {
-      Stack(StackConfig('bar').width(50).height(height.value).background(0xff0000))
-    })
+    Column(
+      ColumnConfig('column').alignment(Alignment.Center).arrangement(Arrangement.Center),
+      () => {
+        Stack(StackConfig('bar').width(50).height(height.value).background(0xff0000))
+      }
+    )
 
     BareText(TextConfig('BareText').textColor(0xffffff).textSize(30), lastGesture.value)
   })
@@ -674,31 +712,60 @@ function PageIndicators() {
       })
 
       Row(RowConfig('horizontal').fillWidth().weight(1), () => {
-        Row(RowConfig('horizontalSquareWrapper').fillHeight(1).weight(1).alignment(Alignment.Center), () => {
-          Stack(StackConfig('horizontalSquare').width(300).height(300).background(0x000000), () => {
-            renderIndicator('indicatorHS', true, 150, false, currentPage.value, numberOfPages)
-          })
-        })
+        Row(
+          RowConfig('horizontalSquareWrapper').fillHeight(1).weight(1).alignment(Alignment.Center),
+          () => {
+            Stack(
+              StackConfig('horizontalSquare').width(300).height(300).background(0x000000),
+              () => {
+                renderIndicator('indicatorHS', true, 150, false, currentPage.value, numberOfPages)
+              }
+            )
+          }
+        )
 
-        Row(RowConfig('horizontalRoundWrapper').fillHeight(1).weight(1).alignment(Alignment.Center), () => {
-          Stack(StackConfig('horizontalRound').width(400).height(400).cornerRadius(200).background(0x000000), () => {
-            renderIndicator('indicatorHR', true, 200, true, currentPage.value, numberOfPages)
-          })
-        })
+        Row(
+          RowConfig('horizontalRoundWrapper').fillHeight(1).weight(1).alignment(Alignment.Center),
+          () => {
+            Stack(
+              StackConfig('horizontalRound')
+                .width(400)
+                .height(400)
+                .cornerRadius(200)
+                .background(0x000000),
+              () => {
+                renderIndicator('indicatorHR', true, 200, true, currentPage.value, numberOfPages)
+              }
+            )
+          }
+        )
       })
 
       Row(RowConfig('vertical').fillWidth().weight(1), () => {
-        Row(RowConfig('verticalSquareWrapper').fillHeight(1).weight(1).alignment(Alignment.Center), () => {
-          Stack(StackConfig('verticalSquare').width(300).height(300).background(0x000000), () => {
-            renderIndicator('indicatorVS', false, 150, false, currentPage.value, numberOfPages)
-          })
-        })
+        Row(
+          RowConfig('verticalSquareWrapper').fillHeight(1).weight(1).alignment(Alignment.Center),
+          () => {
+            Stack(StackConfig('verticalSquare').width(300).height(300).background(0x000000), () => {
+              renderIndicator('indicatorVS', false, 150, false, currentPage.value, numberOfPages)
+            })
+          }
+        )
 
-        Row(RowConfig('verticalRoundWrapper').fillHeight(1).weight(1).alignment(Alignment.Center), () => {
-          Stack(StackConfig('verticalRound').width(300).height(300).cornerRadius(150).background(0x000000), () => {
-            renderIndicator('indicatorVR', false, 150, true, currentPage.value, numberOfPages)
-          })
-        })
+        Row(
+          RowConfig('verticalRoundWrapper').fillHeight(1).weight(1).alignment(Alignment.Center),
+          () => {
+            Stack(
+              StackConfig('verticalRound')
+                .width(300)
+                .height(300)
+                .cornerRadius(150)
+                .background(0x000000),
+              () => {
+                renderIndicator('indicatorVR', false, 150, true, currentPage.value, numberOfPages)
+              }
+            )
+          }
+        )
       })
     })
   })
