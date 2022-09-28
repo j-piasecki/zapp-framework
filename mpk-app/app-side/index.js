@@ -1,4 +1,5 @@
 import { gettext as getText } from 'i18n'
+import he from 'he'
 import { MessageBuilder } from '../shared/message'
 import { REQUEST_STOPS_LIST, REQUEST_STOP_DEPARTURES } from '../shared/const'
 
@@ -35,11 +36,12 @@ async function fetchStopData(ctx, data) {
     } else {
       const stopInfo = route.splice(1).sort((a, b) => a.name.length - b.name.length)[0]
       data.id = stopInfo.id
-      data.name = stopInfo.name
+
       const stops = getStops()
       for (let i = 0; i < stops.length; i++) {
         if (stops[i].name === data.name) {
           stops[i].id = data.id
+          stops[i].name = he.decode(stopInfo.name)
           break
         }
       }

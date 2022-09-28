@@ -11,7 +11,8 @@
   "dependencies": {
     "@zapp/core": "*",
     "@zapp/ui": "*",
-    "@zapp/watch": "*"
+    "@zapp/watch": "*",
+    "he": "^1.2.0"
   },
   "devDependencies": {
     "@zeppos/device-types": "^1.0.0"
