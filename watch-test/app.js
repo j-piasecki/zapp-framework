@@ -1,6 +1,6 @@
-import '@zapp/watch'
-import { setTheme } from '@zapp/ui'
-import { Application } from '@zapp/core'
+import '@zapp-framework/watch'
+import { setTheme } from '@zapp-framework/ui'
+import { Application } from '@zapp-framework/core'
 
 Application({
   onInit() {

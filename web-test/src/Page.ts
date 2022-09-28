@@ -1,4 +1,4 @@
-import { Config, Row, Stack, StackConfig, SimpleScreen, StackAlignment, RowConfig } from '@zapp/core'
+import { Config, Row, Stack, StackConfig, SimpleScreen, StackAlignment, RowConfig } from '@zapp-framework/core'
 import { NavBar, RouteInfo } from './NavBar'
 
 export function Page(routes: RouteInfo[], content: () => void) {

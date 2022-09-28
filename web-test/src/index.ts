@@ -1,4 +1,4 @@
-import { registerNavigationRoutes } from '@zapp/web'
+import { registerNavigationRoutes } from '@zapp-framework/web'
 import {
   ActivityIndicator,
   ActivityIndicatorConfig,
@@ -16,7 +16,7 @@ import {
   RadioGroupConfig,
   CheckBox,
   CheckBoxConfig,
-} from '@zapp/ui'
+} from '@zapp-framework/ui'
 import {
   Config,
   TextConfig,
@@ -46,7 +46,7 @@ import {
   Image,
   ImageConfig,
   GestureType,
-} from '@zapp/core'
+} from '@zapp-framework/core'
 import { NavBar, RouteInfo } from './NavBar'
 import { Page } from './Page'
 import { CustomButton } from './CustomButton'

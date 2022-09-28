@@ -1,4 +1,4 @@
-import { ScrollableScreen, rememberScrollPosition } from '@zapp/watch'
+import { ScrollableScreen, rememberScrollPosition } from '@zapp-framework/watch'
 import {
   SimpleScreen,
   Stack,
@@ -20,7 +20,7 @@ import {
   ArcConfig,
   Navigator,
   registerGestureEventHandler,
-} from '@zapp/core'
+} from '@zapp-framework/core'
 
 ScrollableScreen(Config('screen'), (params) => {
   const scroll = rememberScrollPosition()

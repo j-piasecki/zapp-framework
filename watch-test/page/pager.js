@@ -1,4 +1,4 @@
-import { ScreenPager, PagerEntry, rememberCurrentPage, ScreenPagerConfig, rememberSaveable } from '@zapp/watch'
+import { ScreenPager, PagerEntry, rememberCurrentPage, ScreenPagerConfig, rememberSaveable } from '@zapp-framework/watch'
 import {
   SimpleScreen,
   Stack,
@@ -20,8 +20,8 @@ import {
   ArcConfig,
   Navigator,
   registerGestureEventHandler,
-} from '@zapp/core'
-import { Button, ButtonConfig, PageIndicator, PageIndicatorConfig, Text, Switch, SwitchConfig } from '@zapp/ui'
+} from '@zapp-framework/core'
+import { Button, ButtonConfig, PageIndicator, PageIndicatorConfig, Text, Switch, SwitchConfig } from '@zapp-framework/ui'
 
 function renderPageIndicator(current) {
   PageIndicator(PageIndicatorConfig('indicator').numberOfPages(5).currentPage(current))

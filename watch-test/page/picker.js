@@ -1,4 +1,4 @@
-import { rememberSaveable } from '@zapp/watch'
+import { rememberSaveable } from '@zapp-framework/watch'
 import {
   SimpleScreen,
   Stack,
@@ -19,8 +19,8 @@ import {
   ColumnConfig,
   ArcConfig,
   Navigator,
-} from '@zapp/core'
-import { Button, ButtonConfig, Text, RadioButton, RadioGroup, RadioGroupConfig } from '@zapp/ui'
+} from '@zapp-framework/core'
+import { Button, ButtonConfig, Text, RadioButton, RadioGroup, RadioGroupConfig } from '@zapp-framework/ui'
 
 SimpleScreen(Config('screen'), (params) => {
   Column(ColumnConfig('wrapper').fillSize().arrangement(Arrangement.Center).alignment(Alignment.Center), () => {

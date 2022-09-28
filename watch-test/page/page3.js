@@ -1,4 +1,4 @@
-import '@zapp/watch'
+import '@zapp-framework/watch'
 import {
   SimpleScreen,
   Stack,
@@ -21,7 +21,7 @@ import {
   Navigator,
   rememberLauncherForResult,
   registerCrownEventHandler,
-} from '@zapp/core'
+} from '@zapp-framework/core'
 
 SimpleScreen(Config('screen'), (params) => {
   const selectedNumber = remember(-1)

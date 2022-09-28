@@ -9,7 +9,7 @@ import {
   remember,
   ColumnConfig,
   Navigator,
-} from '@zapp/core'
+} from '@zapp-framework/core'
 
 function NavButton(text: string, route: string) {
   Custom(ColumnConfig(`wrapperbutton#${route}`).padding(5, 0), {}, () => {

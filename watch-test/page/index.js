@@ -1,5 +1,5 @@
-import '@zapp/watch'
-import { ActivityIndicator, ActivityIndicatorConfig, Theme } from '@zapp/ui'
+import '@zapp-framework/watch'
+import { ActivityIndicator, ActivityIndicatorConfig, Theme } from '@zapp-framework/ui'
 import {
   SimpleScreen,
   Stack,
@@ -23,7 +23,7 @@ import {
   registerCrownEventHandler,
   Image,
   ImageConfig,
-} from '@zapp/core'
+} from '@zapp-framework/core'
 
 let cycle = [
   Arrangement.SpaceEvenly,

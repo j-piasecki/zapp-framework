@@ -1,4 +1,4 @@
-import '@zapp/watch'
+import '@zapp-framework/watch'
 import {
   SimpleScreen,
   Stack,
@@ -20,7 +20,7 @@ import {
   ArcConfig,
   Navigator,
   registerGestureEventHandler,
-} from '@zapp/core'
+} from '@zapp-framework/core'
 
 SimpleScreen(Config('screen'), (params) => {
   Column(

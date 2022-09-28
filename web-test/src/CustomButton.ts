@@ -1,5 +1,14 @@
-import { Custom, remember, Stack, StackConfig, StackAlignment, TextConfig, BareText, ColumnConfig } from '@zapp/core'
-import { ConfigBuilder } from '@zapp/core/build/working_tree/props/Config'
+import {
+  Custom,
+  remember,
+  Stack,
+  StackConfig,
+  StackAlignment,
+  TextConfig,
+  BareText,
+  ColumnConfig,
+} from '@zapp-framework/core'
+import { ConfigBuilder } from '@zapp-framework/core/build/working_tree/props/Config'
 
 export function CustomButton(config: ConfigBuilder, text: string, onClick: () => void) {
   const id = config.build().id
