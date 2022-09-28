@@ -10,8 +10,13 @@
   "types": "build/index.d.ts",
   "type": "module",
   "scripts": {
-    "build": "yarn tsc"
+    "build": "yarn tsc",
+    "prepack": "yarn build"
   },
+  "files": [
+    "build",
+    "README.md"
+  ],
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.34.0",
     "@typescript-eslint/parser": "^5.34.0",

@@ -11,8 +11,14 @@
   "type": "module",
   "scripts": {
     "test": "jest",
-    "build": "yarn tsc"
+    "build": "yarn tsc",
+    "prepack": "yarn build",
+    "prepublishOnly": "yarn test"
   },
+  "files": [
+    "build",
+    "README.md"
+  ],
   "devDependencies": {
     "@types/jest": "^28.1.7",
     "@typescript-eslint/eslint-plugin": "^5.34.0",
