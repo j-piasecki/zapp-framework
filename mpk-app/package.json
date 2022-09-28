@@ -9,9 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@zapp/core": "*",
-    "@zapp/ui": "*",
-    "@zapp/watch": "*",
+    "@zapp-framework/core": "*",
+    "@zapp-framework/ui": "*",
+    "@zapp-framework/watch": "*",
     "he": "^1.2.0"
   },
   "devDependencies": {

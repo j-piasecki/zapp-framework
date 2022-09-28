@@ -2,3 +2,4 @@ node_modules
 .yarn
 build
 **/dist/bundle.js
+.DS_Store

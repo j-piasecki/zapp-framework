@@ -1,4 +1,4 @@
-import '@zapp/watch'
+import '@zapp-framework/watch'
 import {
   SimpleScreen,
   Stack,
@@ -21,7 +21,7 @@ import {
   Navigator,
   rememberLauncherForResult,
   registerCrownEventHandler,
-} from '@zapp/core'
+} from '@zapp-framework/core'
 
 SimpleScreen(Config('screen'), (params) => {
   const selectedNumber = remember(-1)
@@ -47,13 +47,19 @@ SimpleScreen(Config('screen'), (params) => {
         return true
       })
 
-      Column(ColumnConfig('column2').alignment(Alignment.Center).arrangement(Arrangement.Center), () => {
-        Stack(StackConfig('bar').width(50).height(height.value).background(0xff0000))
-      })
+      Column(
+        ColumnConfig('column2').alignment(Alignment.Center).arrangement(Arrangement.Center),
+        () => {
+          Stack(StackConfig('bar').width(50).height(height.value).background(0xff0000))
+        }
+      )
 
       Column(ColumnConfig('column'), () => {
         BareText(TextConfig('text').textColor(0xffffff).textSize(40), `3, ${params.data}`)
-        BareText(TextConfig('text2').textColor(0xffffff).textSize(40), `Selected: ${selectedNumber.value}`)
+        BareText(
+          TextConfig('text2').textColor(0xffffff).textSize(40),
+          `Selected: ${selectedNumber.value}`
+        )
       })
     }
   )

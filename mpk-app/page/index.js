@@ -1,5 +1,5 @@
 import { gettext as getText } from 'i18n'
-import { rememberSaveable, ScrollableScreen } from '@zapp/watch'
+import { rememberSaveable, ScrollableScreen } from '@zapp-framework/watch'
 import {
   Config,
   Column,
@@ -22,8 +22,16 @@ import {
   ImageConfig,
   Image,
   ScreenShape,
-} from '@zapp/core'
-import { ActivityIndicator, ActivityIndicatorConfig, ButtonConfig, Text, Theme, Divider, DividerConfig } from '@zapp/ui'
+} from '@zapp-framework/core'
+import {
+  ActivityIndicator,
+  ActivityIndicatorConfig,
+  ButtonConfig,
+  Text,
+  Theme,
+  Divider,
+  DividerConfig,
+} from '@zapp-framework/ui'
 import { Clickable } from '../components/Clickable'
 import { REQUEST_STOPS_LIST } from '../shared/const'
 
@@ -65,56 +73,81 @@ ScrollableScreen(Config('screen'), () => {
     }
   })
 
-  Column(ColumnConfig('column').fillWidth().alignment(Alignment.Center).background(Theme.background), () => {
-    if (availableStops.value === null) {
-      Stack(StackConfig('loadingWrapper').fillSize().positionAbsolutely(true).alignment(StackAlignment.Center), () => {
-        ActivityIndicator(ActivityIndicatorConfig('loading'))
-      })
-    } else if (availableStops.value.length === 0) {
-      Stack(StackConfig('noStopsWrapper').fillHeight().fillWidth(0.7).alignment(StackAlignment.Center), () => {
-        Text(TextConfig('noStopsText').textColor(Theme.outline).alignment(Alignment.Center), getText('noStops'))
-      })
-    } else {
-      const connected = hmBle.connectStatus()
-      Column(
-        ColumnConfig('stopsWrapper')
-          .padding(0, 0, 0, Zapp.screenHeight * 0.35)
-          .fillWidth()
-          .alignment(Alignment.Center),
-        () => {
-          Column(
-            ColumnConfig('header')
-              .alignment(Alignment.Center)
-              .arrangement(connected ? Arrangement.End : Arrangement.SpaceBetween)
-              .padding(
-                Zapp.screenShape === ScreenShape.Round ? Zapp.screenWidth * 0.2 : px(24),
-                Zapp.screenShape === ScreenShape.Round ? px(8) : Zapp.screenHeight * 0.15,
-                Zapp.screenShape === ScreenShape.Round ? Zapp.screenWidth * 0.2 : px(24),
-                px(8)
-              )
-              .fillWidth()
-              .height(Zapp.screenShape === ScreenShape.Round ? Zapp.screenHeight * 0.35 : Zapp.screenHeight * 0.4)
-              .background(Theme.surface),
-            () => {
-              if (!connected) {
-                Image(ImageConfig('noConnection').width(32).height(32), 'no_connection.png')
+  Column(
+    ColumnConfig('column').fillWidth().alignment(Alignment.Center).background(Theme.background),
+    () => {
+      if (availableStops.value === null) {
+        Stack(
+          StackConfig('loadingWrapper')
+            .fillSize()
+            .positionAbsolutely(true)
+            .alignment(StackAlignment.Center),
+          () => {
+            ActivityIndicator(ActivityIndicatorConfig('loading'))
+          }
+        )
+      } else if (availableStops.value.length === 0) {
+        Stack(
+          StackConfig('noStopsWrapper')
+            .fillHeight()
+            .fillWidth(0.7)
+            .alignment(StackAlignment.Center),
+          () => {
+            Text(
+              TextConfig('noStopsText').textColor(Theme.outline).alignment(Alignment.Center),
+              getText('noStops')
+            )
+          }
+        )
+      } else {
+        const connected = hmBle.connectStatus()
+        Column(
+          ColumnConfig('stopsWrapper')
+            .padding(0, 0, 0, Zapp.screenHeight * 0.35)
+            .fillWidth()
+            .alignment(Alignment.Center),
+          () => {
+            Column(
+              ColumnConfig('header')
+                .alignment(Alignment.Center)
+                .arrangement(connected ? Arrangement.End : Arrangement.SpaceBetween)
+                .padding(
+                  Zapp.screenShape === ScreenShape.Round ? Zapp.screenWidth * 0.2 : px(24),
+                  Zapp.screenShape === ScreenShape.Round ? px(8) : Zapp.screenHeight * 0.15,
+                  Zapp.screenShape === ScreenShape.Round ? Zapp.screenWidth * 0.2 : px(24),
+                  px(8)
+                )
+                .fillWidth()
+                .height(
+                  Zapp.screenShape === ScreenShape.Round
+                    ? Zapp.screenHeight * 0.35
+                    : Zapp.screenHeight * 0.4
+                )
+                .background(Theme.surface),
+              () => {
+                if (!connected) {
+                  Image(ImageConfig('noConnection').width(32).height(32), 'no_connection.png')
+                }
+
+                Text(
+                  TextConfig('header#text').alignment(Alignment.Center).textSize(px(40)),
+                  getText('stopsHeader')
+                )
               }
+            )
 
-              Text(TextConfig('header#text').alignment(Alignment.Center).textSize(px(40)), getText('stopsHeader'))
-            }
-          )
+            for (let i = 0; i < availableStops.value.length; i++) {
+              const stop = availableStops.value[i]
 
-          for (let i = 0; i < availableStops.value.length; i++) {
-            const stop = availableStops.value[i]
+              StopEntry(stop)
 
-            StopEntry(stop)
-
-            if (i < availableStops.value.length - 1) {
-              Divider(DividerConfig(`divider#${i}`).fillWidth(0.8))
+              if (i < availableStops.value.length - 1) {
+                Divider(DividerConfig(`divider#${i}`).fillWidth(0.8))
+              }
             }
           }
-        }
-      )
+        )
+      }
     }
-  })
+  )
 })

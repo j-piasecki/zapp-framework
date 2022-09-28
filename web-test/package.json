@@ -22,8 +22,8 @@
     "webpack-cli": "^4.10.0"
   },
   "dependencies": {
-    "@zapp/core": "*",
-    "@zapp/ui": "*",
-    "@zapp/web": "*"
+    "@zapp-framework/core": "*",
+    "@zapp-framework/ui": "*",
+    "@zapp-framework/web": "*"
   }
 }

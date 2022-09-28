@@ -1,6 +1,6 @@
-import '@zapp/watch'
-import { Theme } from '@zapp/ui'
-import { Color, Stack, StackConfig, remember, withTiming } from '@zapp/core'
+import '@zapp-framework/watch'
+import { Theme } from '@zapp-framework/ui'
+import { Color, Stack, StackConfig, remember, withTiming } from '@zapp-framework/core'
 
 export function Clickable(config, body) {
   const rawConfig = config.build()
