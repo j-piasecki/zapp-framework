@@ -493,8 +493,8 @@ function DynamicLayoutExample() {
                 })
               }
             )
-            // @ts-ignore
             Column(
+              // @ts-ignore
               ColumnConfig('margin').padding(size.value, 0, 0, 0).background(background),
               () => {
                 Column(
