@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1041.277"
+   height="554.141"
+   viewBox="0 0 1041.277 554.141"
+   version="1.1"
+   id="svg160"
+   sodipodi:docname="undraw_docusaurus_react.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
+  <metadata
+     id="metadata166">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Powered by React</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs164" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     id="namedview162"
+     showgrid="false"
+     inkscape:zoom="0.85088292"
+     inkscape:cx="528.25464"
+     inkscape:cy="321.60322"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g1062" />
+  <title
+     id="title2">Powered by React</title>
+  <g
+     id="g1010"
+     transform="matrix(1.1068409,0,0,1.1068409,714.19716,5.8239813)"
+     style="stroke-width:0.903472">
+    <circle
+       style="fill:#8e004a;fill-opacity:1;stroke-width:67.7605"
+       id="path168"
+       cx="100"
+       cy="100"
+       r="100" />
+    <circle
+       style="fill:#ffd9e2;fill-opacity:1;stroke-width:67.7604"
+       id="path168-4"
+       cx="100"
+       cy="100"
+       r="50" />
+  </g>
+  <g
+     id="g1062"
+     transform="matrix(1.1068409,0,0,1.1068409,105.43467,5.8239813)"
+     style="stroke-width:0.903472">
+    <rect
+       style="fill:#8e004a;fill-opacity:1;stroke-width:67.7604"
+       id="rect1043"
+       width="400"
+       height="200"
+       x="0"
+       y="0"
+       ry="100"
+       rx="100" />
+    <circle
+       style="fill:#ffd9e2;fill-opacity:1;stroke-width:67.7603"
+       id="path168-4-0"
+       cx="100"
+       cy="100"
+       r="67.56736" />
+  </g>
+  <g
+     id="g1071"
+     transform="matrix(1.1068409,0,0,1.1068409,299.13182,326.80784)"
+     style="stroke-width:0.903472">
+    <rect
+       style="fill:#ffb1c8;fill-opacity:1;stroke-width:67.7604"
+       id="rect1043-1"
+       width="400"
+       height="200"
+       x="0"
+       y="0"
+       ry="100"
+       rx="100" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:84.9793px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.903472"
+       x="91.701241"
+       y="132.06435"
+       id="text1066"><tspan
+         sodipodi:role="line"
+         id="tspan1064"
+         x="91.701241"
+         y="132.06435"
+         style="fill:#650033;fill-opacity:1;stroke-width:0.903472">Hello</tspan></text>
+  </g>
+  <rect
+     style="fill:#9e8c90;fill-opacity:1;stroke-width:75"
+     id="rect1073"
+     width="852.26752"
+     height="11.068409"
+     x="94.366257"
+     y="271.46579"
+     rx="0"
+     ry="0" />
+</svg>

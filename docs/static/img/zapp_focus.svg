@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1129"
+   height="663"
+   viewBox="0 0 1129 663"
+   version="1.1"
+   id="svg78"
+   sodipodi:docname="undraw_docusaurus_tree.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
+  <metadata
+     id="metadata84">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Focus on What Matters</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs82">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath1000">
+      <circle
+         style="fill:#201a1b;fill-opacity:1;stroke:none;stroke-width:75"
+         id="circle1002"
+         cx="564.5"
+         cy="331.5"
+         r="325"
+         clip-path="none" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath1004">
+      <circle
+         style="fill:#b61163;stroke:none;stroke-width:75"
+         id="circle1006"
+         cx="564.5"
+         cy="331.5"
+         r="325" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     id="namedview80"
+     showgrid="false"
+     inkscape:zoom="0.78476953"
+     inkscape:cx="576.46669"
+     inkscape:cy="355.63571"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg78" />
+  <title
+     id="title2">Focus on What Matters</title>
+  <rect
+     style="fill:#b61163;fill-opacity:1;stroke:none;stroke-width:75"
+     id="rect997"
+     width="1030.8286"
+     height="411.58582"
+     x="-11.684689"
+     y="284.28857"
+     rx="0"
+     ry="0"
+     clip-path="url(#clipPath1004)" />
+  <rect
+     style="fill:#403434;fill-opacity:1;stroke:none;stroke-width:75"
+     id="rect948"
+     width="1018.3497"
+     height="277.78857"
+     x="-11.684689"
+     y="6.5000005"
+     ry="0"
+     rx="0"
+     clip-path="url(#clipPath1000)" />
+  <rect
+     style="fill:#ffb1c8;fill-opacity:1;stroke:none;stroke-width:75"
+     id="rect950"
+     width="355"
+     height="60"
+     x="387"
+     y="197.80066"
+     ry="32.493618"
+     rx="32.493618" />
+  <rect
+     style="fill:#ffd9e2;fill-opacity:1;stroke:none;stroke-width:74.9999"
+     id="rect950-3"
+     width="488.17532"
+     height="54"
+     x="325"
+     y="310.35117"
+     ry="32.493618"
+     rx="32.493618" />
+  <rect
+     style="fill:#ffd9e2;fill-opacity:1;stroke:none;stroke-width:74.9999"
+     id="rect950-3-6"
+     width="350.31659"
+     height="54"
+     x="325"
+     y="395.94971"
+     ry="32.493618"
+     rx="32.493618" />
+  <rect
+     style="fill:#ffd9e2;fill-opacity:1;stroke:none;stroke-width:75"
+     id="rect950-3-6-9"
+     width="443.12347"
+     height="55.000004"
+     x="325"
+     y="485.15247"
+     ry="32.493618"
+     rx="32.493622" />
+</svg>
