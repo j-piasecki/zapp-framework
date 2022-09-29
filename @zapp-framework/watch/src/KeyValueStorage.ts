@@ -52,7 +52,7 @@ export abstract class KeyValueStorage {
 
 const rememberedValues = new Map<string, RememberedMutableValue<unknown>[]>()
 
-export function rememberSaveable<T>(key: string, defaultValue: T) {
+export function rememberSavable<T>(key: string, defaultValue: T) {
   const value = rememberObservable(defaultValue, (previous, current) => {
     KeyValueStorage.values[key] = current
 

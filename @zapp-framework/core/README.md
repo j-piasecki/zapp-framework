@@ -56,7 +56,7 @@ SimpleScreen(Config('screen'), (params) => {
       .arrangement(Arrangement.Center)
       .alignment(Alignment.Center),
     () => {
-      const selected = rememberSaveable('number', 1)
+      const selected = rememberSavable('number', 1)
 
       RadioGroup(
         RadioGroupConfig('radio')
@@ -98,7 +98,7 @@ And here's the result:
 <img src="https://github.com/j-piasecki/zapp-framework/blob/main/assets/example.png?raw=true" width="360">
 </p>
 
-Also, remember when I said that persistent storage is simple? Look at `rememberSaveable('number', 1)` - this is everything you need to do to save a value. In this case `number` is the key under which the value will be saved and `1` is the default value to use when no value was hitherto saved. In case you were wondering what will happen when you call `rememberSaveable` in a few places with the same key and assign value to one of them, then the answer is all of them will get updated.
+Also, remember when I said that persistent storage is simple? Look at `rememberSavable('number', 1)` - this is everything you need to do to save a value. In this case `number` is the key under which the value will be saved and `1` is the default value to use when no value was hitherto saved. In case you were wondering what will happen when you call `rememberSavable` in a few places with the same key and assign value to one of them, then the answer is all of them will get updated.
 
 ## I'll give it a try, how do I get it?
 

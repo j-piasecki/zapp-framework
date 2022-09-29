@@ -1,4 +1,4 @@
-import { rememberSaveable } from '@zapp-framework/watch'
+import { rememberSavable } from '@zapp-framework/watch'
 import {
   SimpleScreen,
   Stack,
@@ -33,7 +33,7 @@ SimpleScreen(Config('screen'), (params) => {
   Column(
     ColumnConfig('wrapper').fillSize().arrangement(Arrangement.Center).alignment(Alignment.Center),
     () => {
-      const selected = rememberSaveable('number', 1)
+      const selected = rememberSavable('number', 1)
 
       RadioGroup(
         RadioGroupConfig('radio')
