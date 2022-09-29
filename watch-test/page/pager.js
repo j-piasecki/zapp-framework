@@ -3,7 +3,7 @@ import {
   PagerEntry,
   rememberCurrentPage,
   ScreenPagerConfig,
-  rememberSaveable,
+  rememberSavable,
 } from '@zapp-framework/watch'
 import {
   SimpleScreen,
@@ -110,7 +110,7 @@ ScreenPager(ScreenPagerConfig('screen', 5).startingPage(2), () => {
         .alignment(Alignment.Center)
         .arrangement(Arrangement.Center),
       () => {
-        const saved = rememberSaveable('number', 1)
+        const saved = rememberSavable('number', 1)
         Button(
           ButtonConfig('page4Button').onPress(() => {
             Navigator.navigate('page/picker')

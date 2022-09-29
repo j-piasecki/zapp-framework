@@ -21,7 +21,7 @@ export {
   rememberCurrentPage,
 } from './screens/ScreenPager.js'
 export { ScrollableScreen, rememberScrollPosition } from './screens/ScrollableScreen.js'
-export { rememberSaveable } from './KeyValueStorage.js'
+export { rememberSavable } from './KeyValueStorage.js'
 
 PointerEventManager.fillLeaveEnterEvents()
 
