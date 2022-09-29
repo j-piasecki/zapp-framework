@@ -1,7 +1,7 @@
 {
   "configVersion": "v2",
   "app": {
-    "appId": 23920,
+    "appId": 1009776,
     "appName": "TTSS Kraków",
     "appType": "app",
     "version": {
@@ -9,8 +9,8 @@
       "name": "1.0.1"
     },
     "icon": "icon.png",
-    "vender": "zepp",
-    "description": "empty app"
+    "vender": "Jakub Piasecki",
+    "description": "Application that allows you to check the departures of trams at selected tram stops in Kraków"
   },
   "permissions": ["device:os.local_storage"],
   "runtime": {
@@ -99,8 +99,9 @@
     }
   },
   "i18n": {
-    "en-US": {
-      "appName": "TTSS Kraków"
+    "pl-PL": {
+      "appName": "TTSS Kraków",
+      "description": "Aplikacja pozwalająca sprawdzić odjazdy tramwajów z wybranych przystanków w Krakowie"
     }
   },
   "defaultLanguage": "en-US"

@@ -4,7 +4,7 @@ import { Application, Zapp } from '@zapp-framework/core'
 import { setTheme } from '@zapp-framework/ui'
 import { MessageBuilder } from './shared/message'
 
-const appId = 23920
+const appId = 1009776
 const messageBuilder = new MessageBuilder({ appId })
 
 Application({
