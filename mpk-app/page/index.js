@@ -1,5 +1,5 @@
 import { gettext as getText } from 'i18n'
-import { rememberSaveable, ScrollableScreen } from '@zapp-framework/watch'
+import { rememberSavable, ScrollableScreen } from '@zapp-framework/watch'
 import {
   Config,
   Column,
@@ -59,7 +59,7 @@ function StopEntry(stop) {
 }
 
 ScrollableScreen(Config('screen'), () => {
-  const availableStops = rememberSaveable('followedStops', null)
+  const availableStops = rememberSavable('followedStops', null)
 
   sideEffect((restoring) => {
     if (!restoring) {
