@@ -1,0 +1,116 @@
+---
+id: installation
+title: Installation
+sidebar_label: Installation
+slug: /installation
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Installation
+
+## For Zepp OS
+
+### Setup the project
+
+To make an application for watch, you'll need the [`zeus cli`](https://docs.zepp.com/docs/guides/tools/cli/). When you have the cli installed, simply run `zeus create name-of-your-app` and it will guide you along the necessary configuration (you can change it later as well).
+
+When you have the app ready, you need to add the necessary packages:
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm" label="npm" default>
+
+    npm install @zapp-framework/core @zapp-framework/watch @zapp-framework/ui
+  </TabItem>
+  <TabItem value="yarn" label="yarn">
+
+    yarn add @zapp-framework/core @zapp-framework/watch @zapp-framework/ui
+  </TabItem>
+</Tabs>
+
+### Update the code
+
+You'll also need to modify some of the generated code: the application entry file - `app.js` and the page file. The `app.js` code needs to look somewhat like this:
+
+```js title=app.js
+import "@zapp-framework/watch";
+import { Application } from "@zapp-framework/core";
+import { setTheme } from "@zapp-framework/ui";
+
+Application({
+  onInit() {
+    setTheme();
+  },
+  onDestroy() {},
+});
+```
+
+:::danger
+Keep in mind that imports from `@zapp-framework/watch` must be the first thing in files using Zapp, as it installs all necessary bindings and your app will not work without it. This import needs to be there even if you're not using anything from the package directly.
+:::
+
+It uses Zapp's wrapper for the `App` function used to register and initialize your app. It's aptly named `Application` and accepts a configuration object which may define two methods: `onInit` and `onDestroy` which you can use to initalize and clean up after your app. If you wish to use the components from the `ui` package, that's also the place to call `setTheme`, regardles of whether you want to use the default theme or a custom one. If you want to use a custom theme, you can pass it as an argument. Zapp uses [Material-like](https://m3.material.io/styles/color/the-color-system) theming, so you can use the [theme builder](https://m3.material.io/theme-builder) to generate your own theme.
+
+After updating the `app.js`, you can start using Zapp in your pages. Take a look at a simple one:
+
+```js
+import "@zapp-framework/watch";
+import {
+  Config,
+  SimpleScreen,
+} from "@zapp-framework/core";
+
+SimpleScreen(Config("screen"), () => {});
+```
+
+It defines that this page is a simple screen (meaning non scrollable, nor paginated), with an empty body. Check out the API reference to find out what components are available.
+
+## For Web
+
+### Setup the project
+
+To make a web app utilizing Zapp, you'll need a bundler, like Webpack. [Here's](https://webpack.js.org/guides/getting-started/) how to configure it.
+
+When you have bundler set up, you need to add the necessary packages:
+
+<Tabs groupId="package-manager">
+  <TabItem value="npm" label="npm" default>
+
+    npm install @zapp-framework/core @zapp-framework/web @zapp-framework/ui
+  </TabItem>
+  <TabItem value="yarn" label="yarn">
+
+    yarn add @zapp-framework/core @zapp-framework/web @zapp-framework/ui
+  </TabItem>
+</Tabs>
+
+### Configure the app
+
+To use Zapp in your app, you'll need to import the necessary packages and create a `SimpleScreen`. Here's the basic outline for a screen with empty body:
+
+```js
+import "@zapp-framework/web";
+import {
+  Config,
+  SimpleScreen,
+} from "@zapp-framework/core";
+
+SimpleScreen(Config("screen"), () => {});
+```
+
+:::danger
+Keep in mind that imports from `@zapp-framework/web` must be the first thing in files using Zapp, as it installs all necessary bindings and your app will not work without it. This import needs to be there even if you're not using anything from the package directly.
+:::
+
+If you want to use navigation in your app, you need to set it up first. You have to import `registerNavigationRoutes` from the `web` package, and call it:
+
+```js
+registerNavigationRoutes('home', {
+  home: Home,
+  example: Example,
+  test: Test,
+})
+```
+
+The first argument is the is of the first page to be opened, and the second one is a key-value mapping between ids and the functions rendering respective pages.
