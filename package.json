@@ -5,6 +5,7 @@
   },
   "workspaces": [
     "@zapp-framework/*",
+    "docs",
     "web-test",
     "watch-test"
   ]
