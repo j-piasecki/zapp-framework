@@ -92,9 +92,12 @@ To use Zapp in your app, you'll need to import the necessary packages and create
 ```js
 import "@zapp-framework/web";
 import {
+  Zapp,
   Config,
   SimpleScreen,
 } from "@zapp-framework/core";
+
+Zapp.startLoop();
 
 SimpleScreen(Config("screen"), () => {});
 ```
