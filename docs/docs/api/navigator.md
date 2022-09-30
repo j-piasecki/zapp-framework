@@ -6,6 +6,7 @@ slug: /api/navigator
 ---
 
 # Navigator
+`added in @zapp-framework/core@0.1.0`
 
 Navigator is used to switch pages in the application.
 

@@ -6,6 +6,7 @@ slug: /api/zapp
 ---
 
 # Zapp
+`added in @zapp-framework/core@0.1.0`
 
 Zapp is the entry point of the framework. It allows you to start and stop the main loop as well as get important information and store global values.
 
