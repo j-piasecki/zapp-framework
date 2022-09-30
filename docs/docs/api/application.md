@@ -5,7 +5,7 @@ sidebar_label: Application
 slug: /api/application
 ---
 
-### `Application(config: ApplicationConfig)`
+## `Application(config: ApplicationConfig)`
 `added in @zapp-framework/core@0.1.0`
 
 `Application` function is the entry point of the application. It sets up lifecycle bindings to correctly handle starting and exiting the app.
