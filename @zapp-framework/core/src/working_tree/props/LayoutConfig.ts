@@ -1,6 +1,6 @@
-import { ConfigBuilder } from './Config.js'
+import { BaseConfigBuilder } from './BaseConfig.js'
 
-export class LayoutConfigBuilder extends ConfigBuilder {
+export class LayoutConfigBuilder extends BaseConfigBuilder {
   public padding(padding: number): this
   public padding(vertical: number, horizontal: number): this
   public padding(start: number, top: number, end: number, bottom: number): this

@@ -1,7 +1,7 @@
-import { ConfigBuilder, Stack } from '@zapp-framework/core'
+import { BaseConfigBuilder, Stack } from '@zapp-framework/core'
 import { Theme } from './Theme.js'
 
-export class DividerConfigBuilder extends ConfigBuilder {
+export class DividerConfigBuilder extends BaseConfigBuilder {
   constructor(id: string) {
     super(id)
     this.config.background = Theme.outline

@@ -8,6 +8,7 @@ import {
   ScreenBody,
   sideEffect,
   PointerEventManager,
+  BaseConfigBuilder,
 } from '@zapp-framework/core'
 import { PageWrapper } from './PageWrapper.js'
 import { viewManagerInstance } from './../WatchViewManager.js'
@@ -98,7 +99,7 @@ export function ScreenPager(
   })
 }
 
-export function PagerEntry(configBuilder: ConfigBuilder, body: () => void) {
+export function PagerEntry(configBuilder: BaseConfigBuilder, body: () => void) {
   ScreenBody(
     configBuilder.offset(
       currentDirection === Direction.Horizontal ? DEVICE_WIDTH * nextPageNumber : 0,

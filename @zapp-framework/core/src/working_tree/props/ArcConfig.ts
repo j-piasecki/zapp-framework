@@ -1,10 +1,10 @@
-import { ConfigBuilder } from './Config.js'
+import { BaseConfigBuilder } from './BaseConfig.js'
 
 export function ArcConfig(id: string) {
   return new ArcConfigBuilder(id)
 }
 
-export class ArcConfigBuilder extends ConfigBuilder {
+export class ArcConfigBuilder extends BaseConfigBuilder {
   constructor(id: string) {
     super(id)
 
