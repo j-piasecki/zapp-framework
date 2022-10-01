@@ -1,9 +1,5 @@
 import { ConfigType } from './types'
 
-export function Config(id: string) {
-  return new ConfigBuilder(id)
-}
-
 export class ConfigBuilder {
   protected config: ConfigType
 
