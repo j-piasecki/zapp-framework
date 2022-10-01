@@ -28,7 +28,8 @@ export {
 } from './working_tree/views/Screen.js'
 export { BareText } from './working_tree/views/BareText.js'
 export { WorkingTree } from './working_tree/WorkingTree.js'
-export { Config, ConfigBuilder } from './working_tree/props/Config.js'
+export { Config, BaseConfigBuilder } from './working_tree/props/BaseConfig.js'
+export { ConfigBuilder } from './working_tree/props/Config.js'
 export {
   ConfigType,
   PointerData,

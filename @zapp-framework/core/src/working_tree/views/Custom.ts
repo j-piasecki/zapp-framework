@@ -1,9 +1,8 @@
-import type { RequireSome } from '../../utils.js'
 import { ViewNode } from '../ViewNode.js'
 import { WorkingTree } from '../WorkingTree.js'
 import { NodeType } from '../../NodeType.js'
-import { ConfigBuilder } from '../props/Config.js'
 import { RenderNode } from '../../renderer/RenderedTree.js'
+import { ConfigBuilder } from '../props/Config.js'
 
 export interface CustomViewProps extends Record<string, unknown> {
   /**
@@ -36,7 +35,7 @@ export interface CustomViewProps extends Record<string, unknown> {
 }
 
 export function Custom(
-  configBuilder: RequireSome<ConfigBuilder, 'build'>,
+  configBuilder: ConfigBuilder,
   customViewProps: CustomViewProps,
   body?: () => void
 ) {
