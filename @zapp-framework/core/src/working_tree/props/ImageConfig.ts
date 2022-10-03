@@ -1,10 +1,10 @@
-import { ConfigBuilder } from './Config.js'
+import { BaseConfigBuilder } from './BaseConfig.js'
 
 export function ImageConfig(id: string) {
   return new ImageConfigBuilder(id)
 }
 
-export class ImageConfigBuilder extends ConfigBuilder {
+export class ImageConfigBuilder extends BaseConfigBuilder {
   public innerOffset(x: number, y: number) {
     this.config.innerOffsetX = x
     this.config.innerOffsetY = y

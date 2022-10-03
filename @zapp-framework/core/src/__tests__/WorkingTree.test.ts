@@ -1,5 +1,5 @@
 import { WorkingTree } from '../working_tree/WorkingTree'
-import { Config } from '../working_tree/props/Config'
+import { Config } from '../working_tree/props/BaseConfig'
 import { Column } from '../working_tree/views/Column'
 import { SimpleScreen } from '../working_tree/views/Screen'
 import { Row } from '../working_tree/views/Row'
