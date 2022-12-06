@@ -6,7 +6,9 @@ import { REQUEST_STOPS_LIST, REQUEST_STOP_DEPARTURES } from '../shared/const'
 const messageBuilder = new MessageBuilder()
 
 function getStops() {
-  return settings.settingsStorage.getItem('stops') ? JSON.parse(settings.settingsStorage.getItem('stops')) : []
+  return settings.settingsStorage.getItem('stops')
+    ? JSON.parse(settings.settingsStorage.getItem('stops'))
+    : []
 }
 
 function saveStops(stops) {
@@ -29,7 +31,7 @@ async function fetchStopData(ctx, data) {
       return
     }
 
-    const route = JSON.parse(response.body)
+    const route = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
 
     if (!Array.isArray(route) || route.length < 2) {
       ctx.response({ data: { error: true, code: 2, message: getText('incorrectStopName') } })
