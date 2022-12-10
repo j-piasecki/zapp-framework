@@ -2,7 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "build/",
-    "target": "ES5"
+    "target": "ES6"
   },
   "include": ["src"],
   "exclude": ["node_modules", "build", "src/__tests__"]

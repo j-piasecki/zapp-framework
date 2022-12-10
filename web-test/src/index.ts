@@ -796,7 +796,14 @@ function ScrollHandler() {
         const scroll = rememberScrollPosition()
 
         Stack(
-          StackConfig('stack').width(200).height(200).background(0xff0000).offset(0, scroll.value)
+          StackConfig('stack')
+            .width(200)
+            .height(200)
+            .background(0xff0000)
+            .offset(0, scroll.value)
+            .onPointerUp(() => {
+              scroll.value = withTiming(0, { duration: 500, easing: Easing.easeInOutQuad })
+            })
         )
       })
     },
