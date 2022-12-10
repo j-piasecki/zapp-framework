@@ -11,6 +11,7 @@ import {
   ButtonAction,
   ScreenShape,
 } from '@zapp-framework/core'
+import { tryUpdatingRememberedScrollPositions } from './rememberScrollPosition.js'
 
 export class ZappWeb extends ZappInterface {
   private running = false
@@ -65,6 +66,10 @@ export class ZappWeb extends ZappInterface {
           GlobalEventManager.dispatchButtonEvent(EventType.ShortcutButton, ButtonAction.Release)
           break
       }
+    })
+
+    window.addEventListener('scroll', () => {
+      tryUpdatingRememberedScrollPositions()
     })
   }
 

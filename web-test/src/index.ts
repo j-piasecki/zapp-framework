@@ -1,4 +1,4 @@
-import { registerNavigationRoutes } from '@zapp-framework/web'
+import { registerNavigationRoutes, rememberScrollPosition } from '@zapp-framework/web'
 import {
   ActivityIndicator,
   ActivityIndicatorConfig,
@@ -63,6 +63,7 @@ const routesInfo: RouteInfo[] = [
   { displayName: 'Crown & Gesture events example', routeName: 'crownGestureEvent' },
   { displayName: 'Button events example', routeName: 'button' },
   { displayName: 'Page indicators', routeName: 'pageIndicators' },
+  { displayName: 'Scroll handler', routeName: 'scrollHandler' },
 ]
 
 function StackExample() {
@@ -713,7 +714,11 @@ function PageIndicators() {
 
       Row(RowConfig('horizontal').fillWidth().weight(1), () => {
         Row(
-          RowConfig('horizontalSquareWrapper').fillHeight(1).weight(1).alignment(Alignment.Center),
+          RowConfig('horizontalSquareWrapper')
+            .fillHeight(1)
+            .weight(1)
+            .alignment(Alignment.Center)
+            .arrangement(Arrangement.Center),
           () => {
             Stack(
               StackConfig('horizontalSquare').width(300).height(300).background(0x000000),
@@ -725,7 +730,11 @@ function PageIndicators() {
         )
 
         Row(
-          RowConfig('horizontalRoundWrapper').fillHeight(1).weight(1).alignment(Alignment.Center),
+          RowConfig('horizontalRoundWrapper')
+            .fillHeight(1)
+            .weight(1)
+            .alignment(Alignment.Center)
+            .arrangement(Arrangement.Center),
           () => {
             Stack(
               StackConfig('horizontalRound')
@@ -743,7 +752,11 @@ function PageIndicators() {
 
       Row(RowConfig('vertical').fillWidth().weight(1), () => {
         Row(
-          RowConfig('verticalSquareWrapper').fillHeight(1).weight(1).alignment(Alignment.Center),
+          RowConfig('verticalSquareWrapper')
+            .fillHeight(1)
+            .weight(1)
+            .alignment(Alignment.Center)
+            .arrangement(Arrangement.Center),
           () => {
             Stack(StackConfig('verticalSquare').width(300).height(300).background(0x000000), () => {
               renderIndicator('indicatorVS', false, 150, false, currentPage.value, numberOfPages)
@@ -752,7 +765,11 @@ function PageIndicators() {
         )
 
         Row(
-          RowConfig('verticalRoundWrapper').fillHeight(1).weight(1).alignment(Alignment.Center),
+          RowConfig('verticalRoundWrapper')
+            .fillHeight(1)
+            .weight(1)
+            .alignment(Alignment.Center)
+            .arrangement(Arrangement.Center),
           () => {
             Stack(
               StackConfig('verticalRound')
@@ -771,6 +788,22 @@ function PageIndicators() {
   })
 }
 
+function ScrollHandler() {
+  Page(
+    routesInfo,
+    () => {
+      Column(ColumnConfig('column').fillWidth().height(1500).background(0x333333), () => {
+        const scroll = rememberScrollPosition()
+
+        Stack(
+          StackConfig('stack').width(200).height(200).background(0xff0000).offset(0, scroll.value)
+        )
+      })
+    },
+    StackAlignment.TopStart
+  )
+}
+
 registerNavigationRoutes('dynamicLayout', {
   dynamicLayout: DynamicLayoutExample,
   stack: StackExample,
@@ -782,4 +815,5 @@ registerNavigationRoutes('dynamicLayout', {
   crownGestureEvent: CrownGestureEventExample,
   button: ButtonEventExample,
   pageIndicators: PageIndicators,
+  scrollHandler: ScrollHandler,
 })

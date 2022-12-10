@@ -9,6 +9,8 @@ import { ZappWeb } from './ZappWeb.js'
 import { HashNavigator } from './HashNavigator.js'
 import { Application } from './Application.js'
 
+export { rememberScrollPosition } from './rememberScrollPosition.js'
+
 const navigator = new HashNavigator()
 
 __setZappInterface(new ZappWeb())
