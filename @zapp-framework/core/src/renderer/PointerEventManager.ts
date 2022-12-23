@@ -5,15 +5,10 @@ export abstract class PointerEventManager {
   private static eventQueue: PointerData[] = []
   private static eventTargets: Map<string, RenderNode> = new Map()
 
-  private static shouldFillLeaveEnterEvents = false
   private static lastMoveEvent?: PointerData
 
   private static capturedPointers: Map<number, string> = new Map()
   private static lastReceivedEvent: PointerData[] = []
-
-  public static fillLeaveEnterEvents() {
-    PointerEventManager.shouldFillLeaveEnterEvents = true
-  }
 
   public static queueEvent(event: PointerData) {
     const capturedBy = this.capturedPointers.get(event.id)
@@ -26,11 +21,24 @@ export abstract class PointerEventManager {
         event.type = PointerEventType.MOVE
       }
     } else {
-      if (PointerEventManager.shouldFillLeaveEnterEvents && event.type === PointerEventType.MOVE) {
-        if (
-          PointerEventManager.lastMoveEvent !== undefined &&
-          PointerEventManager.lastMoveEvent.target !== event.target
-        ) {
+      // map target from the 'real' view to the node in the tree (which may be its child)
+      const target = RenderedTree.hitTest(
+        event.x,
+        event.y,
+        PointerEventManager.eventTargets.get(event.target)
+      )
+      if (target !== null) {
+        event.realTargetView = PointerEventManager.eventTargets.get(event.target)
+        event.target = target.id
+      }
+
+      if (event.type === PointerEventType.MOVE) {
+        if (PointerEventManager.lastMoveEvent === undefined) {
+          PointerEventManager.queueEvent({ ...event, type: PointerEventType.ENTER })
+          PointerEventManager.lastMoveEvent = event
+
+          return
+        } else if (PointerEventManager.lastMoveEvent.target !== event.target) {
           PointerEventManager.queueEvent({
             ...PointerEventManager.lastMoveEvent,
             type: PointerEventType.LEAVE,
@@ -48,32 +56,23 @@ export abstract class PointerEventManager {
 
       // handle not sending enter and leave events when moving between parent and child with inherited handlers
       if (event.type === PointerEventType.ENTER) {
-        const enterTarget = PointerEventManager.eventTargets.get(event.target)
-
-        if (enterTarget !== undefined) {
+        if (target !== null) {
           // iterate backwards, as we expect leave event to be sent just before enter event
           for (let i = PointerEventManager.eventQueue.length - 1; i >= 0; i--) {
             const leaveEvent = PointerEventManager.eventQueue[i]
-            const leaveTarget = PointerEventManager.eventTargets.get(leaveEvent.target)
+            if (leaveEvent.type !== PointerEventType.LEAVE) {
+              continue
+            }
 
-            if (leaveEvent.type === PointerEventType.LEAVE && leaveTarget !== undefined) {
-              let parentCandidate = null
-              let childCandidate = null
+            const leaveTarget = RenderedTree.hitTest(leaveEvent.x, leaveEvent.y)
 
-              // parent will always have lower z-index than child, because of this we know which one may be the parent
-              if (leaveTarget.zIndex > enterTarget.zIndex) {
-                parentCandidate = enterTarget
-                childCandidate = leaveTarget
-              } else {
-                parentCandidate = leaveTarget
-                childCandidate = enterTarget
-              }
-
-              // check whether there is a parent-child relation and events are inherited
+            if (leaveTarget !== null) {
+              // check whether events are inherited, i.e. are exactly the same functions
               if (
-                PointerEventManager.isParent(parentCandidate, childCandidate) &&
-                parentCandidate.config.onPointerEnter === childCandidate.config.onPointerEnter &&
-                parentCandidate.config.onPointerLeave === childCandidate.config.onPointerLeave
+                target.config.onPointerEnter === leaveTarget.config.onPointerEnter &&
+                target.config.onPointerLeave === leaveTarget.config.onPointerLeave &&
+                target.config.onPointerEnter !== undefined &&
+                target.config.onPointerLeave !== undefined
               ) {
                 // if so, remove leave event from queue and don't queue enter event
                 PointerEventManager.eventQueue.splice(i, 1)
@@ -115,7 +114,9 @@ export abstract class PointerEventManager {
   public static processEvents() {
     // TODO: consider sending move event only to the view that received down event
     PointerEventManager.eventQueue.forEach((event) => {
-      const target = PointerEventManager.eventTargets.get(event.target) ?? null
+      const target =
+        PointerEventManager.eventTargets.get(event.target) ??
+        RenderedTree.hitTest(event.x, event.y, event.realTargetView)
 
       if (target !== null) {
         switch (event.type) {

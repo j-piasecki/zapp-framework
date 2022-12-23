@@ -1,5 +1,4 @@
 import {
-  PointerEventManager,
   __setViewManager,
   __setZappInterface,
   __setSimpleScreenImplementation,
@@ -22,8 +21,6 @@ export {
 } from './screens/ScreenPager.js'
 export { ScrollableScreen, rememberScrollPosition } from './screens/ScrollableScreen.js'
 export { rememberSavable } from './KeyValueStorage.js'
-
-PointerEventManager.fillLeaveEnterEvents()
 
 __setZappInterface(new ZappWatch())
 __setViewManager(viewManagerInstance)

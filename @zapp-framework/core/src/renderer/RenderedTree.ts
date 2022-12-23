@@ -36,9 +36,9 @@ export abstract class RenderedTree {
     if (
       parent === null ||
       x < parent.layout.x ||
-      x > parent.layout.x + parent.layout.width ||
+      x >= parent.layout.x + parent.layout.width ||
       y < parent.layout.y ||
-      y > parent.layout.y + parent.layout.height
+      y >= parent.layout.y + parent.layout.height
     ) {
       return null
     }

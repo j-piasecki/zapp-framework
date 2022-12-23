@@ -1,3 +1,5 @@
+import type { RenderNode } from '../../renderer/RenderedTree'
+
 export interface Padding {
   top: number
   bottom: number
@@ -21,6 +23,9 @@ export interface PointerData {
   timestamp: number
   type: PointerEventType
   capture: () => void
+
+  /** @internal */
+  realTargetView?: RenderNode
 }
 
 export interface ConfigType {

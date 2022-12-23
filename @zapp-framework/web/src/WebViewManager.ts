@@ -48,14 +48,6 @@ export class WebViewManager extends ViewManagerInterface {
     PointerEventManager.queueEvent(this.adaptEvent(event, target, PointerEventType.UP))
   }
 
-  private pointerEnterHandler = (event: PointerEvent, target: string) => {
-    PointerEventManager.queueEvent(this.adaptEvent(event, target, PointerEventType.ENTER))
-  }
-
-  private pointerLeaveHandler = (event: PointerEvent, target: string) => {
-    PointerEventManager.queueEvent(this.adaptEvent(event, target, PointerEventType.LEAVE))
-  }
-
   private colorToRGBA(color: number): string {
     return `rgba(
       ${(color & 0xff0000) >> 16},
@@ -172,12 +164,6 @@ export class WebViewManager extends ViewManagerInterface {
 
     handler = (event: PointerEvent) => this.pointerUpHandler(event, node.id)
     view.addEventListener('pointerup', handler)
-
-    handler = (event: PointerEvent) => this.pointerEnterHandler(event, node.id)
-    view.addEventListener('pointerenter', handler)
-
-    handler = (event: PointerEvent) => this.pointerLeaveHandler(event, node.id)
-    view.addEventListener('pointerout', handler)
 
     if (node.customViewProps?.overrideViewProps !== undefined) {
       node.customViewProps.overrideViewProps(node, view)
