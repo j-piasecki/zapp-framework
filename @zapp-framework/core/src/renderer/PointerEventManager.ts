@@ -115,11 +115,7 @@ export abstract class PointerEventManager {
   public static processEvents() {
     // TODO: consider sending move event only to the view that received down event
     PointerEventManager.eventQueue.forEach((event) => {
-      const target = RenderedTree.hitTest(
-        event.x,
-        event.y,
-        PointerEventManager.eventTargets.get(event.target)
-      )
+      const target = PointerEventManager.eventTargets.get(event.target) ?? null
 
       if (target !== null) {
         switch (event.type) {
