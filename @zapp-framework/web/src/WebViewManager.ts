@@ -41,9 +41,7 @@ export class WebViewManager extends ViewManagerInterface {
   }
 
   private pointerMoveHandler = (event: PointerEvent, target: string) => {
-    if (event.buttons > 0) {
-      PointerEventManager.queueEvent(this.adaptEvent(event, target, PointerEventType.MOVE))
-    }
+    PointerEventManager.queueEvent(this.adaptEvent(event, target, PointerEventType.MOVE))
   }
 
   private pointerUpHandler = (event: PointerEvent, target: string) => {
@@ -51,15 +49,11 @@ export class WebViewManager extends ViewManagerInterface {
   }
 
   private pointerEnterHandler = (event: PointerEvent, target: string) => {
-    if (event.buttons > 0) {
-      PointerEventManager.queueEvent(this.adaptEvent(event, target, PointerEventType.ENTER))
-    }
+    PointerEventManager.queueEvent(this.adaptEvent(event, target, PointerEventType.ENTER))
   }
 
   private pointerLeaveHandler = (event: PointerEvent, target: string) => {
-    if (event.buttons > 0) {
-      PointerEventManager.queueEvent(this.adaptEvent(event, target, PointerEventType.LEAVE))
-    }
+    PointerEventManager.queueEvent(this.adaptEvent(event, target, PointerEventType.LEAVE))
   }
 
   private colorToRGBA(color: number): string {

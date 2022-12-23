@@ -498,6 +498,8 @@ function DynamicLayoutExample() {
               // @ts-ignore
               ColumnConfig('margin').padding(size.value, 0, 0, 0).background(background),
               () => {
+                const pressed = remember(false)
+
                 Column(
                   ColumnConfig('col4')
                     .width(50)
@@ -505,15 +507,21 @@ function DynamicLayoutExample() {
                     .background(0x00ffff)
                     .onPointerDown((e) => {
                       e.capture()
+                      pressed.value = true
                       start.value = { x: e.x, y: e.y }
                     })
                     .onPointerMove((e) => {
-                      position.value = {
-                        x: position.value.x + e.x - start.value.x,
-                        y: position.value.y + e.y - start.value.y,
-                      }
+                      if (pressed.value) {
+                        position.value = {
+                          x: position.value.x + e.x - start.value.x,
+                          y: position.value.y + e.y - start.value.y,
+                        }
 
-                      start.value = { x: e.x, y: e.y }
+                        start.value = { x: e.x, y: e.y }
+                      }
+                    })
+                    .onPointerUp(() => {
+                      pressed.value = false
                     })
                     .onPointerEnter(() => {
                       console.log('inner enter')
