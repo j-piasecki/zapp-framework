@@ -21,8 +21,8 @@ export class HashNavigator implements NavigatorInterface {
       window.location.hash.length === 0 ? startingRoute : window.location.hash.substring(1)
 
     this.routes = routes
-    this.changeRoute(routeToRender)
-    history.replaceState(undefined, '', `#${routeToRender}`)
+    this.changeRoute(routeToRender, history.state)
+    history.replaceState(history.state, '', `#${routeToRender}`)
 
     window.addEventListener('popstate', (e) => {
       WorkingTree.restoreState(historyStack.pop()!)
