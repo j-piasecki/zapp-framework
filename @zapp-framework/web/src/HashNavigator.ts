@@ -31,7 +31,7 @@ export class HashNavigator implements NavigatorInterface {
   }
 
   public navigate(route: string, params?: Record<string, unknown>) {
-    if (this.currentRoute !== route && this.routes[route] !== undefined) {
+    if (this.routes[route] !== undefined) {
       historyStack.push(WorkingTree.saveState())
       this.changeRoute(route, params)
       history.pushState(params, '', `#${route}`)
